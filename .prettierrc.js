@@ -1,0 +1,29 @@
+module.exports = {
+	useTabs: true,
+	semi: false,
+	singleQuote: true,
+	jsxSingleQuote: true,
+	printWidth: 100,
+	trailingComma: 'none',
+	// import order https://github.com/trivago/prettier-plugin-sort-imports
+	// third party modules are automatically moved to the top
+	importOrder: [
+		'^utils/(.*)$',
+		'^hooks/(.*)$',
+		'^pages/(.*)$',
+		'^components/(.*)$',
+		'^styles/(.*)$',
+		'^[./]'
+	],
+	importOrderSortSpecifiers: true,
+	overrides: [
+		// Overrides for local json
+		{
+			files: ['**/package.json', '**/locales/**/*.json', '.github/**/*.yml'],
+			options: {
+				useTabs: false,
+				tabWidth: 2
+			}
+		}
+	]
+}
