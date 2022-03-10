@@ -1,4 +1,6 @@
-import { createStore, setStore } from 'hooks-for-redux'
-import { composeWithDevTools } from 'redux-devtools-extension'
+import { setStore } from 'hooks-for-redux'
+import configureStore from './configureStore'
 
-export default setStore(createStore({}, composeWithDevTools()))
+const { store } = configureStore()
+
+export default setStore(store)
