@@ -3,6 +3,13 @@
 		"dbaeumer.vscode-eslint",
 		"esbenp.prettier-vscode",
 		"streetsidesoftware.code-spell-checker",
-		"Gruntfuggly.todo-tree"
+		"Gruntfuggly.todo-tree",
+		"eamodio.gitlens",
+		"mikestead.dotenv",
+		"styled-components.vscode-styled-components",
+		"xabikos.JavaScriptSnippets",
+		"dsznajder.es7-react-js-snippets",
+		"yzhang.markdown-all-in-one",
+		"ChakrounAnas.turbo-console-log"
 	]
 }
