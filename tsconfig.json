@@ -26,6 +26,8 @@
 			"ui/*": ["src/components/widgets*"],
 			"public/*": ["src/public/*"],
 			"hooks/*": ["src/hooks/*"],
+			"store/*": ["src/store/*"],
+			"state/*": ["src/state/*"],
 			"__tests__/*": ["__tests__/*"],
 			"__mocks__/*": ["__tests__/__mocks__/*"]
 		}

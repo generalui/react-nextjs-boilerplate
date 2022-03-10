@@ -8,6 +8,8 @@ module.exports = {
 	// import order https://github.com/trivago/prettier-plugin-sort-imports
 	// third party modules are automatically moved to the top
 	importOrder: [
+		'^store/(.*)$',
+		'<THIRD_PARTY_MODULES>',
 		'^utils/(.*)$',
 		'^hooks/(.*)$',
 		'^pages/(.*)$',

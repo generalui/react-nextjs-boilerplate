@@ -10,7 +10,7 @@ const defaultState: ExampleState = {
 	message: null
 }
 
-export const [useExample, { increment, decrement, add, setCount, setMessage }, exampleStore] =
+export const [useCounter, { increment, decrement, add, setCount, setMessage }, counterStore] =
 	createReduxModule('ExampleStore', defaultState, {
 		increment: (state) => ({ ...state, count: state.count + 1 }),
 		decrement: (state) => ({ ...state, count: state.count - 1 }),
@@ -19,6 +19,6 @@ export const [useExample, { increment, decrement, add, setCount, setMessage }, e
 		setMessage: (state, message) => ({ ...state, message })
 	})
 
-exampleStore.subscribe((state) => {
+counterStore.subscribe((state) => {
 	console.log('ExampleStore has changed!', state)
 })

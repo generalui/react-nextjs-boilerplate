@@ -114,3 +114,11 @@
 		flex-direction: column;
 	}
 }
+
+.buttonContainer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 1rem;
+	width: 160px;
+}
