@@ -12,7 +12,9 @@
     "test:unit": "jest",
     "test": "yarn test:unit && yarn test:e2e",
     "lint": "next lint",
-    "prettier": "prettier --write ./"
+    "prettier": "prettier --write ./",
+    "lint-staged": "lint-staged",
+    "prepare": "husky install"
   },
   "dependencies": {
     "eslint-plugin-jsx-a11y": "^6.5.1",
@@ -39,10 +41,19 @@
     "eslint-config-prettier": "^8.4.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-unused-imports": "^2.0.0",
+    "husky": "^7.0.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.5.1",
+    "lint-staged": "^12.3.5",
+    "pre-commit": "^1.2.2",
     "prettier": "^2.5.1",
     "react-test-renderer": "^17.0.2",
     "typescript": "^4.5.5"
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx}": [
+      "eslint --cache --fix --max-warnings 0",
+      "prettier --write ./"
+    ]
   }
 }
