@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "build:static": "next build && next export",
+    "build:analyze": "ANALYZE=true yarn build",
     "start": "next start",
     "test:e2e": "playwright test",
     "test:unit": "jest",
@@ -16,6 +17,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "eslint-plugin-jsx-a11y": "^6.5.1",
     "hooks-for-redux": "^2.0.3",
     "next": "12.1.0",
     "react": "17.0.2",
@@ -24,6 +26,7 @@
     "remove": "^0.1.5"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^12.1.0",
     "@playwright/test": "^1.19.1",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.3",

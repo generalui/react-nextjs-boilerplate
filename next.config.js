@@ -3,4 +3,9 @@ const nextConfig = {
 	reactStrictMode: true
 }
 
-module.exports = nextConfig
+// Refer to bundle analyzer docs if additional
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+	enabled: process.env.ANALYZE === 'true'
+})
+
+module.exports = withBundleAnalyzer(nextConfig)
