@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "build:static": "next build && next export",
+    "build:analyze": "ANALYZE=true yarn build",
     "start": "next start",
     "test:e2e": "playwright test",
     "test:unit": "jest",
@@ -23,6 +24,7 @@
     "remove": "^0.1.5"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^12.1.0",
     "@playwright/test": "^1.19.1",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.3",
