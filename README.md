@@ -19,7 +19,7 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 
 # Next steps
 
-To get started with building out your app see the [development documentation](/DEVELOPMENT.md). 
+To get started with building out your app see the [development documentation](/DEVELOPMENT.md).
 
 # Contributing
 

@@ -1,12 +1,12 @@
 # Contributing
 
-This project welcomes contributions and suggestions. 
+This project welcomes contributions and suggestions.
 
 For questions, discovered bugs, enhancements, or help: leave an [issue](/issues) with the appropriate tag.
 
 ## Getting startered
 
-To get started with contributing to this project, fork the repository, clone the project into your environment, make your desired changes and submit a pull request to the development branch. 
+To get started with contributing to this project, fork the repository, clone the project into your environment, make your desired changes and submit a pull request to the development branch.
 
 ## Making a Pull Request
 
