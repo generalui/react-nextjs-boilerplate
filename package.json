@@ -25,6 +25,7 @@
     "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.9",
     "remove": "^0.1.5",
+    "universal-cookie": "^4.0.4",
     "styled-components": "^5.3.3",
     "styled-normalize": "^8.0.7"
   },
