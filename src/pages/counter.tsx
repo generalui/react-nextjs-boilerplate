@@ -2,6 +2,7 @@
 import Head from 'next/head'
 import { decrement, increment, reset, useCounter } from 'state/counter'
 import { clearStoredState } from 'utils/persist'
+import { StyledButton } from 'components/StyledButton'
 import styles from 'styles/Home.module.css'
 
 /**
@@ -23,9 +24,9 @@ export default function About() {
 			<main className={styles.main}>
 				<h1 className={styles.title}>Counter: {count}</h1>
 				<div className={styles.buttonContainer}>
-					<button onClick={decrement}>-1</button>
-					<button onClick={reset}>reset</button>
-					<button onClick={increment}>+1</button>
+					<StyledButton onClick={decrement}>-1</StyledButton>
+					<StyledButton onClick={reset}>reset</StyledButton>
+					<StyledButton onClick={increment}>+1</StyledButton>
 				</div>
 				<div className={styles.buttonContainer}>
 					<button
