@@ -1,6 +1,7 @@
 // import Image from 'next/image'
 import Head from 'next/head'
-import { decrement, increment, useCounter } from 'state/counter'
+import { decrement, increment, reset, useCounter } from 'state/counter'
+import { clearStoredState } from 'utils/persist'
 import styles from 'styles/Home.module.css'
 
 /**
@@ -23,7 +24,18 @@ export default function About() {
 				<h1 className={styles.title}>Counter: {count}</h1>
 				<div className={styles.buttonContainer}>
 					<button onClick={decrement}>-1</button>
+					<button onClick={reset}>reset</button>
 					<button onClick={increment}>+1</button>
+				</div>
+				<div className={styles.buttonContainer}>
+					<button
+						onClick={() => {
+							reset()
+							clearStoredState()
+						}}
+					>
+						clear local storage
+					</button>
 				</div>
 			</main>
 		</div>
