@@ -1,6 +1,7 @@
 // import Image from 'next/image'
 import Head from 'next/head'
 import { decrement, increment, useCounter } from 'state/counter'
+import { Button } from 'components/button'
 import styles from 'styles/Home.module.css'
 
 /**
@@ -22,8 +23,8 @@ export default function About() {
 			<main className={styles.main}>
 				<h1 className={styles.title}>Counter: {count}</h1>
 				<div className={styles.buttonContainer}>
-					<button onClick={decrement}>-1</button>
-					<button onClick={increment}>+1</button>
+					<Button onClick={decrement}>-1</Button>
+					<Button onClick={increment}>+1</Button>
 				</div>
 			</main>
 		</div>

@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { Provider } from 'hooks-for-redux'
 import type { AppProps } from 'next/app'
+import { GlobalStyle } from 'styles/globalStyles'
 import 'styles/globals.css'
 import '../store'
 
@@ -9,6 +10,8 @@ import '../store'
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<Provider>
+			<GlobalStyle />
+
 			<Component {...pageProps} />
 		</Provider>
 	)
