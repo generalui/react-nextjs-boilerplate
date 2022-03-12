@@ -29,14 +29,14 @@ export default function About() {
 					<StyledButton onClick={increment}>+1</StyledButton>
 				</div>
 				<div className={styles.buttonContainer}>
-					<button
+					<StyledButton
 						onClick={() => {
 							reset()
 							clearStoredState()
 						}}
 					>
 						clear local storage
-					</button>
+					</StyledButton>
 				</div>
 			</main>
 		</div>

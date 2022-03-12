@@ -1,4 +1,6 @@
 import Head from 'next/head'
+import Link from 'next/link'
+import { CardLink } from 'components/atoms/CardLink'
 // import Image from 'next/image'
 import styles from 'styles/Home.module.css'
 
@@ -18,7 +20,14 @@ export default function Home() {
 
 			<main className={styles.main}>
 				<h1 className={styles.title}>
-					Welcome to <a href='https://nextjs.org'>Next.js!</a>
+					Welcome to the{' '}
+					<a
+						rel='noreferrer'
+						target='_blank'
+						href='https://github.com/generalui/react-nextjs-boilerplate'
+					>
+						GenUI React Starter!
+					</a>
 				</h1>
 
 				<p className={styles.description}>
@@ -26,28 +35,39 @@ export default function Home() {
 				</p>
 
 				<div className={styles.grid}>
-					<a href='https://nextjs.org/docs' className={styles.card}>
-						<h2>Documentation &rarr;</h2>
-						<p>Find in-depth information about Next.js features and API.</p>
-					</a>
-
-					<a href='https://nextjs.org/learn' className={styles.card}>
-						<h2>Learn &rarr;</h2>
-						<p>Learn about Next.js in an interactive course with quizzes!</p>
-					</a>
-
-					<a href='https://github.com/vercel/next.js/tree/canary/examples' className={styles.card}>
-						<h2>Examples &rarr;</h2>
-						<p>Discover and deploy boilerplate example Next.js projects.</p>
-					</a>
-
-					<a
-						href='https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
-						className={styles.card}
+					<Link
+						href='https://github.com/generalui/react-nextjs-boilerplate/blob/main/DEVELOPMENT.md'
+						passHref
 					>
-						<h2>Deploy &rarr;</h2>
-						<p>Instantly deploy your Next.js site to a public URL with Vercel.</p>
-					</a>
+						<CardLink rel='noreferrer' target='_blank'>
+							<h2>Documentation &rarr;</h2>
+							<p>Learn how to use this starter project to build robust apps.</p>
+						</CardLink>
+					</Link>
+
+					<Link href='https://nextjs.org' passHref>
+						<CardLink rel='noreferrer' target='_blank'>
+							<h2>Next.js &rarr;</h2>
+							<p>Learn more about Next.js features and API.</p>
+						</CardLink>
+					</Link>
+
+					<Link
+						href='https://github.com/generalui/react-nextjs-boilerplate/blob/main/DEVELOPMENT.md'
+						passHref
+					>
+						<CardLink rel='noreferrer' target='_blank'>
+							<h2>Contributing &rarr;</h2>
+							<p>Discover how you can contribute to this project.</p>
+						</CardLink>
+					</Link>
+
+					<Link href='/counter' passHref>
+						<CardLink>
+							<h2>Hooks for Redux &rarr;</h2>
+							<p>An example of using hooks-for-redux and persisting to cookie storage.</p>
+						</CardLink>
+					</Link>
 				</div>
 			</main>
 
