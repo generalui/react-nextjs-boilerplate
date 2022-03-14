@@ -1,0 +1,9 @@
+{
+    "name": " React Nextjs Boilerplate",
+    "short_name": " React Boilerplate",
+    "theme_color": "#37f49e",
+    "background_color": "#ffffff",
+    "display": "browser",
+    "scope": "/",
+    "start_url": "/"
+}
