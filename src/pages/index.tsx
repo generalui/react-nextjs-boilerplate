@@ -1,4 +1,6 @@
 import Head from 'next/head'
+import { useEffect, useState } from 'react'
+import ClipLoader from 'react-spinners/ClipLoader'
 // import Image from 'next/image'
 import styles from 'styles/Home.module.css'
 
@@ -7,7 +9,16 @@ import styles from 'styles/Home.module.css'
  *
  * @returns a component
  */
+
+// Can be a string as well. Need to ensure each key-value pair ends with ;
+
 export default function Home() {
+	const [loading, setLoading] = useState(true)
+
+	useEffect(() => {
+		setTimeout(() => setLoading(false), 1000)
+	}, [])
+
 	return (
 		<div className={styles.container}>
 			<Head>
@@ -20,6 +31,9 @@ export default function Home() {
 				<h1 className={styles.title}>
 					Welcome to <a href='https://nextjs.org'>Next.js!</a>
 				</h1>
+				<div>
+					<ClipLoader loading={loading} size={60} />
+				</div>
 
 				<p className={styles.description}>
 					Get started by editing <code className={styles.code}>pages/index.js</code>
