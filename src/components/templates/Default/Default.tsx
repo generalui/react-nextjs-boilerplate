@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import { FC } from 'react'
 import { FlexContainer } from 'components/atoms/FlexContainer/FlexContainer'
+import { FooterContainer } from 'components/atoms/FooterContainer/FooterContainer'
 import { MainContainer } from 'components/atoms/MainContainer/MainContainer'
-import styles from 'styles/Home.module.css'
 
 interface DefaultTemplateProps {
 	title?: string
@@ -32,7 +32,7 @@ const DefaultTemplate: FC<DefaultTemplateProps> = ({
 			</main>
 
 			{hasFooter && (
-				<footer className={styles.footer}>
+				<FooterContainer>
 					<FlexContainer>
 						<a
 							href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
@@ -40,12 +40,12 @@ const DefaultTemplate: FC<DefaultTemplateProps> = ({
 							rel='noopener noreferrer'
 						>
 							Powered by{' '}
-							<span className={styles.logo}>
+							<span>
 								<img src='/vercel.svg' alt='Vercel Logo' width={72} height={16} />
 							</span>
 						</a>
 					</FlexContainer>
-				</footer>
+				</FooterContainer>
 			)}
 		</div>
 	)
