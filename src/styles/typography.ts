@@ -18,4 +18,10 @@ export const typography = css`
 			text-decoration: underline;
 		}
 	}
+
+	code {
+		font-size: 1.1rem;
+		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+			Bitstream Vera Sans Mono, Courier New, monospace;
+	}
 `
