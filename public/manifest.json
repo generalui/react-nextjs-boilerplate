@@ -1,7 +1,7 @@
 {
     "theme_color": "#37f49e",
     "background_color": "#ffffff",
-    "display": "browser",
+    "display": "standalone",
     "scope": "/",
     "start_url": "/",
     "name": "React Nextjs Boilerplate",
