@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { decrement, increment, reset, useCounter } from 'state/counter'
 import { clearStoredState } from 'utils/persist'
 import { StyledButton } from 'components/StyledButton'
@@ -6,9 +7,14 @@ import styles from 'styles/Home.module.css'
 
 const Counter = () => {
 	const { count } = useCounter()
+	const [loading, setLoading] = useState(true)
+
+	useEffect(() => {
+		setTimeout(() => setLoading(false), 2000)
+	}, [])
 
 	return (
-		<DefaultTemplate title='Counter Example'>
+		<DefaultTemplate title='Counter Example' loading={loading}>
 			<h1 className={styles.title}>Counter: {count}</h1>
 			<div className={styles.buttonContainer}>
 				<StyledButton onClick={decrement}>-1</StyledButton>
