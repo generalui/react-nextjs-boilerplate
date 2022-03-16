@@ -9,7 +9,7 @@ export const typography = css`
 	}
 
 	a {
-		color: #0070f3;
+		color: var(--colors-primary);
 		text-decoration: none;
 
 		&:hover,
