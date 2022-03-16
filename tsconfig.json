@@ -24,7 +24,6 @@
 			"components/*": ["src/components/*"],
 			"layouts/*": ["src/components/layouts*"],
 			"ui/*": ["src/components/widgets*"],
-			"public/*": ["src/public/*"],
 			"hooks/*": ["src/hooks/*"],
 			"store/*": ["src/store/*"],
 			"state/*": ["src/state/*"],
@@ -40,5 +39,5 @@
 		"__tests__/**/**.tsx",
 		"playwright.config.ts"
 	],
-	"exclude": ["node_modules"]
+	"exclude": ["node_modules", "public"]
 }

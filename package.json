@@ -57,10 +57,15 @@
     "react-test-renderer": "^17.0.2",
     "typescript": "^4.5.5"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged --debug"
+    }
+  },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": [
-      "eslint --cache --fix --max-warnings 0",
-      "prettier --write ./"
+      "yarn lint",
+      "yarn prettier"
     ]
   }
 }
