@@ -1,7 +1,7 @@
 import { createGlobalStyle, css } from 'styled-components'
 import { normalize } from 'styled-normalize'
 import { typography } from 'styles/typography'
-import { COLORS } from './constants'
+import { COLORS, FONT_FAMILY } from './constants'
 
 interface CssVariable {
 	[key: string]: string | number
@@ -26,6 +26,7 @@ export const GlobalStyle = createGlobalStyle`
   // You can continue writing global styles here
   html{
     ${createCSSVariables('colors', COLORS)}
+    ${createCSSVariables('font-family', FONT_FAMILY)}
   }
   body {
     padding: 0;

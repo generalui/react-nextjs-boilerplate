@@ -4,8 +4,7 @@ export const typography = css`
 	// You can continue writing global styles here
 	html,
 	body {
-		font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
-			Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+		font-family: var(--font-family-body);
 	}
 
 	a {
@@ -21,7 +20,6 @@ export const typography = css`
 
 	code {
 		font-size: 1.1rem;
-		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-			Bitstream Vera Sans Mono, Courier New, monospace;
+		font-family: var(--font-family-code);
 	}
 `
