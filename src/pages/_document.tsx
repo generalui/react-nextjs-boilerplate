@@ -1,4 +1,11 @@
-import Document, { DocumentContext, DocumentInitialProps } from 'next/document'
+import Document, {
+	DocumentContext,
+	DocumentInitialProps,
+	Head,
+	Html,
+	Main,
+	NextScript
+} from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 
 export default class MyDocument extends Document {
@@ -25,5 +32,20 @@ export default class MyDocument extends Document {
 		} finally {
 			sheet.seal()
 		}
+	}
+	render() {
+		return (
+			<Html>
+				<Head>
+					<link rel='manifest' href='/manifest.json' />
+
+					<meta name='theme-color' content='#fff' />
+				</Head>
+				<body>
+					<Main />
+					<NextScript />
+				</body>
+			</Html>
+		)
 	}
 }
