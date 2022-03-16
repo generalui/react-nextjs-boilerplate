@@ -1,19 +1,27 @@
 /* eslint-disable */
 import { Provider } from 'hooks-for-redux'
-import type { AppProps } from 'next/app'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import About from 'pages/about'
+import Counter from 'pages/counter'
+import Home from 'pages/index'
 import { GlobalStyle } from 'styles/globalStyles'
 import 'styles/globals.css'
 import '../store'
 
 /* eslint-enable */
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp() {
 	return (
-		<Provider>
-			<GlobalStyle />
-
-			<Component {...pageProps} />
-		</Provider>
+		<BrowserRouter>
+			<Provider>
+				<GlobalStyle />
+				<Routes>
+					<Route index element={<Home />} />
+					<Route path='/about' element={<About />} />
+					<Route path='/counter' element={<Counter />} />
+				</Routes>
+			</Provider>
+		</BrowserRouter>
 	)
 }
 
