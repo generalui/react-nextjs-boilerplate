@@ -10,7 +10,14 @@ const Home = () => {
 		<DefaultTemplate>
 			<FlexContainer>
 				<H1>
-					Welcome to <a href='https://nextjs.org'>Next.js!</a>
+					Welcome to the{' '}
+					<a
+						rel='noreferrer'
+						target='_blank'
+						href='https://github.com/generalui/react-nextjs-boilerplate'
+					>
+						GenUI React Starter!
+					</a>
 				</H1>
 
 				<Paragraph>

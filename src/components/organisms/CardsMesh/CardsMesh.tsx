@@ -4,24 +4,27 @@ import InfoCard, { CardData } from 'components/molecules/InfoCard/InfoCard'
 const CardsMesh = () => {
 	const cardData: CardData[] = [
 		{
-			href: 'https://nextjs.org/docs',
+			href: 'https://github.com/generalui/react-nextjs-boilerplate/blob/main/DEVELOPMENT.md',
 			title: 'Documentation',
-			text: 'Find in-depth information about Next.js features and API.'
+			text: 'Learn how to use this starter project to build robust apps.',
+			blankTarget: true
 		},
 		{
 			href: 'https://nextjs.org/learn',
-			title: 'Learn',
-			text: 'Learn about Next.js in an interactive course with quizzes!'
+			title: 'Next.js',
+			text: 'Learn more about Next.js features and API.',
+			blankTarget: true
 		},
 		{
-			href: 'https://github.com/vercel/next.js/tree/canary/examples',
-			title: 'Examples',
-			text: 'Discover and deploy boilerplate example Next.js projects.'
+			href: 'https://github.com/generalui/react-nextjs-boilerplate/blob/main/CONTRIBUTING.md',
+			title: 'Contributing',
+			text: 'Discover how you can contribute to this project.',
+			blankTarget: true
 		},
 		{
-			href: 'https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app',
-			title: 'Deploy',
-			text: 'Instantly deploy your Next.js site to a public URL with Vercel.'
+			href: '/counter',
+			title: 'Hooks for Redux',
+			text: 'An example of using hooks-for-redux and persisting to cookie storage.'
 		}
 	]
 	return (
