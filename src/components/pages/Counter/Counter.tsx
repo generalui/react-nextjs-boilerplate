@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import { decrement, increment, reset, useCounter } from 'state/counter'
 import { clearStoredState } from 'utils/persist'
-import { StyledButton } from 'components/StyledButton'
+import { ButtonBody } from 'components/atoms/ButtonBody/ButtonBody'
+import { ButtonsContainer } from 'components/atoms/ButtonsContainer/ButtonsContainer'
+import { FlexContainer } from 'components/atoms/FlexContainer/FlexContainer'
+import { H1 } from 'components/atoms/Headers/H1'
 import DefaultTemplate from 'components/templates/Default/Default'
-import styles from 'styles/Home.module.css'
 
 const Counter = () => {
 	const { count } = useCounter()
@@ -14,23 +16,25 @@ const Counter = () => {
 	}, [])
 
 	return (
-		<DefaultTemplate title='Counter Example' loading={loading}>
-			<h1 className={styles.title}>Counter: {count}</h1>
-			<div className={styles.buttonContainer}>
-				<StyledButton onClick={decrement}>-1</StyledButton>
-				<StyledButton onClick={reset}>reset</StyledButton>
-				<StyledButton onClick={increment}>+1</StyledButton>
-			</div>
-			<div className={styles.buttonContainer}>
-				<button
-					onClick={() => {
-						reset()
-						clearStoredState()
-					}}
-				>
-					clear local storage
-				</button>
-			</div>
+		<DefaultTemplate title='Counter Example'>
+			<FlexContainer>
+				<H1>Counter: {count}</H1>
+				<ButtonsContainer>
+					<ButtonBody onClick={decrement}>-1</ButtonBody>
+					<ButtonBody onClick={reset}>reset</ButtonBody>
+					<ButtonBody onClick={increment}>+1</ButtonBody>
+				</ButtonsContainer>
+				<ButtonsContainer>
+					<button
+						onClick={() => {
+							reset()
+							clearStoredState()
+						}}
+					>
+						clear local storage
+					</button>
+				</ButtonsContainer>
+			</FlexContainer>
 		</DefaultTemplate>
 	)
 }

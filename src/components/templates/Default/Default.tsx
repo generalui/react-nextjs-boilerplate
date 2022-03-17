@@ -1,7 +1,8 @@
 import Head from 'next/head'
 import { FC } from 'react'
-import { PageLoadingSpinner } from 'components/atoms/PageLoadingSpinner/PageLoadingSpinner'
-import styles from 'styles/Home.module.css'
+import { FlexContainer } from 'components/atoms/FlexContainer/FlexContainer'
+import { FooterContainer } from 'components/atoms/FooterContainer/FooterContainer'
+import { MainContainer } from 'components/atoms/MainContainer/MainContainer'
 
 interface DefaultTemplateProps {
 	title?: string
@@ -21,28 +22,32 @@ const DefaultTemplate: FC<DefaultTemplateProps> = ({
 	hasFooter = true
 }) => {
 	return (
-		<div className={styles.container}>
+		<div>
 			<Head>
 				<title>{title}</title>
 				<meta name='description' content={description} />
 				<link rel='icon' href={icon} />
 			</Head>
 
-			<main className={styles.main}>{loading ? <PageLoadingSpinner /> : children}</main>
+			<main>
+				<MainContainer>{children}</MainContainer>
+			</main>
 
 			{hasFooter && (
-				<footer className={styles.footer}>
-					<a
-						href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
-						target='_blank'
-						rel='noopener noreferrer'
-					>
-						Powered by{' '}
-						<span className={styles.logo}>
-							<img src='/vercel.svg' alt='Vercel Logo' width={72} height={16} />
-						</span>
-					</a>
-				</footer>
+				<FooterContainer>
+					<FlexContainer>
+						<a
+							href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
+							target='_blank'
+							rel='noopener noreferrer'
+						>
+							Powered by{' '}
+							<span>
+								<img src='/vercel.svg' alt='Vercel Logo' width={72} height={16} />
+							</span>
+						</a>
+					</FlexContainer>
+				</FooterContainer>
 			)}
 		</div>
 	)
