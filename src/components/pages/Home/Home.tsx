@@ -3,9 +3,9 @@ import { FlexContainer } from 'components/atoms/FlexContainer/FlexContainer'
 import { H1 } from 'components/atoms/Headers/H1'
 import { Paragraph } from 'components/atoms/Paragraph/Paragraph'
 import CardsMesh from 'components/organisms/CardsMesh/CardsMesh'
-import DefaultTemplate from 'components/templates/Default/Default'
+import { Default as DefaultTemplate } from 'components/templates'
 
-const Home = () => {
+export const Home = () => {
 	return (
 		<DefaultTemplate>
 			<FlexContainer>
@@ -28,5 +28,3 @@ const Home = () => {
 		</DefaultTemplate>
 	)
 }
-
-export default Home

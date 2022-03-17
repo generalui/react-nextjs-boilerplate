@@ -16,7 +16,7 @@ module.exports = {
 		'<rootDir>/node_modules/',
 		'<rootDir>/.next/',
 		'<rootDir>/__tests__/__mocks__', // these are handled by playwright
-		'<rootDir>/__tests__/integration' // these are handled by playwright
+		'<rootDir>/__tests__/e2e' // these are handled by playwright
 	],
 	testEnvironment: 'jsdom',
 	transform: {

@@ -1,8 +1,8 @@
 import { FlexContainer } from 'components/atoms/FlexContainer/FlexContainer'
 import { H1 } from 'components/atoms/Headers/H1'
-import DefaultTemplate from 'components/templates/Default/Default'
+import { Default as DefaultTemplate } from 'components/templates'
 
-const About = () => {
+export const About = () => {
 	return (
 		<DefaultTemplate title='About'>
 			<FlexContainer>
@@ -11,5 +11,3 @@ const About = () => {
 		</DefaultTemplate>
 	)
 }
-
-export default About
