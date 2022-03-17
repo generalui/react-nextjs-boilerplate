@@ -1,4 +1,4 @@
-import About from 'components/pages/About/About'
+import { About } from 'components/pages'
 
 /**
  * About page

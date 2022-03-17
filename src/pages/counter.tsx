@@ -1,4 +1,4 @@
-import Counter from 'components/pages/Counter/Counter'
+import { Counter } from 'components/pages'
 
 /**
  * Counter page

@@ -1,25 +1,27 @@
 import { useEffect, useState } from 'react'
 import { decrement, increment, reset, useCounter } from 'state/counter'
 import { clearStoredState } from 'utils/persist'
-import { StyledButton } from 'components/StyledButton'
-import DefaultTemplate from 'components/templates/Default/Default'
+import { StyledButton } from 'components/atoms'
+import { Default as DefaultTemplate } from 'components/templates'
 import styles from 'styles/Home.module.css'
 
-const Counter = () => {
+export const Counter = () => {
 	const { count } = useCounter()
-	const [loading, setLoading] = useState(true)
+	const [loading, setLoading] = useState(false)
 
 	useEffect(() => {
-		setTimeout(() => setLoading(false), 2000)
-	}, [])
+		setTimeout(() => setLoading(false), 1000)
+	}, [count])
 
 	return (
 		<DefaultTemplate title='Counter Example' loading={loading}>
-			<h1 className={styles.title}>Counter: {count}</h1>
+			<div>
+				<h1 className={styles.title}>Counter:</h1> <div data-testid="counter">{count}</div>
+			</div>
 			<div className={styles.buttonContainer}>
-				<StyledButton onClick={decrement}>-1</StyledButton>
-				<StyledButton onClick={reset}>reset</StyledButton>
-				<StyledButton onClick={increment}>+1</StyledButton>
+				<StyledButton data-testid="decrement" onClick={decrement}>-1</StyledButton>
+				<StyledButton data-testid="reset" onClick={reset}>reset</StyledButton>
+				<StyledButton data-testid="increment" onClick={increment}>+1</StyledButton>
 			</div>
 			<div className={styles.buttonContainer}>
 				<button
@@ -34,5 +36,3 @@ const Counter = () => {
 		</DefaultTemplate>
 	)
 }
-
-export default Counter

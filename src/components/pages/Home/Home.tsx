@@ -1,9 +1,9 @@
 import Link from 'next/link'
-import { CardLink } from 'components/atoms/CardLink'
-import DefaultTemplate from 'components/templates/Default/Default'
+import { CardLink } from 'components/atoms'
+import { Default as DefaultTemplate } from 'components/templates'
 import styles from 'styles/Home.module.css'
 
-const Home = () => {
+export const Home = () => {
 	return (
 		<DefaultTemplate>
 			<h1 className={styles.title}>
@@ -59,5 +59,3 @@ const Home = () => {
 		</DefaultTemplate>
 	)
 }
-
-export default Home
