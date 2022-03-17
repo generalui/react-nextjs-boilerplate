@@ -4,7 +4,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Adding a new value to an existing style constant
 
-Adding a new value in any existing file from `/styles/constants`  will be automatically added as a global CSS variable
+Adding a new value in any existing file from `/styles/constants` will be automatically added as a global CSS variable
 
 ## Adding a new style constant
 
@@ -13,6 +13,7 @@ Adding a new value in any existing file from `/styles/constants`  will be automa
 1. Add a new file to `/styles/constants`
 
 `/styles/constants/colors.ts`:
+
 ```
 const COLORS = {
 	primary: '#5987EB',
@@ -25,6 +26,7 @@ export default COLORS
 2. Export constant to `/styles/constants/index.ts`
 
 `/styles/constants/index.ts`:
+
 ```
 export { default as COLORS } from './colors'
 ```
@@ -59,6 +61,7 @@ html{
 1. Add a new file to `/styles/constants`
 
 `/styles/constants/sizes.ts`:
+
 ```
 const SIZES = {
     sm: 10,
@@ -72,6 +75,7 @@ export default SIZES
 2. Export constant to `/styles/constants/index.ts`
 
 `/styles/constants/index.ts`:
+
 ```
 export { default as SIZES } from './sizes'
 ```
