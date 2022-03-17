@@ -14,22 +14,22 @@ describe('Counter page test', () => {
 		const decrement = getByDataTestId(counterPage.container, 'decrement')
 		const reset = getByDataTestId(counterPage.container, 'reset')
 
-		expect(counter?.innerHTML).toBe("0")
+		expect(counter?.innerHTML).toBe('Counter: 0')
 		act(() => {
 			increment?.click()
 		})
-		expect(counter?.innerHTML).toBe("1")
+		expect(counter?.innerHTML).toBe('Counter: 1')
 		act(() => {
 			decrement?.click()
 		})
-		expect(counter?.innerHTML).toBe("0")
+		expect(counter?.innerHTML).toBe('Counter: 0')
 		act(() => {
 			decrement?.click()
 		})
-		expect(counter?.innerHTML).toBe("-1")
+		expect(counter?.innerHTML).toBe('Counter: -1')
 		act(() => {
 			reset?.click()
 		})
-		expect(counter?.innerHTML).toBe("0")
+		expect(counter?.innerHTML).toBe('Counter: 0')
 	})
 })
