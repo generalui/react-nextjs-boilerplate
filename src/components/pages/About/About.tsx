@@ -1,10 +1,13 @@
+import { FlexContainer } from 'components/atoms/FlexContainer/FlexContainer'
+import { H1 } from 'components/atoms/Headers/H1'
 import { Default as DefaultTemplate } from 'components/templates'
-import styles from 'styles/Home.module.css'
 
 export const About = () => {
 	return (
 		<DefaultTemplate title='About'>
-			<h1 className={styles.title}>About Page</h1>
+			<FlexContainer>
+				<H1>About Page</H1>
+			</FlexContainer>
 		</DefaultTemplate>
 	)
 }
