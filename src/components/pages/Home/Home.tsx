@@ -16,7 +16,6 @@ const Home = () => {
 				<Paragraph>
 					Get started by editing <CodeContainer>pages/index.js</CodeContainer>
 				</Paragraph>
-
 				<CardsMesh />
 			</FlexContainer>
 		</DefaultTemplate>

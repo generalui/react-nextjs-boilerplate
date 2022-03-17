@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { decrement, increment, reset, useCounter } from 'state/counter'
 import { clearStoredState } from 'utils/persist'
 import { ButtonBody } from 'components/atoms/ButtonBody/ButtonBody'
@@ -8,6 +9,11 @@ import DefaultTemplate from 'components/templates/Default/Default'
 
 const Counter = () => {
 	const { count } = useCounter()
+	const [loading, setLoading] = useState(true)
+
+	useEffect(() => {
+		setTimeout(() => setLoading(false), 2000)
+	}, [])
 
 	return (
 		<DefaultTemplate title='Counter Example'>
