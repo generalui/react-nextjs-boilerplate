@@ -1,12 +1,12 @@
-import { FlexContainer } from 'components/atoms/FlexContainer/FlexContainer'
-import { H1 } from 'components/atoms/Headers/H1'
-import { Default as DefaultTemplate } from 'components/templates'
+import { Default as DefaultTemplate } from 'components/partials/PageWrapper'
+import { FlexContainer } from 'common/FlexContainer'
+import { Text } from 'common/Text'
 
 export const About = () => {
 	return (
 		<DefaultTemplate title='About'>
-			<FlexContainer>
-				<H1>About Page</H1>
+			<FlexContainer column>
+				<Text as='h1'>About Page</Text>
 			</FlexContainer>
 		</DefaultTemplate>
 	)

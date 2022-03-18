@@ -2,7 +2,7 @@ import { queryByAttribute, render } from '@testing-library/react'
 import { Provider } from 'hooks-for-redux'
 import React from 'react'
 import { act } from 'react-dom/test-utils'
-import { Counter } from 'components/pages'
+import { Counter } from 'pages/Counter'
 
 describe('Counter page test', () => {
 	const getByDataTestId = queryByAttribute.bind(null, 'data-testid')
