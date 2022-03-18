@@ -1,2 +1,5 @@
-export { default as COLORS } from './colors'
-export { default as FONT_FAMILY } from './fontFamily'
+export * from './colors'
+export * from './fontFamily'
+export * from './transitions'
+export * from './spacing'
+export * from './borderRadius'

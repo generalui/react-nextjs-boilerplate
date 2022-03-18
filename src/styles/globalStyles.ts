@@ -1,7 +1,7 @@
 import { createGlobalStyle, css } from 'styled-components'
 import { normalize } from 'styled-normalize'
 import { typography } from 'styles/typography'
-import { COLORS, FONT_FAMILY } from './constants'
+import { BORDER_RADIUS, COLORS, FONT_FAMILY, SPACING, TRANSITIONS } from './constants'
 
 interface CssVariable {
 	[key: string]: string | number
@@ -27,6 +27,9 @@ export const GlobalStyle = createGlobalStyle`
   html{
     ${createCSSVariables('colors', COLORS)}
     ${createCSSVariables('font-family', FONT_FAMILY)}
+    ${createCSSVariables('transitions', TRANSITIONS)}
+    ${createCSSVariables('space', SPACING)}
+    ${createCSSVariables('br', BORDER_RADIUS)}
   }
   body {
     padding: 0;

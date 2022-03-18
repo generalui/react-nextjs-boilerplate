@@ -8,7 +8,7 @@ export const typography = css`
 	}
 
 	a {
-		color: var(--colors-primary);
+		color: var(--colors-link);
 		text-decoration: none;
 
 		&:hover,
@@ -16,10 +16,24 @@ export const typography = css`
 		&:active {
 			text-decoration: underline;
 		}
+
+		&:active {
+			color: var(--colors-link-dark);
+		}
 	}
 
 	code {
 		font-size: 1.1rem;
 		font-family: var(--font-family-code);
+	}
+
+	h1 {
+		line-height: 1.15;
+		font-size: var(--space-7);
+	}
+
+	p {
+		line-height: 1.5;
+		font-size: 1.5rem;
 	}
 `

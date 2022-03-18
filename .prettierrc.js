@@ -12,8 +12,10 @@ module.exports = {
 		'<THIRD_PARTY_MODULES>',
 		'^utils/(.*)$',
 		'^hooks/(.*)$',
-		'^pages/(.*)$',
 		'^components/(.*)$',
+		'^pages/(.*)$',
+		'^partials/(.*)$',
+		'^common/(.*)$',
 		'^styles/(.*)$',
 		'^[./]'
 	],

@@ -19,14 +19,15 @@
 		"incremental": true,
 		"baseUrl": ".",
 		"paths": {
-			"pages/*": ["src/pages/*"],
 			"styles/*": ["src/styles/*"],
 			"components/*": ["src/components/*"],
+			"common/*": ["src/components/common/*"],
+			"partials/*": ["src/components/partials/*"],
+			"pages/*": ["src/components/pages/*"],
 			"layouts/*": ["src/components/layouts*"],
-			"ui/*": ["src/components/widgets*"],
 			"hooks/*": ["src/hooks/*"],
 			"store/*": ["src/store/*"],
-			"state/*": ["src/state/*"],
+			"reducers/*": ["src/store/reducers/*"],
 			"utils/*": ["src/utils/*"],
 			"__tests__/*": ["__tests__/*"],
 			"__mocks__/*": ["__tests__/__mocks__/*"]

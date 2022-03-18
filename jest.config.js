@@ -1,6 +1,13 @@
+const { pathsToModuleNameMapper } = require('ts-jest')
+const { compilerOptions } = require('./tsconfig.json')
+
 module.exports = {
 	collectCoverageFrom: ['**/*.{js,jsx,ts,tsx}', '!**/*.d.ts', '!**/node_modules/**'],
 	moduleNameMapper: {
+		/* Convert typescript config paths to module names for testing
+		https://kulshekhar.github.io/ts-jest/docs/getting-started/paths-mapping */
+		...pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' }),
+
 		/* Handle CSS imports (with CSS modules)
     https://jestjs.io/docs/webpack#mocking-css-modules */
 		'^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',

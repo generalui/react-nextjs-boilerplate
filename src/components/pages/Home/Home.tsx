@@ -1,15 +1,14 @@
-import { CodeContainer } from 'components/atoms/CodeContainer/CodeContainer'
-import { FlexContainer } from 'components/atoms/FlexContainer/FlexContainer'
-import { H1 } from 'components/atoms/Headers/H1'
-import { Paragraph } from 'components/atoms/Paragraph/Paragraph'
-import CardsMesh from 'components/organisms/CardsMesh/CardsMesh'
-import { Default as DefaultTemplate } from 'components/templates'
+import { CardsMesh } from 'partials/CardsMesh'
+import { Default as DefaultTemplate } from 'partials/PageWrapper'
+import { FlexContainer } from 'common/FlexContainer'
+import { InlineCode } from 'common/InlineCode'
+import { Text } from 'common/Text'
 
 export const Home = () => {
 	return (
 		<DefaultTemplate>
-			<FlexContainer>
-				<H1>
+			<FlexContainer column>
+				<Text as='h1' center>
 					Welcome to the{' '}
 					<a
 						rel='noreferrer'
@@ -18,11 +17,11 @@ export const Home = () => {
 					>
 						GenUI React Starter!
 					</a>
-				</H1>
+				</Text>
 
-				<Paragraph>
-					Get started by editing <CodeContainer>pages/index.js</CodeContainer>
-				</Paragraph>
+				<Text as='p'>
+					Get started by editing <InlineCode>pages/index.js</InlineCode>
+				</Text>
 				<CardsMesh />
 			</FlexContainer>
 		</DefaultTemplate>
