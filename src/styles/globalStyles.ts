@@ -28,7 +28,7 @@ export const GlobalStyle = createGlobalStyle`
     ${createCSSVariables('colors', COLORS)}
     ${createCSSVariables('font-family', FONT_FAMILY)}
     ${createCSSVariables('transitions', TRANSITIONS)}
-    ${createCSSVariables('space', SPACING)}
+    ${createCSSVariables('spaces', SPACING)}
     ${createCSSVariables('br', BORDER_RADIUS)}
   }
   body {

@@ -29,7 +29,7 @@ export const typography = css`
 
 	h1 {
 		line-height: 1.15;
-		font-size: var(--space-7);
+		font-size: var(--spaces-7);
 	}
 
 	p {

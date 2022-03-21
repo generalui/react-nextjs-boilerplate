@@ -14,7 +14,12 @@ export const Counter = () => {
 				<Text as='h1' data-testid='counter'>
 					Counter: {count}
 				</Text>
-				<FlexContainer nested justify='space-between' size='sm' margin='0 auto var(--space-6) auto'>
+				<FlexContainer
+					nested
+					justify='space-between'
+					size='sm'
+					margin='0 auto var(--spaces-6) auto'
+				>
 					<Button data-testid='decrement' onClick={decrement}>
 						-1
 					</Button>

@@ -16,7 +16,7 @@ export interface DefaultTemplateProps {
 
 const Logo = styled.img`
 	width: 4.5rem;
-	margin-left: var(--space-3);
+	margin-left: var(--spaces-3);
 `
 
 export const Default: FC<DefaultTemplateProps> = ({
