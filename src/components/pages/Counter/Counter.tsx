@@ -1,6 +1,6 @@
 import { decrement, increment, reset, useCounter } from 'reducers/counter'
 import { clearStoredState } from 'utils/persist'
-import { Default as DefaultTemplate } from 'partials/PageWrapper'
+import { PageWrapper } from 'partials/PageWrapper'
 import { Button, SecondaryDangerButton } from 'common/Button'
 import { FlexContainer } from 'common/FlexContainer'
 import { Text } from 'common/Text'
@@ -9,7 +9,7 @@ export const Counter = () => {
 	const { count } = useCounter()
 
 	return (
-		<DefaultTemplate title='Counter Example'>
+		<PageWrapper title='Counter Example'>
 			<FlexContainer column size='lg'>
 				<Text as='h1' data-testid='counter'>
 					Counter: {count}
@@ -41,6 +41,6 @@ export const Counter = () => {
 					</SecondaryDangerButton>
 				</FlexContainer>
 			</FlexContainer>
-		</DefaultTemplate>
+		</PageWrapper>
 	)
 }
