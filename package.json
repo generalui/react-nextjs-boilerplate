@@ -8,14 +8,15 @@
     "build:static": "next build && next export",
     "build:analyze": "ANALYZE=true yarn build",
     "start": "next start",
-    "test:unit": "jest --verbose ./unit",
+    "test:unit": "jest --verbose",
     "test:integration": "jest --verbose ./integration",
     "test:e2e": "playwright test",
     "test": "yarn test:unit && yarn test:integration && yarn test:e2e",
     "lint": "next lint",
     "prettier": "prettier --write ./",
     "lint-staged": "lint-staged",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "plop": "plop"
   },
   "dependencies": {
     "eslint-plugin-jsx-a11y": "^6.5.1",
@@ -54,6 +55,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.5.1",
     "lint-staged": "^12.3.5",
+    "plop": "^3.0.5",
     "pre-commit": "^1.2.2",
     "prettier": "^2.5.1",
     "react-test-renderer": "^17.0.2",

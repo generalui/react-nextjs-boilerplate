@@ -1,6 +1,5 @@
 .yarn/
 .yarnrc.yml
-yarn.lock
 .pnp.js
 .pnp.cjs
 .next
