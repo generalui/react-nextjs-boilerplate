@@ -1,0 +1,16 @@
+/**
+ * This is a test file for {{properCase name}}
+ */
+import { render, screen } from '@testing-library/react'
+import React from 'react'
+import { {{properCase name}} } from './index'
+
+describe('{{properCase name}} Component', () => {
+	it('renders on the page', () => {
+		render(<{{properCase name}} />)
+
+		const component = screen.getByTestId('{{properCase name}}')
+
+		expect(component).toBeInTheDocument()
+	})
+})

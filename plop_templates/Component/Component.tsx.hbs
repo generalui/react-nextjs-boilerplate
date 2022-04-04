@@ -1,0 +1,15 @@
+{{!-- {{#if useState}}
+import { useState, FC } from 'react'
+{{/if}} --}}
+{{!-- TODO: add FC --}}
+{{!-- import type { FC } from '~types/FC' --}}import { FC } from 'react'
+import { Styled{{properCase name}} } from './{{properCase name}}.styled'
+import { {{properCase name}}Props } from './{{properCase name}}.types'
+
+export const {{properCase name}}: FC<{{properCase name}}Props> = ({}) => {
+	{{!-- {{#if useState}}
+	const [] = useState()
+	{{/if}} --}}
+	return <Styled{{properCase name}} data-testid='{{properCase name}}'>{/* children */}</Styled{{properCase name}}>
+}
+{{!-- TODO: Add memo by default --}}
