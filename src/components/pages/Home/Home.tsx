@@ -1,12 +1,12 @@
 import { CardsMesh } from 'partials/CardsMesh'
-import { Default as DefaultTemplate } from 'partials/PageWrapper'
+import { PageWrapper } from 'partials/PageWrapper'
 import { FlexContainer } from 'common/FlexContainer'
 import { InlineCode } from 'common/InlineCode'
 import { Text } from 'common/Text'
 
 export const Home = () => {
 	return (
-		<DefaultTemplate>
+		<PageWrapper>
 			<FlexContainer column>
 				<Text as='h1' center>
 					Welcome to the{' '}
@@ -24,6 +24,6 @@ export const Home = () => {
 				</Text>
 				<CardsMesh />
 			</FlexContainer>
-		</DefaultTemplate>
+		</PageWrapper>
 	)
 }
