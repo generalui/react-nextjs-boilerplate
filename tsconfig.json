@@ -38,7 +38,8 @@
 		"node_modules/@types",
 		"__tests__/**/**.ts",
 		"__tests__/**/**.tsx",
-		"playwright.config.ts"
+		"playwright.*.ts",
+		"pages"
 	],
 	"exclude": ["node_modules", "public"]
 }
