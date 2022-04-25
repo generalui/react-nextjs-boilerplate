@@ -19,6 +19,9 @@ module.exports = {
 		// Nextjs rules omited for static rendering
 		// https://nextjs.org/docs/basic-features/eslint#eslint-plugin
 		// Turn these rules on for Next Fullstack
-		'@next/next/no-img-element': 'off'
+		'@next/next/no-img-element': 'off',
+		'@typescript-eslint/ban-ts-ignore': 'off',
+		'no-empty-pattern': 'off',
+		'@typescript-eslint/no-empty-interface': 'off'
 	}
 }

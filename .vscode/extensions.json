@@ -10,6 +10,7 @@
 		"xabikos.JavaScriptSnippets",
 		"dsznajder.es7-react-js-snippets",
 		"yzhang.markdown-all-in-one",
-		"ChakrounAnas.turbo-console-log"
+		"ChakrounAnas.turbo-console-log",
+		"orta.vscode-jest"
 	]
 }
