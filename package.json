@@ -16,10 +16,12 @@
     "prettier": "prettier --write ./",
     "lint-staged": "lint-staged",
     "prepare": "husky install",
-    "plop": "plop"
+    "plop": "plop",
+    "prisma:dev": "dotenv -e .env.development.local -- yarn prisma"
   },
   "dependencies": {
     "@prisma/client": "^3.14.0",
+    "dotenv-cli": "^5.1.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "hooks-for-redux": "^2.0.3",
     "next": "12.1.0",

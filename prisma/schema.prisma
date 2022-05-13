@@ -10,4 +10,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// use prisma:dev script to use .env.development.local file
+// example: yarn prisma:dev migrate dev, yarn prisma:dev studio
+
 // Write your data models here
+
+model User {
+  id String @id @default(uuid())
+  username String
+  firstName String
+  lastName String
+  password String
+}
