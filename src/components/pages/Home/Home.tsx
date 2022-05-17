@@ -9,6 +9,7 @@ export const Home = () => {
 	return (
 		<PageWrapper>
 			<FlexContainer column>
+				<h1 className='text-3xl font-bold underline'>Hello world!</h1>
 				<Text as='h1' center>
 					Welcome to the{' '}
 					<a

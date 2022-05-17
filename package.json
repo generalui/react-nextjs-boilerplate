@@ -17,7 +17,8 @@
     "lint-staged": "lint-staged",
     "prepare": "husky install",
     "plop": "plop",
-    "prisma:dev": "dotenv -e .env.development.local -- yarn prisma"
+    "prisma:dev": "dotenv -e .env.development.local -- yarn prisma",
+    "build-css": "yarn tailwindcss -i"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.3",
@@ -38,6 +39,7 @@
     "remove": "^0.1.5",
     "styled-components": "^5.3.3",
     "styled-normalize": "^8.0.7",
+    "tailwindcss": "^3.0.24",
     "universal-cookie": "^4.0.4"
   },
   "devDependencies": {
@@ -52,6 +54,7 @@
     "@types/styled-components": "^5.1.24",
     "@typescript-eslint/eslint-plugin": "^5.12.1",
     "@typescript-eslint/parser": "^5.12.1",
+    "autoprefixer": "^10.4.7",
     "babel-jest": "^27.5.1",
     "babel-plugin-styled-components": "^2.0.6",
     "eslint": "^8.9.0",
