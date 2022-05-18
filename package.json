@@ -24,6 +24,7 @@
     "@next-auth/prisma-adapter": "^1.0.3",
     "@prisma/client": "^3.14.0",
     "bcrypt": "^5.0.1",
+    "daisyui": "^2.15.0",
     "dotenv-cli": "^5.1.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "hooks-for-redux": "^2.0.3",
