@@ -1,12 +1,9 @@
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { FC } from 'react'
-import { StyledSignInOut } from './SignInOut.styled'
 import { SignInOutProps } from './SignInOut.types'
 
 export const RenderAuth = () => {
-	const { data: session, status } = useSession()
-	console.log('~ status', status)
-	console.log('~ session', session)
+	const { data: session } = useSession()
 
 	if (session) {
 		return (
@@ -26,8 +23,8 @@ export const RenderAuth = () => {
 
 export const SignInOut: FC<SignInOutProps> = () => {
 	return (
-		<StyledSignInOut data-testid='SignInOut'>
+		<div data-testid='SignInOut'>
 			<RenderAuth />
-		</StyledSignInOut>
+		</div>
 	)
 }
