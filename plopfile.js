@@ -85,13 +85,6 @@ module.exports = (plop) => {
 					abortOnFail: true
 				},
 				{
-					// Create component styled file
-					type: 'add',
-					path: './src/components/{{componentType}}/{{properCase name}}/{{properCase name}}.styled.ts',
-					templateFile: './plop_templates/Component/Component.styled.ts.hbs',
-					abortOnFail: true
-				},
-				{
 					// Create component test file
 					type: 'add',
 					path: './src/components/{{componentType}}/{{properCase name}}/{{properCase name}}.spec.tsx',

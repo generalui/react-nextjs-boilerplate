@@ -1,12 +1,14 @@
 import { SignInOut } from 'partials/SignInOut'
+import { NavBar } from '../../partials/NavBar'
 
 export const Home = () => {
 	return (
 		<>
+			<NavBar />
 			<h1>Testing DaisyUI</h1>
 
 			<button className='btn btn-outline btn-info'>Info</button>
-			<input type='checkbox' className='toggle toggle-accent' checked />
+			<input type='checkbox' className='toggle toggle-accent' />
 			<div className='card w-96 bg-base-100 shadow-xl'>
 				<figure>
 					<img src='https://api.lorem.space/image/shoes?w=400&h=225' alt='Shoes' />
