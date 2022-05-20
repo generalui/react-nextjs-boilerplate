@@ -1,13 +1,18 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
-import { PrismaClient } from '@prisma/client'
+import { User } from '@prisma/client'
+import bcrypt from 'bcrypt'
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import GoogleProvider from 'next-auth/providers/google'
-
-const prisma = new PrismaClient()
+import { Credentials } from 'types'
+import { prisma } from 'utils/api/prisma'
 
 export default NextAuth({
 	adapter: PrismaAdapter(prisma),
+	// Custom page routes for auth
+	pages: {
+		signIn: '/auth/signin',
+		error: '/auth/signin'
+	},
 	session: {
 		// Choose how you want to save the user session.
 		// The default is `"jwt"`, an encrypted JWT (JWE) stored in the session cookie.
@@ -34,36 +39,83 @@ export default NextAuth({
 			// e.g. domain, username, password, 2FA token, etc.
 			// You can pass any HTML attribute to the <input> tag through the object.
 			credentials: {
-				username: { label: 'Username', type: 'text', placeholder: 'jsmith' },
+				email: { label: 'Email', type: 'email', placeholder: 'example@email.com' },
 				password: { label: 'Password', type: 'password' }
 			},
 			async authorize(credentials, req) {
 				// Add logic here to look up the user from the credentials supplied
-				const user = { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
+				// const user = { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
+				const { email, password, createAccount } = credentials as Credentials
+				let user: User | null
+				// Create user
+				if (createAccount) {
+					try {
+						const hashedPassword = await bcrypt.hash(password, 10)
+						const user = await prisma.user.create({
+							data: { email, password: hashedPassword }
+						})
 
-				if (user) {
-					// Any object returned will be saved in `user` property of the JWT
-					return user
-				} else {
-					// If you return null then an error will be displayed advising the user to check their details.
-					return null
+						if (user) {
+							// Any object returned will be saved in `user` property of the JWT
+							return user
+						} else {
+							// If you return null then an error will be displayed advising the user to check their details.
+							return null
 
-					// You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+							// You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+						}
+					} catch (err) {
+						if ((err as PrismaClientKnownRequestError).code === 'P2002')
+							throw new Error('UserAlreadyExists')
+						else throw err
+					}
+				}
+				// Sign in user
+				else {
+					user = await prisma.user.findFirst({
+						where: { email }
+					})
+
+					if (user && user.password) {
+						const match = await bcrypt.compare(password, user.password)
+
+						// Any object returned will be saved in `user` property of the JWT
+						return match ? user : null
+					} else {
+						// If you return null then an error will be displayed advising the user to check their details.
+						return null
+
+						// You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+					}
 				}
 			}
 		})
 	],
 	callbacks: {
+		async redirect({ url, baseUrl }) {
+			console.log('~ redirect')
+			console.log('~ baseUrl', baseUrl)
+			console.log('~ url', url)
+			// Allows relative callback URLs
+			if (url.startsWith('/')) return `${baseUrl}${url}`
+			// Allows callback URLs on the same origin
+			else if (new URL(url).origin === baseUrl) return url
+
+			return baseUrl
+		},
 		async jwt({ token, account }) {
 			// Persist the OAuth access_token to the token right after signin
-			if (account) {
-				token.accessToken = account.access_token
-			}
+			token.id = account?.id
+			token.error = account?.error
 			return token
 		},
 		async session({ session, token, user }) {
+			console.log('~ user', user)
 			// Send properties to the client, like an access_token from a provider.
-			session.accessToken = token.accessToken
+			if (token) {
+				session.id = token.id
+				session.error = token.error
+			}
 			return session
 		}
 	}
