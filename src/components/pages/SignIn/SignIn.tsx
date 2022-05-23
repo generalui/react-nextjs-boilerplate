@@ -5,6 +5,7 @@ import { SignInResponse, signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { FC, useEffect, useState } from 'react'
 import { SigninError } from 'types/Error'
+import { Button } from 'components/common/Button'
 import { Header } from 'partials/Header'
 import { SignInProps } from './SignIn.types'
 
@@ -79,10 +80,10 @@ export const SignIn: FC<SignInProps> = ({ providers, csrfToken }) => {
 												/>
 											</>
 										)}
-										<button onClick={() => signIn(provider.id, { email, password })}>
+										<Button onClick={() => signIn(provider.id, { email, password })}>
 											Sign in with {provider.name}
-										</button>
-										<button
+										</Button>
+										<Button
 											onClick={async () => {
 												const signInResponse: SignInResponse | undefined = await signIn(
 													provider.id,
@@ -119,7 +120,7 @@ export const SignIn: FC<SignInProps> = ({ providers, csrfToken }) => {
 											}}
 										>
 											Create account
-										</button>
+										</Button>
 									</div>
 								))}
 

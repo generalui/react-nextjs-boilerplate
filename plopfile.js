@@ -6,6 +6,42 @@ const fs = require('fs')
 const path = require('path')
 
 module.exports = (plop) => {
+	plop.setGenerator('Type', {
+		description: 'Generate type',
+		prompts: [
+			{
+				type: 'input',
+				name: 'name',
+				message: 'What should it be called?'
+			}
+		],
+
+		actions: ({ name }) => {
+			if (!name) throw Error('Name cannot be empty')
+
+			const actions = [
+				{
+					// Create component index file
+					type: 'add',
+					path: './src/types/{{properCase name}}.ts',
+					templateFile: './plop_templates/Type/Type.ts.hbs',
+					abortOnFail: true
+				},
+				{
+					// Create component index file
+					type: 'modify',
+					path: './src/types/index.ts',
+					// pattern: 'end-of-file',
+					pattern: /(\/\/ Automated exports)/gi,
+					// templateFile: './plop_templates/Type/index.ts.hbs',
+					template: "$1\r\nexport * from './{{properCase name}}'",
+					abortOnFail: true
+				}
+			]
+
+			return actions
+		}
+	})
 	// Component generator
 	plop.setGenerator('component', {
 		description: 'Generate component',
