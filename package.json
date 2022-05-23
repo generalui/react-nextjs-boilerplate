@@ -9,7 +9,7 @@
     "build:analyze": "ANALYZE=true yarn build",
     "start": "next start",
     "test:unit": "jest --verbose",
-    "test:integration": "jest --verbose ./integration",
+    "test:integration": "jest --verbose --passWithNoTests ./integration",
     "test:e2e": "playwright test",
     "test": "yarn test:unit && yarn test:integration && yarn test:e2e",
     "lint": "next lint",
@@ -38,7 +38,6 @@
     "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.9",
     "remove": "^0.1.5",
-    "styled-normalize": "^8.0.7",
     "tailwindcss": "^3.0.24",
     "universal-cookie": "^4.0.4"
   },

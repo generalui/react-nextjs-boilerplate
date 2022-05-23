@@ -1,15 +1,14 @@
 import { signOut, useSession } from 'next-auth/react'
 import { FC } from 'react'
-import { StyledHeader } from './Header.styled'
 import { HeaderProps } from './Header.types'
 
 export const Header: FC<HeaderProps> = () => {
 	const { data: session } = useSession()
 
 	return (
-		<StyledHeader data-testid='Header'>
+		<div data-testid='Header'>
 			<div>
-				<p className={`nojs-show `}>
+				<p className={`nojs-show`}>
 					{session?.user && (
 						<>
 							{session.user.image && (
@@ -33,6 +32,6 @@ export const Header: FC<HeaderProps> = () => {
 					)}
 				</p>
 			</div>
-		</StyledHeader>
+		</div>
 	)
 }

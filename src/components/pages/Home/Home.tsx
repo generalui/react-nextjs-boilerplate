@@ -5,7 +5,7 @@ export const Home = () => {
 	return (
 		<>
 			<NavBar />
-			<h1>Testing DaisyUI</h1>
+			<h1>Welcome to the GenUI React Starter!</h1>
 
 			<button className='btn btn-outline btn-info'>Info</button>
 			<input type='checkbox' className='toggle toggle-accent' />

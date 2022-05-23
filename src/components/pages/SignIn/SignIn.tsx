@@ -6,7 +6,6 @@ import { useRouter } from 'next/router'
 import { FC, useEffect, useState } from 'react'
 import { SigninError } from 'types/Error'
 import { Header } from 'partials/Header'
-import { PageWrapper } from 'partials/PageWrapper'
 import { SignInProps } from './SignIn.types'
 
 const LOGIN_ERRORS: Record<string, string> = {
@@ -49,7 +48,7 @@ export const SignIn: FC<SignInProps> = ({ providers, csrfToken }) => {
 	}, [status, router, callbackUrl, error, setLoginErrors])
 
 	return (
-		<PageWrapper title='SignIn'>
+		<div>
 			<div style={{ overflow: 'hidden', position: 'relative' }} data-testid='SignIn'>
 				<Header />
 				<div>
@@ -129,6 +128,6 @@ export const SignIn: FC<SignInProps> = ({ providers, csrfToken }) => {
 					</div>
 				</div>
 			</div>
-		</PageWrapper>
+		</div>
 	)
 }
