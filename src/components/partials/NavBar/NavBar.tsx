@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { Button } from 'common/Button'
 import { NavBarProps } from './NavBar.types'
 
 export const NavBar: FC<NavBarProps> = () => {
@@ -11,7 +12,7 @@ export const NavBar: FC<NavBarProps> = () => {
 			</div>
 			<div className='navbar-center hidden lg:flex'>Home</div>
 			<div className='navbar-end'>
-				<button className='btn btn-sm'>Sign In</button>
+				<Button className='btn-sm'>Sign In</Button>
 			</div>
 		</div>
 	)

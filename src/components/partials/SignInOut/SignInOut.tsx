@@ -1,5 +1,6 @@
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { FC } from 'react'
+import { Button } from 'common/Button'
 import { SignInOutProps } from './SignInOut.types'
 
 export const RenderAuth = () => {
@@ -9,14 +10,14 @@ export const RenderAuth = () => {
 		return (
 			<>
 				<h4>Signed in as {session.user?.name}</h4>
-				<button onClick={() => signOut()}>Sign out</button>
+				<Button onClick={() => signOut()}>Sign out</Button>
 			</>
 		)
 	}
 	return (
 		<>
 			<h4>Not signed in </h4>
-			<button onClick={() => signIn()}>Sign in</button>
+			<Button onClick={() => signIn()}>Sign in</Button>
 		</>
 	)
 }
