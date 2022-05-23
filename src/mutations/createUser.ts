@@ -1,10 +1,14 @@
+import { User } from '@prisma/client'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime'
 import bcrypt from 'bcrypt'
+import { Credentials } from 'types/Credentials'
 import { prisma } from 'utils/api/prisma'
 
 const SALT_ROUNDS = 10
 
-export const createUser = async () => {
+export type CreateUser = ({ email, password }: Credentials) => Promise<User | null>
+
+export const createUser: CreateUser = async ({ email, password }) => {
 	try {
 		const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS)
 		const user = await prisma.user.create({

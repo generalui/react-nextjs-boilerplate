@@ -105,7 +105,7 @@ export const SignIn: FC<SignInProps> = ({ providers, csrfToken }) => {
 													])
 												}
 
-												const error = (signInResponse as SignInResponse)?.error as string
+												const error = (signInResponse as unknown as SignInResponse)?.error as string
 
 												if (error)
 													setLoginErrors([

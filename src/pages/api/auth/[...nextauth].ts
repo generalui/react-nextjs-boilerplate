@@ -1,9 +1,10 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { User } from '@prisma/client'
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime'
 import bcrypt from 'bcrypt'
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { Credentials } from 'types'
+import { Credentials } from 'types/Credentials'
 import { prisma } from 'utils/api/prisma'
 
 export default NextAuth({
