@@ -12,6 +12,7 @@ export interface PageWrapperProps {
 	children: JSX.Element | JSX.Element[]
 	hasFooter?: boolean
 	loading?: boolean
+	authenticated?: boolean
 }
 
 const Logo = styled.img`

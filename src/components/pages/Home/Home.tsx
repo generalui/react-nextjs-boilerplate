@@ -1,5 +1,6 @@
 import { CardsMesh } from 'partials/CardsMesh'
 import { PageWrapper } from 'partials/PageWrapper'
+import { SignInOut } from 'partials/SignInOut'
 import { FlexContainer } from 'common/FlexContainer'
 import { InlineCode } from 'common/InlineCode'
 import { Text } from 'common/Text'
@@ -18,6 +19,8 @@ export const Home = () => {
 						GenUI React Starter!
 					</a>
 				</Text>
+
+				<SignInOut />
 
 				<Text as='p'>
 					Get started by editing <InlineCode>pages/index.js</InlineCode>
