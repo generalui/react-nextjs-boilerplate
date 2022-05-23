@@ -1,4 +1,3 @@
-import { signIn, signOut, useSession } from 'next-auth/react'
 import { CardsMesh } from 'partials/CardsMesh'
 import { PageWrapper } from 'partials/PageWrapper'
 import { SignInOut } from 'partials/SignInOut'

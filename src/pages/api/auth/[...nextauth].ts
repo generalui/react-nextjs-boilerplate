@@ -42,7 +42,7 @@ export default NextAuth({
 				email: { label: 'Email', type: 'email', placeholder: 'example@email.com' },
 				password: { label: 'Password', type: 'password' }
 			},
-			async authorize(credentials, req) {
+			async authorize(credentials) {
 				// Add logic here to look up the user from the credentials supplied
 				// const user = { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
 				const { email, password, createAccount } = credentials as Credentials

@@ -4,8 +4,7 @@ import { StyledHeader } from './Header.styled'
 import { HeaderProps } from './Header.types'
 
 export const Header: FC<HeaderProps> = () => {
-	const { data: session, status } = useSession()
-	const loading = status === 'loading'
+	const { data: session } = useSession()
 
 	return (
 		<StyledHeader data-testid='Header'>

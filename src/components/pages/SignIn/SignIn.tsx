@@ -1,7 +1,6 @@
 /*!
  * SignIn
  */
-import { GetServerSideProps, GetServerSidePropsContext } from 'next'
 import { SignInResponse, signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { FC, useEffect, useState } from 'react'

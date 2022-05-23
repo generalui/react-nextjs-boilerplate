@@ -4,11 +4,10 @@
 import { render, screen } from '@testing-library/react'
 import { SessionProvider } from 'next-auth/react'
 import { ClientSafeProvider } from 'next-auth/react'
-import { RouterContext } from 'next-server/dist/lib/router-context'
-import * as nextRouter from 'next/router'
 import React from 'react'
 import { SignIn } from './index'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const useRouter = jest.spyOn(require('next/router'), 'useRouter')
 
 const MOCK_PROVIDER: ClientSafeProvider = {
