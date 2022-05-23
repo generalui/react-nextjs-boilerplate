@@ -7,6 +7,7 @@ import { FC, useEffect, useState } from 'react'
 import { SigninError } from 'types/Error'
 import { Button } from 'components/common/Button'
 import { Header } from 'partials/Header'
+import { PageWrapper } from 'partials/PageWrapper'
 import { SignInProps } from './SignIn.types'
 
 const LOGIN_ERRORS: Record<string, string> = {
@@ -49,9 +50,8 @@ export const SignIn: FC<SignInProps> = ({ providers, csrfToken }) => {
 	}, [status, router, callbackUrl, error, setLoginErrors])
 
 	return (
-		<div>
+		<PageWrapper title='Sign in' hideAuth>
 			<div style={{ overflow: 'hidden', position: 'relative' }} data-testid='SignIn'>
-				<Header />
 				<div>
 					<div>
 						{/* TODO: add logo */}
@@ -129,6 +129,6 @@ export const SignIn: FC<SignInProps> = ({ providers, csrfToken }) => {
 					</div>
 				</div>
 			</div>
-		</div>
+		</PageWrapper>
 	)
 }
