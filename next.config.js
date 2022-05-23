@@ -1,9 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	reactStrictMode: true,
-	compiler: {
-		styledComponents: true
-	}
+	compiler: {}
 }
 
 // Refer to bundle analyzer docs if additional

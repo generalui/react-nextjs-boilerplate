@@ -1,32 +1,28 @@
-import { CardsMesh } from 'partials/CardsMesh'
-import { PageWrapper } from 'partials/PageWrapper'
 import { SignInOut } from 'partials/SignInOut'
-import { FlexContainer } from 'common/FlexContainer'
-import { InlineCode } from 'common/InlineCode'
-import { Text } from 'common/Text'
+import { NavBar } from '../../partials/NavBar'
 
 export const Home = () => {
 	return (
-		<PageWrapper>
-			<FlexContainer column>
-				<Text as='h1' center>
-					Welcome to the{' '}
-					<a
-						rel='noreferrer'
-						target='_blank'
-						href='https://github.com/generalui/react-nextjs-boilerplate'
-					>
-						GenUI React Starter!
-					</a>
-				</Text>
+		<>
+			<NavBar />
+			<h1>Welcome to the GenUI React Starter!</h1>
 
-				<SignInOut />
+			<button className='btn btn-outline btn-info'>Info</button>
+			<input type='checkbox' className='toggle toggle-accent' />
+			<div className='card w-96 bg-base-100 shadow-xl'>
+				<figure>
+					<img src='https://api.lorem.space/image/shoes?w=400&h=225' alt='Shoes' />
+				</figure>
+				<div className='card-body'>
+					<h2 className='card-title'>Shoes!</h2>
+					<p>If a dog chews shoes whose shoes does he choose?</p>
+					<div className='card-actions justify-end'>
+						<button className='btn btn-primary'>Buy Now</button>
+					</div>
+				</div>
+			</div>
 
-				<Text as='p'>
-					Get started by editing <InlineCode>pages/index.js</InlineCode>
-				</Text>
-				<CardsMesh />
-			</FlexContainer>
-		</PageWrapper>
+			<SignInOut />
+		</>
 	)
 }
