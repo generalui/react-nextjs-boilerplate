@@ -1,20 +1,19 @@
 /**
- * This is a test file for NavBar
+ * This is a test file for PageWrapper
  */
 import { render, screen } from '@testing-library/react'
 import { SessionProvider } from 'next-auth/react'
 import React from 'react'
-import { NavBar } from './index'
+import { PageWrapper } from './index'
 
-describe('NavBar Component', () => {
+describe('PageWrapper Component', () => {
 	it('renders on the page', () => {
 		render(
 			<SessionProvider session={null}>
-				<NavBar />
+				<PageWrapper />
 			</SessionProvider>
 		)
-
-		const component = screen.getByTestId('NavBar')
+		const component = screen.getByTestId('PageWrapper')
 
 		expect(component).toBeInTheDocument()
 	})

@@ -1,11 +1,10 @@
+import { PageWrapper } from 'partials/PageWrapper'
 import { SignInOut } from 'partials/SignInOut'
 import { Button } from 'common/Button'
-import { NavBar } from '../../partials/NavBar'
 
 export const Home = () => {
 	return (
-		<>
-			<NavBar />
+		<PageWrapper title='Home'>
 			<h1>Welcome to the GenUI React Starter!</h1>
 
 			<Button className='btn-outline btn-info'>Info</Button>
@@ -22,8 +21,6 @@ export const Home = () => {
 					</div>
 				</div>
 			</div>
-
-			<SignInOut />
-		</>
+		</PageWrapper>
 	)
 }

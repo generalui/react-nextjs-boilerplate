@@ -9,14 +9,13 @@ export const RenderAuth = () => {
 	if (session) {
 		return (
 			<>
-				<h4>Signed in as {session.user?.name}</h4>
+				<span className='mr-2'>Signed in as {session.user?.name}</span>{' '}
 				<Button onClick={() => signOut()}>Sign out</Button>
 			</>
 		)
 	}
 	return (
 		<>
-			<h4>Not signed in </h4>
 			<Button onClick={() => signIn()}>Sign in</Button>
 		</>
 	)
