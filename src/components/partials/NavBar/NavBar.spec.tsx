@@ -2,12 +2,17 @@
  * This is a test file for NavBar
  */
 import { render, screen } from '@testing-library/react'
+import { SessionProvider } from 'next-auth/react'
 import React from 'react'
 import { NavBar } from './index'
 
 describe('NavBar Component', () => {
 	it('renders on the page', () => {
-		render(<NavBar />)
+		render(
+			<SessionProvider session={null}>
+				<NavBar />
+			</SessionProvider>
+		)
 
 		const component = screen.getByTestId('NavBar')
 

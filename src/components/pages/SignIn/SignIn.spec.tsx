@@ -19,23 +19,13 @@ const MOCK_PROVIDER: ClientSafeProvider = {
 }
 
 describe('SignIn Component', () => {
-	// jest.mock('next/router', () => ({
-	// 	useRouter() {
-	// 		return {
-	// 			route: '/',
-	// 			pathname: '',
-	// 			query: {},
-	// 			asPath: ''
-	// 		}
-	// 	}
-	// }))
 	useRouter.mockImplementationOnce(() => ({
 		query: { product: 'coffee' }
 	}))
+
 	it('renders on the page', () => {
 		render(
 			<SessionProvider session={null}>
-				{/* disable next line */}
 				<SignIn providers={{ credentials: MOCK_PROVIDER }} csrfToken={''} />
 			</SessionProvider>
 		)
