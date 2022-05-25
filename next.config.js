@@ -1,7 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	reactStrictMode: true,
-	compiler: {}
+	compiler: {},
+	images: {
+		domains: ['unsplash.com']
+	}
 }
 
 // Refer to bundle analyzer docs if additional

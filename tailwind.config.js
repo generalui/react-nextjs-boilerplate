@@ -1,7 +1,15 @@
 module.exports = {
 	content: ['./src/components/**/*.tsx', './src/styles/**/*.css', './pages/**/*.tsx'],
 	theme: {
-		extend: {}
+		extend: {
+			typography: {
+				DEFAULT: {
+					css: {
+						color: '#474747'
+					}
+				}
+			}
+		}
 	},
-	plugins: [require('@tailwindcss/forms'), require('daisyui')]
+	plugins: [require('daisyui')]
 }
