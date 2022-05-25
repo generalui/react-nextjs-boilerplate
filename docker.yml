@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  postgres:
+    restart: always
+    image: postgres:14.2-alpine
+    container_name: nbdc-docker-pg
+    ports:
+      - 5432:5432
+    networks:
+      - postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: docker
+    command: ['postgres', '-c', 'log_statement=all', '-c', 'log_destination=stderr']
+    volumes:
+      - pgvol:/var/lib/postgresql/data:delegated
+volumes:
+  pgvol:
+  pgavol:
+
+networks:
+  postgres:
+    name: postgres
