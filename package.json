@@ -18,7 +18,8 @@
     "prepare": "husky install",
     "plop": "plop",
     "prisma": "prisma",
-    "build-css": "yarn tailwindcss -i"
+    "build-css": "yarn tailwindcss -i",
+    "docker:compose": "docker-compose -f docker.yml up -d --build"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
