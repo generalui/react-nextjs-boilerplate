@@ -18,6 +18,7 @@
     "prepare": "husky install",
     "plop": "plop",
     "prisma": "prisma",
+    "db:init": "yarn docker:compose && yarn prisma generate && yarn prisma migrate dev",
     "build-css": "yarn tailwindcss -i",
     "docker:compose": "docker-compose -f docker.yml up -d --build"
   },
