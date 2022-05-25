@@ -11,7 +11,7 @@ import { Input } from 'common/Input'
 import { SignInFormProps } from './SignInForm.types'
 
 const LOGIN_ERRORS: Record<string, string> = {
-	CredentialsSignin: 'User name or password not valid.',
+	CredentialsSignin: 'Username or password not valid.',
 	UserAlreadyExists: 'User with this email already exists.',
 	failedLogin: 'Failed to login.'
 }
@@ -99,7 +99,9 @@ export const SignInForm = ({ providers, csrfToken, className }: SignInFormProps)
 								>
 									{provider.id === 'credentials' && (
 										<div className='mb-5'>
-											<label htmlFor='email'>Email</label>
+											<label className='label' htmlFor='email'>
+												Email
+											</label>
 											<Input
 												id='email'
 												className='w-full mb-2'
@@ -109,7 +111,9 @@ export const SignInForm = ({ providers, csrfToken, className }: SignInFormProps)
 												value={email}
 												onChange={(e) => setEmail(e.target.value)}
 											/>
-											<label htmlFor='password'>Password</label>
+											<label className='label' htmlFor='password'>
+												Password
+											</label>
 
 											<Input
 												className='w-full mb-2'
@@ -126,7 +130,7 @@ export const SignInForm = ({ providers, csrfToken, className }: SignInFormProps)
 										{loginErrors &&
 											loginErrors.map((err) => (
 												<div
-													className='alert border-solid border-2 border-red-500 bg-base-100 shadow-md'
+													className='alert border-solid border-2 border-red-500 bg-base-100'
 													key={err.id}
 												>
 													<div>

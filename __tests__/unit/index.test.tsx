@@ -12,7 +12,7 @@ describe('Home', () => {
 		)
 
 		const heading = screen.getByRole('heading', {
-			name: /welcome to the genui react starter!/i
+			name: /welcome to the native biodata consortium web portal!/i
 		})
 
 		expect(heading).toBeInTheDocument()
