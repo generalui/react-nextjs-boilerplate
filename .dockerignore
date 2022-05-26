@@ -26,13 +26,13 @@ plopfile.js
 .vscode
 
 # Tests
-/__tests__/
+# /__tests__/
 
 # Copied from .gitignore
 # ------------------------------------------------------------------------------
 
 # dependencies
-/node_modules
+# /node_modules
 /.pnp
 .pnp.js
 

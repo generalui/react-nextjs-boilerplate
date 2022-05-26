@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  db:
+    env_file: .env.production.local
+    restart: always
+    image: postgres:14.2-alpine
+    container_name: nbdc-docker-db
+    ports:
+      - 5432:5432
+    networks:
+      - ndbc_network
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: docker
+    command: ['postgres', '-c', 'log_statement=all', '-c', 'log_destination=stderr']
+    volumes:
+      - dbvol:/var/lib/postgresql/data:delegated
+    # healthcheck:
+    #   test: ['CMD', 'curl', '-f', 'http://localhost:5432']
+    #   interval: 3s
+    #   timeout: 10s
+    #   start_period: 10s
+
+  next-js:
+    # Install dependencies only when needed
+    env_file: .env.production.local
+    build: .
+    volumes:
+      - nextjsvol:/var/lib/nextjsvol/data:delegated
+    ports:
+      - 3000:3000
+    networks:
+      - ndbc_network
+    # depends_on:
+    #   db:
+    #     condition: service_healthy
+    command:
+      - 'sh'
+      - '-c'
+      - 'if [ ${NO_AUTO_MIGRATE:-} ]; then echo "no auto migrate flag set"; else yarn prisma migrate dev; fi'
+      - '&&'
+      - 'node'
+      - 'server.js'
+
+volumes:
+  dbvol:
+  nextjsvol:
+
+networks:
+  ndbc_network:
+    name: ndbc_network

@@ -21,7 +21,9 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN yarn build
+# RUN yarn run prisma:generate
+# RUN yarn run prisma:migrate:dev
+RUN yarn run prisma:generate && yarn build
 
 # If using npm comment out above and use below instead
 # RUN npm run build
@@ -34,8 +36,8 @@ ENV NODE_ENV production
 # Uncomment the following line in case you want to disable telemetry during runtime.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nextjs
 
 # You only need to copy next.config.js if you are NOT using the default configuration
 COPY --from=builder /app/next.config.js ./
@@ -53,5 +55,3 @@ USER nextjs
 EXPOSE 3000
 
 ENV PORT 3000
-
-CMD ["node", "server.js"]
