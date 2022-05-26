@@ -4,6 +4,9 @@ const nextConfig = {
 	compiler: {},
 	images: {
 		domains: ['unsplash.com']
+	},
+	experimental: {
+		outputStandalone: true
 	}
 }
 
