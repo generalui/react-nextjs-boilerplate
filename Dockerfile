@@ -22,11 +22,7 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED 1
 
 # RUN yarn run prisma:generate
-# RUN yarn run prisma:migrate:dev
 RUN yarn run prisma:generate && yarn build
-
-# If using npm comment out above and use below instead
-# RUN npm run build
 
 # Production image, copy all the files and run next
 FROM node:16-alpine AS runner
@@ -55,3 +51,5 @@ USER nextjs
 EXPOSE 3000
 
 ENV PORT 3000
+
+CMD ["node", "server.js"]

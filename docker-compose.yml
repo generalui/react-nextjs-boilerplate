@@ -1,51 +1,42 @@
 version: '3.8'
 
 services:
+  # Database container
   db:
-    env_file: .env.production.local
     restart: always
     image: postgres:14.2-alpine
-    container_name: nbdc-docker-db
+    container_name: db
     ports:
       - 5432:5432
     networks:
       - ndbc_network
     environment:
+      NODE_ENV: production
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: docker
     command: ['postgres', '-c', 'log_statement=all', '-c', 'log_destination=stderr']
     volumes:
       - dbvol:/var/lib/postgresql/data:delegated
-    # healthcheck:
-    #   test: ['CMD', 'curl', '-f', 'http://localhost:5432']
-    #   interval: 3s
-    #   timeout: 10s
-    #   start_period: 10s
 
+  # Application container
   next-js:
+    container_name: web-app
     # Install dependencies only when needed
-    env_file: .env.production.local
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: 'postgresql://postgres:docker@db:5432/nbdc-db?schema=public&connect_timeout=300'
+      NEXTAUTH_SECRET: 'TEST'
+      NEXT_SHARP_PATH: /app/node_modules/sharp
     build: .
-    volumes:
-      - nextjsvol:/var/lib/nextjsvol/data:delegated
     ports:
       - 3000:3000
     networks:
       - ndbc_network
-    # depends_on:
-    #   db:
-    #     condition: service_healthy
-    command:
-      - 'sh'
-      - '-c'
-      - 'if [ ${NO_AUTO_MIGRATE:-} ]; then echo "no auto migrate flag set"; else yarn prisma migrate dev; fi'
-      - '&&'
-      - 'node'
-      - 'server.js'
+    depends_on:
+      - db
 
 volumes:
   dbvol:
-  nextjsvol:
 
 networks:
   ndbc_network:
