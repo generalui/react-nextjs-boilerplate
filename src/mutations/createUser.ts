@@ -1,6 +1,6 @@
 import { User } from '@prisma/client'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import { Credentials } from 'types/Credentials'
 import { prisma } from 'utils/api/prisma'
 

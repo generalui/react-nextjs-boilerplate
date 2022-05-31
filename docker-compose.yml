@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  # Database container
+  db:
+    restart: always
+    image: postgres:14.2-alpine
+    container_name: db
+    ports:
+      - 5432:5432
+    networks:
+      - ndbc_network
+    environment:
+      NODE_ENV: production
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: docker
+    command: ['postgres', '-c', 'log_statement=all', '-c', 'log_destination=stderr']
+    volumes:
+      - dbvol:/var/lib/postgresql/data:delegated
+
+  # Application container
+  next-js:
+    container_name: web-app
+    # Install dependencies only when needed
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: 'postgresql://postgres:docker@db:5432/nbdc-db?schema=public&connect_timeout=300'
+      NEXTAUTH_SECRET: 'TEST'
+      NEXT_SHARP_PATH: /app/node_modules/sharp
+    build: .
+    ports:
+      - 3000:3000
+    networks:
+      - ndbc_network
+    depends_on:
+      - db
+
+volumes:
+  dbvol:
+
+networks:
+  ndbc_network:
+    name: ndbc_network

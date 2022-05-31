@@ -14,7 +14,7 @@ export default SignIn
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const providers = await getProviders()
-	console.log('~ providers', providers)
+
 	const csrfToken = await getCsrfToken(context)
 	return {
 		props: {

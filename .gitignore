@@ -27,6 +27,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+*.log
 
 # local env files
 .env.local
@@ -37,3 +38,4 @@ yarn-error.log*
 # Docs
 # TODO: add this folder to the github project once jsdoc kinks are worked out
 /docs/
+
