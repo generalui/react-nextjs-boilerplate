@@ -1,5 +1,6 @@
 import { PageWrapper } from 'partials/PageWrapper'
 import { Card } from 'common/Card'
+import { FileInput } from '../../partials/FileInput'
 
 export const Home = () => {
 	return (
@@ -21,6 +22,7 @@ export const Home = () => {
 						</a>
 					</Card>
 				</div>
+				<FileInput />
 			</div>
 		</PageWrapper>
 	)
