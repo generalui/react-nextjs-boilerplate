@@ -1,5 +1,5 @@
-import axios from 'axios'
 import { ChangeEvent, useState } from 'react'
+import { axios } from 'utils/axios'
 import { Button } from 'components/common/Button'
 
 export const FileInput = () => {
@@ -17,7 +17,7 @@ export const FileInput = () => {
 
 			formData.append('file', selectedFile)
 
-			await axios.post('http://localhost:3000/api/documents', formData, {
+			await axios.post('/documents', formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data'
 				}

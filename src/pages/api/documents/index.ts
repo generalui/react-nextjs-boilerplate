@@ -1,28 +1,38 @@
 import multer from 'multer'
-import { NextApiResponse } from 'next'
-import nextConnect from 'next-connect'
 import { ApiRequestWithFile } from 'types/ApiRequestWithFile'
+import { connect } from 'utils/api/connect'
 import { upload } from 'utils/api/media'
+import { parseFile } from 'utils/api/parseFile'
 
+/**
+ * Api setup for uploading documents
+ *
+ * Reference tutorial: https://betterprogramming.pub/upload-files-to-next-js-with-api-routes-839ce9f28430
+ * Mutler reference: https://github.com/expressjs/multer#readme
+ */
+
+const apiRoute = connect()
+
+// Config mutler to process files in memory
 const uploadMiddleware = multer({
 	storage: multer.memoryStorage()
 })
 
-const apiRoute = nextConnect({
-	// Handle any other HTTP method
-	onNoMatch(req, res: NextApiResponse) {
-		res.status(405).json({ error: `Method '${req.method}' Not Allowed` })
-	}
-})
-
+// Middleware processing FormData to file
 apiRoute.use(uploadMiddleware.single('file'))
 
-// Process a POST request
+// Handle post request
 apiRoute.post(async (req: ApiRequestWithFile, res) => {
 	try {
-		const file = 'data:image/png;base64,' + req.file.buffer.toString('base64')
-		await upload({ file })
+		// Add data type to base64 string
+		const { base64, publicId, originalName } = parseFile(req.file)
+
+		// Upload (to cloudinary)
+		const cloudinaryResponse = await upload({ file: base64, publicId })
+
+		console.log('~ cloudinaryResponse', cloudinaryResponse)
 	} catch (error) {
+		// Handle errors
 		console.log('error: ', error)
 		res.status(400).json({ message: error })
 	}
@@ -30,14 +40,9 @@ apiRoute.post(async (req: ApiRequestWithFile, res) => {
 
 export default apiRoute
 
+// Disallow body parsing, consume as stream, for file upload
 export const config = {
 	api: {
-		bodyParser: false // Disallow body parsing, consume as stream
+		bodyParser: false
 	}
 }
-
-// error codes (pdf, jpg, png)
-// Automatic document options
-// Save in postgres
-// Upload from frontend
-// convert to data buffer or whatever

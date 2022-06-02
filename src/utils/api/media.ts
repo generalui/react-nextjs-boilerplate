@@ -9,18 +9,18 @@ cloudinary.config({
 
 export interface UploadArgs {
 	file: string
-	resourceType?: 'image' | 'pdf'
+	resourceType?: 'image' | 'pdf' | 'auto'
 	publicId?: string
 	overwrite?: boolean
 }
 
 export const upload = ({
 	file,
-	resourceType = 'image',
+	resourceType = 'auto',
 	publicId = new Date().getTime().toString(),
 	overwrite = false
 }: UploadArgs) => {
-	const options = { resourceType, publicId, overwrite }
+	const options = { resource_type: resourceType, public_id: publicId, overwrite }
 	return cloudinary.uploader.upload(file, options, function (error, result) {
 		console.log(result, error)
 	})
