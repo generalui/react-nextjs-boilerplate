@@ -94,9 +94,6 @@ export default NextAuth({
 	],
 	callbacks: {
 		async redirect({ url, baseUrl }) {
-			console.log('~ redirect')
-			console.log('~ baseUrl', baseUrl)
-			console.log('~ url', url)
 			// Allows relative callback URLs
 			if (url.startsWith('/')) return `${baseUrl}${url}`
 			// Allows callback URLs on the same origin

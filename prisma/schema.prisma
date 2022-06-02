@@ -50,7 +50,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  Document      Document[]
+  document      Document[]
 }
 
 model VerificationToken {
@@ -63,9 +63,9 @@ model VerificationToken {
 
 model Document {
   id           String @id @default(cuid())
-  userId       String
+  uploadedById String
   name         String
   url          String
-  resourceType String
-  user         User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fileType     String
+  uploadedBy   User   @relation(fields: [uploadedById], references: [id], onDelete: Cascade)
 }

@@ -45,8 +45,9 @@ export const SignInForm = ({ providers, csrfToken, className }: SignInFormProps)
 				}
 			}
 		}
-		if (status === 'authenticated' && callbackUrl) {
-			router.push(callbackUrl as string)
+		if (status === 'authenticated') {
+			const redirectUrl = callbackUrl || '/'
+			router.push(redirectUrl as string)
 		}
 	}, [status, router, callbackUrl, error, setLoginErrors])
 
