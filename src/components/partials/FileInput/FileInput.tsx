@@ -12,28 +12,16 @@ export const FileInput = () => {
 	}
 
 	const handleSubmission = async () => {
-		console.log('files: ', selectedFile)
 		if (selectedFile) {
 			const formData = new FormData()
 
-			formData.append('File', selectedFile)
-			for (const key of formData.entries()) {
-				console.log(key[0] + ', ' + key[1])
-			}
-			await axios
-				.post('http://localhost:3000/api/documents', formData, {
-					headers: {
-						'Content-Type': 'multipart/form-data'
-					}
-				})
-				.then((r) => {
-					console.log(r)
-				})
-				.catch((r) => console.log(r))
+			formData.append('file', selectedFile)
 
-			console.log('done!')
-		} else {
-			console.log('Select a file')
+			await axios.post('http://localhost:3000/api/documents', formData, {
+				headers: {
+					'Content-Type': 'multipart/form-data'
+				}
+			})
 		}
 	}
 

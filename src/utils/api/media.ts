@@ -1,11 +1,5 @@
 import { v2 as cloudinary } from 'cloudinary'
 
-export type DocumentOptions = {
-	resourceType: 'image' | 'pdf'
-	publicId?: string
-	overwrite: boolean
-}
-
 cloudinary.config({
 	cloud_name: process.env.CLOUD_NAME,
 	api_key: process.env.API_KEY,
@@ -13,8 +7,21 @@ cloudinary.config({
 	secure: true
 })
 
-export const upload = (documentName: string, options: DocumentOptions) => {
-	return cloudinary.uploader.upload(documentName, options, function (error, result) {
+export interface UploadArgs {
+	file: string
+	resourceType?: 'image' | 'pdf'
+	publicId?: string
+	overwrite?: boolean
+}
+
+export const upload = ({
+	file,
+	resourceType = 'image',
+	publicId = new Date().getTime().toString(),
+	overwrite = false
+}: UploadArgs) => {
+	const options = { resourceType, publicId, overwrite }
+	return cloudinary.uploader.upload(file, options, function (error, result) {
 		console.log(result, error)
 	})
 }
