@@ -1,10 +1,10 @@
 import multer from 'multer'
 import { ApiRequestWithFile } from 'types/ApiRequestWithFile'
 import { connect } from 'utils/api/connect'
+import { getSessionFromReq } from 'utils/api/getSessionFromReq'
 import { upload } from 'utils/api/media'
 import { parseFile } from 'utils/api/parseFile'
-
-// import { prisma } from 'utils/api/prisma'
+import { prisma } from 'utils/api/prisma'
 
 /**
  * Api setup for uploading documents
@@ -25,39 +25,35 @@ apiRoute.use(uploadMiddleware.single('file'))
 
 // Handle post request
 apiRoute.post(async (req: ApiRequestWithFile, res) => {
-	console.log('~ req', req)
+	// Get the user session
+	const session = await getSessionFromReq(req)
+
 	try {
 		// Add data type to base64 string
 		const { base64, publicId, originalName, mimeType } = parseFile(req.file)
 
 		// Upload (to cloudinary)
-		const cloudinaryResponse = await upload({ file: base64, publicId })
+		const { secure_url } = await upload({ file: base64, publicId })
 
-		// // Add document to database
-		// prisma.document.create({
-		// 	data: {
-		// 		name: originalName,
-		// 		url: cloudinaryResponse.secure_url,
-		// 		fileType: mimeType
-		// 	}
-		// })
+		// Create database entry for documents and add to user
+		await prisma.user.update({
+			where: {
+				id: session.userId as string
+			},
+			data: {
+				documents: {
+					create: {
+						name: originalName,
+						url: secure_url,
+						fileType: mimeType
+					}
+				}
+			}
+		})
 
-		// await prisma.user.update({
-		// 	where: {
-		// 		id: 20
-		// 	},
-		// 	data: {
-		// 		posts: {
-		// 			connect: {
-		// 				id: 4
-		// 			}
-		// 		}
-		// 	}
-		// })
-		console.log('~ cloudinaryResponse', cloudinaryResponse)
+		res.status(200).json({})
 	} catch (error) {
 		// Handle errors
-		console.log('error: ', error)
 		res.status(400).json({ message: error })
 	}
 })

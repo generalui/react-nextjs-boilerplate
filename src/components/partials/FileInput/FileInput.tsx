@@ -1,9 +1,21 @@
+import { AxiosError } from 'axios'
 import { ChangeEvent, useState } from 'react'
 import { axios } from 'utils/axios'
+import { AlertError } from 'components/common/AlertError'
 import { Button } from 'components/common/Button'
+import { Alert } from 'common/Alert'
+
+enum FileUploadEnum {
+	NotStarted = 'not-started',
+	Uploading = 'uploading',
+	Uploaded = 'uploaded',
+	Error = 'error'
+}
 
 export const FileInput = () => {
 	const [selectedFile, setSelectedFile] = useState<File>()
+	const [state, setUploadState] = useState<FileUploadEnum>(FileUploadEnum.NotStarted)
+	const [errors, setErrors] = useState<string[]>([])
 
 	const handleFileInput = (event: ChangeEvent<HTMLInputElement>) => {
 		if (event.target.files && event.target.files?.length > 0) {
@@ -17,11 +29,24 @@ export const FileInput = () => {
 
 			formData.append('file', selectedFile)
 
-			await axios.post('/documents', formData, {
-				headers: {
-					'Content-Type': 'multipart/form-data'
-				}
-			})
+			try {
+				setUploadState(FileUploadEnum.Uploading)
+
+				await axios.post('/documents', formData, {
+					headers: {
+						'Content-Type': 'multipart/form-data'
+					}
+				})
+
+				setUploadState(FileUploadEnum.Uploaded)
+				setErrors([])
+			} catch (error) {
+				const errors = ((error as AxiosError).response?.data as { errors: string[] })?.errors || [
+					'There was an error processing your request'
+				]
+				setUploadState(FileUploadEnum.Error)
+				setErrors(errors)
+			}
 		}
 	}
 
@@ -34,12 +59,31 @@ export const FileInput = () => {
 				Upload file
 			</label>
 			<input
-				className='block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400'
+				className='mb-6 block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray300 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400'
 				id='file_input'
 				type='file'
 				onChange={(e) => handleFileInput(e)}
 			/>
-			<Button onClick={handleSubmission}>Upload file</Button>
+			<Button className='w-full' onClick={handleSubmission}>
+				Upload file
+			</Button>
+			{state === FileUploadEnum.Uploading && (
+				<Alert className='mt-6' info>
+					Uploading...
+				</Alert>
+			)}
+			{state === FileUploadEnum.Uploaded && (
+				<Alert className='mt-6' success>
+					File uploaded successfully!
+				</Alert>
+			)}
+
+			{/* Handle errors */}
+			{state === FileUploadEnum.Error && errors.length > 0 && (
+				<div className='grid grid-cols-1 gap-4 mt-6'>
+					{errors && errors.map((err) => <AlertError key={err}>{err}</AlertError>)}
+				</div>
+			)}
 		</div>
 	)
 }

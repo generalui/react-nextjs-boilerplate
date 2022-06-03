@@ -1,9 +1,5 @@
 {
 	"search.exclude": {
 		".next": true
-  },
-  "cSpell.words": [
-    "cloudinary",
-    "testid"
-  ]
+	}
 }

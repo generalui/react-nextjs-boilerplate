@@ -17,11 +17,9 @@ export interface UploadArgs {
 export const upload = ({
 	file,
 	resourceType = 'auto',
-	publicId = new Date().getTime().toString(),
+	publicId = `${process.env.CLOUD_FOLDER_NAME}/${new Date().getTime().toString()}`,
 	overwrite = false
 }: UploadArgs) => {
 	const options = { resource_type: resourceType, public_id: publicId, overwrite }
-	return cloudinary.uploader.upload(file, options, function (error, result) {
-		console.log(result, error)
-	})
+	return cloudinary.uploader.upload(file, options)
 }
