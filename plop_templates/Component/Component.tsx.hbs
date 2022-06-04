@@ -1,9 +1,6 @@
+import { memo } from 'react'
 import { {{properCase name}}Props } from './{{properCase name}}.types'
 
-export const {{properCase name}} = ({}: {{properCase name}}Props) => {
-	{{!-- {{#if useState}}
-	const [] = useState()
-	{{/if}} --}}
-	return <div data-testid='{{properCase name}}'>{/* children */}</div>
-}
-{{!-- TODO: Add memo by default --}}
+export const {{properCase name}} = memo(function {{properCase name}}({ children, testId = '{{properCase name}}' }: {{properCase name}}Props) {
+	return <div data-testid={testId}>{children}</div>
+})

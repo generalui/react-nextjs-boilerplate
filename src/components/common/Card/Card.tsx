@@ -1,8 +1,9 @@
 import cn from 'classnames'
 import Image from 'next/image'
+import { memo } from 'react'
 import { CardProps } from './Card.types'
 
-export const Card = ({ className, children, title, img, imgAlt }: CardProps) => {
+export const Card = memo(function Card({ className, children, title, img, imgAlt }: CardProps) {
 	return (
 		<div
 			data-testid='Card'
@@ -17,4 +18,4 @@ export const Card = ({ className, children, title, img, imgAlt }: CardProps) => 
 			{children && <div className='card-body'>{children}</div>}
 		</div>
 	)
-}
+})

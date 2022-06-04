@@ -6,7 +6,7 @@ const fs = require('fs')
 const path = require('path')
 
 module.exports = (plop) => {
-	plop.setGenerator('Type', {
+	plop.setGenerator('type', {
 		description: 'Generate type',
 		prompts: [
 			{
