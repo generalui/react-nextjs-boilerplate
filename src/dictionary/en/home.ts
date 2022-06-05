@@ -1,4 +1,7 @@
 const home = {
+	title: {
+		message: 'Home'
+	},
 	welcomeHeading: {
 		title: {
 			message: 'Welcome to the Native BioData Consortium Web Portal!'
