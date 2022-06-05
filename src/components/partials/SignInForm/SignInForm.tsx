@@ -5,25 +5,31 @@ import { SignInResponse, signIn, useSession } from 'next-auth/react'
 import { ClientSafeProvider } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { useMemo } from 'react'
 import { SigninError } from 'types/Error'
+import { useText } from 'hooks/useText'
 import { AlertError } from 'common/AlertError'
 import { Button } from 'common/Button'
 import { Input } from 'common/Input'
 import { SignInFormProps } from './SignInForm.types'
 
-const LOGIN_ERRORS: Record<string, string> = {
-	CredentialsSignin: 'Username or password not valid.',
-	UserAlreadyExists: 'User with this email already exists.',
-	failedLogin: 'Failed to login.'
-}
-
 export const SignInForm = ({ providers, csrfToken, className }: SignInFormProps) => {
+	const { t } = useText('signIn.form')
 	const { status } = useSession()
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [loginErrors, setLoginErrors] = useState<SigninError[]>([])
 	const router = useRouter()
 	const { callbackUrl, error } = router.query
+
+	const LOGIN_ERRORS: Record<string, string> = useMemo(
+		() => ({
+			CredentialsSignin: t('errors.credentialsSignin'),
+			UserAlreadyExists: t('errors.userAlreadyExists'),
+			failedLogin: t('errors.failedLogin')
+		}),
+		[t]
+	)
 
 	useEffect(() => {
 		if (status !== 'loading') {
@@ -49,7 +55,7 @@ export const SignInForm = ({ providers, csrfToken, className }: SignInFormProps)
 			const redirectUrl = callbackUrl || '/'
 			router.push(redirectUrl as string)
 		}
-	}, [status, router, callbackUrl, error, setLoginErrors])
+	}, [status, router, callbackUrl, error, setLoginErrors, LOGIN_ERRORS])
 
 	const createAccount = async (provider: ClientSafeProvider) => {
 		const signInResponse: SignInResponse | undefined = await signIn(provider.id, {
@@ -102,25 +108,23 @@ export const SignInForm = ({ providers, csrfToken, className }: SignInFormProps)
 									{provider.id === 'credentials' && (
 										<div className='mb-5'>
 											<label className='label' htmlFor='email'>
-												Email
+												{t('email.label')}
 											</label>
 											<Input
 												id='email'
 												className='w-full mb-2'
-												placeholder='Email'
 												type='email'
 												data-testid='signin-email'
 												value={email}
 												onChange={(e) => setEmail(e.target.value)}
 											/>
 											<label className='label' htmlFor='password'>
-												Password
+												{t('password.label')}
 											</label>
 
 											<Input
 												className='w-full mb-2'
 												id='password'
-												placeholder='Password'
 												type='password'
 												data-testid='signin-password'
 												value={password}
@@ -138,10 +142,10 @@ export const SignInForm = ({ providers, csrfToken, className }: SignInFormProps)
 											className='w-full'
 											onClick={() => signIn(provider.id, { email, password })}
 										>
-											Sign in with {provider.name}
+											{t('signIn')}
 										</Button>
 										<Button className='w-full' onClick={() => createAccount(provider)}>
-											Create account
+											{t('createAccount')}
 										</Button>
 									</div>
 								</div>

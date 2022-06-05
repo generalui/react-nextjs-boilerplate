@@ -18,7 +18,7 @@
 		"sourceMap": true,
 		"incremental": true,
 		"baseUrl": ".",
-    "downlevelIteration": true,
+		"downlevelIteration": true,
 		"paths": {
 			"styles/*": ["src/styles/*"],
 			"components/*": ["src/components/*"],
@@ -31,6 +31,7 @@
 			"reducers/*": ["src/store/reducers/*"],
 			"types/*": ["src/types/*"],
 			"utils/*": ["src/utils/*"],
+			"dictionary/*": ["src/dictionary/*"],
 			"__tests__/*": ["__tests__/*"],
 			"__mocks__/*": ["__tests__/__mocks__/*"]
 		}

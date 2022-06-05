@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
 	reactStrictMode: true,
 	compiler: {},
@@ -7,6 +8,10 @@ const nextConfig = {
 	},
 	experimental: {
 		outputStandalone: true
+	},
+	i18n: {
+		locales: ['en'],
+		defaultLocale: 'en'
 	}
 }
 
