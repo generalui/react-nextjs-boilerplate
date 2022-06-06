@@ -18,6 +18,7 @@
 		"sourceMap": true,
 		"incremental": true,
 		"baseUrl": ".",
+    "downlevelIteration": true,
 		"paths": {
 			"styles/*": ["src/styles/*"],
 			"components/*": ["src/components/*"],

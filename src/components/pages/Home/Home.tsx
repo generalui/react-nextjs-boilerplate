@@ -1,11 +1,12 @@
 import { PageWrapper } from 'partials/PageWrapper'
 import { Card } from 'common/Card'
+import { FileInput } from '../../partials/FileInput'
 
 export const Home = () => {
 	return (
 		<PageWrapper title='Home'>
-			<div className='grid grid-cols-1 md:grid-cols-4 gap-6'>
-				<div className='col-span-4 md:col-span-3'>
+			<div className='grid grid-cols-1 lg:grid-cols-4 gap-6'>
+				<div className='col-span-4 lg:col-span-3'>
 					<Card
 						className='lg:card-side'
 						img='https://unsplash.com/photos/v13x0qU4afA/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8NXx8d29vZCUyMGNyYWZ0aW5nfGVufDB8fHx8MTY1MzQ0NjY4NQ&force=true&w=1080'
@@ -14,12 +15,17 @@ export const Home = () => {
 						<h4>This app is currently under construction 🏗️ 🚧 👷</h4>
 					</Card>
 				</div>
-				<div className='w-full col-span-4 md:col-span-1'>
-					<Card className='h-full grid place-content-center w-full'>
-						<a href='https://github.com/generalui/native-biodata-portal' target='__blank'>
-							View the code here 👩‍💻
-						</a>
-					</Card>
+				<div className='w-full col-span-4 lg:col-span-1'>
+					<div className='grid grid-cols-1 gap-6'>
+						<Card className='h-full grid place-content-center w-full'>
+							<a href='https://github.com/generalui/native-biodata-portal' target='__blank'>
+								View the code here 👩‍💻
+							</a>
+						</Card>
+						<Card className='h-full grid place-content-center w-full'>
+							<FileInput />
+						</Card>
+					</div>
 				</div>
 			</div>
 		</PageWrapper>

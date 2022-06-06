@@ -5,5 +5,7 @@ export interface CommonProps {
 	className?: string
 	children?: ReactNode
 	onClick?: () => void
+	key?: string
 	['data-testid']?: string
+	testId?: string
 }

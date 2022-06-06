@@ -9,17 +9,30 @@ const VARIANTS = {
 	MUTED: 'text-gray-700 bg-gray-100 rounded-lg dark:bg-gray-700 dark:text-gray-300'
 }
 
-export const Alert = ({ children, info, danger, success, warning, muted }: AlertProps) => {
+export const Alert = ({
+	children,
+	className,
+	info,
+	danger,
+	success,
+	warning,
+	muted,
+	testId
+}: AlertProps) => {
 	return (
 		<div
-			data-testid='Alert'
-			className={cn('p-4 text-sm rounded-lg flex items-center', {
-				[VARIANTS.INFO]: info,
-				[VARIANTS.DANGER]: danger,
-				[VARIANTS.SUCCESS]: success,
-				[VARIANTS.WARNING]: warning,
-				[VARIANTS.MUTED]: muted
-			})}
+			data-testid={testId ?? 'Alert'}
+			className={cn(
+				'p-4 text-sm rounded-lg flex items-center',
+				{
+					[VARIANTS.INFO]: info,
+					[VARIANTS.DANGER]: danger,
+					[VARIANTS.SUCCESS]: success,
+					[VARIANTS.WARNING]: warning,
+					[VARIANTS.MUTED]: muted
+				},
+				className
+			)}
 			role='alert'
 		>
 			{children}

@@ -6,7 +6,7 @@ import { ClientSafeProvider } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { SigninError } from 'types/Error'
-import { Alert } from 'common/Alert'
+import { AlertError } from 'common/AlertError'
 import { Button } from 'common/Button'
 import { Input } from 'common/Input'
 import { SignInFormProps } from './SignInForm.types'
@@ -45,8 +45,9 @@ export const SignInForm = ({ providers, csrfToken, className }: SignInFormProps)
 				}
 			}
 		}
-		if (status === 'authenticated' && callbackUrl) {
-			router.push(callbackUrl as string)
+		if (status === 'authenticated') {
+			const redirectUrl = callbackUrl || '/'
+			router.push(redirectUrl as string)
 		}
 	}, [status, router, callbackUrl, error, setLoginErrors])
 
@@ -129,26 +130,7 @@ export const SignInForm = ({ providers, csrfToken, className }: SignInFormProps)
 									)}
 									<div className='grid grid-cols-1 gap-4'>
 										{loginErrors &&
-											loginErrors.map((err) => (
-												<Alert key={err.id} danger>
-													<svg
-														xmlns='http://www.w3.org/2000/svg'
-														className='stroke-current flex-shrink-0 h-6 w-6 text-red-500 mr-2'
-														fill='none'
-														viewBox='0 0 24 24'
-													>
-														<path
-															{...{
-																['stroke-linecap']: 'round',
-																['stroke-linejoin']: 'round',
-																['stroke-width']: '2',
-																d: 'M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z'
-															}}
-														/>
-													</svg>
-													<span> {err.message}</span>
-												</Alert>
-											))}
+											loginErrors.map((err) => <AlertError key={err.id}>{err.message}</AlertError>)}
 									</div>
 
 									<div className='grid grid-cols-1 gap-4'>
