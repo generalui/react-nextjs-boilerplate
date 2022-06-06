@@ -20,11 +20,7 @@ describe('SignIn Component', () => {
 	// useRouterMock()
 
 	it('renders on the page', () => {
-		render(
-			<SessionProvider session={null}>
-				<SignIn providers={{ credentials: MOCK_PROVIDER }} csrfToken={''} />
-			</SessionProvider>
-		)
+		render(<SignIn providers={{ credentials: MOCK_PROVIDER }} csrfToken={''} />)
 
 		const component = screen.getByTestId('SignIn')
 
