@@ -2,17 +2,13 @@
  * This is a test file for SignInOut
  */
 import { render, screen } from '@testing-library/react'
-import { SessionProvider } from 'next-auth/react'
+import '__mocks__/all'
 import React from 'react'
 import { SignInOut } from './index'
 
 describe('SignInOut Component', () => {
 	it('renders on the page', () => {
-		render(
-			<SessionProvider session={null}>
-				<SignInOut />
-			</SessionProvider>
-		)
+		render(<SignInOut />)
 
 		const component = screen.getByTestId('SignInOut')
 

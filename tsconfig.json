@@ -18,6 +18,7 @@
 		"sourceMap": true,
 		"incremental": true,
 		"baseUrl": ".",
+		"downlevelIteration": true,
 		"paths": {
 			"styles/*": ["src/styles/*"],
 			"components/*": ["src/components/*"],
@@ -31,6 +32,7 @@
 			"types/*": ["src/types/*"],
 			"utils/*": ["src/utils/*"],
 			"emailTemplates/*": ["src/emailTemplates/*"],
+			"dictionary/*": ["src/dictionary/*"],
 			"__tests__/*": ["__tests__/*"],
 			"__mocks__/*": ["__tests__/__mocks__/*"]
 		}
