@@ -2,13 +2,11 @@
  * This is a test file for SignIn
  */
 import { render, screen } from '@testing-library/react'
+import '__mocks__/all'
 import { SessionProvider } from 'next-auth/react'
 import { ClientSafeProvider } from 'next-auth/react'
 import React from 'react'
 import { SignIn } from './index'
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const useRouter = jest.spyOn(require('next/router'), 'useRouter')
 
 const MOCK_PROVIDER: ClientSafeProvider = {
 	id: '1',
@@ -19,9 +17,7 @@ const MOCK_PROVIDER: ClientSafeProvider = {
 }
 
 describe('SignIn Component', () => {
-	useRouter.mockImplementationOnce(() => ({
-		query: { product: 'coffee' }
-	}))
+	// useRouterMock()
 
 	it('renders on the page', () => {
 		render(

@@ -1,6 +1,7 @@
 import { AxiosError } from 'axios'
 import { ChangeEvent, useState } from 'react'
 import { axios } from 'utils/axios'
+import { useText } from 'hooks/useText'
 import { AlertError } from 'components/common/AlertError'
 import { Button } from 'components/common/Button'
 import { Alert } from 'common/Alert'
@@ -16,6 +17,7 @@ export const FileInput = () => {
 	const [selectedFile, setSelectedFile] = useState<File>()
 	const [state, setUploadState] = useState<FileUploadEnum>(FileUploadEnum.NotStarted)
 	const [errors, setErrors] = useState<string[]>([])
+	const { t } = useText('home.uploadForm')
 
 	const handleFileInput = (event: ChangeEvent<HTMLInputElement>) => {
 		if (event.target.files && event.target.files?.length > 0) {
@@ -42,7 +44,7 @@ export const FileInput = () => {
 				setErrors([])
 			} catch (error) {
 				const errors = ((error as AxiosError).response?.data as { errors: string[] })?.errors || [
-					'There was an error processing your request'
+					t('alerts.generalError')
 				]
 				setUploadState(FileUploadEnum.Error)
 				setErrors(errors)
@@ -56,7 +58,7 @@ export const FileInput = () => {
 				className='block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300'
 				htmlFor='file_input'
 			>
-				Upload file
+				{t('title')}
 			</label>
 			<input
 				className='mb-6 block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray300 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400'
@@ -65,16 +67,16 @@ export const FileInput = () => {
 				onChange={(e) => handleFileInput(e)}
 			/>
 			<Button className='w-full' onClick={handleSubmission}>
-				Upload file
+				{t('input.button')}
 			</Button>
 			{state === FileUploadEnum.Uploading && (
 				<Alert className='mt-6' info>
-					Uploading...
+					{t('alerts.inProgress')}
 				</Alert>
 			)}
 			{state === FileUploadEnum.Uploaded && (
 				<Alert className='mt-6' success>
-					File uploaded successfully!
+					{t('alerts.success')}
 				</Alert>
 			)}
 
