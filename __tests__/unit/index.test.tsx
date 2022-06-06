@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import client from 'next-auth/client'
+import '__mocks__/useRouter'
 import { SessionProvider } from 'next-auth/react'
 import { Home } from 'pages/Home'
 

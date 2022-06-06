@@ -8,10 +8,10 @@
  * Docs
  * - https://nextjs.org/docs/advanced-features/i18n-routing
  */
+import { dictionary } from 'dictionary/index'
 import { get } from 'lodash'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
-import { dictionary } from 'src/dictionary'
 
 // Can't localize these strings if there is an error with localization
 const CONFIG_ERROR_MESSAGE = 'No locale found. Please add a locale to your Next.js configuration.'

@@ -2,6 +2,7 @@
  * This is a test file for FileInput
  */
 import { render, screen } from '@testing-library/react'
+import '__mocks__/useRouter'
 import React from 'react'
 import { FileInput } from './index'
 
