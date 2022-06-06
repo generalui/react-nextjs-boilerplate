@@ -1,7 +1,8 @@
+import { memo } from 'react'
 import { Alert } from 'common/Alert/Alert'
 import { AlertErrorProps } from './AlertError.types'
 
-export const AlertError = ({ children, key }: AlertErrorProps) => {
+export const AlertError = memo(function AlertError({ children, key }: AlertErrorProps) {
 	return (
 		<Alert testId='AlertError' key={key} danger>
 			<svg
@@ -22,4 +23,4 @@ export const AlertError = ({ children, key }: AlertErrorProps) => {
 			<span>{children}</span>
 		</Alert>
 	)
-}
+})
