@@ -1,12 +1,18 @@
+import { MailDataRequired } from '@sendgrid/mail'
+import html from 'emailTemplates/email.hbs'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import sendEmailNotification from 'utils/api/sendgrid'
 
-const msg = {
-	to: 'vanessa.cnr97@gmail.com', // Change to your recipient
+const msg: MailDataRequired = {
+	to: 'nr15002@ues.edu.sv', // Change to your recipient
 	from: 'vanessa@genui.com', // Change to your verified sender
 	subject: 'Sending with SendGrid is Fun',
-	text: 'and easy to do anywhere, even with Node.js',
-	html: '<strong>and easy to do anywhere, even with Node.js</strong>'
+	content: [
+		{
+			type: 'text/html',
+			value: html()
+		}
+	]
 }
 
 export default async function sendNotification(req: NextApiRequest, res: NextApiResponse) {

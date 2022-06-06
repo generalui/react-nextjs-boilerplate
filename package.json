@@ -39,6 +39,7 @@
     "dotenv-cli": "^5.1.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "flowbite": "^1.4.7",
+    "handlebars-loader": "^1.7.2",
     "hooks-for-redux": "^2.0.3",
     "next": "12.1.0",
     "next-auth": "^4.3.4",

@@ -30,6 +30,7 @@
 			"reducers/*": ["src/store/reducers/*"],
 			"types/*": ["src/types/*"],
 			"utils/*": ["src/utils/*"],
+			"emailTemplates/*": ["src/emailTemplates/*"],
 			"__tests__/*": ["__tests__/*"],
 			"__mocks__/*": ["__tests__/__mocks__/*"]
 		}
