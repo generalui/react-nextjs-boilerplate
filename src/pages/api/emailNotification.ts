@@ -1,6 +1,8 @@
 import { MailDataRequired } from '@sendgrid/mail'
+import Email from 'emailTemplates/email'
 import html from 'emailTemplates/email.hbs'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import ReactDOMServer from 'react-dom/server'
 import { connect } from 'utils/api/connect'
 import sendEmailNotification from 'utils/api/sendgrid'
 
@@ -11,7 +13,7 @@ const msg: MailDataRequired = {
 	content: [
 		{
 			type: 'text/html',
-			value: html()
+			value: ReactDOMServer.renderToStaticMarkup(Email())
 		}
 	]
 }

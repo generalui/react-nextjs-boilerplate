@@ -12,7 +12,6 @@ const nextConfig = {
 	webpack5: true,
 	webpack: (config) => {
 		// Fixes npm packages that depend on `fs` module
-		config.module.rules.push({ test: /\.hbs$/, loader: 'handlebars-loader' })
 		config.resolve.fallback = {
 			...config.resolve.fallback, // if you miss it, all the other options in fallback, specified
 			// by next.js will be dropped. Doesn't make much sense, but how it is
@@ -20,7 +19,7 @@ const nextConfig = {
 		}
 
 		return config
-  },
+	},
 	i18n: {
 		locales: ['en'],
 		defaultLocale: 'en'
