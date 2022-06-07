@@ -1,5 +1,3 @@
-import styles from './tailwind.min'
-
 const Email = () => {
 	const red = {
 		color: 'red'
