@@ -1,17 +1,15 @@
+import { Button } from 'components/common/Button'
+
 const Email = () => {
 	const red = {
 		color: 'red'
 	}
 	return (
 		<>
-			{/* <style>{styles}</style> */}
-			<style>{'.sendgrid-text-red{ color: red; }'}</style>
 			<div>
-				<h2 className='sendgrid-text-red' style={red}>
-					Forgot password
-				</h2>
+				<h2 style={red}>Forgot password</h2>
 				<p>This is a test email</p>
-				<button>Forgot password</button>
+				<Button>Forgot password</Button>
 			</div>
 		</>
 	)
