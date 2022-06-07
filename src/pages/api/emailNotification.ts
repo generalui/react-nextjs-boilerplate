@@ -1,26 +1,19 @@
 import { MailDataRequired } from '@sendgrid/mail'
-import Email from 'emailTemplates/email'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import ReactDOMServer from 'react-dom/server'
 import { connect } from 'utils/api/connect'
 import sendEmailNotification from 'utils/api/sendgrid'
 
-const msg: MailDataRequired = {
-	to: 'nr15002@ues.edu.sv', // Change to your recipient
-	from: 'vanessa@genui.com', // Change to your verified sender
-	subject: 'Sending with SendGrid is Fun',
-	content: [
-		{
-			type: 'text/html',
-			value: ReactDOMServer.renderToStaticMarkup(Email())
-		}
-	]
-}
-
 const apiRoute = connect()
 
-apiRoute.post(async (_req: NextApiRequest, res: NextApiResponse) => {
+apiRoute.post(async (req: NextApiRequest, res: NextApiResponse) => {
 	try {
+		const { to, dynamicTemplateData } = req.body
+		const msg: MailDataRequired = {
+			to,
+			from: 'vanessa@genui.com',
+			templateId: 'd-40edd48a7d894ad28ce00b6d30cf0a02',
+			dynamicTemplateData
+		}
 		const response = await sendEmailNotification(msg)
 		if ('statusCode' in response) {
 			res.status(response.statusCode).json(response)
