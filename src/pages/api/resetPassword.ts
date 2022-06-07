@@ -11,7 +11,7 @@ apiRoute.post(async (req: NextApiRequest, res: NextApiResponse) => {
 		const msg: MailDataRequired = {
 			to,
 			from: 'vanessa@genui.com',
-			templateId: 'd-40edd48a7d894ad28ce00b6d30cf0a02',
+			templateId: 'd-9863054f11d845078e3736c0109b7c89',
 			dynamicTemplateData
 		}
 		const response = await sendEmailNotification(msg)
