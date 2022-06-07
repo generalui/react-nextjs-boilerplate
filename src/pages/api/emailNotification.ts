@@ -1,6 +1,7 @@
 import { MailDataRequired } from '@sendgrid/mail'
 import html from 'emailTemplates/email.hbs'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { connect } from 'utils/api/connect'
 import sendEmailNotification from 'utils/api/sendgrid'
 
 const msg: MailDataRequired = {
@@ -15,16 +16,19 @@ const msg: MailDataRequired = {
 	]
 }
 
-export default async function sendNotification(req: NextApiRequest, res: NextApiResponse) {
-	if (req.method === 'POST') {
-		try {
-			const response = await sendEmailNotification(msg)
-			console.log('response: ', response)
-			res.status(202).json(response)
-		} catch (error) {
-			console.log('error: ', error)
+const apiRoute = connect()
+
+apiRoute.post(async (_req: NextApiRequest, res: NextApiResponse) => {
+	try {
+		const response = await sendEmailNotification(msg)
+		if ('statusCode' in response) {
+			res.status(response.statusCode).json(response)
+		} else {
+			res.status(response.code).json(response)
 		}
-	} else {
-		res.status(405).json({ message: 'Method not allowed' })
+	} catch (error) {
+		console.log('error: ', error)
 	}
-}
+})
+
+export default apiRoute
