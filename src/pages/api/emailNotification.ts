@@ -21,7 +21,7 @@ apiRoute.post(async (req: NextApiRequest, res: NextApiResponse) => {
 			res.status(response.code).json(response)
 		}
 	} catch (error) {
-		console.log('error: ', error)
+		res.status(400).json({ message: error })
 	}
 })
 
