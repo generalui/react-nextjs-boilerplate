@@ -69,3 +69,10 @@ model Document {
   fileType     String
   uploadedBy   User   @relation(fields: [uploadedById], references: [id], onDelete: Cascade)
 }
+
+model NotificationEvents {
+  id                String   @id @default(cuid())
+  inserted_at       DateTime @default(now())
+  notification_type String
+  body              Json
+}
