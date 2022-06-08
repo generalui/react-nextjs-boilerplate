@@ -7,6 +7,5 @@ export interface CommonProps {
 	onClick?: () => void
 	key?: string
 	['data-testid']?: string
-	type?: string
 	testId?: string
 }

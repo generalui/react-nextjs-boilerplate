@@ -2,7 +2,4 @@
 	"search.exclude": {
 		".next": true
   },
-  "cSpell.words": [
-    "SENDGRID"
-  ]
 }
