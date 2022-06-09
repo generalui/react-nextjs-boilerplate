@@ -93,6 +93,7 @@ module.exports = (plop) => {
 			},
 			// Adding a default class will add the classnames import and default classes
 			{
+				when: ({ componentType }) => componentType !== 'pages',
 				type: 'input',
 				name: 'defaultClass',
 				message: 'Default Tailwind classnames if any:'
