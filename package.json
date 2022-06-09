@@ -21,6 +21,8 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate:dev": "prisma migrate dev",
     "prisma:migrate:reset": "prisma migrate reset",
+    "prisma:seed": "prisma db seed",
+    "prisma:studio": "prisma studio",
     "docker:init": "yarn docker:build:compose && yarn prisma:migrate:dev",
     "build-css": "yarn tailwindcss -i",
     "docker:build:compose": "docker-compose -f docker-compose.yml up -d --build --remove-orphans",
