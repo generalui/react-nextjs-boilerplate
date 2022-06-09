@@ -61,6 +61,19 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+model Study {
+  id         String   @id @default(cuid())
+  title      String
+  objective  String
+  population Int
+  startDate  DateTime
+  endDate    DateTime
+  type       String
+  topic      String
+  audience   String
+  location   String
+}
+
 model Document {
   id           String @id @default(cuid())
   uploadedById String

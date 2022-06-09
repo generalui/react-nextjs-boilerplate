@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcryptjs'
-import { users } from './seedData'
+import { studies, users } from './seedData'
 
 const prisma = new PrismaClient()
 
@@ -20,6 +20,11 @@ async function main() {
 		prismaSafeTestUsers.map((user) => prisma.user.upsert(user))
 	)
 	console.log(createdUsers)
+
+	const createdStudies = await Promise.all(
+		studies.map((study) => prisma.study.create({ data: study }))
+	)
+	console.log(createdStudies)
 }
 
 main()
