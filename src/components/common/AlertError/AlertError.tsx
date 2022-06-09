@@ -2,9 +2,13 @@ import { memo } from 'react'
 import { Alert } from 'common/Alert/Alert'
 import { AlertErrorProps } from './AlertError.types'
 
-export const AlertError = memo(function AlertError({ children, key }: AlertErrorProps) {
+export const AlertError = memo(function AlertError({
+	children,
+	key,
+	testId = 'AlertError'
+}: AlertErrorProps) {
 	return (
-		<Alert testId='AlertError' key={key} danger>
+		<Alert testId={testId} key={key} danger>
 			<svg
 				xmlns='http://www.w3.org/2000/svg'
 				className='stroke-current flex-shrink-0 h-6 w-6 text-red-500 mr-2'

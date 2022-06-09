@@ -8,10 +8,11 @@ export const PageWrapper = ({
 	title,
 	hideTitle,
 	hideAuth,
-	fullWidth
+	fullWidth,
+	testId = 'PageWrapper'
 }: PageWrapperProps) => {
 	return (
-		<div data-testid='PageWrapper'>
+		<div data-testid={testId}>
 			<Head>
 				{title && <title>{title}</title>}
 				{/* TODO: Handle common meta data here */}

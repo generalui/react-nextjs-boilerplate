@@ -90,6 +90,12 @@ module.exports = (plop) => {
 				type: 'input',
 				name: 'name',
 				message: 'What should it be called?'
+			},
+			// Adding a default class will add the classnames import and default classes
+			{
+				type: 'input',
+				name: 'defaultClass',
+				message: 'Default Tailwind classnames if any:'
 			}
 		],
 		actions: ({ componentType, name }) => {
@@ -141,5 +147,20 @@ module.exports = (plop) => {
 
 			return actions
 		}
+	})
+
+	// Helper to append string (intended to inject curly brackets)
+	plop.setHelper('append', function ifEquals(arg1) {
+		return arg1
+	})
+
+	// Helper to test equality of two strings
+	plop.setHelper('ifEquals', function ifEquals(arg1, arg2, options) {
+		return arg1 == arg2 ? options.fn(this) : options.inverse(this)
+	})
+
+	// Helper to test inequality of two strings
+	plop.setHelper('ifNotEquals', function ifEquals(arg1, arg2, options) {
+		return arg1 != arg2 ? options.fn(this) : options.inverse(this)
 	})
 }
