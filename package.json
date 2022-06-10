@@ -101,8 +101,8 @@
   },
   "lint-staged": {
     "./src/**/*.{js,ts,jsx,tsx}": [
-      "yarn lint",
-      "yarn prettier"
+      "next lint --fix --cache .",
+      "prettier --write"
     ]
   }
 }
