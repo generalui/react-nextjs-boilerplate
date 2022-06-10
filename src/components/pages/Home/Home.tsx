@@ -1,7 +1,8 @@
 import { useText } from 'hooks/useText'
+import { CreateStudy } from 'components/partials/CreateStudy'
+import { FileInput } from 'components/partials/FileInput'
 import { PageWrapper } from 'partials/PageWrapper'
 import { Card } from 'common/Card'
-import { FileInput } from '../../partials/FileInput'
 
 export const Home = () => {
 	const { t } = useText('home')
@@ -17,6 +18,7 @@ export const Home = () => {
 						<h1>{t('welcomeHeading.title')}</h1>
 						<h4>{t('welcomeHeading.description')}</h4>
 					</Card>
+					<CreateStudy />
 				</div>
 				<div className='w-full col-span-4 lg:col-span-1'>
 					<div className='grid grid-cols-1 gap-6'>
