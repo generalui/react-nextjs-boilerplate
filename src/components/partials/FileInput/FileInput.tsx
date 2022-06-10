@@ -1,21 +1,16 @@
 import { AxiosError } from 'axios'
 import { ChangeEvent, useState } from 'react'
+import { ReqStatus } from 'types/ReqStatus'
 import { axios } from 'utils/axios'
 import { useText } from 'hooks/useText'
 import { AlertError } from 'components/common/AlertError'
 import { Button } from 'components/common/Button'
 import { Alert } from 'common/Alert'
+import { FileInputProps } from './FileInput.types'
 
-enum FileUploadEnum {
-	NotStarted = 'not-started',
-	Uploading = 'uploading',
-	Uploaded = 'uploaded',
-	Error = 'error'
-}
-
-export const FileInput = () => {
+export const FileInput = ({ testId = 'FileInput' }: FileInputProps) => {
 	const [selectedFile, setSelectedFile] = useState<File>()
-	const [state, setUploadState] = useState<FileUploadEnum>(FileUploadEnum.NotStarted)
+	const [state, setUploadState] = useState<ReqStatus>(ReqStatus.NotStarted)
 	const [errors, setErrors] = useState<string[]>([])
 	const { t } = useText('home.uploadForm')
 
@@ -32,7 +27,7 @@ export const FileInput = () => {
 			formData.append('file', selectedFile)
 
 			try {
-				setUploadState(FileUploadEnum.Uploading)
+				setUploadState(ReqStatus.InProgress)
 
 				await axios.post('/documents', formData, {
 					headers: {
@@ -40,20 +35,20 @@ export const FileInput = () => {
 					}
 				})
 
-				setUploadState(FileUploadEnum.Uploaded)
+				setUploadState(ReqStatus.Ok)
 				setErrors([])
 			} catch (error) {
 				const errors = ((error as AxiosError).response?.data as { errors: string[] })?.errors || [
 					t('alerts.generalError')
 				]
-				setUploadState(FileUploadEnum.Error)
+				setUploadState(ReqStatus.Error)
 				setErrors(errors)
 			}
 		}
 	}
 
 	return (
-		<div data-testid='FileInput'>
+		<div data-testid={testId}>
 			<label
 				className='block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300'
 				htmlFor='file_input'
@@ -69,19 +64,19 @@ export const FileInput = () => {
 			<Button className='w-full' onClick={handleSubmission}>
 				{t('input.button')}
 			</Button>
-			{state === FileUploadEnum.Uploading && (
+			{state === ReqStatus.InProgress && (
 				<Alert className='mt-6' info>
 					{t('alerts.inProgress')}
 				</Alert>
 			)}
-			{state === FileUploadEnum.Uploaded && (
+			{state === ReqStatus.Ok && (
 				<Alert className='mt-6' success>
 					{t('alerts.success')}
 				</Alert>
 			)}
 
 			{/* Handle errors */}
-			{state === FileUploadEnum.Error && errors.length > 0 && (
+			{state === ReqStatus.Error && errors.length > 0 && (
 				<div className='grid grid-cols-1 gap-4 mt-6'>
 					{errors && errors.map((err) => <AlertError key={err}>{err}</AlertError>)}
 				</div>

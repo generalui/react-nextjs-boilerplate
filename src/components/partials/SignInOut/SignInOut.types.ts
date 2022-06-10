@@ -1,1 +1,3 @@
-export interface SignInOutProps {}
+import { CommonProps } from 'types/CommonProps'
+
+export interface SignInOutProps extends CommonProps {}

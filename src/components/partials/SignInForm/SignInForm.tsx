@@ -13,7 +13,12 @@ import { Button } from 'common/Button'
 import { Input } from 'common/Input'
 import { SignInFormProps } from './SignInForm.types'
 
-export const SignInForm = ({ providers, csrfToken, className }: SignInFormProps) => {
+export const SignInForm = ({
+	providers,
+	csrfToken,
+	className,
+	testId = 'SignInForm'
+}: SignInFormProps) => {
 	const { t } = useText('signIn.form')
 	const { status } = useSession()
 	const [email, setEmail] = useState('')
@@ -90,7 +95,7 @@ export const SignInForm = ({ providers, csrfToken, className }: SignInFormProps)
 	}
 
 	return (
-		<div data-testid='SignInForm' className={className}>
+		<div data-testid={testId} className={className}>
 			<div style={{ overflow: 'hidden', position: 'relative' }} data-testid='SignIn'>
 				<div>
 					{/* TODO: add logo */}
@@ -116,6 +121,7 @@ export const SignInForm = ({ providers, csrfToken, className }: SignInFormProps)
 												type='email'
 												data-testid='signin-email'
 												value={email}
+												placeholder={t('email.placeholder')}
 												onChange={(e) => setEmail(e.target.value)}
 											/>
 											<label className='label' htmlFor='password'>
@@ -128,6 +134,7 @@ export const SignInForm = ({ providers, csrfToken, className }: SignInFormProps)
 												type='password'
 												data-testid='signin-password'
 												value={password}
+												placeholder={t('password.placeholder')}
 												onChange={(e) => setPassword(e.target.value)}
 											/>
 										</div>

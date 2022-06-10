@@ -1,5 +1,4 @@
 import { signIn, signOut, useSession } from 'next-auth/react'
-import { FC } from 'react'
 import { useText } from 'hooks/useText'
 import { Button } from 'common/Button'
 import { SignInOutProps } from './SignInOut.types'
@@ -24,9 +23,9 @@ export const RenderAuth = () => {
 	)
 }
 
-export const SignInOut: FC<SignInOutProps> = () => {
+export const SignInOut = ({ testId = 'SignInOut', className }: SignInOutProps) => {
 	return (
-		<div data-testid='SignInOut'>
+		<div className={className} data-testid={testId}>
 			<RenderAuth />
 		</div>
 	)
