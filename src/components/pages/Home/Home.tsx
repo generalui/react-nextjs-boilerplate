@@ -6,6 +6,7 @@ import { CreateStudy } from 'components/partials/CreateStudy'
 import { FileInput } from 'components/partials/FileInput'
 import { PageWrapper } from 'partials/PageWrapper'
 import { Card } from 'common/Card'
+import { ModalWindow } from '../../common/ModalWindow'
 
 export const Home = () => {
 	const [open, setOpen] = useState<boolean>(false)
@@ -34,12 +35,30 @@ export const Home = () => {
 					<CreateStudy />
 					<div>
 						<Button onClick={handleOnClick}>Toggle modal</Button>
-						<Modal show={open} onClose={handleOnClose}>
+						<ModalWindow show={open} onClose={handleOnClose}>
+							<div>hi</div>
+						</ModalWindow>
+						{/* <Modal show={open} onClose={handleOnClose}>
 							<Modal.Header>Terms of Service</Modal.Header>
 							<Modal.Body>
-								<h1>Modal 1</h1>
+								<div className='space-y-6'>
+									<p className='text-base leading-relaxed text-gray-500 dark:text-gray-400'>
+										With less than a month to go before the European Union enacts new consumer
+										privacy laws for its citizens, companies around the world are updating their
+										terms of service agreements to comply.
+									</p>
+									<p className='text-base leading-relaxed text-gray-500 dark:text-gray-400'>
+										The European Union’s General Data Protection Regulation (G.D.P.R.) goes into
+										effect on May 25 and is meant to ensure a common set of data rights in the
+										European Union. It requires organizations to notify users as soon as possible of
+										high-risk data breaches that could personally affect them.
+									</p>
+								</div>
 							</Modal.Body>
-						</Modal>
+							<Modal.Footer>
+								<Button>Decline</Button>
+							</Modal.Footer>
+						</Modal> */}
 					</div>
 				</div>
 				<div className='w-full col-span-4 lg:col-span-1'>
