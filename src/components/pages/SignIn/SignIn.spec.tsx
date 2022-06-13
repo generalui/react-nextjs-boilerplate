@@ -3,7 +3,6 @@
  */
 import { render, screen } from '@testing-library/react'
 import '__mocks__/all'
-import { SessionProvider } from 'next-auth/react'
 import { ClientSafeProvider } from 'next-auth/react'
 import React from 'react'
 import { SignIn } from './index'

@@ -1,8 +1,7 @@
 import cn from 'classnames'
-import { memo } from 'react'
 import { InputProps } from './Input.types'
 
-export const Input = memo(function Input({
+export const Input = ({
 	className,
 	placeholder,
 	id,
@@ -10,7 +9,7 @@ export const Input = memo(function Input({
 	value,
 	onChange,
 	testId = 'Input'
-}: InputProps) {
+}: InputProps) => {
 	return (
 		<input
 			className={cn('input input-bordered block w-full', className)}
@@ -22,4 +21,4 @@ export const Input = memo(function Input({
 			onChange={onChange}
 		/>
 	)
-})
+}
