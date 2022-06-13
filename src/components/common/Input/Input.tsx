@@ -1,10 +1,9 @@
 import cn from 'classnames'
-import { memo } from 'react'
 import { Field } from 'react-final-form'
 import { OnChange } from 'react-final-form-listeners'
 import { InputProps } from './Input.types'
 
-export const Input = memo(function Input({
+export const Input = ({
 	className,
 	placeholder,
 	id,
@@ -12,7 +11,7 @@ export const Input = memo(function Input({
 	type,
 	onChange,
 	testId = 'Input'
-}: InputProps) {
+}: InputProps) => {
 	return (
 		<>
 			<Field name={name as string}>
@@ -38,4 +37,4 @@ export const Input = memo(function Input({
 			)}
 		</>
 	)
-})
+}

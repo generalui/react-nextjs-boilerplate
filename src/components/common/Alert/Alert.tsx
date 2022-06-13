@@ -1,5 +1,4 @@
 import cn from 'classnames'
-import { memo } from 'react'
 import { AlertProps } from './Alert.types'
 
 const VARIANTS = {
@@ -10,7 +9,7 @@ const VARIANTS = {
 	MUTED: 'text-gray-700 bg-gray-100 rounded-lg dark:bg-gray-700 dark:text-gray-300'
 }
 
-export const Alert = memo(function Alert({
+export const Alert = ({
 	children,
 	className,
 	info,
@@ -19,7 +18,7 @@ export const Alert = memo(function Alert({
 	warning,
 	muted,
 	testId
-}: AlertProps) {
+}: AlertProps) => {
 	return (
 		<div
 			data-testid={testId ?? 'Alert'}
@@ -39,4 +38,4 @@ export const Alert = memo(function Alert({
 			{children}
 		</div>
 	)
-})
+}
