@@ -39,7 +39,7 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 
 	return (
 		<>
-			<div>
+			<div data-testid={testId}>
 				<Button onClick={handleOnClick}>Toggle modal</Button>
 				<Modal
 					show={open}

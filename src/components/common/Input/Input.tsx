@@ -17,12 +17,12 @@ export const Input = ({
 			<Field name={name as string}>
 				{(props) => (
 					<input
+						data-testid={testId}
 						name={props.input.name}
 						id={id}
 						className={cn('input input-bordered block w-full', className)}
 						placeholder={placeholder}
 						type={type}
-						data-testid={testId}
 						value={props.input.value}
 						onChange={props.input.onChange}
 					/>
