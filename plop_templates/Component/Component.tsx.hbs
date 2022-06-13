@@ -1,11 +1,10 @@
 {{#if defaultClass}}import cn from 'classnames'
-{{/if}}import { memo } from 'react'
-import { {{properCase name}}Props } from './{{properCase name}}.types'
+{{/if}}import { {{properCase name}}Props } from './{{properCase name}}.types'
 
-export const {{properCase name}} = memo(function {{properCase name}}({ children, className, testId = '{{properCase name}}' }: {{properCase name}}Props) {
+export const {{properCase name}} = ({ children, className, testId = '{{properCase name}}' }: {{properCase name}}Props) => {
 	return (
 		<div className={{append '{'}}{{#if defaultClass}}cn('{{defaultClass}}', {{/if}}className{{#if defaultClass}}){{/if}}{{append '}'}} data-testid={testId}>
 			{children}
 		</div>
 	)
-})
+}
