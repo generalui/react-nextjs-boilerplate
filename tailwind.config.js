@@ -1,5 +1,11 @@
 module.exports = {
-	content: ['./src/components/**/*.tsx', './src/styles/**/*.css', './pages/**/*.tsx'],
+	content: [
+		'./src/components/**/*.tsx',
+		'./src/styles/**/*.css',
+		'./pages/**/*.tsx',
+		'./node_modules/flowbite/**/*.js',
+		'./node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'
+	],
 	theme: {
 		extend: {
 			typography: {
