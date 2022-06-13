@@ -1,11 +1,15 @@
-import { memo } from 'react'
+import { memo, useState } from 'react'
 import { Form } from 'react-final-form'
 import { OnChangeValue } from 'types/index'
 import { z } from 'zod'
+import { Button } from 'components/common/Button'
 import { Input } from 'components/common/Input'
+import { Modal } from 'components/common/Modal'
 import { CreateStudyProps } from './CreateStudy.types'
 
 export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }: CreateStudyProps) {
+	const [open, setOpen] = useState<boolean>(false)
+
 	const TestSchema = z.object({
 		firstName: z.string(),
 		lastName: z.string()
@@ -25,29 +29,49 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 		console.log(value)
 	}
 
+	const handleOnClick = () => {
+		setOpen(!open)
+	}
+
+	const handleOnClose = () => {
+		setOpen(false)
+	}
+
 	return (
-		<Form
-			data-testid={testId}
-			onSubmit={onSubmit}
-			initialValues={{ firstName: 'Vanessa', lastName: 'Núñez' }}
-			render={({ handleSubmit }) => (
-				<form onSubmit={handleSubmit}>
-					<div>
-						<label htmlFor='firstName'>First name</label>
-						<Input
-							name='firstName'
-							type='text'
-							placeholder='First Name'
-							onChange={handleOnChange}
-						/>
-					</div>
-					<div>
-						<label htmlFor='lastName'>Last name</label>
-						<Input name='lastName' type='text' placeholder='Last Name' />
-					</div>
-					<button type='submit'>Submit</button>
-				</form>
-			)}
-		/>
+		<>
+			<div>
+				<Button onClick={handleOnClick}>Toggle modal</Button>
+				<Modal
+					show={open}
+					onClose={handleOnClose}
+					title='Add Study'
+					footer={<Button>Decline</Button>}
+				>
+					<Form
+						data-testid={testId}
+						onSubmit={onSubmit}
+						initialValues={{ firstName: 'Vanessa', lastName: 'Núñez' }}
+						render={({ handleSubmit }) => (
+							<form onSubmit={handleSubmit}>
+								<div>
+									<label htmlFor='firstName'>First name</label>
+									<Input
+										name='firstName'
+										type='text'
+										placeholder='First Name'
+										onChange={handleOnChange}
+									/>
+								</div>
+								<div>
+									<label htmlFor='lastName'>Last name</label>
+									<Input name='lastName' type='text' placeholder='Last Name' />
+								</div>
+								<button type='submit'>Submit</button>
+							</form>
+						)}
+					/>
+				</Modal>
+			</div>
+		</>
 	)
 })
