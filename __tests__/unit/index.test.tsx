@@ -7,7 +7,7 @@ describe('Home', () => {
 		render(<Home />)
 
 		const heading = screen.getByRole('heading', {
-			name: /welcome to the native biodata consortium web portal!/i
+			name: /current studies/i
 		})
 
 		expect(heading).toBeInTheDocument()

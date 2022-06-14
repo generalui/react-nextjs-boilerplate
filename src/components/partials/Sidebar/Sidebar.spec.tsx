@@ -2,6 +2,7 @@
  * Test file for Sidebar
  */
 import { render, screen } from '@testing-library/react'
+import '__mocks__/all'
 import React from 'react'
 import { Sidebar } from './index'
 
