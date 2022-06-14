@@ -1,5 +1,16 @@
 module.exports = {
-	content: ['./src/components/**/*.tsx', './src/styles/**/*.css', './pages/**/*.tsx'],
+	content: [
+		'./src/components/**/*.tsx',
+		'./src/styles/**/*.css',
+		'./pages/**/*.tsx',
+		'./node_modules/flowbite/**/*.js',
+		'./node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'
+	],
+	safelist: [
+		{
+			pattern: /col-span/
+		}
+	],
 	theme: {
 		extend: {
 			typography: {
@@ -11,7 +22,7 @@ module.exports = {
 			}
 		}
 	},
-	plugins: [require('daisyui'), require('flowbite/plugin'), require('@tailwindcss/line-clamp')],
+	plugins: [require('@tailwindcss/line-clamp'), require('daisyui'), require('flowbite/plugin')],
 	daisyui: {
 		themes: ['light']
 	}
