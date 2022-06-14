@@ -4,7 +4,7 @@ const home = {
 	},
 	welcomeHeading: {
 		title: {
-			message: 'Welcome to the Native BioData Consortium Web Portal!'
+			message: 'Current Studies'
 		},
 		description: {
 			message: 'This app is currently under construction 🏗️ 🚧 👷'

@@ -1,39 +1,50 @@
 import { useText } from 'hooks/useText'
-import { CreateStudy } from 'components/partials/CreateStudy'
-import { FileInput } from 'components/partials/FileInput'
+import { CreateStudy } from 'partials/CreateStudy'
 import { PageWrapper } from 'partials/PageWrapper'
 import { Card } from 'common/Card'
+import { PageHeader } from 'common/PageHeader'
 
 export const Home = () => {
 	const { t } = useText('home')
 
 	return (
 		<PageWrapper title={t('title')}>
-			<div className='grid grid-cols-1 lg:grid-cols-4 gap-6'>
-				<div className='col-span-4 lg:col-span-3 grid gap-6'>
-					<Card
-						className='lg:card-side'
-						img='https://unsplash.com/photos/v13x0qU4afA/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8NXx8d29vZCUyMGNyYWZ0aW5nfGVufDB8fHx8MTY1MzQ0NjY4NQ&force=true&w=1080'
-					>
-						<h1>{t('welcomeHeading.title')}</h1>
-						<h4>{t('welcomeHeading.description')}</h4>
-					</Card>
-					<Card>
-						<CreateStudy />
-					</Card>
-				</div>
-				<div className='w-full col-span-4 lg:col-span-1'>
-					<div className='grid grid-cols-1 gap-6'>
-						<Card className='h-full grid place-content-center w-full'>
-							<a href='https://github.com/generalui/native-biodata-portal' target='__blank'>
-								{t('viewCode')}
-							</a>
-						</Card>
-						<Card className='h-full grid place-content-center w-full'>
-							<FileInput />
-						</Card>
+			<PageHeader>
+				<CreateStudy />
+			</PageHeader>
+
+			<div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
+				{/* TODO: Replace and refactor; filler content */}
+				<Card title={'Current Studies'}>
+					<h1 className='text-green-400 font-bold text-3xl'>8</h1>
+					<h4 className='mb-2'>Active & Approved</h4>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+						incididunt ut labore et dolore magna aliqua. Ut enim ad minim.
+					</p>
+				</Card>
+				<Card title='Data Vault'>
+					<h1 className='text-blue-400 font-bold text-3xl'>2,000</h1>
+					<h4 className='mb-2'>Files</h4>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+						incididunt ut labore et dolore magna aliqua. Ut enim ad minim.
+					</p>
+				</Card>
+				<Card title='Documentation'>
+					<h1 className='text-red-400 font-bold text-3xl'>42</h1>
+					<h4 className='mb-2'>Files</h4>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+						incididunt ut labore et dolore magna aliqua. Ut enim ad minim.
+					</p>
+				</Card>
+				<div className='border-b lg:col-span-3 my-2' />
+				<Card title='Recently Added Studies' className='col-span-3'>
+					<div className='flex justify-center items-center py-14'>
+						<p>[ A beautiful list of studies recently added studies]</p>
 					</div>
-				</div>
+				</Card>
 			</div>
 		</PageWrapper>
 	)

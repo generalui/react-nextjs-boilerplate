@@ -1,6 +1,9 @@
+import cn from 'classnames'
 import Head from 'next/head'
 import { NavBar } from 'partials/NavBar'
+import { Sidebar } from 'partials/Sidebar'
 import { Container } from 'common/Container'
+import styles from './PageWrapper.module.css'
 import { PageWrapperProps } from './PageWrapper.types'
 
 export const PageWrapper = ({
@@ -8,6 +11,7 @@ export const PageWrapper = ({
 	title,
 	hideTitle,
 	hideAuth,
+	hideSidebar,
 	fullWidth,
 	testId = 'PageWrapper'
 }: PageWrapperProps) => {
@@ -19,10 +23,14 @@ export const PageWrapper = ({
 				<meta name='viewport' content='initial-scale=1.0, width=device-width' />
 			</Head>
 
-			<NavBar className='mb-16' title={title} hideTitle={hideTitle} hideAuth={hideAuth} />
+			<NavBar title={title} hideTitle={hideTitle} hideAuth={hideAuth} />
 
-			{!fullWidth && <Container>{children}</Container>}
-			{fullWidth && { children }}
+			{!hideSidebar && <Sidebar />}
+
+			<div className={cn(hideSidebar ? 'w-full' : styles.withSideBar)}>
+				{!fullWidth && <Container className='mt-16 max-w-screen-lg'>{children}</Container>}
+				{fullWidth && { children }}
+			</div>
 		</div>
 	)
 }

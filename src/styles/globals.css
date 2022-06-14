@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import './constants/variables.css';
+
 html {
 	background-color: #f1ece9 !important;
 }

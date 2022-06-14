@@ -8,8 +8,8 @@ export const SignIn = ({ providers, csrfToken }: SignInProps) => {
 	const { t } = useText('signIn')
 
 	return (
-		<PageWrapper title={t('title')} hideAuth>
-			<Card className='md:max-w-xl mx-auto p-6 mb-80'>
+		<PageWrapper title={t('title')} hideAuth hideSidebar>
+			<Card className='md:max-w-xl mx-auto p-6 mb-80 md:shadow-md'>
 				<SignInForm className='max-w-xxl mx-auto' providers={providers} csrfToken={csrfToken} />
 			</Card>
 		</PageWrapper>

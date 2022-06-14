@@ -1,0 +1,5 @@
+:root {
+	--nav-bar-height: 4.25rem;
+	--side-bar-top: var(--nav-bar-height);
+	--side-bar-width: 15.5rem;
+}
