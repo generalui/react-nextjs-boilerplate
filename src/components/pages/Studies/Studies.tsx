@@ -2,6 +2,7 @@
  * Studies
  */
 import { Button } from 'components/common/Button'
+import { IconBadge } from 'components/common/IconBadge'
 import { List } from 'components/partials/List'
 import { PageWrapper } from 'partials/PageWrapper'
 import { StudiesProps } from './Studies.types'
@@ -14,7 +15,7 @@ export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 				columns={[
 					{
 						key: 'name',
-						className: 'font-bold text-sm text-gray-700',
+						className: 'font-bold text-sm text-gray-700 line-clamp-2',
 						title: 'Study Name',
 						width: 6
 					},
@@ -30,7 +31,11 @@ export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 						title: 'Submission Date',
 						width: 2
 					},
-					{ key: 'status', title: 'Status', width: 1 }
+					{
+						key: 'status',
+						title: 'Status',
+						width: 1
+					}
 				]}
 				data={[
 					{
@@ -41,7 +46,7 @@ export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 							</div>
 						),
 						submissionDate: '07/21/2022',
-						status: 'OK'
+						status: <IconBadge variant='new' />
 					},
 					{
 						name: 'Distribution of mitochondrial DNA lineages among Native American tribes of Northeastern North America',
@@ -52,7 +57,18 @@ export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 							</div>
 						),
 						submissionDate: '05/12/2022',
-						status: 'OK'
+						status: <IconBadge variant='approved' />
+					},
+					{
+						name: 'Development of Gene Editing and Cell Culture Capacity and Expertise in the Tribal Northern Plains',
+						owner: (
+							<div className='flex flex-col'>
+								Thomas Lean
+								<div className='text-xs font-normal text-gray-500'>email@example.com</div>
+							</div>
+						),
+						submissionDate: '03/04/2022',
+						status: <IconBadge variant='archived' />
 					}
 				]}
 			/>

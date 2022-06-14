@@ -8,7 +8,7 @@ export const ListItem = <DataType extends { name: string }>({
 	<div className={`p-6 bg-white rounded-2xl items-center ${className}`}>
 		{columns.map((column) => (
 			<div
-				className={`col-span-${column.width} line-clamp-2 ${column.className}`}
+				className={`col-span-${column.width} ${column.className}`}
 				key={`${itemData.name}-${column.title}`}
 			>
 				{itemData[column.key]}
