@@ -1,3 +1,4 @@
+import { PlusIcon } from '@heroicons/react/solid'
 import { memo, useState } from 'react'
 import { Form } from 'react-final-form'
 import { OnChangeValue } from 'types/index'
@@ -40,7 +41,9 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 	return (
 		<>
 			<div data-testid={testId}>
-				<Button onClick={handleOnClick}>Toggle modal</Button>
+				<Button onClick={handleOnClick} center>
+					<PlusIcon className='w-5 h-5 mr-1 inline' /> Add Study
+				</Button>
 				<Modal
 					show={open}
 					onClose={handleOnClose}

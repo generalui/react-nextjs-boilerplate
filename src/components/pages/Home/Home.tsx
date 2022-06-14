@@ -1,13 +1,18 @@
 import { useText } from 'hooks/useText'
-import { CreateStudy } from 'components/partials/CreateStudy'
+import { CreateStudy } from 'partials/CreateStudy'
 import { PageWrapper } from 'partials/PageWrapper'
 import { Card } from 'common/Card'
+import { PageHeader } from 'common/PageHeader'
 
 export const Home = () => {
 	const { t } = useText('home')
 
 	return (
 		<PageWrapper title={t('title')}>
+			<PageHeader>
+				<CreateStudy />
+			</PageHeader>
+
 			<div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
 				{/* TODO: Replace and refactor; filler content */}
 				<Card title={'Current Studies'}>
@@ -36,15 +41,11 @@ export const Home = () => {
 				</Card>
 				<div className='border-b lg:col-span-3 my-2' />
 				<Card title='Recently Added Studies' className='col-span-3'>
-					<div className='flex justify-center items-center'>
+					<div className='flex justify-center items-center py-14'>
 						<p>[ A beautiful list of studies recently added studies]</p>
 					</div>
 				</Card>
 			</div>
-
-			<Card>
-				<CreateStudy />
-			</Card>
 		</PageWrapper>
 	)
 }

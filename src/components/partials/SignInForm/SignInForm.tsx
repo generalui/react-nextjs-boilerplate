@@ -10,7 +10,7 @@ import { SigninError } from 'types/Error'
 import { useText } from 'hooks/useText'
 import { AlertError } from 'common/AlertError'
 import { Button } from 'common/Button'
-import { Input } from 'common/Input'
+import { InputV1 } from 'common/Input/InputV1'
 import { SignInFormProps } from './SignInForm.types'
 
 export const SignInForm = ({
@@ -115,7 +115,7 @@ export const SignInForm = ({
 											<label className='label' htmlFor='email'>
 												{t('email.label')}
 											</label>
-											<Input
+											<InputV1
 												id='email'
 												className='w-full mb-2'
 												type='email'
@@ -128,7 +128,7 @@ export const SignInForm = ({
 												{t('password.label')}
 											</label>
 
-											<Input
+											<InputV1
 												className='w-full mb-2'
 												id='password'
 												type='password'

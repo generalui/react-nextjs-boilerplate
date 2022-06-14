@@ -7,3 +7,10 @@ export interface InputProps extends CommonProps {
 	placeholder?: string
 	name: string
 }
+
+export interface InputPropsv1 extends CommonProps {
+	value?: string | number | readonly string[] | undefined
+	onChange?: (e: any) => void
+	type?: string
+	placeholder?: string
+}
