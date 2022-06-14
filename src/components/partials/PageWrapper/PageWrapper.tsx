@@ -1,5 +1,8 @@
+import cn from 'classnames'
 import Head from 'next/head'
+import { Grid } from 'components/common/Grid'
 import { NavBar } from 'partials/NavBar'
+import { Sidebar } from 'partials/Sidebar'
 import { Container } from 'common/Container'
 import { PageWrapperProps } from './PageWrapper.types'
 
@@ -8,6 +11,7 @@ export const PageWrapper = ({
 	title,
 	hideTitle,
 	hideAuth,
+	hideSideBar,
 	fullWidth,
 	testId = 'PageWrapper'
 }: PageWrapperProps) => {
@@ -21,8 +25,11 @@ export const PageWrapper = ({
 
 			<NavBar className='mb-16' title={title} hideTitle={hideTitle} hideAuth={hideAuth} />
 
-			{!fullWidth && <Container>{children}</Container>}
-			{fullWidth && { children }}
+			{!hideSideBar && <Sidebar />}
+			<div className={cn(hideSideBar ? 'w-full' : 'main-container--with-sidebar')}>
+				{!fullWidth && <Container>{children}</Container>}
+				{fullWidth && { children }}
+			</div>
 		</div>
 	)
 }

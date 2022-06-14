@@ -1,32 +1,21 @@
-import { signIn, signOut, useSession } from 'next-auth/react'
+import cn from 'classnames'
+import { Dropdown } from 'flowbite-react'
+import { signOut, useSession } from 'next-auth/react'
 import { useText } from 'hooks/useText'
-import { Button } from 'common/Button'
 import { SignInOutProps } from './SignInOut.types'
 
-export const RenderAuth = () => {
-	const { data: session } = useSession()
-	const { t } = useText('common.signInOut')
-
-	if (session) {
-		return (
-			<>
-				<span className='mr-2'>{t('signedInAs', session.user?.name || '')}</span>{' '}
-				<Button onClick={() => signOut()}>{t('signOut')}</Button>
-			</>
-		)
-	}
-
-	return (
-		<>
-			<Button onClick={() => signIn()}>{t('signIn')}</Button>
-		</>
-	)
-}
-
 export const SignInOut = ({ testId = 'SignInOut', className }: SignInOutProps) => {
+	const { t } = useText('common.userDropdown')
+	const { data: session } = useSession()
+	const label = session?.user?.name || t('signIn')
+
 	return (
-		<div className={className} data-testid={testId}>
-			<RenderAuth />
+		<div className={cn('z-50', className)} data-testid={testId}>
+			{/* TODO: replace Flowbite React Dropdown (not tab-able, not accessible) */}
+			<Dropdown label={label} size='sm'>
+				<Dropdown.Item>{t('profile')}</Dropdown.Item>
+				<Dropdown.Item onClick={() => signOut()}>{t('logout')}</Dropdown.Item>
+			</Dropdown>
 		</div>
 	)
 }

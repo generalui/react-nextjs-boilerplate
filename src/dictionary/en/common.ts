@@ -2,15 +2,15 @@ const common = {
 	client: {
 		logoAlt: 'Native BioData Consortium'
 	},
-	signInOut: {
-		signedInAs: {
-			message: 'Signed in as {1}'
+	userDropdown: {
+		profile: {
+			message: 'Profile'
+		},
+		logout: {
+			message: 'Logout'
 		},
 		signIn: {
 			message: 'Sign in'
-		},
-		signOut: {
-			message: 'Sign out'
 		}
 	}
 }

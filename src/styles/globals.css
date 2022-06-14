@@ -10,3 +10,18 @@ h1 {
 	font-size: 1.5rem;
 	letter-spacing: 0.15px;
 }
+
+nav {
+	height: 4.25rem;
+}
+
+.sidebar {
+	width: 15.5rem;
+	top: 4.25rem;
+	height: calc(100vh - 4.25rem);
+}
+
+.main-container--with-sidebar {
+	width: calc(100% - 15.5rem);
+	margin-left: 15.5rem;
+}
