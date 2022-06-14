@@ -7,7 +7,7 @@ import { Icon } from './index'
 
 describe('Icon Component', () => {
 	it('renders on the page', () => {
-		render(<Icon />)
+		render(<Icon icon={'AcademicCapIcon'} />)
 
 		const component = screen.getByTestId('Icon')
 

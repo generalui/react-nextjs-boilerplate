@@ -1,6 +1,7 @@
 /*!
  * Studies
  */
+import { useText } from 'hooks/useText'
 import { Button } from 'components/common/Button'
 import { IconBadge } from 'components/common/IconBadge'
 import { List } from 'components/partials/List'
@@ -9,6 +10,8 @@ import { StudiesProps } from './Studies.types'
 import { subtleText } from './styles'
 
 export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
+	const { t } = useText('studies')
+
 	return (
 		<PageWrapper title='Studies' data-testid={testId} className='flex flex-col items-start gap-10'>
 			<Button>+ Add Study</Button>
@@ -16,30 +19,30 @@ export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 				columns={[
 					{
 						key: 'image',
-						title: 'Image',
+						title: t('list.image'),
 						width: 1
 					},
 					{
 						key: 'name',
 						className: 'font-bold text-sm text-gray-700 line-clamp-2',
-						title: 'Study Name',
+						title: t('list.studyName'),
 						width: 6
 					},
 					{
 						key: 'owner',
 						className: 'text-base text-gray-900 font-semibold',
-						title: 'Owner',
+						title: t('list.owner'),
 						width: 2
 					},
 					{
 						key: 'submissionDate',
 						className: subtleText,
-						title: 'Submission Date',
+						title: t('list.submissionDate'),
 						width: 2
 					},
 					{
 						key: 'status',
-						title: 'Status',
+						title: t('list.status'),
 						width: 1
 					}
 				]}

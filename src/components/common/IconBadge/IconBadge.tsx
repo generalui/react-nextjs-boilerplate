@@ -11,7 +11,7 @@ const badgeMap: {
 	archived: { bgClass: 'bg-gray-300', icon: 'ServerIcon' }
 }
 
-export const IconBadge = ({ className, variant }: IconBadgeProps) => {
+export const IconBadge = ({ className, testId = 'IconBadge', variant }: IconBadgeProps) => {
 	const badge = badgeMap[variant]
 
 	return (
@@ -21,6 +21,7 @@ export const IconBadge = ({ className, variant }: IconBadgeProps) => {
 				badge.bgClass,
 				className
 			)}
+			data-testid={testId}
 		>
 			<Icon icon={badge.icon} outlined />
 		</div>
