@@ -1,15 +1,15 @@
 import cn from 'classnames'
-import { InputPropsv1 } from './Input.types'
+import { InputPropsV1 } from './Input.types'
 
 export const InputV1 = ({
 	className,
 	placeholder,
 	id,
-	type,
+	type = 'text',
 	value,
 	onChange,
 	testId = 'Input'
-}: InputPropsv1) => {
+}: InputPropsV1) => {
 	return (
 		<input
 			className={cn('input input-bordered block w-full', className)}
