@@ -9,14 +9,26 @@ export const List = <DataType extends { name: string }>({
 	className,
 	testId = 'List'
 }: ListProps<DataType>) => {
+	let colWidthAccumulator = 0
+
 	return (
 		<div className={`gap-4 flex flex-col ${className}`} data-testid={testId}>
 			<div className={`${sharedClasses} font-semibold text-black text-xs hidden lg:grid`}>
-				{columns.map((column) => (
-					<div className={`col-span-${column.width} truncate`} key={column.title}>
-						{column.title}
-					</div>
-				))}
+				{columns.map((column) => {
+					// Merge the width of columns without a title to the next titled column
+					if (!column.title) {
+						colWidthAccumulator += column.width
+						return
+					}
+					const columnWidth = colWidthAccumulator + column.width
+					colWidthAccumulator = 0
+
+					return (
+						<div className={`col-span-${columnWidth} truncate`} key={column.title}>
+							{column.title}
+						</div>
+					)
+				})}
 			</div>
 			{data.map((item) => (
 				<ListItem className={sharedClasses} columns={columns} itemData={item} key={item.name} />
