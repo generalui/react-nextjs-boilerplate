@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { NavBar } from 'partials/NavBar'
 import { Sidebar } from 'partials/Sidebar'
 import { Container } from 'common/Container'
+import styles from './PageWrapper.module.css'
 import { PageWrapperProps } from './PageWrapper.types'
 
 export const PageWrapper = ({
@@ -26,7 +27,7 @@ export const PageWrapper = ({
 
 			{!hideSidebar && <Sidebar />}
 
-			<div className={cn(hideSidebar ? 'w-full' : 'main-container--with-sidebar')}>
+			<div className={cn(hideSidebar ? 'w-full' : styles.withSideBar)}>
 				{!fullWidth && <Container className='mt-16 max-w-screen-lg'>{children}</Container>}
 				{fullWidth && { children }}
 			</div>

@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import './constants/variables.css';
+
 html {
 	background-color: #f1ece9 !important;
 }
@@ -9,9 +11,4 @@ html {
 h1 {
 	font-size: 1.5rem;
 	letter-spacing: 0.15px;
-}
-
-.main-container--with-sidebar {
-	width: calc(100% - 15.5rem);
-	margin-left: 15.5rem;
 }

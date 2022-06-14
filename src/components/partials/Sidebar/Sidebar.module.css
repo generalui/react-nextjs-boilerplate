@@ -1,0 +1,4 @@
+.sideBar {
+	width: var(--side-bar-width);
+	top: var(--side-bar-top);
+}

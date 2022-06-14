@@ -1,0 +1,5 @@
+/* MUST UPDATE SIDEBAR WIDTH WHEN UPDATING withSideBar width property  */
+.withSideBar {
+	width: calc(100% - var(--side-bar-width));
+	margin-left: var(--side-bar-width);
+}
