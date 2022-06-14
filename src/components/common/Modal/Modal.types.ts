@@ -1,14 +1,12 @@
-import { ModalPositions, ModalSizes } from 'flowbite-react'
 import { ReactNode } from 'react'
 import { CommonProps } from 'types/CommonProps'
+import { Sizes } from 'types/Sizes'
 
 export interface ModalProps extends CommonProps {
 	title?: string | ReactNode
 	footer?: string | ReactNode
 	onClose?: () => void
-	position?: keyof ModalPositions
-	popup?: boolean
-	root?: HTMLElement
 	show?: boolean
-	size?: keyof ModalSizes
+	bodyClassName?: string
+	size?: Sizes
 }

@@ -3,13 +3,16 @@ import { memo, useState } from 'react'
 import { Form } from 'react-final-form'
 import { OnChangeValue } from 'types/index'
 import { z } from 'zod'
+import { useText } from 'hooks/useText'
 import { Button } from 'components/common/Button'
 import { Input } from 'components/common/Input'
 import { Modal } from 'components/common/Modal'
+import { TextArea } from 'components/common/TextArea'
 import { CreateStudyProps } from './CreateStudy.types'
 
 export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }: CreateStudyProps) {
-	const [open, setOpen] = useState<boolean>(false)
+	const [open, setOpen] = useState<boolean>(true)
+	const { t } = useText('createStudy')
 
 	const TestSchema = z.object({
 		firstName: z.string(),
@@ -47,8 +50,9 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 				<Modal
 					show={open}
 					onClose={handleOnClose}
-					title='Add Study'
+					title={t('title')}
 					footer={<Button>Decline</Button>}
+					bodyClassName='pt-6'
 				>
 					<Form
 						data-testid={testId}
@@ -56,20 +60,17 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 						initialValues={{ firstName: 'Vanessa', lastName: 'Núñez' }}
 						render={({ handleSubmit }) => (
 							<form onSubmit={handleSubmit}>
-								<div>
-									<label htmlFor='firstName'>First name</label>
-									<Input
-										name='firstName'
-										type='text'
-										placeholder='First Name'
-										onChange={handleOnChange}
-									/>
+								<div className='grid grid-cols-3 gap-2'>
+									<div className='row-span-3'>image</div>
+									<div className='col-span-2 row-span-2'>
+										<TextArea />
+									</div>
+									<div>
+										<Input name='Owner' type='text' placeholder='Owner' onChange={handleOnChange} />
+									</div>
+									<div>Date</div>
+									<div className='col-span-3'>description</div>
 								</div>
-								<div>
-									<label htmlFor='lastName'>Last name</label>
-									<Input name='lastName' type='text' placeholder='Last Name' />
-								</div>
-								<button type='submit'>Submit</button>
 							</form>
 						)}
 					/>
