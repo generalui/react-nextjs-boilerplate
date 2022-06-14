@@ -12,6 +12,19 @@ const common = {
 		signIn: {
 			message: 'Sign in'
 		}
+	},
+	sidebar: {
+		nav: {
+			home: {
+				message: 'Home'
+			},
+			studies: {
+				message: 'Studies'
+			},
+			settings: {
+				message: 'Settings'
+			}
+		}
 	}
 }
 

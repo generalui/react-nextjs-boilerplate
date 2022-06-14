@@ -4,5 +4,5 @@ import { NavBarProps } from 'partials/NavBar/NavBar.types'
 export interface PageWrapperProps extends CommonProps, NavBarProps {
 	title?: string
 	fullWidth?: boolean
-	hideSideBar?: boolean
+	hideSidebar?: boolean
 }

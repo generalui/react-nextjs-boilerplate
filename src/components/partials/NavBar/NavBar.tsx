@@ -1,46 +1,38 @@
-import cn from 'classnames'
-import { Navbar } from 'flowbite-react'
 import { useText } from 'hooks/useText'
 import { SignInOut } from 'partials/SignInOut'
-import { Col } from 'common/Col'
-import { Grid } from 'common/Grid'
 import { NavBarProps } from './NavBar.types'
 
-export const NavBar = ({
-	className,
-	title,
-	hideTitle,
-	hideAuth,
-	testId = 'NavBar'
-}: NavBarProps) => {
+/**
+ * Side bar top and height are derived from the height of the NavBar
+ */
+
+export const NavBar = ({ title, hideTitle, hideAuth, testId = 'NavBar' }: NavBarProps) => {
 	const { t } = useText('common.client')
 
 	return (
-		<Navbar className={cn('border-gray-200 border-b-2 py-1', className)} data-testid={testId}>
-			<Grid cols={3} className='w-full'>
-				<Col span={1}>
-					<Navbar.Brand href='/'>
-						<img className='h-12' src='/images/NBDC_logo_full.svg' alt={t('logoAlt')} />
-					</Navbar.Brand>
-				</Col>
-				<Col span={1} className='flex justify-center items-center'>
-					{!hideTitle && title && <div className='navbar-center hidden lg:flex'>{title}</div>}
-				</Col>
-				<Col span={1} start={3} className='flex justify-end items-center'>
-					{hideAuth ? ' ' : <SignInOut />}
-				</Col>
-			</Grid>
-			{/* <div className='grid grid-cols-3 px-4 py-2 w-full'>
+		<div
+			className={`w-full border-b-[1px] py-1 h-[4.25rem] flex justify-center items-center border-gray-200 bg-white px-2 py-2.5 dark:border-gray-700 dark:bg-gray-800 sm:px-4`}
+			data-testid={testId}
+		>
+			<div className='grid grid-cols-3 w-full items-center'>
 				<div>
-					<Navbar.Brand href='/'>
-						<img className='h-12' src='/images/NBDC_logo_full.svg' alt={t('logoAlt')} />
-					</Navbar.Brand>
+					<img className='h-12' src='/images/NBDC_logo_full.svg' alt={t('logoAlt')} />
 				</div>
-				<div className='flex justify-center items-center'>
-					{!hideTitle && title && <div className='navbar-center hidden lg:flex'>{title}</div>}
+				<div>
+					{!hideTitle && title && (
+						<div className='hidden lg:flex justify-center items-center'>{title}</div>
+					)}
 				</div>
-				<div>{hideAuth ? ' ' : <SignInOut />}</div>
-			</div> */}
-		</Navbar>
+				<div>
+					{hideAuth ? (
+						' '
+					) : (
+						<div className='flex justify-end items-center'>
+							<SignInOut />
+						</div>
+					)}
+				</div>
+			</div>
+		</div>
 	)
 }

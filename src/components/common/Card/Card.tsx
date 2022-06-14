@@ -6,7 +6,7 @@ export const Card = ({ className, children, title, img, imgAlt, testId = 'Card' 
 	return (
 		<div
 			data-testid={testId}
-			className={cn('card bg-base-100 md:shadow-xl  rounded-none	md:rounded-lg	', className)}
+			className={cn('card bg-base-100 rounded-none	md:rounded-lg	', className)}
 		>
 			{img && (
 				<figure className='w-full lg:w-1/4 relative h-60 lg:h-48'>
