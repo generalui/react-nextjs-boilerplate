@@ -6,7 +6,7 @@ export interface ModalProps extends CommonProps {
 	title?: string | ReactNode
 	footer?: string | ReactNode
 	onClose?: () => void
-	show?: boolean
+	show: boolean
 	bodyClassName?: string
 	size?: Sizes
 }

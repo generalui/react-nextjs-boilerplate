@@ -33,7 +33,7 @@ export const Modal = memo(function Modal({
 								{ title }
 							))}
 
-						{bodyClassName ? <div className={bodyClassName}>{children}</div> : { children }}
+						{bodyClassName ? <div className={bodyClassName}>{children}</div> : children}
 
 						{/* Modal footer */}
 						{footer && <ModalFooter />}
