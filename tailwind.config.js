@@ -8,6 +8,7 @@ module.exports = {
 	],
 	safelist: [
 		{
+			pattern: /max-w/,
 			pattern: /col-span/
 		}
 	],

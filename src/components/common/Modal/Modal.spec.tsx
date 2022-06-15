@@ -7,7 +7,11 @@ import { Modal } from './index'
 
 describe('Modal Component', () => {
 	it('renders on the page', () => {
-		render(<Modal />)
+		render(
+			<Modal show={true}>
+				<h1>This is a Modal</h1>
+			</Modal>
+		)
 
 		const component = screen.getByTestId('Modal')
 
