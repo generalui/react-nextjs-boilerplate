@@ -7,30 +7,27 @@ import { useText } from 'hooks/useText'
 import { Button } from 'components/common/Button'
 import { Input } from 'components/common/Input'
 import { Modal } from 'components/common/Modal'
-import { TextArea } from 'components/common/TextArea'
+import { ModalFooter } from 'common/ModalFooter'
 import { CreateStudyProps } from './CreateStudy.types'
 
 export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }: CreateStudyProps) {
 	const [open, setOpen] = useState<boolean>(false)
 	const { t } = useText('createStudy')
 
-	const TestSchema = z.object({
-		firstName: z.string(),
-		lastName: z.string()
+	const StudySchema = z.object({
+		title: z.string(),
+		coordinator: z.string(),
+		endDate: z.string(),
+		description: z.string()
 	})
 
-	const onSubmit = async (values: z.infer<typeof TestSchema>) => {
-		console.log(JSON.stringify(values))
+	const onSubmit = async (values: z.infer<typeof StudySchema>) => {
 		try {
-			TestSchema.parse(values)
+			StudySchema.parse(values)
+			console.log(JSON.stringify(values))
 		} catch (error) {
 			console.log('error: ', error)
 		}
-	}
-
-	const handleOnChange = (value: OnChangeValue, previousValue: OnChangeValue) => {
-		console.log('previousValue: ', previousValue)
-		console.log(value)
 	}
 
 	const handleOnClick = () => {
@@ -47,13 +44,7 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 				<Button onClick={handleOnClick} center>
 					<PlusIcon className='w-5 h-5 mr-1 inline' /> Add Study
 				</Button>
-				<Modal
-					show={open}
-					onClose={handleOnClose}
-					title={t('title')}
-					footer={<Button>Decline</Button>}
-					bodyClassName='pt-6'
-				>
+				<Modal show={open} onClose={handleOnClose} title={t('title')} bodyClassName='pt-6'>
 					<Form
 						data-testid={testId}
 						onSubmit={onSubmit}
@@ -61,28 +52,35 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 							<form onSubmit={handleSubmit}>
 								<div className='grid grid-cols-3 gap-2'>
 									<div className='row-span-3'>
-										<Input name='File' type='file' placeholder='File' onChange={handleOnChange} />
+										<img src='/images/uploadImage.png' alt='PCR' className='rounded' />
+										{/* <Input name='file' type='file' placeholder='File' /> */}
 									</div>
 									<div className='col-span-2 row-span-2'>
-										<TextArea />
+										<Input name='title' placeholder='Title' type='textarea' />
 									</div>
 									<div>
-										<label className='text-xs text-gray-500' htmlFor='owner'>
-											Owner
+										<label className='text-xs text-gray-500' htmlFor='coordinator'>
+											Coordinator
 										</label>
-										<Input name='owner' type='text' placeholder='Owner' onChange={handleOnChange} />
+										<Input name='coordinator' type='text' placeholder='Coordinator' />
 									</div>
 									<div>
-										<label className='text-xs text-gray-500' htmlFor='date'>
-											Submission Date
+										<label className='text-xs text-gray-500' htmlFor='endDate'>
+											End Date
 										</label>
-										<Input name='date' type='date' placeholder='Date' onChange={handleOnChange} />
+										<Input name='endDate' type='date' placeholder='Select End Date' />
 									</div>
 									<label className='text-xs text-gray-500' htmlFor='date'>
 										Study Description
 									</label>
 									<div className='col-span-3'>
-										<TextArea rows={5} />
+										<Input name='description' placeholder='Description' type='textarea' rows={5} />
+									</div>
+									<div className='col-span-3'>
+										<ModalFooter>
+											<Button type='submit'>Save</Button>
+											<Button>Cancel</Button>
+										</ModalFooter>
 									</div>
 								</div>
 							</form>
