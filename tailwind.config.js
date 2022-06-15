@@ -8,7 +8,8 @@ module.exports = {
 	],
 	safelist: [
 		{
-			pattern: /max-w/
+			pattern: /max-w/,
+			pattern: /col-span/
 		}
 	],
 	theme: {
@@ -22,7 +23,7 @@ module.exports = {
 			}
 		}
 	},
-	plugins: [require('daisyui'), require('flowbite/plugin')],
+	plugins: [require('@tailwindcss/line-clamp'), require('daisyui'), require('flowbite/plugin')],
 	daisyui: {
 		themes: ['light']
 	}

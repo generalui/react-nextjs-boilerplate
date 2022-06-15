@@ -16,8 +16,6 @@ const MOCK_PROVIDER: ClientSafeProvider = {
 }
 
 describe('SignIn Component', () => {
-	// useRouterMock()
-
 	it('renders on the page', () => {
 		render(<SignIn providers={{ credentials: MOCK_PROVIDER }} csrfToken={''} />)
 

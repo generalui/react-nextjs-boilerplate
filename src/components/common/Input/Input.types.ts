@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react'
 import { CommonProps } from 'types/CommonProps'
 import { OnChangeValue } from 'types/index'
 
@@ -8,9 +9,9 @@ export interface InputProps extends CommonProps {
 	name: string
 }
 
-export interface InputPropsv1 extends CommonProps {
+export interface InputPropsV1 extends CommonProps {
 	value?: string | number | readonly string[] | undefined
-	onChange?: (e: any) => void
+	onChange?: (e: ChangeEvent<HTMLInputElement>) => void
 	type?: string
 	placeholder?: string
 }
