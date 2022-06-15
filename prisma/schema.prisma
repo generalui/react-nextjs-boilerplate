@@ -51,6 +51,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   documents     Document[]
+  Study         Study[]
 }
 
 model VerificationToken {
@@ -62,16 +63,14 @@ model VerificationToken {
 }
 
 model Study {
-  id         String   @id @default(cuid())
-  title      String
-  objective  String
-  population Int
-  startDate  DateTime
-  endDate    DateTime
-  type       String
-  topic      String
-  audience   String
-  location   String
+  id             String   @id @default(cuid())
+  description    String
+  imageUrl       String
+  owner          User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId        String
+  status         String   @default("new")
+  submissionDate DateTime
+  title          String
 }
 
 model Document {
