@@ -32,9 +32,9 @@ export const Studies = function Studies({ studies, testId = 'Studies' }: Studies
 						width: 5
 					},
 					{
-						key: 'owner',
+						key: 'coordinator',
 						className: 'text-base text-gray-900 font-semibold',
-						title: t('list.owner'),
+						title: t('list.coordinator'),
 						width: 3
 					},
 					{
@@ -54,10 +54,10 @@ export const Studies = function Studies({ studies, testId = 'Studies' }: Studies
 					return {
 						imageUrl: <img src={study.imageUrl} alt={study.title} className='rounded' />,
 						title: study.title,
-						owner: (
+						coordinator: (
 							<div className='flex flex-col'>
-								{study.owner.name}
-								<div className={subtleText}>{study.owner.email}</div>
+								{study.coordinator.name}
+								<div className={subtleText}>{study.coordinator.email}</div>
 							</div>
 						),
 						submissionDate: new Date(study.submissionDate).toLocaleDateString(),

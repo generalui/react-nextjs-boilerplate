@@ -12,7 +12,7 @@ import { Studies } from 'components/pages/Studies'
 export const getServerSideProps = async () => {
 	const studies = await prisma.study.findMany({
 		include: {
-			owner: true
+			coordinator: true
 		}
 	})
 

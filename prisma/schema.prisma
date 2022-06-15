@@ -72,10 +72,11 @@ model Study {
   id             String      @id @default(cuid())
   description    String
   imageUrl       String
-  owner          User        @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  ownerId        String
+  coordinator    User        @relation(fields: [coordinatorId], references: [id], onDelete: Cascade)
+  coordinatorId  String
   status         StudyStatus @default(new)
-  submissionDate DateTime
+  submissionDate DateTime    @default(now())
+  endDate        DateTime
   title          String
 }
 
