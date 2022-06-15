@@ -61,15 +61,30 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 						render={({ handleSubmit }) => (
 							<form onSubmit={handleSubmit}>
 								<div className='grid grid-cols-3 gap-2'>
-									<div className='row-span-3'>image</div>
+									<div className='row-span-3'>
+										<Input name='File' type='file' placeholder='File' onChange={handleOnChange} />
+									</div>
 									<div className='col-span-2 row-span-2'>
 										<TextArea />
 									</div>
 									<div>
-										<Input name='Owner' type='text' placeholder='Owner' onChange={handleOnChange} />
+										<label className='text-xs text-gray-500' htmlFor='owner'>
+											Owner
+										</label>
+										<Input name='owner' type='text' placeholder='Owner' onChange={handleOnChange} />
 									</div>
-									<div>Date</div>
-									<div className='col-span-3'>description</div>
+									<div>
+										<label className='text-xs text-gray-500' htmlFor='date'>
+											Submission Date
+										</label>
+										<Input name='date' type='date' placeholder='Date' onChange={handleOnChange} />
+									</div>
+									<label className='text-xs text-gray-500' htmlFor='date'>
+										Study Description
+									</label>
+									<div className='col-span-3'>
+										<TextArea rows={5} />
+									</div>
 								</div>
 							</form>
 						)}

@@ -19,7 +19,7 @@ export const Input = ({
 					<input
 						data-testid={testId}
 						name={props.input.name}
-						id={id}
+						id={id || name}
 						className={cn('input input-bordered block w-full', className)}
 						placeholder={placeholder}
 						type={type}
