@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import '__mocks__/all'
+import '__mocks__/index'
 import { Home } from 'pages/Home'
 
 describe('Home', () => {

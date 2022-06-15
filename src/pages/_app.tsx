@@ -3,7 +3,8 @@ import { Provider } from 'hooks-for-redux'
 import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
 import dynamic from 'next/dynamic'
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClientProvider } from 'react-query'
+import { reactQueryClient } from 'utils/react-query'
 import 'styles/globals.css'
 import '../store'
 
@@ -14,12 +15,11 @@ dynamic(() => import('flowbite'), { ssr: false })
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 	console.log('~ pageProps', pageProps)
-	const queryClient = new QueryClient()
 
 	return (
 		<Provider>
 			<SessionProvider session={session}>
-				<QueryClientProvider client={queryClient}>
+				<QueryClientProvider client={reactQueryClient}>
 					<Component {...pageProps} />
 				</QueryClientProvider>
 			</SessionProvider>

@@ -1,8 +1,8 @@
 /**
  * Test file for Studies
  */
-import { render, screen } from '@testing-library/react'
-import '__mocks__/all'
+import { render } from '@testing-library/react'
+import '__mocks__/index'
 import React from 'react'
 import { Studies } from './index'
 
