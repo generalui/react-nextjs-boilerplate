@@ -11,7 +11,7 @@ import { TextArea } from 'components/common/TextArea'
 import { CreateStudyProps } from './CreateStudy.types'
 
 export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }: CreateStudyProps) {
-	const [open, setOpen] = useState<boolean>(true)
+	const [open, setOpen] = useState<boolean>(false)
 	const { t } = useText('createStudy')
 
 	const TestSchema = z.object({
