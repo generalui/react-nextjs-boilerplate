@@ -1,6 +1,7 @@
 /*!
  * Studies
  */
+import { useStudies } from 'hooks/api/useStudies'
 import { useText } from 'hooks/useText'
 import { Button } from 'components/common/Button'
 import { IconBadge } from 'components/common/IconBadge'
@@ -10,8 +11,9 @@ import { PageWrapper } from 'partials/PageWrapper'
 import { subtleText } from 'styles/typography'
 import { StudiesProps } from './Studies.types'
 
-export const Studies = function Studies({ studies, testId = 'Studies' }: StudiesProps) {
+export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 	const { t } = useText('studies')
+	const { data = [] } = useStudies()
 
 	return (
 		<PageWrapper title='Studies' data-testid={testId}>
@@ -50,7 +52,7 @@ export const Studies = function Studies({ studies, testId = 'Studies' }: Studies
 						width: 1
 					}
 				]}
-				data={studies.map((study) => {
+				data={data.map((study) => {
 					return {
 						imageUrl: <img src={study.imageUrl} alt={study.title} className='rounded' />,
 						title: study.title,
