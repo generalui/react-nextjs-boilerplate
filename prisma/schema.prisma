@@ -62,13 +62,19 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+enum StudyStatus {
+  new
+  approved
+  archived
+}
+
 model Study {
-  id             String   @id @default(cuid())
+  id             String      @id @default(cuid())
   description    String
   imageUrl       String
-  owner          User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  owner          User        @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId        String
-  status         String   @default("new")
+  status         StudyStatus @default(new)
   submissionDate DateTime
   title          String
 }
