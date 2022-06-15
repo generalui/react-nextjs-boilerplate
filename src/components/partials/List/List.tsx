@@ -1,3 +1,4 @@
+import cn from 'classnames'
 import { ListItem } from 'components/partials/List/ListItem'
 import { ListProps } from './List.types'
 
@@ -12,8 +13,8 @@ export const List = <DataType extends { name: string }>({
 	let colWidthAccumulator = 0
 
 	return (
-		<div className={`gap-4 flex flex-col ${className}`} data-testid={testId}>
-			<div className={`${sharedClasses} font-semibold text-black text-xs hidden lg:grid`}>
+		<div className={cn('gap-4 flex flex-col', className)} data-testid={testId}>
+			<div className={cn('font-semibold text-black text-xs hidden lg:grid', sharedClasses)}>
 				{columns.map((column) => {
 					// Merge the width of columns without a title to the next titled column
 					if (!column.title) {
@@ -24,7 +25,7 @@ export const List = <DataType extends { name: string }>({
 					colWidthAccumulator = 0
 
 					return (
-						<div className={`col-span-${columnWidth} truncate`} key={column.title}>
+						<div className={cn('truncate', `col-span-${columnWidth}`)} key={column.title}>
 							{column.title}
 						</div>
 					)

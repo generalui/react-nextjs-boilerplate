@@ -4,17 +4,20 @@
 import { useText } from 'hooks/useText'
 import { Button } from 'components/common/Button'
 import { IconBadge } from 'components/common/IconBadge'
+import { PageHeader } from 'components/common/PageHeader'
 import { List } from 'components/partials/List'
 import { PageWrapper } from 'partials/PageWrapper'
+import { subtleText } from 'styles/typography'
 import { StudiesProps } from './Studies.types'
-import { subtleText } from './styles'
 
 export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 	const { t } = useText('studies')
 
 	return (
-		<PageWrapper title='Studies' data-testid={testId} className='flex flex-col items-start gap-10'>
-			<Button>+ Add Study</Button>
+		<PageWrapper title='Studies' data-testid={testId}>
+			<PageHeader>
+				<Button>+ Add Study</Button>
+			</PageHeader>
 			<List
 				columns={[
 					{

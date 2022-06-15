@@ -8,7 +8,6 @@ import { PageWrapperProps } from './PageWrapper.types'
 
 export const PageWrapper = ({
 	children,
-	className,
 	title,
 	hideTitle,
 	hideAuth,
@@ -29,9 +28,7 @@ export const PageWrapper = ({
 			{!hideSidebar && <Sidebar />}
 
 			<div className={cn(hideSidebar ? 'w-full' : styles.withSideBar)}>
-				{!fullWidth && (
-					<Container className={`mt-16 max-w-screen-lg ${className}`}>{children}</Container>
-				)}
+				{!fullWidth && <Container className={`mt-16 max-w-screen-lg`}>{children}</Container>}
 				{fullWidth && { children }}
 			</div>
 		</div>
