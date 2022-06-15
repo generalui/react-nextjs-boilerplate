@@ -6,6 +6,11 @@ module.exports = {
 		'./node_modules/flowbite/**/*.js',
 		'./node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'
 	],
+	safelist: [
+		{
+			pattern: /col-span/
+		}
+	],
 	theme: {
 		extend: {
 			typography: {
@@ -17,7 +22,7 @@ module.exports = {
 			}
 		}
 	},
-	plugins: [require('daisyui'), require('flowbite/plugin')],
+	plugins: [require('@tailwindcss/line-clamp'), require('daisyui'), require('flowbite/plugin')],
 	daisyui: {
 		themes: ['light']
 	}
