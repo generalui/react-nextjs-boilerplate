@@ -57,7 +57,6 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 					<Form
 						data-testid={testId}
 						onSubmit={onSubmit}
-						initialValues={{ firstName: 'Vanessa', lastName: 'Núñez' }}
 						render={({ handleSubmit }) => (
 							<form onSubmit={handleSubmit}>
 								<div className='grid grid-cols-3 gap-2'>
