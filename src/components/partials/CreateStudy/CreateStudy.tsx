@@ -1,17 +1,18 @@
 import { PlusIcon } from '@heroicons/react/solid'
 import { memo, useState } from 'react'
 import { Form } from 'react-final-form'
-import { OnChangeValue } from 'types/index'
 import { z } from 'zod'
 import { useText } from 'hooks/useText'
 import { Button } from 'components/common/Button'
 import { Input } from 'components/common/Input'
 import { Modal } from 'components/common/Modal'
+import { ImageInput } from 'common/ImageInput'
 import { ModalFooter } from 'common/ModalFooter'
 import { CreateStudyProps } from './CreateStudy.types'
 
 export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }: CreateStudyProps) {
 	const [open, setOpen] = useState<boolean>(false)
+
 	const { t } = useText('createStudy')
 
 	const StudySchema = z.object({
@@ -51,10 +52,7 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 						render={({ handleSubmit }) => (
 							<form onSubmit={handleSubmit}>
 								<div className='grid grid-cols-3 gap-2'>
-									<div className='row-span-3'>
-										<img src='/images/uploadImage.png' alt='PCR' className='rounded' />
-										{/* <Input name='file' type='file' placeholder='File' /> */}
-									</div>
+									<ImageInput />
 									<div className='col-span-2 row-span-2'>
 										<Input name='title' placeholder='Title' type='textarea' />
 									</div>
