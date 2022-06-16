@@ -3,12 +3,12 @@
  */
 import { useStudies } from 'hooks/api/useStudies'
 import { useText } from 'hooks/useText'
-import { Button } from 'components/common/Button'
-import { IconBadge } from 'components/common/IconBadge'
-import { PageHeader } from 'components/common/PageHeader'
-import { List } from 'components/partials/List'
+import { List } from 'partials/List'
 import { PageWrapper } from 'partials/PageWrapper'
-import { subtleText } from 'styles/typography'
+import { Button } from 'common/Button'
+import { IconBadge } from 'common/IconBadge'
+import { PageHeader } from 'common/PageHeader'
+import { Text } from 'common/Text'
 import { StudiesProps } from './Studies.types'
 
 export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
@@ -41,7 +41,6 @@ export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 					},
 					{
 						key: 'submissionDate',
-						className: subtleText,
 						title: t('list.submissionDate'),
 						width: 2
 					},
@@ -58,10 +57,12 @@ export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 					coordinator: (
 						<div className='flex flex-col'>
 							{study.coordinator.name}
-							<div className={subtleText}>{study.coordinator.email}</div>
+							<Text v='subtitle'>{study.coordinator.email}</Text>
 						</div>
 					),
-					submissionDate: new Date(study.submissionDate).toLocaleDateString(),
+					submissionDate: (
+						<Text v='subtitle'>{new Date(study.submissionDate).toLocaleDateString()}</Text>
+					),
 					status: <IconBadge variant={study.status} />
 				}))}
 				isLoading={isLoading}
