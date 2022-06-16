@@ -1,4 +1,4 @@
-import { Home } from 'components/pages'
+import { Home } from 'pages/index'
 
 /**
  * Home page

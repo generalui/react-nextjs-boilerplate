@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next'
 import { getCsrfToken, getProviders } from 'next-auth/react'
-import { SignIn } from 'components/pages/SignIn'
+import { SignIn } from 'pages/SignIn'
 
 /**
  * SignIn page

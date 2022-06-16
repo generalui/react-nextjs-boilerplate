@@ -1,4 +1,4 @@
-import { Studies } from 'components/pages/Studies'
+import { Studies } from 'pages/Studies'
 
 /**
  * Studies page
