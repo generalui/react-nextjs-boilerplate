@@ -1,6 +1,6 @@
 import cn from 'classnames'
-import { IconProps } from 'components/common/Icon/Icon.types'
 import { Icon } from 'common/Icon'
+import { IconProps } from 'common/Icon/Icon.types'
 import { IconBadgeProps } from './IconBadge.types'
 
 const badgeMap: {

@@ -3,9 +3,9 @@ import { ChangeEvent, useState } from 'react'
 import { ReqStatus } from 'types/ReqStatus'
 import { axios } from 'utils/axios'
 import { useText } from 'hooks/useText'
-import { AlertError } from 'components/common/AlertError'
-import { Button } from 'components/common/Button'
 import { Alert } from 'common/Alert'
+import { AlertError } from 'common/AlertError'
+import { Button } from 'common/Button'
 import { FileInputProps } from './FileInput.types'
 
 export const FileInput = ({ testId = 'FileInput' }: FileInputProps) => {
