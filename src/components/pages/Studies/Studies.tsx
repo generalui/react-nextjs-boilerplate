@@ -13,7 +13,7 @@ import { StudiesProps } from './Studies.types'
 
 export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 	const { t } = useText('studies')
-	const { data = [] } = useStudies()
+	const { data = [], isLoading } = useStudies()
 
 	return (
 		<PageWrapper title='Studies' data-testid={testId}>
@@ -52,20 +52,19 @@ export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 						width: 1
 					}
 				]}
-				data={data.map((study) => {
-					return {
-						imageUrl: <img src={study.imageUrl} alt={study.title} className='rounded' />,
-						title: study.title,
-						coordinator: (
-							<div className='flex flex-col'>
-								{study.coordinator.name}
-								<div className={subtleText}>{study.coordinator.email}</div>
-							</div>
-						),
-						submissionDate: new Date(study.submissionDate).toLocaleDateString(),
-						status: <IconBadge variant={study.status} />
-					}
-				})}
+				data={data.map((study) => ({
+					imageUrl: <img src={study.imageUrl} alt={study.title} className='rounded' />,
+					title: study.title,
+					coordinator: (
+						<div className='flex flex-col'>
+							{study.coordinator.name}
+							<div className={subtleText}>{study.coordinator.email}</div>
+						</div>
+					),
+					submissionDate: new Date(study.submissionDate).toLocaleDateString(),
+					status: <IconBadge variant={study.status} />
+				}))}
+				isLoading={isLoading}
 			/>
 		</PageWrapper>
 	)

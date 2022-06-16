@@ -1,5 +1,7 @@
 import cn from 'classnames'
-import { ListItem } from 'components/partials/List/ListItem'
+import { ListItem } from 'partials/List/ListItem'
+import { Loader } from 'common/Loader'
+import { Spinner } from 'common/Spinner'
 import { ListProps } from './List.types'
 
 const sharedClasses = 'grid px-6 grid-cols-6 lg:grid-cols-12 gap-10'
@@ -8,6 +10,7 @@ export const List = <DataType extends object>({
 	columns,
 	data,
 	className,
+	isLoading = false,
 	testId = 'List'
 }: ListProps<DataType>) => {
 	let colWidthAccumulator = 0
@@ -31,10 +34,19 @@ export const List = <DataType extends object>({
 					)
 				})}
 			</div>
-			{data.map((item, index) => (
-				// @ts-expect-error We don't know any key info except the index for this item
-				<ListItem className={sharedClasses} columns={columns} itemData={item} key={index} />
-			))}
+			<Loader
+				isLoading={isLoading}
+				fallback={
+					<div className='flex items-center justify-center p-12'>
+						<Spinner />
+					</div>
+				}
+			>
+				{data.map((item, index) => (
+					// @ts-expect-error We don't know any key info except the index for this item
+					<ListItem className={sharedClasses} columns={columns} itemData={item} key={index} />
+				))}
+			</Loader>
 		</div>
 	)
 }
