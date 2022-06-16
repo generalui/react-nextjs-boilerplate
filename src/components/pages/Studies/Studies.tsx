@@ -1,6 +1,7 @@
 /*!
  * Studies
  */
+import { useStudies } from 'hooks/api/useStudies'
 import { useText } from 'hooks/useText'
 import { Button } from 'components/common/Button'
 import { IconBadge } from 'components/common/IconBadge'
@@ -12,6 +13,7 @@ import { StudiesProps } from './Studies.types'
 
 export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 	const { t } = useText('studies')
+	const { data = [], isLoading } = useStudies()
 
 	return (
 		<PageWrapper title='Studies' data-testid={testId}>
@@ -21,21 +23,21 @@ export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 			<List
 				columns={[
 					{
-						key: 'image',
+						key: 'imageUrl',
 						title: t('list.image'),
 						width: 1
 					},
 					{
-						key: 'name',
+						key: 'title',
 						className: 'font-bold text-sm text-gray-700 line-clamp-2',
 						title: t('list.studyName'),
-						width: 6
+						width: 5
 					},
 					{
-						key: 'owner',
+						key: 'coordinator',
 						className: 'text-base text-gray-900 font-semibold',
-						title: t('list.owner'),
-						width: 2
+						title: t('list.coordinator'),
+						width: 3
 					},
 					{
 						key: 'submissionDate',
@@ -46,46 +48,23 @@ export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 					{
 						key: 'status',
 						title: t('list.status'),
+						className: 'flex justify-center',
 						width: 1
 					}
 				]}
-				data={[
-					{
-						image: <img src='/images/study1.png' alt='PCR' className='rounded' />,
-						name: 'Real-time PCR designs to estimate nuclear and mitochondrial DNA copy number in forensic and ancient DNA studies',
-						owner: (
-							<div className='flex flex-col'>
-								Neil Sims <div className={subtleText}>email@example.com</div>
-							</div>
-						),
-						submissionDate: '07/21/2022',
-						status: <IconBadge variant='new' />
-					},
-					{
-						image: <img src='/images/study2.png' alt='DNA' className='rounded' />,
-						name: 'Distribution of mitochondrial DNA lineages among Native American tribes of Northeastern North America',
-						owner: (
-							<div className='flex flex-col'>
-								Jane Williams
-								<div className={subtleText}>email@example.com</div>
-							</div>
-						),
-						submissionDate: '05/12/2022',
-						status: <IconBadge variant='approved' />
-					},
-					{
-						image: <img src='/images/study3.png' alt='Gene' className='rounded' />,
-						name: 'Development of Gene Editing and Cell Culture Capacity and Expertise in the Tribal Northern Plains',
-						owner: (
-							<div className='flex flex-col'>
-								Thomas Lean
-								<div className={subtleText}>email@example.com</div>
-							</div>
-						),
-						submissionDate: '03/04/2022',
-						status: <IconBadge variant='archived' />
-					}
-				]}
+				data={data.map((study) => ({
+					imageUrl: <img src={study.imageUrl} alt={study.title} className='rounded' />,
+					title: study.title,
+					coordinator: (
+						<div className='flex flex-col'>
+							{study.coordinator.name}
+							<div className={subtleText}>{study.coordinator.email}</div>
+						</div>
+					),
+					submissionDate: new Date(study.submissionDate).toLocaleDateString(),
+					status: <IconBadge variant={study.status} />
+				}))}
+				isLoading={isLoading}
 			/>
 		</PageWrapper>
 	)

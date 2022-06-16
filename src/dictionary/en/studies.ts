@@ -9,8 +9,8 @@ const home = {
 		studyName: {
 			message: 'Study Name'
 		},
-		owner: {
-			message: 'Owner'
+		coordinator: {
+			message: 'Coordinator'
 		},
 		submissionDate: {
 			message: 'Submission Date'

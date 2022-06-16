@@ -2,7 +2,7 @@
  * This is a test file for SignIn
  */
 import { render, screen } from '@testing-library/react'
-import '__mocks__/all'
+import '__mocks__/index'
 import { ClientSafeProvider } from 'next-auth/react'
 import React from 'react'
 import { SignIn } from './index'

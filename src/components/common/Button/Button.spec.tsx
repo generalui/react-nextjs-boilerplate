@@ -2,7 +2,7 @@
  * This is a test file for Button
  */
 import { render, screen } from '@testing-library/react'
-import '__mocks__/all'
+import '__mocks__/index'
 import React from 'react'
 import { Button } from './index'
 
