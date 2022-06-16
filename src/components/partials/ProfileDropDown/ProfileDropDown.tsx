@@ -1,10 +1,12 @@
 import { signOut, useSession } from 'next-auth/react'
-import { useEffect, useRef, useState } from 'react'
 import { useText } from 'hooks/useText'
 import { DropDown } from 'components/common/DropDown'
-import { SignInOutProps } from './SignInOut.types'
+import { ProfileDropDownProps } from './ProfileDropDown.types'
 
-export const SignInOut = ({ testId = 'SignInOut', className }: SignInOutProps) => {
+export const ProfileDropDown = ({
+	testId = 'ProfileDropDown',
+	className
+}: ProfileDropDownProps) => {
 	const { t } = useText('common.userDropdown')
 	const { data: session } = useSession()
 	const label = session?.user?.name || t('signIn')
@@ -18,9 +20,10 @@ export const SignInOut = ({ testId = 'SignInOut', className }: SignInOutProps) =
 					onClick: () => {
 						// TODO: redirect to profile page
 						console.log('Navigate to profile')
-					}
+					},
+					value: 'profile'
 				},
-				{ children: t('logout'), onClick: () => signOut() }
+				{ children: t('logout'), onClick: () => signOut(), value: 'logout' }
 			]}
 			testId={testId}
 			v='profile'

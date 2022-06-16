@@ -1,4 +1,5 @@
 import cn from 'classnames'
+import { Button } from 'components/common/Button'
 import { DropDownItemProps } from './DropDownItem.types'
 
 export const DropDownItem = ({
@@ -8,12 +9,12 @@ export const DropDownItem = ({
 	testId = 'DropDownItem'
 }: DropDownItemProps) => {
 	return (
-		<button
+		<Button
 			onClick={onClick}
 			className={cn('hover:bg-gray-100 py-2 w-full rounded-xl', className)}
-			data-testId={testId}
+			testId={testId}
 		>
 			{children}
-		</button>
+		</Button>
 	)
 }

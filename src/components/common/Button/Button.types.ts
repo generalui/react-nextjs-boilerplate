@@ -6,4 +6,5 @@ export interface ButtonProps extends CommonProps {
 	danger?: boolean
 	warn?: boolean
 	success?: boolean
+	onClick?: () => void
 }

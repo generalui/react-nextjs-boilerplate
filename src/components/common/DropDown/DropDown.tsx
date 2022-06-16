@@ -55,7 +55,9 @@ export const DropDown = ({
 					}
 				)}
 			>
-				{items.map(DropDownItem)}
+				{items.map((props) => (
+					<DropDownItem {...props} key={props.value} />
+				))}
 			</div>
 		</div>
 	)
