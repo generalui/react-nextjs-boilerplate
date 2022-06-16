@@ -1,7 +1,7 @@
 import { PlusIcon } from '@heroicons/react/solid'
 import { memo } from 'react'
 import { Form } from 'react-final-form'
-import { z } from 'zod'
+import { StudyInput, StudySchema } from 'types/index'
 import { useText } from 'hooks/useText'
 import { ModalButton } from 'partials/ModalButton'
 import { Button } from 'common/Button'
@@ -13,14 +13,7 @@ import { CreateStudyProps } from './CreateStudy.types'
 export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }: CreateStudyProps) {
 	const { t } = useText('createStudy')
 
-	const StudySchema = z.object({
-		title: z.string(),
-		coordinator: z.string(),
-		endDate: z.string(),
-		description: z.string()
-	})
-
-	const onSubmit = async (values: z.infer<typeof StudySchema>) => {
+	const onSubmit = async (values: StudyInput) => {
 		try {
 			StudySchema.parse(values)
 			console.log(JSON.stringify(values))
@@ -35,7 +28,7 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 				<ModalButton
 					name='create-study'
 					modalTitle={t('title')}
-					buttonTitle={
+					buttonChildren={
 						<>
 							<PlusIcon className='w-5 h-5 mr-1 inline' /> {t('title')}
 						</>

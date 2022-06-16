@@ -8,7 +8,7 @@ import { ModalButtonProps } from './ModalButton.types'
 export const ModalButton = ({
 	children,
 	className,
-	buttonTitle,
+	buttonChildren: buttonText,
 	modalTitle,
 	name,
 	testId = 'ModalButton'
@@ -36,7 +36,7 @@ export const ModalButton = ({
 	return (
 		<div className={className} data-testid={testId}>
 			<Button onClick={handleOnClick} center>
-				{buttonTitle}
+				{buttonText}
 			</Button>
 			<Modal show={open} onClose={handleOnClose} title={modalTitle} bodyClassName='pt-6'>
 				{children}
