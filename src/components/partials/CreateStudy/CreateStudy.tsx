@@ -1,18 +1,16 @@
 import { PlusIcon } from '@heroicons/react/solid'
-import { memo, useState } from 'react'
+import { memo } from 'react'
 import { Form } from 'react-final-form'
 import { z } from 'zod'
 import { useText } from 'hooks/useText'
+import { ModalButton } from 'partials/ModalButton'
 import { Button } from 'common/Button'
 import { ImageInput } from 'common/ImageInput'
 import { Input } from 'common/Input'
-import { Modal } from 'common/Modal'
 import { ModalFooter } from 'common/ModalFooter'
 import { CreateStudyProps } from './CreateStudy.types'
 
 export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }: CreateStudyProps) {
-	const [open, setOpen] = useState<boolean>(false)
-
 	const { t } = useText('createStudy')
 
 	const StudySchema = z.object({
@@ -31,21 +29,18 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 		}
 	}
 
-	const handleOnClick = () => {
-		setOpen(!open)
-	}
-
-	const handleOnClose = () => {
-		setOpen(false)
-	}
-
 	return (
 		<>
 			<div data-testid={testId}>
-				<Button onClick={handleOnClick} center>
-					<PlusIcon className='w-5 h-5 mr-1 inline' /> Add Study
-				</Button>
-				<Modal show={open} onClose={handleOnClose} title={t('title')} bodyClassName='pt-6'>
+				<ModalButton
+					name='create-study'
+					modalTitle={t('title')}
+					buttonTitle={
+						<>
+							<PlusIcon className='w-5 h-5 mr-1 inline' /> {t('title')}
+						</>
+					}
+				>
 					<Form
 						data-testid={testId}
 						onSubmit={onSubmit}
@@ -84,7 +79,7 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 							</form>
 						)}
 					/>
-				</Modal>
+				</ModalButton>
 			</div>
 		</>
 	)

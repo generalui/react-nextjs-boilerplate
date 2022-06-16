@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-
-/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 import cn from 'classnames'
 import { KeyboardEventHandler, useRef } from 'react'
 import { Input } from 'common/Input'
