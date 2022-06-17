@@ -3,3 +3,8 @@
 	width: calc(100% - var(--side-bar-width));
 	margin-left: var(--side-bar-width);
 }
+
+.withNavBar {
+	top: var(--nav-bar-height);
+	position: relative;
+}

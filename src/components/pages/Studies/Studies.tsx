@@ -3,9 +3,9 @@
  */
 import { useStudies } from 'hooks/api/useStudies'
 import { useText } from 'hooks/useText'
+import { CreateStudy } from 'partials/CreateStudy'
 import { List } from 'partials/List'
 import { PageWrapper } from 'partials/PageWrapper'
-import { Button } from 'common/Button'
 import { IconBadge } from 'common/IconBadge'
 import { PageHeader } from 'common/PageHeader'
 import { Text } from 'common/Text'
@@ -18,7 +18,7 @@ export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 	return (
 		<PageWrapper title='Studies' data-testid={testId}>
 			<PageHeader>
-				<Button>+ Add Study</Button>
+				<CreateStudy />
 			</PageHeader>
 			<List
 				columns={[
@@ -52,7 +52,7 @@ export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 					}
 				]}
 				data={data.map((study) => ({
-					imageUrl: <img src={study.imageUrl} alt={study.title} className='rounded' />,
+					imageUrl: <img src={study.imageUrl as string} alt={study.title} className='rounded' />,
 					title: study.title,
 					coordinator: (
 						<div className='flex flex-col'>

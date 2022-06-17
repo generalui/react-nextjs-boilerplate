@@ -14,7 +14,7 @@ export const NavBar = ({ hideAuth, testId = 'NavBar' }: NavBarProps) => {
 	return (
 		<div
 			className={cn(
-				'w-full border-b py-1 flex justify-center items-center border-gray-200 bg-white px-2 py-2.5 dark:border-gray-700 dark:bg-gray-800 sm:px-4',
+				'w-full border-b py-1 flex justify-center items-center border-gray-200 bg-white px-2 py-2.5 dark:border-gray-700 dark:bg-gray-800 sm:px-4 fixed top-0 right-0 left-0',
 				styles.navBar
 			)}
 			data-testid={testId}
