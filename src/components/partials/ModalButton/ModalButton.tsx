@@ -1,8 +1,6 @@
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useModal } from 'hooks/useModal'
 import { Button } from 'common/Button'
 import { Modal } from 'common/Modal'
-import { setRouterQuery } from '../../../utils/setRouterQuery'
 import { ModalButtonProps } from './ModalButton.types'
 
 export const ModalButton = ({
@@ -13,32 +11,14 @@ export const ModalButton = ({
 	name,
 	testId = 'ModalButton'
 }: ModalButtonProps) => {
-	const [open, setOpen] = useState<boolean>(false)
-	const { query } = useRouter()
-
-	useEffect(() => {
-		if (query && query[`modal-${name}`] === 'true') {
-			setOpen(true)
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [query])
-
-	const handleOnClick = () => {
-		setRouterQuery({ [`modal-${name}`]: 'true' })
-		setOpen(!open)
-	}
-
-	const handleOnClose = () => {
-		setRouterQuery()
-		setOpen(false)
-	}
+	const { isOpen, open, close } = useModal(name)
 
 	return (
 		<div className={className} data-testid={testId}>
-			<Button onClick={handleOnClick} center>
+			<Button onClick={open} center>
 				{buttonText}
 			</Button>
-			<Modal show={open} onClose={handleOnClose} title={modalTitle} bodyClassName='pt-6'>
+			<Modal show={isOpen} onClose={close} title={modalTitle} bodyClassName='pt-6'>
 				{children}
 			</Modal>
 		</div>

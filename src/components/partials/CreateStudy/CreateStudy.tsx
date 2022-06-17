@@ -3,6 +3,7 @@ import { memo } from 'react'
 import { Form } from 'react-final-form'
 import { StudyInput, StudySchema } from 'types/index'
 import { useCreateStudy } from 'hooks/studies/useCreateStudy'
+import { useModal } from 'hooks/useModal'
 import { useText } from 'hooks/useText'
 import { ModalButton } from 'partials/ModalButton'
 import { Button } from 'common/Button'
@@ -15,9 +16,10 @@ import { CreateStudyProps } from './CreateStudy.types'
 export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }: CreateStudyProps) {
 	const { t } = useText('createStudy')
 	const { createStudy, isError, isLoading, isSuccess } = useCreateStudy()
-
+	const { close } = useModal('create-study')
 	const onSubmit = async (values: StudyInput) => {
-		createStudy(StudySchema.parse(values))
+		await createStudy(StudySchema.parse(values))
+		close()
 	}
 
 	return (
@@ -70,7 +72,7 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 											>
 												Save
 											</SubmitButton>
-											<Button>Cancel</Button>
+											<Button onClick={close}>Cancel</Button>
 										</ModalFooter>
 									</div>
 								</div>
