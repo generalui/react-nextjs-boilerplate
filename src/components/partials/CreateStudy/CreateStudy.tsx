@@ -2,24 +2,22 @@ import { PlusIcon } from '@heroicons/react/solid'
 import { memo } from 'react'
 import { Form } from 'react-final-form'
 import { StudyInput, StudySchema } from 'types/index'
+import { useCreateStudy } from 'hooks/studies/useCreateStudy'
 import { useText } from 'hooks/useText'
 import { ModalButton } from 'partials/ModalButton'
 import { Button } from 'common/Button'
 import { ImageInput } from 'common/ImageInput'
 import { Input } from 'common/Input'
 import { ModalFooter } from 'common/ModalFooter'
+import { SubmitButton } from 'common/SubmitButton'
 import { CreateStudyProps } from './CreateStudy.types'
 
 export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }: CreateStudyProps) {
 	const { t } = useText('createStudy')
+	const { createStudy, isError, isLoading, isSuccess } = useCreateStudy()
 
 	const onSubmit = async (values: StudyInput) => {
-		try {
-			StudySchema.parse(values)
-			console.log(JSON.stringify(values))
-		} catch (error) {
-			console.log('error: ', error)
-		}
+		createStudy(StudySchema.parse(values))
 	}
 
 	return (
@@ -64,7 +62,14 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 									</div>
 									<div className='col-span-3'>
 										<ModalFooter>
-											<Button type='submit'>Save</Button>
+											<SubmitButton
+												isError={isError}
+												isLoading={isLoading}
+												isSuccess={isSuccess}
+												disableOnLoading
+											>
+												Save
+											</SubmitButton>
 											<Button>Cancel</Button>
 										</ModalFooter>
 									</div>
