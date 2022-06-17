@@ -17,7 +17,7 @@ export const ModalButton = ({
 	const { query } = useRouter()
 
 	useEffect(() => {
-		if (query[`modal-${name}`] === 'true') {
+		if (query && query[`modal-${name}`] === 'true') {
 			setOpen(true)
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
