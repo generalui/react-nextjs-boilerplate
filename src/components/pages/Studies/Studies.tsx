@@ -56,13 +56,11 @@ export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 					title: study.title,
 					coordinator: (
 						<div className='flex flex-col'>
-							{study.coordinator.name}
-							<Text v='subtitle'>{study.coordinator.email}</Text>
+							{study.users[0]?.name}
+							<Text v='subtitle'>{study.users[0]?.email}</Text>
 						</div>
 					),
-					submissionDate: (
-						<Text v='subtitle'>{new Date(study.submissionDate).toLocaleDateString()}</Text>
-					),
+					submissionDate: <Text v='subtitle'>{new Date(study.endDate).toLocaleDateString()}</Text>,
 					status: <IconBadge variant={study.status} />
 				}))}
 				isLoading={isLoading}

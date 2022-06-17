@@ -5,14 +5,18 @@ import { prisma } from 'utils/api/prisma'
 
 const apiRoute = connect()
 
-apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
-	const studies = await prisma.study.findMany({
-		include: {
-			users: true
-		}
-	})
+apiRoute.post(async (req: NextApiRequest, res: NextApiResponse) => {
+	const { title, coordinator, endDate, description } = req.body
+	// await prisma.study.create({
+	// 	data: {
+	// 		title,
+	// 		endDate,
+	// 		description,
+	//     users: [
 
-	res.status(200).json(JSON.parse(JSON.stringify(studies)))
+	//     ]
+	// 	}
+	// })
 })
 
 export default apiRoute

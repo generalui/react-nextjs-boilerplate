@@ -42,16 +42,16 @@ model Session {
 }
 
 model User {
-  id            String     @id @default(cuid())
+  id            String                  @id @default(cuid())
   name          String?
-  email         String?    @unique
+  email         String?                 @unique
   emailVerified DateTime?
   password      String?
   image         String?
   accounts      Account[]
   sessions      Session[]
   documents     Document[]
-  Study         Study[]
+  studies       CoordinatorsOnStudies[]
 }
 
 model VerificationToken {
@@ -69,15 +69,24 @@ enum StudyStatus {
 }
 
 model Study {
-  id             String      @id @default(cuid())
+  id             String                  @id @default(cuid())
   description    String
-  imageUrl       String
-  coordinator    User        @relation(fields: [coordinatorId], references: [id], onDelete: Cascade)
-  coordinatorId  String
-  status         StudyStatus @default(new)
-  submissionDate DateTime    @default(now())
+  imageUrl       String?
+  status         StudyStatus             @default(new)
+  submissionDate DateTime?               @default(now())
   endDate        DateTime
   title          String
+  users          CoordinatorsOnStudies[]
+}
+
+model CoordinatorsOnStudies {
+  study       Study    @relation(fields: [studyId], references: [id])
+  studyId     String
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  inserted_at DateTime @default(now())
+
+  @@id([studyId, userId])
 }
 
 model Document {
@@ -89,7 +98,7 @@ model Document {
   uploadedBy   User   @relation(fields: [uploadedById], references: [id], onDelete: Cascade)
 }
 
-model NotificationEvents {
+model NotificationEvent {
   id                String   @id @default(cuid())
   inserted_at       DateTime @default(now())
   notification_type String

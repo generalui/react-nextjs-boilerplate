@@ -1,3 +1,4 @@
+import { Study as S, User } from '@prisma/client'
 import { z } from 'zod'
 
 export const StudySchema = z.object({
@@ -8,3 +9,5 @@ export const StudySchema = z.object({
 })
 
 export type StudyInput = z.infer<typeof StudySchema>
+
+export type Study = S & { users: User[] }
