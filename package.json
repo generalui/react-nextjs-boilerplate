@@ -23,10 +23,8 @@
     "prisma:migrate:reset": "prisma migrate reset",
     "prisma:seed": "prisma db seed",
     "prisma:studio": "prisma studio",
-    "docker:init": "yarn docker:build:compose && yarn prisma:migrate:dev",
     "build-css": "yarn tailwindcss -i",
-    "docker:build:compose": "docker-compose -f docker-compose.yml up -d --build --remove-orphans",
-    "docker:build:compose:with-log": "docker-compose -f docker-compose.yml up -d --build --remove-orphans && docker-compose logs -f -t >> docker.log",
+    "docker:db": "docker-compose -f docker-compose.yml up db -d --build --remove-orphans",
     "docker:compose": "docker-compose -f docker-compose.yml up -d && docker-compose logs -f -t >> docker.log"
   },
   "prisma": {
