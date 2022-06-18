@@ -37,10 +37,10 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 					<Form
 						data-testid={testId}
 						onSubmit={onSubmit}
-						render={({ handleSubmit }) => (
+						render={({ handleSubmit, values }) => (
 							<form onSubmit={handleSubmit}>
 								<div className='grid grid-cols-3 gap-2'>
-									<ImageInput />
+									<ImageInput name='image' />
 									<div className='col-span-2 row-span-2'>
 										<Input name='title' placeholder='Title' type='textarea' />
 									</div>
@@ -78,6 +78,7 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 								</div>
 							</form>
 						)}
+						a
 					/>
 				</ModalButton>
 			</div>

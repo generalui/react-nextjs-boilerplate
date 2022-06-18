@@ -1,3 +1,3 @@
-import { CommonProps } from 'types/CommonProps'
+import { InputProps } from 'common/Input/Input.types'
 
-export interface ImageInputProps extends CommonProps {}
+export interface ImageInputProps extends InputProps {}

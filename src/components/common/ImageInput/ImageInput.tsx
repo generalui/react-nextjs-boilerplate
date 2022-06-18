@@ -1,33 +1,109 @@
+import { PencilAltIcon } from '@heroicons/react/solid'
 import cn from 'classnames'
-import { KeyboardEventHandler, useRef } from 'react'
-import { Input } from 'common/Input'
+import { KeyboardEventHandler, useCallback, useEffect, useRef, useState } from 'react'
+import { useDropzone } from 'react-dropzone'
+import { Field } from 'react-final-form'
+import { OnChange } from 'react-final-form-listeners'
+import { CommonProps } from 'types/CommonProps'
 import { ImageInputProps } from './ImageInput.types'
 
-export const ImageInput = ({ className, onClick, testId = 'ImageInput' }: ImageInputProps) => {
-	const imageInput = useRef<HTMLInputElement>()
+interface DropZoneProps extends CommonProps {
+	onChange?: (files: any[]) => void
+}
+const Dropzone = ({ onChange, className, testId }: DropZoneProps) => {
+	const [imageFile, setImageFile] = useState<any>()
 
-	const handleOnClickImage = () => {
-		imageInput.current?.click()
-		onClick?.()
-	}
+	const { getRootProps, getInputProps } = useDropzone({
+		maxSize: 5 * 1000000, // 5 MB file limit
+		maxFiles: 1, // 1 file limit
+		accept: { 'image/png': ['.jpeg', '.jpg', '.png', '.gif'] }, // Accept only images
+		onDrop: (acceptedFiles) => {
+			const file: any = {
+				...acceptedFiles[0],
+				preview: URL.createObjectURL(acceptedFiles[0])
+			}
 
-	const handleKeyPress: KeyboardEventHandler<HTMLDivElement> = (e) => {
-		if (e.key === 'Enter') {
-			handleOnClickImage()
+			setImageFile(file)
+			onChange?.(file.preview)
 		}
-	}
+	})
+
+	useEffect(
+		() => () => {
+			// Make sure to revoke the data uris to avoid memory leaks
+			URL.revokeObjectURL(imageFile?.preview)
+		},
+		[imageFile]
+	)
 
 	return (
 		<div
-			className={cn('row-span-3', className)}
+			{...getRootProps({
+				className: cn(
+					'row-span-3 dropzone relative rounded-lg border border-gray-400 focus:border-2 focus:border-blue-600 focus:outline-2 focus:outline-offset-2 focus:outline-gray-400 overflow-hidden',
+					className
+				)
+			})}
 			data-testid={testId}
 			tabIndex={0}
 			role='button'
-			onClick={handleOnClickImage}
-			onKeyDown={handleKeyPress}
 		>
-			<img src='/images/uploadImage.png' alt='PCR' className='rounded' />
-			<Input ref={imageInput} className='hidden' name='file' type='file' placeholder='File' />
+			<img src={imageFile?.preview || '/images/image_placeholder.jpg'} alt='PCR' />
+			<input {...getInputProps()} />
+			<PencilAltIcon className='h-5 w-5 absolute bottom-3.5 right-3.5' />
 		</div>
+	)
+}
+
+export const ImageInput = ({
+	className,
+	onClick,
+	testId = 'ImageInput',
+	name,
+	onChange
+}: ImageInputProps) => {
+	// const imageInput = useRef<HTMLInputElement>()
+	// const [imageFile, setImageFile] = useState<any>()
+
+	// const onDrop = useCallback((acceptedFiles) => {
+	// 	setImageFile({
+	// 		...acceptedFiles[0],
+	// 		preview: URL.createObjectURL(acceptedFiles[0])
+	// 	})
+	// }, [])
+
+	// const { getRootProps, getInputProps } = useDropzone({
+	// 	onDrop,
+	// 	maxSize: 5 * 1000000, // 5 MB file limit
+	// 	maxFiles: 1, // 1 file limit
+	// 	accept: { 'image/png': ['.jpeg', '.jpg', '.png', '.gif'] } // Accept only images
+	// })
+	// const handleOnClickImage = () => {
+	// 	imageInput.current?.click()
+	// 	onClick?.()
+	// }
+
+	// const handleKeyPress: KeyboardEventHandler<HTMLDivElement> = (e) => {
+	// 	if (e.key === 'Enter') {
+	// 		handleOnClickImage()
+	// 	}
+	// }
+
+	return (
+		<>
+			<Field name={name}>
+				{({ input }) => (
+					<Dropzone className={className} onClick={onClick} testId={testId} {...input} />
+				)}
+			</Field>
+			{onChange && (
+				<OnChange name={name}>
+					{(value, previous) => {
+						console.log('~ OnChange value', value)
+						onChange(value, previous)
+					}}
+				</OnChange>
+			)}
+		</>
 	)
 }

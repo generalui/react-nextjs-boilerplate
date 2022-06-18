@@ -13,7 +13,7 @@ export const Input = forwardRef(
 	) => {
 		return (
 			<>
-				<Field name={name as string}>
+				<Field name={name}>
 					{(props) =>
 						type === 'textarea' ? (
 							<TextArea
@@ -39,7 +39,7 @@ export const Input = forwardRef(
 					}
 				</Field>
 				{onChange && (
-					<OnChange name={name as string}>
+					<OnChange name={name}>
 						{(value, previous) => {
 							onChange(value, previous)
 						}}

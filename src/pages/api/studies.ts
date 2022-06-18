@@ -17,7 +17,8 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 })
 
 apiRoute.post(async (req: NextApiRequest, res: NextApiResponse) => {
-	const { title, coordinator, endDate, description } = req.body
+	const { title, coordinator, endDate, description, image } = req.body
+	console.log('~ image', image)
 
 	// TODO: Upload image get url
 
