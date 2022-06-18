@@ -7,8 +7,18 @@ import { OnChange } from 'react-final-form-listeners'
 import { CommonProps } from 'types/CommonProps'
 import { ImageInputProps } from './ImageInput.types'
 
+const getBase64 = async (file: Blob): Promise<string | undefined> => {
+	const reader = new FileReader()
+	reader.readAsDataURL(file as Blob)
+
+	return new Promise((reslove, reject) => {
+		reader.onload = () => reslove(reader.result as string)
+		reader.onerror = (error) => reject(error)
+	})
+}
+
 interface DropZoneProps extends CommonProps {
-	onChange?: (files: any[]) => void
+	onChange?: (file: string) => void
 }
 const Dropzone = ({ onChange, className, testId }: DropZoneProps) => {
 	const [imageFile, setImageFile] = useState<any>()
@@ -17,14 +27,15 @@ const Dropzone = ({ onChange, className, testId }: DropZoneProps) => {
 		maxSize: 5 * 1000000, // 5 MB file limit
 		maxFiles: 1, // 1 file limit
 		accept: { 'image/png': ['.jpeg', '.jpg', '.png', '.gif'] }, // Accept only images
-		onDrop: (acceptedFiles) => {
+		onDrop: async (acceptedFiles) => {
 			const file: any = {
 				...acceptedFiles[0],
 				preview: URL.createObjectURL(acceptedFiles[0])
 			}
+			console.log('~ acceptedFiles[0]', acceptedFiles[0])
 
 			setImageFile(file)
-			onChange?.(file.preview)
+			onChange?.(await getBase64(acceptedFiles[0]))
 		}
 	})
 
