@@ -2,6 +2,7 @@
 import { StudyStatus } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { connect } from 'utils/api/connect'
+import { upload } from 'utils/api/media'
 import { prisma } from 'utils/api/prisma'
 
 const apiRoute = connect()
@@ -18,9 +19,11 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 
 apiRoute.post(async (req: NextApiRequest, res: NextApiResponse) => {
 	const { title, coordinator, endDate, description, image } = req.body
-	console.log('~ image', image)
 
-	// TODO: Upload image get url
+	// TODO: Create document
+
+	// Upload (to cloudinary)
+	const { secure_url } = await upload({ file: image })
 
 	await prisma.study.create({
 		data: {
