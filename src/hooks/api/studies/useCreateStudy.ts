@@ -1,6 +1,6 @@
 import { Document } from '@prisma/client'
 import { useSession } from 'next-auth/react'
-import { useMutation } from 'react-query'
+import { UseMutateFunction, useMutation } from 'react-query'
 import { StudyInput } from 'types/index'
 import { Study } from 'types/index'
 import { axios } from 'utils/axios'

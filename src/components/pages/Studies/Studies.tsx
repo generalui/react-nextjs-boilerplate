@@ -16,7 +16,7 @@ export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 	const { data = [], isLoading } = useStudies()
 
 	return (
-		<PageWrapper title='Studies' data-testid={testId}>
+		<PageWrapper title='Studies' testId={testId}>
 			<PageHeader>
 				<CreateStudy />
 			</PageHeader>

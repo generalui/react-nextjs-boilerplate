@@ -18,9 +18,10 @@ const getBase64 = async (file: Blob): Promise<string | undefined> => {
 }
 
 interface DropZoneProps extends CommonProps {
-	onChange?: (file: string) => void
+	onChange?: (file: string | undefined) => void
 }
 const Dropzone = ({ onChange, className, testId }: DropZoneProps) => {
+	// TODO: replace any
 	const [imageFile, setImageFile] = useState<any>()
 
 	const { getRootProps, getInputProps } = useDropzone({
@@ -42,7 +43,7 @@ const Dropzone = ({ onChange, className, testId }: DropZoneProps) => {
 	useEffect(
 		() => () => {
 			// Make sure to revoke the data uris to avoid memory leaks
-			URL.revokeObjectURL(imageFile?.preview)
+			URL?.revokeObjectURL?.(imageFile?.preview)
 		},
 		[imageFile]
 	)

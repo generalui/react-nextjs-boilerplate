@@ -8,6 +8,8 @@ import { reactQueryClient } from 'utils/react-query'
 import 'styles/globals.css'
 import '../store'
 
+console.log('~ reactQueryClient', reactQueryClient)
+
 // The following module is not declared but needed by the flowbite ui component library to work
 // @ts-ignore
 dynamic(() => import('flowbite'), { ssr: false })
