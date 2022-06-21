@@ -1,7 +1,18 @@
+import { useText } from 'hooks/useText'
 import { Button } from 'common/Button'
 import { Spinner } from 'common/Spinner'
 import { SubmitButtonProps } from './SubmitButton.types'
 
+const DefaultLoadingLabel = () => {
+	const { t } = useText('common.submitButton')
+
+	return (
+		<div className='flex items-center justify-center'>
+			<Spinner className='h-6 w-6' />
+			{t('loading')}
+		</div>
+	)
+}
 export const SubmitButton = ({
 	children,
 	className,
@@ -9,16 +20,17 @@ export const SubmitButton = ({
 	isError,
 	isLoading,
 	isSuccess,
-	loadingLabel = (
-		<div className='flex items-center justify-center'>
-			<Spinner className='h-4 w-4' /> Loading...
-		</div>
-	),
-	successLabel = 'Success!',
-	errorLabel = 'Error!',
+	loadingLabel,
+	successLabel,
+	errorLabel,
 	disableOnLoading = false,
 	...props
 }: SubmitButtonProps) => {
+	const { t } = useText('common.submitButton')
+	loadingLabel = loadingLabel || <DefaultLoadingLabel />
+	successLabel = successLabel || t('success')
+	errorLabel = errorLabel || t('error')
+
 	return (
 		<Button
 			className={className}

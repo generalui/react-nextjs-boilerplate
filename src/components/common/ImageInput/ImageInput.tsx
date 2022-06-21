@@ -1,6 +1,6 @@
 import { PencilAltIcon } from '@heroicons/react/solid'
 import cn from 'classnames'
-import { KeyboardEventHandler, useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { Field } from 'react-final-form'
 import { OnChange } from 'react-final-form-listeners'
@@ -33,7 +33,6 @@ const Dropzone = ({ onChange, className, testId }: DropZoneProps) => {
 				...acceptedFiles[0],
 				preview: URL.createObjectURL(acceptedFiles[0])
 			}
-			console.log('~ acceptedFiles[0]', acceptedFiles[0])
 
 			setImageFile(file)
 			onChange?.(await getBase64(acceptedFiles[0]))
@@ -74,33 +73,6 @@ export const ImageInput = ({
 	name,
 	onChange
 }: ImageInputProps) => {
-	// const imageInput = useRef<HTMLInputElement>()
-	// const [imageFile, setImageFile] = useState<any>()
-
-	// const onDrop = useCallback((acceptedFiles) => {
-	// 	setImageFile({
-	// 		...acceptedFiles[0],
-	// 		preview: URL.createObjectURL(acceptedFiles[0])
-	// 	})
-	// }, [])
-
-	// const { getRootProps, getInputProps } = useDropzone({
-	// 	onDrop,
-	// 	maxSize: 5 * 1000000, // 5 MB file limit
-	// 	maxFiles: 1, // 1 file limit
-	// 	accept: { 'image/png': ['.jpeg', '.jpg', '.png', '.gif'] } // Accept only images
-	// })
-	// const handleOnClickImage = () => {
-	// 	imageInput.current?.click()
-	// 	onClick?.()
-	// }
-
-	// const handleKeyPress: KeyboardEventHandler<HTMLDivElement> = (e) => {
-	// 	if (e.key === 'Enter') {
-	// 		handleOnClickImage()
-	// 	}
-	// }
-
 	return (
 		<>
 			<Field name={name}>
