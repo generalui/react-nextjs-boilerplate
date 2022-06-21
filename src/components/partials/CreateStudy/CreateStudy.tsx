@@ -2,7 +2,7 @@ import { PlusIcon } from '@heroicons/react/solid'
 import { memo } from 'react'
 import { Form } from 'react-final-form'
 import { StudyInput, StudySchema } from 'types/index'
-import { useCreateStudy } from 'hooks/studies/useCreateStudy'
+import { useCreateStudy } from 'hooks/api/studies/useCreateStudy'
 import { useModal } from 'hooks/useModal'
 import { useText } from 'hooks/useText'
 import { ModalButton } from 'partials/ModalButton'
@@ -15,9 +15,12 @@ import { CreateStudyProps } from './CreateStudy.types'
 
 export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }: CreateStudyProps) {
 	const { t } = useText('createStudy')
-	const { createStudy, isError, isLoading, isSuccess } = useCreateStudy()
+	const { createStudy, isError, isLoading } = useCreateStudy()
 	const { close } = useModal('create-study')
+
 	const onSubmit = async (values: StudyInput) => {
+		if (isLoading) return
+
 		await createStudy(StudySchema.parse(values))
 		close()
 	}
@@ -37,7 +40,7 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 					<Form
 						data-testid={testId}
 						onSubmit={onSubmit}
-						render={({ handleSubmit, values }) => (
+						render={({ handleSubmit }) => (
 							<form onSubmit={handleSubmit}>
 								<div className='grid grid-cols-3 gap-2'>
 									<ImageInput name='image' />
@@ -64,13 +67,8 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 									</div>
 									<div className='col-span-3'>
 										<ModalFooter>
-											<SubmitButton
-												isError={isError}
-												isLoading={isLoading}
-												isSuccess={isSuccess}
-												disableOnLoading
-											>
-												Save
+											<SubmitButton isError={isError} isLoading={isLoading} disableOnLoading>
+												Create Study
 											</SubmitButton>
 											<Button onClick={close}>Cancel</Button>
 										</ModalFooter>
@@ -78,7 +76,6 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 								</div>
 							</form>
 						)}
-						a
 					/>
 				</ModalButton>
 			</div>

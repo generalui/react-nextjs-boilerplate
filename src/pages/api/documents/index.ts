@@ -45,7 +45,7 @@ apiRoute.post(async (req: ApiRequestWithFile, res) => {
 					create: {
 						name: originalName,
 						url: secure_url,
-						fileType: mimeType
+						fileType: 'mimetype'
 					}
 				}
 			}

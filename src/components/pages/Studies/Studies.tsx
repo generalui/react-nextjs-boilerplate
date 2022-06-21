@@ -23,7 +23,7 @@ export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 			<List
 				columns={[
 					{
-						key: 'imageUrl',
+						key: 'image',
 						title: t('list.image'),
 						width: 1
 					},
@@ -52,12 +52,22 @@ export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 					}
 				]}
 				data={data.map((study) => ({
-					imageUrl: <img src={study.imageUrl as string} alt={study.title} className='rounded' />,
+					image: (
+						<div
+							style={{
+								backgroundImage: `url(${
+									study.image?.url || '/images/image_placeholder_centered.jpg'
+								})`
+							}}
+							className='block h-10 w-10 bg-center bg-cover rounded'
+							role='img'
+						/>
+					),
 					title: study.title,
 					coordinator: (
 						<div className='flex flex-col'>
-							{study.users[0]?.name}
-							<Text v='subtitle'>{study.users[0]?.email}</Text>
+							{study.users[0]?.user?.name}
+							<Text v='subtitle'>{study.users[0]?.user?.email}</Text>
 						</div>
 					),
 					submissionDate: <Text v='subtitle'>{new Date(study.endDate).toLocaleDateString()}</Text>,
