@@ -3,10 +3,9 @@
  */
 import { useStudies } from 'hooks/api/useStudies'
 import { useText } from 'hooks/useText'
+import { CreateStudy } from 'partials/CreateStudy'
 import { List } from 'partials/List'
 import { PageWrapper } from 'partials/PageWrapper'
-import { Button } from 'common/Button'
-import { Icon } from 'common/Icon'
 import { IconBadge } from 'common/IconBadge'
 import { PageHeader } from 'common/PageHeader'
 import { Text } from 'common/Text'
@@ -19,10 +18,7 @@ export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 	return (
 		<PageWrapper title='Studies' data-testid={testId}>
 			<PageHeader>
-				<Button>
-					<Icon icon='PlusIcon' size={20} />
-					Add Study
-				</Button>
+				<CreateStudy />
 			</PageHeader>
 			<List
 				columns={[

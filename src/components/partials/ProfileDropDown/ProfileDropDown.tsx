@@ -26,7 +26,7 @@ export const ProfileDropDown = ({
 				{ children: t('logout'), onClick: () => signOut(), value: 'logout' }
 			]}
 			testId={testId}
-			v='profile'
+			v='secondary'
 		>
 			{label}
 		</DropDown>
