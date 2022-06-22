@@ -18,7 +18,12 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 				}
 			}, // Include all users in the returned object,
 			image: true
-		}
+		},
+		orderBy: [
+			{
+				submissionDate: 'desc'
+			}
+		]
 	})
 
 	res.status(200).json(JSON.parse(JSON.stringify(studies)))
