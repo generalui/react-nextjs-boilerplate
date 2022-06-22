@@ -1,6 +1,6 @@
 const createStudy = {
 	title: {
-		message: 'Add Study'
+		message: 'Create Study'
 	}
 }
 

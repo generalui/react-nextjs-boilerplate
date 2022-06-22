@@ -7,6 +7,7 @@ export interface InputProps extends CommonProps {
 	type?: string
 	placeholder?: string
 	name: string
+	rows?: number
 }
 
 export interface InputPropsV1 extends CommonProps {

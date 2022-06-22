@@ -7,8 +7,6 @@ import 'styles/globals.css'
 import '../store'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
-	console.log('~ pageProps', pageProps)
-
 	return (
 		<Provider>
 			<SessionProvider session={session}>

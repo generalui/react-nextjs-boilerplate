@@ -25,6 +25,17 @@ const common = {
 				message: 'Settings'
 			}
 		}
+	},
+	submitButton: {
+		loading: {
+			message: 'Loading...'
+		},
+		studies: {
+			message: 'Studies'
+		},
+		settings: {
+			message: 'Settings'
+		}
 	}
 }
 

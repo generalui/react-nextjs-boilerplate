@@ -22,7 +22,9 @@ export const Button = ({
 	warn,
 	success,
 	center,
-	onClick
+	onClick,
+	type = 'button',
+	disabled
 }: ButtonProps) => {
 	const noVariant = !primary || !secondary || !danger || !warn || !success
 
@@ -30,7 +32,13 @@ export const Button = ({
 		<button
 			data-testid={testId}
 			type='button'
-			className={cn(noVariant && STYLES.default, center && 'justify-center', className)}
+			type={type}
+			disabled={disabled}
+			className={cn(
+				noVariant && STYLES.default,
+				center && 'flex justify-center items-center',
+				className
+			)}
 			onClick={onClick}
 		>
 			{children}
