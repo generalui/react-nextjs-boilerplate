@@ -2,7 +2,7 @@ import { CogIcon, DocumentReportIcon, HomeIcon } from '@heroicons/react/solid'
 import cn from 'classnames'
 import Link from 'next/link'
 import { useText } from 'hooks/useText'
-import styles from './Sidebar.module.css'
+import styles from './Sidebar.module.scss'
 import { SidebarProps } from './Sidebar.types'
 
 /**
