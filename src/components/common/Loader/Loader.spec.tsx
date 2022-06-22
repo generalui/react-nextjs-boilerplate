@@ -7,7 +7,7 @@ import { Loader } from './index'
 
 describe('Loader Component', () => {
 	it('renders on the page', () => {
-		render(<Loader fallback={<div data-testId='Loader'></div>} isLoading={true} />)
+		render(<Loader fallback={<div data-testid='Loader'></div>} isLoading={true} />)
 
 		const component = screen.getByTestId('Loader')
 

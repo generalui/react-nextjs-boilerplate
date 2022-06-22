@@ -1,16 +1,16 @@
 /**
- * This is a test file for SignInOut
+ * Test file for SubmitButton
  */
 import { render, screen } from '@testing-library/react'
 import '__mocks__/index'
 import React from 'react'
-import { SignInOut } from './index'
+import { SubmitButton } from './index'
 
-describe('SignInOut Component', () => {
+describe('SubmitButton Component', () => {
 	it('renders on the page', () => {
-		render(<SignInOut />)
+		render(<SubmitButton />)
 
-		const component = screen.getByTestId('SignInOut')
+		const component = screen.getByTestId('SubmitButton')
 
 		expect(component).toBeInTheDocument()
 	})

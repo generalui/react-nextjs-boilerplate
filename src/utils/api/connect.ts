@@ -13,6 +13,14 @@ const defaultOnNoMatchFunction = (req: IncomingMessage, res: NextApiResponse) =>
 	res.status(405).json({ error: `Method '${req.method}' Not Allowed` })
 }
 
+function onError(err: any, req: any, res: any, next: any) {
+	console.error(err)
+
+	res.status(500).end(err.toString())
+	// OR: you may want to continue
+	next()
+}
+
 type Connect = (
 	nextConnectOptions?: Options<IncomingMessage, NextApiResponse>
 ) => NextConnect<IncomingMessage, NextApiResponse>
@@ -20,6 +28,7 @@ type Connect = (
 export const connect: Connect = (nextConnectOptions = {}) => {
 	return nextConnect({
 		...nextConnectOptions,
-		onNoMatch: nextConnectOptions.onNoMatch ?? defaultOnNoMatchFunction
+		onNoMatch: nextConnectOptions.onNoMatch ?? defaultOnNoMatchFunction,
+		onError
 	})
 }

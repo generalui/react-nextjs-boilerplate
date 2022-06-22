@@ -1,6 +1,6 @@
 import cn from 'classnames'
 import { useText } from 'hooks/useText'
-import { SignInOut } from 'partials/SignInOut'
+import { ProfileDropDown } from 'partials/ProfileDropDown'
 import styles from './NavBar.module.css'
 import { NavBarProps } from './NavBar.types'
 
@@ -14,7 +14,7 @@ export const NavBar = ({ hideAuth, testId = 'NavBar' }: NavBarProps) => {
 	return (
 		<div
 			className={cn(
-				'w-full border-b py-1 flex justify-center items-center border-gray-200 bg-white px-2 py-2.5 dark:border-gray-700 dark:bg-gray-800 sm:px-4',
+				'w-full border-b py-1 flex justify-center items-center border-gray-200 bg-white px-2 py-2.5 dark:border-gray-700 dark:bg-gray-800 sm:px-4 z-10 fixed top-0 right-0 left-0',
 				styles.navBar
 			)}
 			data-testid={testId}
@@ -29,7 +29,7 @@ export const NavBar = ({ hideAuth, testId = 'NavBar' }: NavBarProps) => {
 						' '
 					) : (
 						<div className='flex justify-end items-center'>
-							<SignInOut />
+							<ProfileDropDown />
 						</div>
 					)}
 				</div>

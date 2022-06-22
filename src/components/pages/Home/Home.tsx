@@ -1,18 +1,12 @@
 import { useText } from 'hooks/useText'
-import { CreateStudy } from 'partials/CreateStudy'
 import { PageWrapper } from 'partials/PageWrapper'
 import { Card } from 'common/Card'
-import { PageHeader } from 'common/PageHeader'
 
 export const Home = () => {
 	const { t } = useText('home')
 
 	return (
 		<PageWrapper title={t('title')}>
-			<PageHeader>
-				<CreateStudy />
-			</PageHeader>
-
 			<div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
 				{/* TODO: Replace and refactor; filler content */}
 				<Card title={'Current Studies'}>

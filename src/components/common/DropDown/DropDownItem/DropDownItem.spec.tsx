@@ -7,7 +7,11 @@ import { DropDownItem } from './index'
 
 describe('DropDownItem Component', () => {
 	it('renders on the page', () => {
-		render(<DropDownItem />)
+		render(
+			<DropDownItem onClick={jest.fn()} value='test'>
+				Test
+			</DropDownItem>
+		)
 
 		const component = screen.getByTestId('DropDownItem')
 

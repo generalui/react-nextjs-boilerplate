@@ -30,7 +30,7 @@ apiRoute.post(async (req: ApiRequestWithFile, res) => {
 
 	try {
 		// Add data type to base64 string
-		const { base64, publicId, originalName, mimeType } = parseFile(req.file)
+		const { base64, publicId, originalName } = parseFile(req.file)
 
 		// Upload (to cloudinary)
 		const { secure_url } = await upload({ file: base64, publicId })
@@ -45,7 +45,7 @@ apiRoute.post(async (req: ApiRequestWithFile, res) => {
 					create: {
 						name: originalName,
 						url: secure_url,
-						fileType: mimeType
+						fileType: 'mimetype'
 					}
 				}
 			}

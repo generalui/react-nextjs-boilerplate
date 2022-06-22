@@ -90,8 +90,6 @@ export const SignInForm = ({
 					message: LOGIN_ERRORS[error]
 				}
 			])
-
-		console.log('~ signInResponse', signInResponse)
 	}
 
 	return (
