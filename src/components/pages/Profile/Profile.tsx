@@ -14,7 +14,7 @@ import { ProfileProps } from './Profile.types'
 
 export const Profile = function Profile({ testId = 'Profile' }: ProfileProps) {
 	const { currentUser } = useCurrentUser()
-	const { updateCurrentUser, isError, isLoading } = useUpdateCurrentUser()
+	const { updateCurrentUser, isLoading } = useUpdateCurrentUser()
 	const { t } = useText('profile.updateUserForm')
 
 	const onSubmit = async (values: UserInput) => {
