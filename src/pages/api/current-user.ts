@@ -31,8 +31,7 @@ apiRoute.patch(async (req: NextApiRequest, res: NextApiResponse) => {
 				id: session.userId as string
 			},
 			data: {
-				name: body.name,
-				email: body.email
+				name: body.name
 			}
 		})
 		res.status(200).json(currentUserUpdate)

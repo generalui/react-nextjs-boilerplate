@@ -15,14 +15,13 @@ export function useUpdateCurrentUser() {
 		onMutate: async (currentUserUpdate) => {
 			if (!currentUser) return reactQueryClient.cancelMutations()
 
-			const { name, email } = currentUserUpdate
+			const { name } = currentUserUpdate
 
 			await reactQueryClient.cancelQueries('current-user')
 
 			const optimisticCurrentUser: User = {
 				...currentUser,
-				name,
-				email
+				name
 			}
 
 			reactQueryClient.setQueryData('current-user', () => optimisticCurrentUser)
