@@ -56,11 +56,10 @@ export function useCreateStudy() {
 			}
 
 			// Add optimistic study to studies list
-			reactQueryClient.setQueryData('studies', (old: Study[] | undefined) => {
-				const nextCache = [...(old || []), optimisticStudy]
-
-				return nextCache
-			})
+			reactQueryClient.setQueryData('studies', (old: Study[] | undefined) => [
+				optimisticStudy,
+				...(old || [])
+			])
 
 			// Return context with the optimistic study
 			return { optimisticStudy }
