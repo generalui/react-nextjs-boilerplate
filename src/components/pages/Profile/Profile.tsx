@@ -13,7 +13,7 @@ import { ProfileProps } from './Profile.types'
 
 export const Profile = function Profile({ testId = 'Profile' }: ProfileProps) {
 	const { currentUser } = useCurrentUser()
-	const { updateCurrentUser, isError, isLoading } = useUpdateCurrentUser()
+	const { updateCurrentUser, isLoading } = useUpdateCurrentUser()
 
 	const onSubmit = async (values: UserInput) => {
 		if (isLoading) return

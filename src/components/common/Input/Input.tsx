@@ -17,7 +17,7 @@ export const Input = forwardRef(
 			onChange,
 			testId = 'Input',
 			rows = 4,
-			disabled = false
+			disabled
 		}: InputProps,
 		reference
 	) => {
@@ -32,6 +32,7 @@ export const Input = forwardRef(
 								name={props.input.name}
 								value={props.input.value}
 								onChange={props.input.onChange}
+								disabled={disabled}
 							/>
 						) : (
 							<input

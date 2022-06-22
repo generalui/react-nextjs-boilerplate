@@ -9,7 +9,8 @@ export const TextArea = ({
 	onChange,
 	id,
 	testId = 'TextArea',
-	rows = 4
+	rows = 4,
+	disabled
 }: TextAreaProps) => {
 	return (
 		<textarea
@@ -24,6 +25,7 @@ export const TextArea = ({
 				className
 			)}
 			data-testid={testId}
+			disabled={disabled}
 		/>
 	)
 }
