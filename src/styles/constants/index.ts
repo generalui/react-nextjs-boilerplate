@@ -1,5 +1,0 @@
-export * from './colors'
-export * from './fontFamily'
-export * from './transitions'
-export * from './spacing'
-export * from './borderRadius'
