@@ -52,6 +52,8 @@ const checkForPlural = (args?: string | number | (string | number)[]) => {
 	}
 }
 
+// TODO: optimization; load entire dictionary on page load and cache
+
 export const useText: UseText = (scope) => {
 	const { locales = [], defaultLocale, ...nextRouter } = useRouter()
 	const locale = locales.includes(nextRouter.locale || '') ? nextRouter.locale : defaultLocale
@@ -60,6 +62,7 @@ export const useText: UseText = (scope) => {
 
 	return useMemo(
 		() => ({
+			// Get translations function. "t" for short
 			t: (term, args, checkForPlurality) => {
 				// If  checkForPlurality is true evaluate args to determine plurality
 				const isPlural = checkForPlurality && checkForPlural(args)

@@ -14,8 +14,6 @@ dynamic(() => import('flowbite'), { ssr: false })
 /* eslint-enable */
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
-	console.log('~ pageProps', pageProps)
-
 	return (
 		<Provider>
 			<SessionProvider session={session}>

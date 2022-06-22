@@ -5,5 +5,5 @@ export const prisma = new PrismaClient({
 })
 
 prisma.$on('query', (e) => {
-	console.log(e)
+	// Add query middleware event logging here
 })

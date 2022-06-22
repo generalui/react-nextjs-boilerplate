@@ -6,4 +6,6 @@ export interface ButtonProps extends CommonProps {
 	danger?: boolean
 	warn?: boolean
 	success?: boolean
+	type?: 'button' | 'submit' | 'reset' | undefined
+	disabled?: boolean
 }
