@@ -8,7 +8,17 @@ import { InputProps } from './Input.types'
 
 export const Input = forwardRef(
 	(
-		{ className, placeholder, id, name, type, onChange, testId = 'Input', rows = 4 }: InputProps,
+		{
+			className,
+			placeholder,
+			id,
+			name,
+			type,
+			onChange,
+			testId = 'Input',
+			rows = 4,
+			disabled = false
+		}: InputProps,
 		reference
 	) => {
 		return (
@@ -34,6 +44,7 @@ export const Input = forwardRef(
 								value={props.input.value}
 								onChange={props.input.onChange}
 								ref={reference as LegacyRef<HTMLInputElement>}
+								disabled={disabled}
 							/>
 						)
 					}

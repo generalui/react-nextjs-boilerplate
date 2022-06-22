@@ -9,4 +9,5 @@ export interface CommonProps {
 	center?: boolean
 	['data-testid']?: string
 	testId?: string
+	disabled?: boolean
 }

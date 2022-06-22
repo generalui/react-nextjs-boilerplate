@@ -1,4 +1,5 @@
 import { signOut, useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 import { useText } from 'hooks/useText'
 import { DropDown } from 'components/common/DropDown'
 import { ProfileDropDownProps } from './ProfileDropDown.types'
@@ -10,6 +11,7 @@ export const ProfileDropDown = ({
 	const { t } = useText('common.userDropdown')
 	const { data: session } = useSession()
 	const label = session?.user?.name || t('signIn')
+	const { push } = useRouter()
 
 	return (
 		<DropDown
@@ -18,8 +20,7 @@ export const ProfileDropDown = ({
 				{
 					children: t('profile'),
 					onClick: () => {
-						// TODO: redirect to profile page
-						console.log('Navigate to profile')
+						push('/profile')
 					},
 					value: 'profile'
 				},
