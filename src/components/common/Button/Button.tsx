@@ -4,18 +4,12 @@ import { ButtonProps } from './Button.types'
 /**
  * Common button component
  *
- * The Flowbite React Button component does not accept a className prop
- * https://flowbite-react.com/buttons
- *
- * This means we can not make full width buttons with Flowbite React
- * For this reason we will be creating our own button component
- *
  * @returns
  */
 
 const STYLES = {
 	default:
-		'text-white bg-[#0093D8] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-[#0093D8] dark:hover:bg-[#0093D8] focus:outline-none dark:focus:ring-blue-800'
+		'text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-600 focus:outline-none dark:focus:ring-blue-800 flex items-center gap-2'
 }
 
 export const Button = ({
@@ -37,6 +31,7 @@ export const Button = ({
 	return (
 		<button
 			data-testid={testId}
+			type='button'
 			type={type}
 			disabled={disabled}
 			className={cn(

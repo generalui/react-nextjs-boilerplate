@@ -7,7 +7,7 @@ import { DropDown } from './index'
 
 describe('DropDown Component', () => {
 	it('renders on the page', () => {
-		render(<DropDown />)
+		render(<DropDown items={[]}>Dropdown</DropDown>)
 
 		const component = screen.getByTestId('DropDown')
 

@@ -17,7 +17,7 @@ export const IconBadge = ({ className, testId = 'IconBadge', variant }: IconBadg
 	return (
 		<div
 			className={cn(
-				'rounded-full flex items-center justify-center w-8 h-8',
+				'rounded-full flex items-center justify-center w-8 h-8 text-white',
 				badge.bgClass,
 				className
 			)}

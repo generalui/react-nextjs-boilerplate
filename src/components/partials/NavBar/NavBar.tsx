@@ -1,6 +1,6 @@
 import cn from 'classnames'
 import { useText } from 'hooks/useText'
-import { SignInOut } from 'partials/SignInOut'
+import { ProfileDropDown } from 'partials/ProfileDropDown'
 import styles from './NavBar.module.css'
 import { NavBarProps } from './NavBar.types'
 
@@ -29,7 +29,7 @@ export const NavBar = ({ hideAuth, testId = 'NavBar' }: NavBarProps) => {
 						' '
 					) : (
 						<div className='flex justify-end items-center'>
-							<SignInOut />
+							<ProfileDropDown />
 						</div>
 					)}
 				</div>
