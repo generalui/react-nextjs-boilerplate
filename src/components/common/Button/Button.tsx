@@ -31,7 +31,6 @@ export const Button = ({
 	return (
 		<button
 			data-testid={testId}
-			type='button'
 			type={type}
 			disabled={disabled}
 			className={cn(
