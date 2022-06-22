@@ -28,7 +28,7 @@ export const Profile = function Profile({ testId = 'Profile' }: ProfileProps) {
 						<div className=''>
 							<img
 								className='mb-3 w-36 h-36 rounded-full shadow-lg'
-								src='/images/study1.png'
+								src='/images/profile-image-placeholder.jpg'
 								alt='user'
 							/>
 						</div>
