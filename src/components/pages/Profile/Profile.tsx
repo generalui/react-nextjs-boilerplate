@@ -5,6 +5,7 @@ import { Form } from 'react-final-form'
 import { UserInput, UserSchema } from 'types/index'
 import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
 import { useUpdateCurrentUser } from 'hooks/api/users/useUpdateCurrentUser'
+import { useText } from 'hooks/useText'
 import { PageWrapper } from 'partials/PageWrapper'
 import { Button } from 'common/Button'
 import { Card } from 'common/Card'
@@ -14,6 +15,7 @@ import { ProfileProps } from './Profile.types'
 export const Profile = function Profile({ testId = 'Profile' }: ProfileProps) {
 	const { currentUser } = useCurrentUser()
 	const { updateCurrentUser, isLoading } = useUpdateCurrentUser()
+	const { t } = useText('profile.updateUserForm')
 
 	const onSubmit = async (values: UserInput) => {
 		if (isLoading) return
@@ -47,18 +49,18 @@ export const Profile = function Profile({ testId = 'Profile' }: ProfileProps) {
 								<form onSubmit={handleSubmit}>
 									<div className='mt-4'>
 										<label htmlFor='name' className='text-sm'>
-											Full name
+											{t('name')}
 										</label>
 										<Input name='name' type='text' />
 									</div>
 									<div>
 										<label htmlFor='email' className='text-sm'>
-											Email
+											{t('email')}
 										</label>
 										<Input name='email' type='email' disabled />
 									</div>
 									<div className='mt-12'>
-										<Button type='submit'>Update</Button>
+										<Button type='submit'> {t('submitButton')}</Button>
 									</div>
 								</form>
 							)}
