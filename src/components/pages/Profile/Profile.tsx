@@ -21,7 +21,7 @@ export const Profile = function Profile({ testId = 'Profile' }: ProfileProps) {
 	}
 
 	return (
-		<PageWrapper title='Profile' data-testid={testId}>
+		<PageWrapper title='Profile' testId={testId}>
 			{currentUser && (
 				<Card className='p-6'>
 					<div className='grid grid-cols-6'>
