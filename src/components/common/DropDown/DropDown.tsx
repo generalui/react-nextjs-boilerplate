@@ -49,7 +49,7 @@ export const DropDown = ({
 			</button>
 			<div
 				className={cn(
-					'z-10 w-full bg-white rounded-lg shadow absolute p-2 text-sm text-gray-700 flex flex-col items-center text-center gap-1',
+					'z-10 w-full bg-white rounded-lg shadow absolute mt-2 p-2 text-sm text-gray-700 flex flex-col items-center text-center gap-1',
 					{
 						hidden: !isOpen
 					}

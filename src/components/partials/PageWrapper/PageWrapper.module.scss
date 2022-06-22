@@ -1,7 +1,11 @@
+@import 'styles/breakpoints';
+
 /* MUST UPDATE SIDEBAR WIDTH WHEN UPDATING withSideBar width property  */
 .withSideBar {
-	width: calc(100% - var(--side-bar-width));
-	margin-left: var(--side-bar-width);
+	@include lg() {
+		width: calc(100% - var(--side-bar-width));
+		margin-left: var(--side-bar-width);
+	}
 }
 
 .withNavBar {

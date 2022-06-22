@@ -1,0 +1,44 @@
+/**
+ * Mixins for media queries
+ * reference: https://tailwindcss.com/docs/screens
+ *
+ * To use: 
+ * @import "styles/breakpoints";
+ * Inside of module.scss file
+ * @include lg() {
+ *   .yourClass {
+ *     // class props
+ *   }
+ * }
+ * - OR -
+ * .yourClass {
+ *   @include lg() {
+ *     // class props
+ *   }
+ * }
+ */
+@mixin sm() {
+	@media (min-width: 640px) {
+		@content;
+	}
+}
+@mixin md() {
+	@media (min-width: 768px) {
+		@content;
+	}
+}
+@mixin lg() {
+	@media (min-width: 1024px) {
+		@content;
+	}
+}
+@mixin xl() {
+	@media (min-width: 1280px) {
+		@content;
+	}
+}
+@mixin xxl() {
+	@media (min-width: 1536px) {
+		@content;
+	}
+}

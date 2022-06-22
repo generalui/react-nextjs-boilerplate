@@ -4,20 +4,28 @@ import { Loader } from 'common/Loader'
 import { Spinner } from 'common/Spinner'
 import { ListProps } from './List.types'
 
-const sharedClasses = 'grid px-6 grid-cols-6 lg:grid-cols-12 gap-10'
+const sharedClasses = 'grid grid-cols-6 lg:grid-cols-12 gap-10'
 
 export const List = <DataType extends object>({
 	columns,
 	data,
 	className,
+	listItemClassName,
+	sharedClassName,
 	isLoading = false,
 	testId = 'List'
 }: ListProps<DataType>) => {
 	let colWidthAccumulator = 0
 
 	return (
-		<div className={cn('gap-4 flex flex-col px-6 lg:px-0', className)} data-testid={testId}>
-			<div className={cn('font-semibold text-black text-xs hidden lg:grid', sharedClasses)}>
+		<div className={cn('flex flex-col px-6 lg:px-0', className)} data-testid={testId}>
+			<div
+				className={cn(
+					sharedClasses,
+					'mb-4 px-6 font-semibold text-black text-xs hidden lg:grid',
+					sharedClassName
+				)}
+			>
 				{columns.map((column) => {
 					// Merge the width of columns without a title to the next titled column
 					if (!column.title) {
@@ -42,10 +50,17 @@ export const List = <DataType extends object>({
 					</div>
 				}
 			>
-				{data.map((item, index) => (
-					// @ts-expect-error We don't know any key info except the index for this item
-					<ListItem className={sharedClasses} columns={columns} itemData={item} key={index} />
-				))}
+				<div className='flex flex-col space-y-4'>
+					{data.map((item, index) => (
+						<ListItem
+							className={cn(sharedClasses, sharedClassName, listItemClassName)}
+							columns={columns}
+							itemData={item}
+							// @ts-expect-error We don't know any key info except the index for this item
+							key={index}
+						/>
+					))}
+				</div>
 			</Loader>
 		</div>
 	)
