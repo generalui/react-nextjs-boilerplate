@@ -49,18 +49,18 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 									</div>
 									<div>
 										<label className='text-xs text-gray-500' htmlFor='coordinator'>
-											Coordinator
+											{t('fields.coordinator')}
 										</label>
 										<Input name='coordinator' type='text' placeholder='Coordinator' />
 									</div>
 									<div>
 										<label className='text-xs text-gray-500' htmlFor='endDate'>
-											End Date
+											{t('fields.endDate')}
 										</label>
 										<Input name='endDate' type='date' placeholder='Select End Date' />
 									</div>
-									<label className='text-xs text-gray-500' htmlFor='date'>
-										Study Description
+									<label className='text-xs text-gray-500' htmlFor='description'>
+										{t('fields.description')}
 									</label>
 									<div className='col-span-3'>
 										<Input name='description' placeholder='Description' type='textarea' rows={5} />
@@ -68,9 +68,9 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 									<div className='col-span-3'>
 										<ModalFooter>
 											<SubmitButton isError={isError} isLoading={isLoading} disableOnLoading>
-												Create Study
+												{t('buttons.submit')}
 											</SubmitButton>
-											<Button onClick={close}>Cancel</Button>
+											<Button onClick={close}>{t('buttons.cancel')}</Button>
 										</ModalFooter>
 									</div>
 								</div>

@@ -2,42 +2,57 @@ const home = {
 	title: {
 		message: 'Home'
 	},
-	welcomeHeading: {
+	currentStudies: {
 		title: {
 			message: 'Current Studies'
 		},
+		placeHolderNumber: {
+			message: '8'
+		},
+		activeAndApproved: {
+			message: 'Active & Approved'
+		},
 		description: {
-			message: 'This app is currently under construction 🏗️ 🚧 👷'
+			message:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.'
 		}
 	},
-	viewCode: {
-		message: 'View the code here 👩‍💻'
-	},
-	uploadForm: {
+	dataVault: {
 		title: {
-			message: 'Upload file'
+			message: 'Data Vault'
 		},
-		input: {
-			button: {
-				message: 'Upload file'
-			},
-			placeholder: {
-				message: 'No file chosen'
-			}
+		placeHolderNumber: {
+			message: '2,000'
 		},
-		submit: {
-			message: 'Upload file'
+		files: {
+			message: 'Files'
 		},
-		alerts: {
-			inProgress: {
-				message: 'Uploading...'
-			},
-			success: {
-				message: 'File uploaded successfully!'
-			},
-			generalError: {
-				message: 'There was an error processing your request'
-			}
+		description: {
+			message:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.'
+		}
+	},
+	documentation: {
+		title: {
+			message: 'Documentation'
+		},
+		placeHolderNumber: {
+			message: '23'
+		},
+		files: {
+			message: 'Files'
+		},
+		description: {
+			message:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.'
+		}
+	},
+	recentlyAddedStudies: {
+		title: {
+			message: 'Recently Added Studies'
+		},
+		placeHolder: {
+			message: '[ A beautiful list of recently added studies ]'
 		}
 	}
 }

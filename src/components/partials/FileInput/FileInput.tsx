@@ -1,6 +1,5 @@
 import { AxiosError } from 'axios'
 import { ChangeEvent, useState } from 'react'
-import { useDropzone } from 'react-dropzone'
 import { ReqStatus } from 'types/ReqStatus'
 import { axios } from 'utils/axios'
 import { useText } from 'hooks/useText'
@@ -14,7 +13,6 @@ export const FileInput = ({ testId = 'FileInput' }: FileInputProps) => {
 	const [state, setUploadState] = useState<ReqStatus>(ReqStatus.NotStarted)
 	const [errors, setErrors] = useState<string[]>([])
 	const { t } = useText('home.uploadForm')
-	const { acceptedFiles, getRootProps, getInputProps } = useDropzone()
 
 	const handleFileInput = (event: ChangeEvent<HTMLInputElement>) => {
 		if (event.target.files && event.target.files?.length > 0) {

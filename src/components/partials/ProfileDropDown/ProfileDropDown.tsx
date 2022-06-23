@@ -1,4 +1,4 @@
-import { signOut, useSession } from 'next-auth/react'
+import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
 import { useText } from 'hooks/useText'

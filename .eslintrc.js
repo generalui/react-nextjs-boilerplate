@@ -21,6 +21,15 @@ module.exports = {
 		// Turn these rules on for Next Fullstack
 		'@next/next/no-img-element': 'off',
 		'@typescript-eslint/no-empty-interface': 'off',
-		'jsx-a11y/anchor-is-valid': 'off'
-	}
+		'jsx-a11y/anchor-is-valid': 'off',
+		'react/jsx-no-literals': 'error'
+	},
+	overrides: [
+		{
+			files: ['*.spec.*'],
+			rules: {
+				'react/jsx-no-literals': 'off'
+			}
+		}
+	]
 }
