@@ -91,7 +91,7 @@ model CoordinatorsOnStudies {
 }
 
 model Document {
-  id           String @id @default(cuid())
+  id           String  @id @default(cuid())
   uploadedById String?
   name         String
   url          String
@@ -106,4 +106,23 @@ model NotificationEvent {
   inserted_at       DateTime @default(now())
   notification_type String
   body              Json
+}
+
+enum MethodType {
+  get
+  post
+  put
+  patch
+  delete
+}
+
+model Mutation {
+  id          String     @id @default(cuid())
+  table       String
+  record_id   String
+  method_type MethodType
+  inserted_at DateTime   @default(now())
+  action      Json
+  user_id     String?
+  state       String
 }
