@@ -52,7 +52,7 @@ const home = {
 			message: 'Recently Added Studies'
 		},
 		placeHolder: {
-			message: '[ A beautiful list of studies recently added studies ]'
+			message: '[ A beautiful list of recently added studies ]'
 		}
 	}
 }
