@@ -47,7 +47,7 @@ export const Profile = function Profile({ testId = 'Profile' }: ProfileProps) {
 							initialValues={{ name: currentUser.name, email: currentUser.email }}
 							render={({ handleSubmit }) => (
 								<form onSubmit={handleSubmit}>
-									<div className='mt-4'>
+									<div className='mt-4 mb-4'>
 										<label htmlFor='name' className='text-sm'>
 											{t('name')}
 										</label>

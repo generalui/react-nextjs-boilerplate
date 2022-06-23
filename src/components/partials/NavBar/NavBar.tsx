@@ -1,7 +1,7 @@
 import cn from 'classnames'
 import { useText } from 'hooks/useText'
 import { ProfileDropDown } from 'partials/ProfileDropDown'
-import styles from './NavBar.module.css'
+import styles from './NavBar.module.scss'
 import { NavBarProps } from './NavBar.types'
 
 /**

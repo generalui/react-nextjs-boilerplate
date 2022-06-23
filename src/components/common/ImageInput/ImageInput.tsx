@@ -51,7 +51,7 @@ const Dropzone = ({ onChange, className, testId }: DropZoneProps) => {
 		<div
 			{...getRootProps({
 				className: cn(
-					'row-span-3 dropzone relative rounded-lg border border-gray-400 focus:border-2 focus:border-blue-600 focus:outline-2 focus:outline-offset-2 focus:outline-gray-400 overflow-hidden',
+					'dropzone relative rounded-lg border border-gray-400 focus:border-2 focus:border-blue-600 focus:outline-2 focus:outline-offset-2 focus:outline-gray-400 overflow-hidden',
 					className
 				)
 			})}

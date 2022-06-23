@@ -1,0 +1,15 @@
+@import 'styles/breakpoints';
+@import 'styles/variables';
+
+/* MUST UPDATE SIDEBAR WIDTH WHEN UPDATING withSideBar width property  */
+.withSideBar {
+	@include lg() {
+		width: calc(100% - $sideBarWidth);
+		margin-left: $sideBarWidth;
+	}
+}
+
+.withNavBar {
+	top: $navBarHeight;
+	position: relative;
+}

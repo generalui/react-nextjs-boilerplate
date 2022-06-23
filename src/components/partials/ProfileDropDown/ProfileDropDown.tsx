@@ -1,5 +1,6 @@
 import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
+import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
 import { useText } from 'hooks/useText'
 import { DropDown } from 'components/common/DropDown'
 import { ProfileDropDownProps } from './ProfileDropDown.types'
@@ -9,8 +10,8 @@ export const ProfileDropDown = ({
 	className
 }: ProfileDropDownProps) => {
 	const { t } = useText('common.userDropdown')
-	const { data: session } = useSession()
-	const label = session?.user?.name || t('signIn')
+	const { currentUser } = useCurrentUser()
+	const label = currentUser?.name || t('signIn')
 	const { push } = useRouter()
 
 	return (

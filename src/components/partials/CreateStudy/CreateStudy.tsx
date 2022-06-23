@@ -43,7 +43,7 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 						render={({ handleSubmit }) => (
 							<form onSubmit={handleSubmit}>
 								<div className='grid grid-cols-3 gap-2'>
-									<ImageInput name='image' />
+									<ImageInput name='image' className='row-span-3' />
 									<div className='col-span-2 row-span-2'>
 										<Input name='title' placeholder='Title' type='textarea' />
 									</div>

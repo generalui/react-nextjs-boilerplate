@@ -2,7 +2,7 @@ import { CogIcon, DocumentReportIcon, HomeIcon } from '@heroicons/react/solid'
 import cn from 'classnames'
 import Link from 'next/link'
 import { useText } from 'hooks/useText'
-import styles from './Sidebar.module.css'
+import styles from './Sidebar.module.scss'
 import { SidebarProps } from './Sidebar.types'
 
 /**
@@ -12,7 +12,10 @@ export const Sidebar = ({ testId = 'Sidebar' }: SidebarProps) => {
 	const { t } = useText('common.sidebar')
 
 	return (
-		<div className={cn('fixed left-0 bg-white z-10 h-full', styles.sideBar)} data-testid={testId}>
+		<div
+			className={cn('hidden lg:block fixed left-0 bg-white z-10 h-full', styles.sideBar)}
+			data-testid={testId}
+		>
 			<div className='px-2 sm:px-4 py-2.5 border-b'>
 				<ul>
 					<li className='flex items-center mb-2'>
