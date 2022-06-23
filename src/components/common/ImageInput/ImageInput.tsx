@@ -23,7 +23,6 @@ interface DropZoneProps extends CommonProps {
 	onChange?: (file: string | undefined) => void
 }
 const Dropzone = ({ onChange, className, testId }: DropZoneProps) => {
-	// TODO: replace any
 	const [imageFile, setImageFile] = useState<ImagePreview | undefined>()
 
 	const { getRootProps, getInputProps } = useDropzone({
