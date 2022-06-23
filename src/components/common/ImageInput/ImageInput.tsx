@@ -16,20 +16,22 @@ const getBase64 = async (file: Blob): Promise<string | undefined> => {
 		reader.onerror = (error) => reject(error)
 	})
 }
-
+type ImagePreview = File & {
+	preview: string
+}
 interface DropZoneProps extends CommonProps {
 	onChange?: (file: string | undefined) => void
 }
 const Dropzone = ({ onChange, className, testId }: DropZoneProps) => {
 	// TODO: replace any
-	const [imageFile, setImageFile] = useState<any>()
+	const [imageFile, setImageFile] = useState<ImagePreview | undefined>()
 
 	const { getRootProps, getInputProps } = useDropzone({
 		maxSize: 5 * 1000000, // 5 MB file limit
 		maxFiles: 1, // 1 file limit
 		accept: { 'image/png': ['.jpeg', '.jpg', '.png', '.gif'] }, // Accept only images
-		onDrop: async (acceptedFiles) => {
-			const file: any = {
+		onDrop: async (acceptedFiles: File[]) => {
+			const file: ImagePreview = {
 				...acceptedFiles[0],
 				preview: URL.createObjectURL(acceptedFiles[0])
 			}
@@ -42,7 +44,7 @@ const Dropzone = ({ onChange, className, testId }: DropZoneProps) => {
 	useEffect(
 		() => () => {
 			// Make sure to revoke the data uris to avoid memory leaks
-			URL?.revokeObjectURL?.(imageFile?.preview)
+			if (imageFile?.preview) URL.revokeObjectURL(imageFile.preview)
 		},
 		[imageFile]
 	)

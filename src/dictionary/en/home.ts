@@ -17,7 +17,7 @@ const home = {
 				'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.'
 		}
 	},
-	dataValue: {
+	dataVault: {
 		title: {
 			message: 'Data Vault'
 		},
@@ -34,10 +34,10 @@ const home = {
 	},
 	documentation: {
 		title: {
-			message: 'Data Vault'
+			message: 'Documentation'
 		},
 		placeHolderNumber: {
-			message: '2,000'
+			message: '23'
 		},
 		files: {
 			message: 'Files'
