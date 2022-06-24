@@ -14,10 +14,10 @@ function createStudy(newStudy: StudyInput) {
 export function useCreateStudy() {
 	const { data: session } = useSession()
 
-	const { mutate, ...mutation } = useMutation(createStudy, {
+	const { mutate, ...mutation } = useMutation('create-study', createStudy, {
 		onMutate: async (newStudy) => {
 			// TODO: coordinator should be an object from a react select component
-			const { title, endDate, description, image, coordinator } = newStudy
+			const { title, endDate, description, image } = newStudy
 			// Cancel current queries for the studies list
 			await reactQueryClient.cancelQueries('studies')
 
