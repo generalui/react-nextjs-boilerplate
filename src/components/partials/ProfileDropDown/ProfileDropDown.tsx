@@ -3,7 +3,7 @@ import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
 import { useText } from 'hooks/useText'
-import { DropDown } from 'components/common/DropDown'
+import { DropDown } from 'common/DropDown'
 import { ProfileDropDownProps } from './ProfileDropDown.types'
 
 export const ProfileDropDown = ({

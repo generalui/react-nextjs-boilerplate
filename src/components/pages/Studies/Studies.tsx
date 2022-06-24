@@ -1,13 +1,13 @@
 /*!
  * Studies page
  */
-import { StatusBadge } from 'components/partials/StatusBadge'
 import Link from 'next/link'
 import { useStudies } from 'hooks/api/useStudies'
 import { useText } from 'hooks/useText'
 import { CreateStudy } from 'partials/CreateStudy'
 import { List } from 'partials/List'
 import { PageWrapper } from 'partials/PageWrapper'
+import { StatusBadge } from 'partials/StatusBadge'
 import { PageHeader } from 'common/PageHeader'
 import { Text } from 'common/Text'
 import { StudiesProps } from './Studies.types'

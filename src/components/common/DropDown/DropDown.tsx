@@ -1,8 +1,8 @@
 import cn from 'classnames'
 import { useEffect, useRef, useState } from 'react'
-import { DropDownItem } from 'components/common/DropDown/DropDownItem'
-import { dropDownVariants } from 'components/common/DropDown/variants'
-import { Icon } from 'components/common/Icon'
+import { DropDownItem } from 'common/DropDown/DropDownItem'
+import { dropDownVariants } from 'common/DropDown/variants'
+import { Icon } from 'common/Icon'
 import { DropDownProps } from './DropDown.types'
 
 export const DropDown = ({

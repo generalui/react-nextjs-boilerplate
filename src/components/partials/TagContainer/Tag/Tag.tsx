@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import { Icon } from 'components/common/Icon'
+import { Icon } from 'common/Icon'
 import { Text } from 'common/Text'
 import { TagProps } from './Tag.types'
 

@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import { Button } from 'components/common/Button'
+import { Button } from 'common/Button'
 import { DropDownItemProps } from './DropDownItem.types'
 
 export const DropDownItem = ({

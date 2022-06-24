@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import { buttonVariants } from 'components/common/Button/variants'
+import { buttonVariants } from 'common/Button/variants'
 import { ButtonProps } from './Button.types'
 
 /**
