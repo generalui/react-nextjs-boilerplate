@@ -8,7 +8,9 @@ export const Detail = ({ children, className, label, testId = 'Detail' }: Detail
 			{label}
 		</Text>
 		{typeof children === 'string' ? (
-			<Text className='bg-gray-50 text-gray-400 text-sm rounded px-4 py-2'>{children}</Text>
+			<Text className='bg-gray-50 text-gray-400 text-sm rounded px-4 py-2 flex-grow'>
+				{children}
+			</Text>
 		) : (
 			children
 		)}

@@ -1,6 +1,6 @@
 import { StudyStatus } from '@prisma/client'
 import { useText } from 'hooks/useText'
-import { IconBadge } from 'components/common/IconBadge'
+import { StatusBadge } from 'partials/StatusBadge'
 import { DropDown } from 'common/DropDown'
 import { StudyStatusDropdownProps } from './StudyStatusDropdown.types'
 
@@ -14,7 +14,7 @@ export const StudyStatusDropdown = ({
 	const createDropdownItem = (key: StudyStatus) => ({
 		label: (
 			<div className='flex items-center gap-3'>
-				<IconBadge size='sm' v={key} /> {t(key).toUpperCase()}
+				<StatusBadge size='sm' v={key} /> {t(key).toUpperCase()}
 			</div>
 		),
 		onClick: () => onChange(key),

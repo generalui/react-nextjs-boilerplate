@@ -21,7 +21,6 @@
 		"downlevelIteration": true,
 		"paths": {
 			"styles/*": ["src/styles/*"],
-			"components/*": ["src/components/*"],
 			"common/*": ["src/components/common/*"],
 			"partials/*": ["src/components/partials/*"],
 			"pages/*": ["src/components/pages/*"],

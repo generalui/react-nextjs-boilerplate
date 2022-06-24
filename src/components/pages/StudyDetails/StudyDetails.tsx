@@ -5,11 +5,11 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useStudy } from 'hooks/api/studies/useStudy'
 import { useText } from 'hooks/useText'
-import { StudyStatusDropdown } from 'components/common/DropDown/StudyStatusDropdown'
 import { PageWrapper } from 'partials/PageWrapper'
 import { TagContainer } from 'partials/TagContainer'
 import { Button } from 'common/Button'
 import { Card } from 'common/Card'
+import { StudyStatusDropdown } from 'common/DropDown/StudyStatusDropdown'
 import { Icon } from 'common/Icon'
 import { Loader } from 'common/Loader'
 import { PageHeader } from 'common/PageHeader'
@@ -43,8 +43,13 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 			<Loader isLoading={isLoading}>
 				{!study ? null : (
 					<Card className='flex flex-col gap-6'>
-						<div className='flex justify-between'>
-							<Text className='font-bold text-xl'>{t('title')}</Text>
+						<div className='flex justify-between items-center'>
+							<div className='flex gap-2'>
+								<div className='bg-blue-600 p-1 flex justify-center items-center rounded w-6 h-6'>
+									<Icon icon='DocumentReportIcon' className='text-white' size='sm' />
+								</div>
+								<Text className='font-semibold text-xl'>{t('title')}</Text>
+							</div>
 							<Button v='small'>
 								<Icon icon='PencilAltIcon' className='h-4 w-4' />
 								{t('edit')}
