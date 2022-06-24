@@ -1,6 +1,7 @@
 /*!
  * Study details page
  */
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useStudy } from 'hooks/api/studies/useStudy'
 import { useText } from 'hooks/useText'
@@ -27,7 +28,9 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 		<PageWrapper title='Studies' testId={testId}>
 			<PageHeader className='grid grid-col-6 items-center'>
 				<div className='col-span-1 flex gap-8'>
-					<Text className='font-bold'>{studiesT('title')}</Text>
+					<Link href='/studies' passHref>
+						<Text className='font-bold'>{studiesT('title')}</Text>
+					</Link>
 					<Icon icon='ChevronRightIcon' className='text-gray-400' />
 					<Text className='font-bold text-gray-400'>{t('title')}</Text>
 				</div>

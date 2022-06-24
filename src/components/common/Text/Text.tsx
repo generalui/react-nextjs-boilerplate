@@ -7,10 +7,12 @@ import { textVariants } from './Text.variants'
  *
  * V stands for variant. Sorry, I'm lazy. :(
  */
-export const Text = ({ children, className, testId = 'Text', v = 'default' }: TextProps) => {
+export const Text = ({ children, className, href, testId = 'Text', v = 'default' }: TextProps) => {
+	const Component = href ? 'a' : 'div'
+
 	return (
-		<div className={cn(className, textVariants[v])} data-testid={testId}>
+		<Component className={cn(className, textVariants[v])} data-testid={testId} href={href}>
 			{children}
-		</div>
+		</Component>
 	)
 }
