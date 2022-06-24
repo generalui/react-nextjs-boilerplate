@@ -1,4 +1,4 @@
-const home = {
+const studies = {
 	title: {
 		message: 'Studies'
 	},
@@ -18,7 +18,21 @@ const home = {
 		status: {
 			message: 'Status'
 		}
+	},
+	details: {
+		coordinator: { message: 'Coordinator' },
+		edit: { message: 'Edit Details' },
+		title: { message: 'Study Details' },
+		description: { message: 'Description' },
+		endDate: { message: 'End Date' },
+		dataTypes: { message: 'Data Types' },
+		consents: { message: 'Consents' }
+	},
+	status: {
+		approved: { message: 'Approved' },
+		new: { message: 'New' },
+		archived: { message: 'Archived' }
 	}
 }
 
-export default home
+export default studies

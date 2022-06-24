@@ -1,3 +1,4 @@
+import cn from 'classnames'
 import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
@@ -16,16 +17,16 @@ export const ProfileDropDown = ({
 
 	return (
 		<DropDown
-			className={className}
+			className={cn('w-64', className)}
 			items={[
 				{
-					children: t('profile'),
+					label: t('profile'),
 					onClick: () => {
 						push('/profile')
 					},
 					value: 'profile'
 				},
-				{ children: t('logout'), onClick: () => signOut(), value: 'logout' }
+				{ label: t('logout'), onClick: () => signOut(), value: 'logout' }
 			]}
 			testId={testId}
 			v='secondary'

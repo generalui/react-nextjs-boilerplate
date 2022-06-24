@@ -18,6 +18,8 @@ export const DropDown = ({
 
 	const wrapperRef = useRef<HTMLDivElement>(null)
 
+	const variantClasses = dropDownVariants[v]
+
 	// below is the same as componentDidMount and componentDidUnmount
 	useEffect(() => {
 		document.addEventListener('click', handleClickOutside, false)
@@ -34,22 +36,25 @@ export const DropDown = ({
 
 	return (
 		<div
-			className={cn('z-50 w-64 rounded-lg relative', dropDownVariants[v], className)}
+			className={cn('z-50 rounded-lg relative', variantClasses.container, className)}
 			ref={wrapperRef}
 			data-testid={testId}
 		>
 			<button
 				id='dropdownDefault'
-				className='w-full px-4 py-1 flex items-center justify-between text-sm font-medium focus:ring-4 focus:outline-none focus:ring-blue-300'
+				className={cn(
+					variantClasses.button,
+					'w-full h-full flex items-center justify-between text-sm font-medium focus:ring-4 focus:outline-none focus:ring-blue-300'
+				)}
 				onClick={toggleOpen}
 				type='button'
 			>
 				<div className='truncate'>{children}</div>
-				<Icon icon='ChevronDownIcon' />
+				<Icon icon='ChevronDownIcon' className='text-blue-600' />
 			</button>
 			<div
 				className={cn(
-					'z-10 w-full bg-white rounded-lg shadow absolute mt-2 p-2 text-sm text-gray-700 flex flex-col items-center text-center gap-1',
+					'z-10 min-w-full bg-white rounded-lg shadow absolute mt-2 p-2 text-sm text-gray-700 flex flex-col items-center text-center gap-1 -translate-x-1/2 left-1/2',
 					{
 						hidden: !isOpen
 					}

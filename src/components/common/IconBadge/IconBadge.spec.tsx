@@ -7,7 +7,7 @@ import { IconBadge } from './index'
 
 describe('IconBadge Component', () => {
 	it('renders on the page', () => {
-		render(<IconBadge variant={'new'} />)
+		render(<IconBadge v={'new'} />)
 
 		const component = screen.getByTestId('IconBadge')
 

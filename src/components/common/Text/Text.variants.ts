@@ -1,3 +1,4 @@
 export const textVariants = {
-	subtitle: 'font-normal text-xs text-gray-500'
+	default: 'text-normal',
+	subtitle: 'text-xs text-gray-500'
 }

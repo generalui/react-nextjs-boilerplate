@@ -15,7 +15,7 @@ export const useModal = (name: string) => {
 	}, [query, name, setIsOpen])
 
 	const handleOpen = () => {
-		setRouterQuery({ [`modal-${name}`]: 'true' })
+		setRouterQuery({ ...query, [`modal-${name}`]: 'true' })
 		setIsOpen(true)
 	}
 

@@ -1,4 +1,5 @@
 import { CommonProps } from 'types/CommonProps'
+import { buttonVariants } from './variants'
 
 export interface ButtonProps extends CommonProps {
 	primary?: boolean
@@ -8,4 +9,5 @@ export interface ButtonProps extends CommonProps {
 	success?: boolean
 	type?: 'button' | 'submit' | 'reset' | undefined
 	disabled?: boolean
+	v?: keyof typeof buttonVariants
 }

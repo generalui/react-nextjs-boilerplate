@@ -1,29 +1,27 @@
 import cn from 'classnames'
 import { Icon } from 'common/Icon'
-import { IconProps } from 'common/Icon/Icon.types'
 import { IconBadgeProps } from './IconBadge.types'
+import { iconBadgeVariants } from './variants'
 
-const badgeMap: {
-	[key in IconBadgeProps['variant']]: { bgClass: string; icon: IconProps['icon'] }
-} = {
-	new: { bgClass: 'bg-orange-300', icon: 'CheckCircleIcon' },
-	approved: { bgClass: 'bg-green-400', icon: 'CheckCircleIcon' },
-	archived: { bgClass: 'bg-gray-300', icon: 'ServerIcon' }
+const sizeMap = {
+	sm: 'h-6 w-6',
+	md: 'h-8 w-8'
 }
 
-export const IconBadge = ({ className, testId = 'IconBadge', variant }: IconBadgeProps) => {
-	const badge = badgeMap[variant]
+export const IconBadge = ({ className, size = 'md', testId = 'IconBadge', v }: IconBadgeProps) => {
+	const badge = iconBadgeVariants[v]
 
 	return (
 		<div
 			className={cn(
-				'rounded-full flex items-center justify-center w-8 h-8 text-white',
+				'rounded-full flex items-center justify-center text-white',
+				sizeMap[size],
 				badge.bgClass,
 				className
 			)}
 			data-testid={testId}
 		>
-			<Icon icon={badge.icon} outlined />
+			<Icon icon={badge.icon} size={size} outlined />
 		</div>
 	)
 }

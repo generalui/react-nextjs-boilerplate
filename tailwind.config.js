@@ -1,6 +1,7 @@
 module.exports = {
 	content: [
 		'./src/components/**/*.tsx',
+		'./src/components/**/*.ts',
 		'./src/styles/**/*.css',
 		'./pages/**/*.tsx',
 		'./node_modules/flowbite/**/*.js'

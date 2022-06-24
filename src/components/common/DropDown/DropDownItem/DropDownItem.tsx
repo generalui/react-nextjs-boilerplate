@@ -3,7 +3,7 @@ import { Button } from 'components/common/Button'
 import { DropDownItemProps } from './DropDownItem.types'
 
 export const DropDownItem = ({
-	children,
+	label,
 	className,
 	onClick,
 	testId = 'DropDownItem'
@@ -11,13 +11,11 @@ export const DropDownItem = ({
 	return (
 		<Button
 			onClick={onClick}
-			className={cn(
-				'bg-transparent hover:bg-gray-100 text-black font-normal py-2 w-full rounded-xl',
-				className
-			)}
+			className={cn(className, 'w-full rounded-xl')}
 			testId={testId}
+			v='transparent'
 		>
-			{children}
+			{label}
 		</Button>
 	)
 }
