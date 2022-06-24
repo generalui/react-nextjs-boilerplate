@@ -124,7 +124,7 @@ enum EventState {
 model EventLog {
   id          String     @id @default(cuid())
   model       String
-  recordId   String @map("record_id")
+  recordId   String? @map("record_id")
   methodType MethodType @map("method_type")
   insertedAt DateTime   @default(now()) @map("inserted_at")
   body      Json?
