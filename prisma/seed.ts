@@ -22,7 +22,22 @@ async function main() {
 	console.log(createdUsers)
 
 	const createdStudies = await Promise.all(
-		studies.map((study) => prisma.study.create({ data: study }))
+		studies.map(({ imageUrl, ...study }) =>
+			prisma.study.create({
+				data: {
+					...study,
+					image: imageUrl
+						? {
+								create: {
+									name: imageUrl,
+									url: imageUrl,
+									fileType: 'mimetype'
+								}
+						  }
+						: undefined
+				}
+			})
+		)
 	)
 	console.log(createdStudies)
 }

@@ -1,13 +1,15 @@
 import { Prisma } from '@prisma/client'
 
-export const studies: Prisma.StudyCreateInput[] = [
+export const studies: (Prisma.StudyCreateInput & { imageUrl?: string })[] = [
 	{
 		description: 'Test study 1',
 		title:
 			'Real-time PCR designs to estimate nuclear and mitochondrial DNA copy number in forensic and ancient DNA studies',
 		users: { create: { user: { connect: { email: 'test@email.com' } } } },
 		submissionDate: new Date('2022-01-01'),
-		endDate: new Date('2022-10-01')
+		endDate: new Date('2022-10-01'),
+		imageUrl:
+			'https://res.cloudinary.com/diepbgnym/image/upload/v1656026758/documents/study1_qg1c9x.png'
 	},
 	{
 		description: 'Test study 2',
@@ -16,7 +18,9 @@ export const studies: Prisma.StudyCreateInput[] = [
 		users: { create: { user: { connect: { email: 'test@email.com' } } } },
 		status: 'approved',
 		submissionDate: new Date('2021-01-01'),
-		endDate: new Date('2021-12-01')
+		endDate: new Date('2021-12-01'),
+		imageUrl:
+			'https://res.cloudinary.com/diepbgnym/image/upload/v1656026758/documents/study2_gsus5u.png'
 	},
 	{
 		description: 'Test study 3',
@@ -25,6 +29,8 @@ export const studies: Prisma.StudyCreateInput[] = [
 		users: { create: { user: { connect: { email: 'test@email.com' } } } },
 		status: 'archived',
 		submissionDate: new Date('2020-01-01'),
-		endDate: new Date('2020-05-01')
+		endDate: new Date('2020-05-01'),
+		imageUrl:
+			'https://res.cloudinary.com/diepbgnym/image/upload/v1656026758/documents/study3_cw3kvw.png'
 	}
 ]

@@ -11,9 +11,9 @@ function updateCurrentUser(currentUserUpdate: UserInput) {
 
 export function useUpdateCurrentUser() {
 	const { currentUser } = useCurrentUser()
-	const { mutate, ...mutation } = useMutation(updateCurrentUser, {
+	const { mutate, ...mutation } = useMutation('current-user', updateCurrentUser, {
 		onMutate: async (currentUserUpdate) => {
-			if (!currentUser) return reactQueryClient.cancelMutations()
+			if (!currentUser) return undefined
 
 			const { name } = currentUserUpdate
 
@@ -28,9 +28,9 @@ export function useUpdateCurrentUser() {
 
 			return { optimisticCurrentUser }
 		},
-		onSuccess: ({ data }, variables, context) => {
+		onSuccess: (_data, _variables, context) => {
 			reactQueryClient.setQueryData('current-user', () => {
-				return context?.optimisticCurrentUser
+				return (context as { optimisticCurrentUser: User })?.optimisticCurrentUser
 			})
 		},
 		onError: () => {
