@@ -116,13 +116,18 @@ enum MethodType {
   delete
 }
 
-model Mutation {
-  id          String     @id @default(cuid())
-  table       String
-  record_id   String
-  method_type MethodType
-  inserted_at DateTime   @default(now())
-  action      Json
-  user_id     String?
-  state       String
+enum EventState {
+  success
+  failure
+}
+
+model EventLog {
+  id         String     @id @default(cuid())
+  model      String
+  recordId   String?    @map("record_id")
+  methodType MethodType @map("method_type")
+  insertedAt DateTime   @default(now()) @map("inserted_at")
+  body       Json?
+  userId     String?    @map("user_id")
+  state      EventState
 }
