@@ -107,3 +107,21 @@ model NotificationEvent {
   notification_type String
   body              Json
 }
+
+enum MethodType {
+  get
+  post
+  put
+  patch
+  delete
+}
+
+model EventLog {
+  id         String     @id @default(cuid())
+  model      String
+  recordIds  String[]   @map("record_id")
+  methodType MethodType @map("method_type")
+  insertedAt DateTime   @default(now()) @map("inserted_at")
+  body       Json?
+  userId     String?    @map("user_id")
+}

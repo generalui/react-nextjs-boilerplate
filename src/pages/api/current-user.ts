@@ -1,43 +1,60 @@
+import { User } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { connect } from 'utils/api/connect'
 import { getSessionFromReq } from 'utils/api/getSessionFromReq'
+import { handleQuery } from 'utils/api/handleQuery'
 import { prisma } from 'utils/api/prisma'
 
 const apiRoute = connect()
 
+// GET USER
 apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
-	try {
-		const session = await getSessionFromReq(req)
-
+	const session = await getSessionFromReq(req)
+	const currentUserQuery = async () => {
 		const currentUser = await prisma.user.findUnique({
 			where: {
-				id: session.userId as string
+				id: session.userId
 			}
 			// include: { documents: true }
 		})
 
-		res.status(200).json(currentUser)
-	} catch (error) {
-		res.status(400).json({ message: error })
+		if (!currentUser) throw Error('No current user')
+
+		return currentUser
 	}
+
+	handleQuery<User>({
+		req,
+		res,
+		model: 'currentUser',
+		session,
+		disableLog: true,
+		query: currentUserQuery
+	})
 })
 
+// UPDATE USER
 apiRoute.patch(async (req: NextApiRequest, res: NextApiResponse) => {
-	try {
-		const session = await getSessionFromReq(req)
+	const session = await getSessionFromReq(req)
+	const updateCurrentUser = async () => {
 		const { body } = req
-		const currentUserUpdate = await prisma.user.update({
+		return await prisma.user.update({
 			where: {
-				id: session.userId as string
+				id: session.userId
 			},
 			data: {
 				name: body.name
 			}
 		})
-		res.status(200).json(currentUserUpdate)
-	} catch (error) {
-		res.status(400).json({ message: error })
 	}
+
+	handleQuery<User>({
+		req,
+		res,
+		model: 'currentUser',
+		session,
+		query: updateCurrentUser
+	})
 })
 
 export default apiRoute
