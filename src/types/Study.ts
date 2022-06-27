@@ -1,4 +1,4 @@
-import { Document, Study as S, User } from '@prisma/client'
+import { Document, Prisma, Study as S, User } from '@prisma/client'
 import { z } from 'zod'
 
 export const StudySchema = z.object({
@@ -11,7 +11,18 @@ export const StudySchema = z.object({
 
 export type StudyInput = z.infer<typeof StudySchema>
 
-export type Study = S & { users: { user: User }[] } & { image?: Document }
+export type Study = Prisma.StudyGetPayload<{
+	include: {
+		users: {
+			include: {
+				user: true
+			}
+		} // Include all users in the returned object,
+		image: true
+	}
+}>
+
+// export type Study = S & { users: (CoordinatorsOnStudies & { user: User })[] } & { image?: Document }
 
 export type OptimisticStudy = S & { users: { user: Pick<User, 'email' | 'name'> }[] } & {
 	image?: Pick<Document, 'url'>

@@ -1,4 +1,4 @@
-import { EventState, MethodType } from '@prisma/client'
+import { MethodType } from '@prisma/client'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { Session } from 'types/Session'
 import { logDBEvent } from 'utils/api/logDBEvent'
@@ -33,18 +33,20 @@ export const handleQuery: HandleQuery = async ({
 }) => {
 	try {
 		session = session || (await getSessionFromReq(req))
-		const queryResult = (await query()) as any as { id: string } | null
+		const queryResult = (await query()) as { id: string } | [] | null
 
-		// TODO: account for queries with array results
-		if (!disableLog && queryResult?.id)
+		if (!disableLog && queryResult) {
+			const recordIds: string[] =
+				'id' in queryResult ? [queryResult.id] : queryResult.map(({ id }) => id)
+
 			logDBEvent({
 				methodType: (req.method?.toLowerCase() as MethodType) || MethodType.get,
 				model,
-				recordId: queryResult.id,
+				recordIds,
 				body: storeBody ? stripImageFromBody(req.body) : undefined,
-				state: EventState.success,
 				userId: session.userId
 			})
+		}
 
 		await res.status(200).json(queryResult)
 	} catch (error) {

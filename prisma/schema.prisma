@@ -116,18 +116,12 @@ enum MethodType {
   delete
 }
 
-enum EventState {
-  success
-  failure
-}
-
 model EventLog {
   id         String     @id @default(cuid())
   model      String
-  recordId   String?    @map("record_id")
+  recordIds  String[]   @map("record_id")
   methodType MethodType @map("method_type")
   insertedAt DateTime   @default(now()) @map("inserted_at")
   body       Json?
   userId     String?    @map("user_id")
-  state      EventState
 }

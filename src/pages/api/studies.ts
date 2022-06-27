@@ -1,8 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { StudyStatus } from '@prisma/client'
+import { Study, StudyStatus } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { connect } from 'utils/api/connect'
 import { getSessionFromReq } from 'utils/api/getSessionFromReq'
+import { handleQuery } from 'utils/api/handleQuery'
 import { upload } from 'utils/api/media'
 import { prisma } from 'utils/api/prisma'
 
@@ -10,23 +11,29 @@ const apiRoute = connect()
 
 // Get a list of studies
 apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
-	const studies = await prisma.study.findMany({
-		include: {
-			users: {
-				include: {
-					user: true
+	const studiesQuery = async () =>
+		await prisma.study.findMany({
+			include: {
+				users: {
+					include: {
+						user: true
+					}
+				}, // Include all users in the returned object,
+				image: true
+			},
+			orderBy: [
+				{
+					submissionDate: 'desc'
 				}
-			}, // Include all users in the returned object,
-			image: true
-		},
-		orderBy: [
-			{
-				submissionDate: 'desc'
-			}
-		]
-	})
+			]
+		})
 
-	res.status(200).json(JSON.parse(JSON.stringify(studies)))
+	handleQuery<Study[]>({
+		req,
+		res,
+		model: 'study',
+		query: studiesQuery
+	})
 })
 
 // Create a new study

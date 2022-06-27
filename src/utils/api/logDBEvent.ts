@@ -1,12 +1,11 @@
-import { EventState, MethodType } from '@prisma/client'
+import { MethodType } from '@prisma/client'
 import { prisma } from 'utils/api/prisma'
 
-export type LogDBEventProps<T> = {
+export type LogDBEventProps<T = unknown> = {
 	model: string
-	recordId: string
+	recordIds: string[]
 	methodType: MethodType
-	body?: Record<string, any>
-	state: EventState
+	body?: Record<string, T>
 	userId: string
 }
 
