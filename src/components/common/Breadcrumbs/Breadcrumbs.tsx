@@ -23,7 +23,7 @@ export const Breadcrumbs = ({ className, testId = 'Breadcrumbs' }: BreadcrumbsPr
 	const childRoute = route.subRoutes[endRoute] || route.subRoutes.default
 
 	return (
-		<div className={cn(className, 'flex gap-8 items-center')} data-testId={testId}>
+		<div className={cn(className, 'flex gap-8 items-center')} data-testid={testId}>
 			<Link href={baseRoute} passHref>
 				<Text className='font-bold'>{t(route.labelKey)}</Text>
 			</Link>
