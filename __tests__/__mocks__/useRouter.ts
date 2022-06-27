@@ -1,7 +1,8 @@
 export const mockUseRouterReturn = {
 	locales: ['en'],
 	defaultLocale: 'en',
-	query: { foo: 'bar' }
+	query: { foo: 'bar' },
+	route: '/studies/test-study'
 }
 
 jest.mock('next/router', () => {

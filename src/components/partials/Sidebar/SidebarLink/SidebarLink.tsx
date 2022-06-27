@@ -12,8 +12,8 @@ export const SidebarLink = ({
 	isSelected,
 	testId = 'SidebarLink'
 }: SidebarLinkProps) => (
-	<li className={cn(className, 'mb-2')}>
-		<Link href={href} passHref data-testId={testId}>
+	<li className={cn(className, 'mb-2')} data-testId={testId}>
+		<Link href={href} passHref>
 			<Text
 				className={cn(
 					isSelected ? 'text-blue-600 bg-gray-100' : 'text-gray-900',
