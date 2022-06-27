@@ -1,4 +1,5 @@
 import cn from 'classnames'
+import React from 'react'
 import { TextProps } from './Text.types'
 import { textVariants } from './Text.variants'
 
@@ -7,10 +8,21 @@ import { textVariants } from './Text.variants'
  *
  * V stands for variant. Sorry, I'm lazy. :(
  */
-export const Text = ({ children, className, testId = 'Text', v }: TextProps) => {
+export const Text = React.forwardRef<HTMLAnchorElement, TextProps>(function Text(
+	{ children, className, href, testId = 'Text', v = 'default' }: TextProps,
+	ref
+) {
+	const Component = href ? 'a' : 'div'
+
 	return (
-		<div className={cn('text-normal', v && textVariants[v], className)} data-testid={testId}>
+		<Component
+			className={cn(className, textVariants[v])}
+			data-testid={testId}
+			href={href}
+			// @ts-expect-error Not sure how to type this ref since the base component can change
+			ref={Component === 'a' ? ref : null}
+		>
 			{children}
-		</div>
+		</Component>
 	)
-}
+})

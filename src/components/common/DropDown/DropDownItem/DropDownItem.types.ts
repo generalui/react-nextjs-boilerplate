@@ -1,6 +1,6 @@
 import { CommonProps } from 'types/CommonProps'
 
 export interface DropDownItemProps extends CommonProps {
-	children: React.ReactNode
+	label: React.ReactNode
 	value: string
 }

@@ -74,7 +74,7 @@ model Study {
   image          Document?               @relation(fields: [imageId], references: [id])
   imageId        String?                 @unique
   status         StudyStatus             @default(new)
-  submissionDate DateTime?               @default(now())
+  submissionDate DateTime                @default(now())
   endDate        DateTime
   title          String
   users          CoordinatorsOnStudies[]
