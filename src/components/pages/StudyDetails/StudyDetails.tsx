@@ -4,10 +4,10 @@
 import { useRouter } from 'next/router'
 import { useStudy } from 'hooks/api/studies/useStudy'
 import { useText } from 'hooks/useText'
+import { ModalButton } from 'partials/ModalButton'
 import { PageWrapper } from 'partials/PageWrapper'
 import { TagContainer } from 'partials/TagContainer'
 import { Breadcrumbs } from 'common/Breadcrumbs'
-import { Button } from 'common/Button'
 import { Card } from 'common/Card'
 import { StudyStatusDropdown } from 'common/DropDown/StudyStatusDropdown'
 import { Icon } from 'common/Icon'
@@ -47,10 +47,17 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 								</div>
 								<Text className='font-semibold text-xl'>{t('title')}</Text>
 							</div>
-							<Button v='small'>
-								<Icon icon='PencilAltIcon' size='xs' />
-								{t('edit')}
-							</Button>
+							<ModalButton
+								buttonChildren={
+									<>
+										<Icon icon='PencilAltIcon' size='xs' />
+										{t('edit')}
+									</>
+								}
+								modalTitle={t('edit')}
+								name={'edit-study'}
+								v={'small'}
+							></ModalButton>
 						</div>
 						<div className='flex items-center gap-6'>
 							<div

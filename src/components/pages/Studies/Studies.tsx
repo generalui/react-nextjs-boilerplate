@@ -57,22 +57,22 @@ export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 						<div
 							style={{
 								backgroundImage: `url(${
-									study.image?.url || '/images/image_placeholder_centered.jpg'
+									study?.image?.url || '/images/image_placeholder_centered.jpg'
 								})`
 							}}
 							className='block h-16 w-16 bg-center bg-cover rounded-lg'
 							role='img'
 						/>
 					),
-					title: <Link href={`/studies/${study.id}`}>{study.title}</Link>,
+					title: <Link href={`/studies/${study?.id}`}>{study?.title || 'Test'}</Link>,
 					coordinator: (
 						<div className='flex flex-col'>
-							{study.users[0]?.user?.name}
-							<Text v='subtitle'>{study.users[0]?.user?.email}</Text>
+							{study?.users[0]?.user?.name}
+							<Text v='subtitle'>{study?.users[0]?.user?.email}</Text>
 						</div>
 					),
-					submissionDate: <Text v='subtitle'>{new Date(study.endDate).toLocaleDateString()}</Text>,
-					status: <StatusBadge v={study.status} />
+					submissionDate: <Text v='subtitle'>{new Date(study?.endDate).toLocaleDateString()}</Text>,
+					status: <StatusBadge v={study?.status} />
 				}))}
 				isLoading={isLoading}
 			/>

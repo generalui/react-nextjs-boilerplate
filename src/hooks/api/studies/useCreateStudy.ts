@@ -1,15 +1,9 @@
 import { Document } from '@prisma/client'
 import { useSession } from 'next-auth/react'
 import { useMutation } from 'react-query'
-import { StudyInput } from 'types/index'
 import { Study } from 'types/index'
-import { axios } from 'utils/axios'
+import { createStudy } from 'utils/api/studies'
 import { reactQueryClient } from 'utils/react-query'
-
-// TODO: retype in types/Study
-function createStudy(newStudy: StudyInput) {
-	return axios.post('/studies', newStudy)
-}
 
 export function useCreateStudy() {
 	const { data: session } = useSession()
@@ -64,7 +58,7 @@ export function useCreateStudy() {
 			// Return context with the optimistic study
 			return { optimisticStudy }
 		},
-		onSuccess: ({ data }, variables, context: { optimisticStudy: Study } | undefined) => {
+		onSuccess: (data, variables, context: { optimisticStudy: Study } | undefined) => {
 			// Replace optimistic study in the studies list with the result
 			reactQueryClient.setQueryData('studies', (old: Study[] | undefined) => {
 				const nextCache = (old || []).map((study: any) =>

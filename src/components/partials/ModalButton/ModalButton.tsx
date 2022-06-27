@@ -9,13 +9,14 @@ export const ModalButton = ({
 	buttonChildren: buttonText,
 	modalTitle,
 	name,
-	testId = 'ModalButton'
+	testId = 'ModalButton',
+	v
 }: ModalButtonProps) => {
 	const { isOpen, open, close } = useModal(name)
 
 	return (
 		<div className={className} data-testid={testId}>
-			<Button onClick={open} center>
+			<Button onClick={open} center v={v}>
 				{buttonText}
 			</Button>
 			<Modal show={isOpen} onClose={close} title={modalTitle} bodyClassName='pt-6'>
