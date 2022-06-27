@@ -1,12 +1,12 @@
 /*!
  * Study details page
  */
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useStudy } from 'hooks/api/studies/useStudy'
 import { useText } from 'hooks/useText'
 import { PageWrapper } from 'partials/PageWrapper'
 import { TagContainer } from 'partials/TagContainer'
+import { Breadcrumbs } from 'common/Breadcrumbs'
 import { Button } from 'common/Button'
 import { Card } from 'common/Card'
 import { StudyStatusDropdown } from 'common/DropDown/StudyStatusDropdown'
@@ -20,7 +20,6 @@ import { StudyDetailsProps } from './StudyDetails.types'
 export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: StudyDetailsProps) {
 	const router = useRouter()
 	const { studyId = '' } = router.query
-	const { t: studiesT } = useText('studies')
 	const { t } = useText('studies.details')
 	const {
 		data: study,
@@ -31,13 +30,7 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 	return (
 		<PageWrapper title='Studies' testId={testId}>
 			<PageHeader className='grid grid-cols-12 items-center'>
-				<div className='col-span-8 flex gap-8'>
-					<Link href='/studies' passHref>
-						<Text className='font-bold'>{studiesT('title')}</Text>
-					</Link>
-					<Icon icon='ChevronRightIcon' className='text-gray-400' />
-					<Text className='font-bold text-gray-400'>{t('title')}</Text>
-				</div>
+				<Breadcrumbs className='col-span-8' />
 				<StudyStatusDropdown
 					className='col-span-4'
 					onChange={(status) => update.mutate({ status })}
