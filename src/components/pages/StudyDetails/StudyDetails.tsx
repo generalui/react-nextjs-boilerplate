@@ -48,7 +48,7 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 								<Text className='font-semibold text-xl'>{t('title')}</Text>
 							</div>
 							<Button v='small'>
-								<Icon icon='PencilAltIcon' className='h-4 w-4' />
+								<Icon icon='PencilAltIcon' size='xs' />
 								{t('edit')}
 							</Button>
 						</div>
