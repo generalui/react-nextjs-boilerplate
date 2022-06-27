@@ -27,7 +27,6 @@ type Connect = (
 ) => NextConnect<IncomingMessage, NextApiResponse>
 
 const onRequest = (req: NextApiRequest, res: NextApiResponse, next: () => void) => {
-	console.log('test')
 	next()
 }
 
