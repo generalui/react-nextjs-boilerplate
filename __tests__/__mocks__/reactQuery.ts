@@ -1,5 +1,5 @@
 export const mockUseQueryReturn = {
-	data: [],
+	data: undefined,
 	error: null,
 	isError: false,
 	isIdle: false,

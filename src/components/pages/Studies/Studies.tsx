@@ -1,12 +1,13 @@
 /*!
- * Studies
+ * Studies page
  */
+import Link from 'next/link'
 import { useStudies } from 'hooks/api/useStudies'
 import { useText } from 'hooks/useText'
 import { CreateStudy } from 'partials/CreateStudy'
 import { List } from 'partials/List'
 import { PageWrapper } from 'partials/PageWrapper'
-import { IconBadge } from 'common/IconBadge'
+import { StatusBadge } from 'partials/StatusBadge'
 import { PageHeader } from 'common/PageHeader'
 import { Text } from 'common/Text'
 import { StudiesProps } from './Studies.types'
@@ -63,7 +64,7 @@ export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 							role='img'
 						/>
 					),
-					title: study.title,
+					title: <Link href={`/studies/${study.id}`}>{study.title}</Link>,
 					coordinator: (
 						<div className='flex flex-col'>
 							{study.users[0]?.user?.name}
@@ -71,7 +72,7 @@ export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 						</div>
 					),
 					submissionDate: <Text v='subtitle'>{new Date(study.endDate).toLocaleDateString()}</Text>,
-					status: <IconBadge variant={study.status} />
+					status: <StatusBadge v={study.status} />
 				}))}
 				isLoading={isLoading}
 			/>
