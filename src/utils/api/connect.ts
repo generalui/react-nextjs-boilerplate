@@ -1,7 +1,6 @@
 import { IncomingMessage } from 'http'
-import { NextApiRequest, NextApiResponse } from 'next'
+import { NextApiResponse } from 'next'
 import nextConnect, { NextConnect, Options } from 'next-connect'
-import { prisma } from './prisma'
 
 /**
  * Api route setup with default onNoMatch function
@@ -26,14 +25,10 @@ type Connect = (
 	nextConnectOptions?: Options<IncomingMessage, NextApiResponse>
 ) => NextConnect<IncomingMessage, NextApiResponse>
 
-const onRequest = (req: NextApiRequest, res: NextApiResponse, next: () => void) => {
-	next()
-}
-
 export const connect: Connect = (nextConnectOptions = {}) => {
 	return nextConnect({
 		...nextConnectOptions,
 		onNoMatch: nextConnectOptions.onNoMatch ?? defaultOnNoMatchFunction,
 		onError
-	}).use(onRequest)
+	})
 }
