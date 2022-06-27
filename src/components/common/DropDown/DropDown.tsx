@@ -60,8 +60,15 @@ export const DropDown = ({
 					}
 				)}
 			>
-				{items.map((props) => (
-					<DropDownItem {...props} key={props.value} />
+				{items.map(({ onClick, ...rest }) => (
+					<DropDownItem
+						onClick={() => {
+							setIsOpen(false)
+							onClick?.()
+						}}
+						{...rest}
+						key={rest.value}
+					/>
 				))}
 			</div>
 		</div>

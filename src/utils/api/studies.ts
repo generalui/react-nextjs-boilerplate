@@ -10,3 +10,11 @@ export const getStudy = async (studyId: string): Promise<Study> => {
 	const response = await axios.get(`/studies/${studyId}`)
 	return response.data
 }
+
+export const updateStudy = async (
+	studyId: string,
+	updatedStudy: Partial<Study>
+): Promise<Study> => {
+	const response = await axios.patch(`/studies/${studyId}`, updatedStudy)
+	return response.data
+}

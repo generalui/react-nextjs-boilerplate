@@ -22,12 +22,16 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 	const { studyId = '' } = router.query
 	const { t: studiesT } = useText('studies')
 	const { t } = useText('studies.details')
-	const { data: study, isLoading } = useStudy(Array.isArray(studyId) ? studyId.join('') : studyId)
+	const {
+		data: study,
+		isLoading,
+		update
+	} = useStudy(Array.isArray(studyId) ? studyId.join('') : studyId)
 
 	return (
 		<PageWrapper title='Studies' testId={testId}>
-			<PageHeader className='grid grid-col-6 items-center'>
-				<div className='col-span-1 flex gap-8'>
+			<PageHeader className='grid grid-cols-12 items-center'>
+				<div className='col-span-8 flex gap-8'>
 					<Link href='/studies' passHref>
 						<Text className='font-bold'>{studiesT('title')}</Text>
 					</Link>
@@ -35,8 +39,8 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 					<Text className='font-bold text-gray-400'>{t('title')}</Text>
 				</div>
 				<StudyStatusDropdown
-					className='col-span-1 col-start-5'
-					onChange={(status) => console.log(status)}
+					className='col-span-4'
+					onChange={(status) => update.mutate({ status })}
 					value={study?.status || 'new'}
 				/>
 			</PageHeader>

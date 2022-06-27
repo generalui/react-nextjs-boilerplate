@@ -5,7 +5,7 @@ import { prisma } from 'utils/api/prisma'
 
 const apiRoute = connect()
 
-// Get a study by id
+// Get a study by ID
 apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	try {
 		const { studyId } = req.query
@@ -21,6 +21,23 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 				},
 				image: true
 			}
+		})
+
+		res.status(200).json(study)
+	} catch (error) {
+		res.status(400).json({ message: error })
+	}
+})
+
+// Update study by ID
+apiRoute.patch(async (req: NextApiRequest, res: NextApiResponse) => {
+	try {
+		const { studyId } = req.query
+		const study = await prisma.study.update({
+			where: {
+				id: studyId as string
+			},
+			data: req.body
 		})
 
 		res.status(200).json(study)
