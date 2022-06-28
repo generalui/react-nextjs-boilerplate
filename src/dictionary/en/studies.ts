@@ -28,6 +28,11 @@ const studies = {
 		dataTypes: { message: 'Data Types' },
 		consents: { message: 'Consents' }
 	},
+	edit: {
+		buttonLabel: { message: 'Edit Details' },
+		submit: { message: 'Save' },
+		title: { message: 'Edit Study' }
+	},
 	status: {
 		approved: { message: 'Approved' },
 		new: { message: 'New' },

@@ -32,7 +32,7 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 						</>
 					}
 				>
-					<StudyForm isError={isError} isLoading={isLoading} onSubmit={onSubmit} />
+					<StudyForm isError={isError} isLoading={isLoading} onCancel={close} onSubmit={onSubmit} />
 				</ModalButton>
 			</div>
 		</>

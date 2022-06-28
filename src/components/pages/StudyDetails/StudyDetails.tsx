@@ -4,6 +4,7 @@
 import { useRouter } from 'next/router'
 import { useStudy } from 'hooks/api/studies/useStudy'
 import { useText } from 'hooks/useText'
+import { EditStudy } from 'partials/EditStudy'
 import { ModalButton } from 'partials/ModalButton'
 import { PageWrapper } from 'partials/PageWrapper'
 import { TagContainer } from 'partials/TagContainer'
@@ -21,11 +22,8 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 	const router = useRouter()
 	const { studyId = '' } = router.query
 	const { t } = useText('studies.details')
-	const {
-		data: study,
-		isLoading,
-		update
-	} = useStudy(Array.isArray(studyId) ? studyId.join('') : studyId)
+	const singleStudyId = Array.isArray(studyId) ? studyId.join('') : studyId
+	const { data: study, isLoading, update } = useStudy(singleStudyId)
 
 	return (
 		<PageWrapper title='Studies' testId={testId}>
@@ -41,23 +39,13 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 				{!study ? null : (
 					<Card className='flex flex-col gap-6'>
 						<div className='flex justify-between items-center'>
-							<div className='flex gap-2'>
+							<div className='flex gap-2 items-center'>
 								<div className='bg-blue-600 p-1 flex justify-center items-center rounded w-6 h-6'>
 									<Icon icon='DocumentReportIcon' className='text-white' size='sm' />
 								</div>
 								<Text className='font-semibold text-xl'>{t('title')}</Text>
 							</div>
-							<ModalButton
-								buttonChildren={
-									<>
-										<Icon icon='PencilAltIcon' size='xs' />
-										{t('edit')}
-									</>
-								}
-								modalTitle={t('edit')}
-								name={'edit-study'}
-								v={'small'}
-							></ModalButton>
+							<EditStudy studyId={singleStudyId} />
 						</div>
 						<div className='flex items-center gap-6'>
 							<div

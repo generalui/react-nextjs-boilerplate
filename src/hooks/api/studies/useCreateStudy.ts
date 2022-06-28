@@ -1,53 +1,20 @@
-import { Document } from '@prisma/client'
 import { useSession } from 'next-auth/react'
 import { useMutation } from 'react-query'
 import { Study } from 'types/index'
 import { createStudy } from 'utils/api/studies'
 import { reactQueryClient } from 'utils/react-query'
+import { createOptimisticStudyFromFormData } from 'utils/studies'
 
 export function useCreateStudy() {
 	const { data: session } = useSession()
 
 	const { mutate, ...mutation } = useMutation('create-study', createStudy, {
 		onMutate: async (newStudy) => {
-			// TODO: coordinator should be an object from a react select component
-			const { title, endDate, description, image } = newStudy
 			// Cancel current queries for the studies list
 			await reactQueryClient.cancelQueries('studies')
 
 			// Create optimistic study
-			const optimisticStudy: Study = {
-				id: new Date().toISOString(),
-				users: [
-					{
-						user: {
-							id: new Date().toISOString(),
-							email: session?.user?.email || '',
-							name: session?.user?.name || '',
-							emailVerified: null,
-							password: null,
-							image: null
-						}
-					}
-				],
-				imageId: new Date().toISOString(),
-				image: image
-					? ({
-							id: new Date().toISOString(),
-							name: '',
-							url: image,
-							fileType: 'image',
-							uploadedById: null,
-							studyId: null,
-							study: null
-					  } as Document)
-					: undefined,
-				status: 'new',
-				submissionDate: new Date(),
-				description,
-				endDate: new Date(endDate),
-				title
-			}
+			const optimisticStudy: Study = createOptimisticStudyFromFormData(newStudy, session)
 
 			// Add optimistic study to studies list
 			reactQueryClient.setQueryData('studies', (old: Study[] | undefined) => [

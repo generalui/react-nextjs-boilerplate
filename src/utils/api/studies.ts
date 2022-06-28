@@ -8,7 +8,7 @@ export const getStudies = async (): Promise<Study[]> => {
 
 export const getStudy = async (studyId: string): Promise<Study> => {
 	const response = await axios.get(`/studies/${studyId}`)
-	return response.data
+	return { ...response.data, endDate: new Date(response.data.endDate) }
 }
 
 export const createStudy = async (newStudy: StudyInput) => {

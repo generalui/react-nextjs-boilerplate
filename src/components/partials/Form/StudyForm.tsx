@@ -7,10 +7,13 @@ import { SubmitButton } from 'common/SubmitButton'
 import { StudyFormProps } from './Form.types'
 
 export const StudyForm = ({
+	initialValues,
 	isError,
 	isLoading,
+	onCancel,
 	onSubmit,
-	testId = 'CreateStudy'
+	testId = 'CreateStudy',
+	submitText
 }: StudyFormProps) => {
 	const { t } = useText('createStudy')
 
@@ -18,6 +21,7 @@ export const StudyForm = ({
 		<Form
 			data-testid={testId}
 			onSubmit={onSubmit}
+			initialValues={initialValues}
 			render={({ handleSubmit }) => (
 				<form onSubmit={handleSubmit}>
 					<div className='grid grid-cols-3 gap-2'>
@@ -45,9 +49,11 @@ export const StudyForm = ({
 						</div>
 						<div className='col-span-3 flex gap-2'>
 							<SubmitButton isError={isError} isLoading={isLoading} disableOnLoading>
-								{t('buttons.submit')}
+								{submitText || t('buttons.submit')}
 							</SubmitButton>
-							<Button onClick={close}>{t('buttons.cancel')}</Button>
+							<Button onClick={onCancel} v='secondary'>
+								{t('buttons.cancel')}
+							</Button>
 						</div>
 					</div>
 				</form>

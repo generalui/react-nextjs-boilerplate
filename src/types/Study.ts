@@ -24,6 +24,6 @@ export type Study = Prisma.StudyGetPayload<{
 
 // export type Study = S & { users: (CoordinatorsOnStudies & { user: User })[] } & { image?: Document }
 
-export type OptimisticStudy = S & { users: { user: Pick<User, 'email' | 'name'> }[] } & {
-	image?: Pick<Document, 'url'>
+export type OptimisticStudy = S & { users: { user: User }[] } & {
+	image?: Document
 }

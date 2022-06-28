@@ -17,19 +17,16 @@ export const SubmitButton = ({
 	children,
 	className,
 	testId = 'SubmitButton',
-	isError,
 	isLoading,
 	isSuccess,
 	loadingLabel,
 	successLabel,
-	errorLabel,
 	disableOnLoading = false,
 	...props
 }: SubmitButtonProps) => {
 	const { t } = useText('common.submitButton')
 	loadingLabel = loadingLabel || <DefaultLoadingLabel />
 	successLabel = successLabel || t('success')
-	errorLabel = errorLabel || t('error')
 
 	return (
 		<Button
@@ -39,7 +36,7 @@ export const SubmitButton = ({
 			type='submit'
 			{...props}
 		>
-			{isLoading ? loadingLabel : isSuccess ? successLabel : isError ? errorLabel : children}
+			{isLoading ? loadingLabel : isSuccess ? successLabel : children}
 		</Button>
 	)
 }
