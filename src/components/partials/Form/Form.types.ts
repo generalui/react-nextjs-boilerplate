@@ -10,7 +10,6 @@ export interface FormProps<T extends Record<string, unknown>> extends CommonProp
 }
 
 export interface StudyFormProps extends Omit<FormProps<StudyInput>, 'render'> {
-	isError: boolean
 	isLoading: boolean
 	onCancel: () => void
 }

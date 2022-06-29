@@ -8,7 +8,6 @@ import { StudyFormProps } from './Form.types'
 
 export const StudyForm = ({
 	initialValues,
-	isError,
 	isLoading,
 	onCancel,
 	onSubmit,
@@ -48,7 +47,7 @@ export const StudyForm = ({
 							<Input name='description' placeholder='Description' type='textarea' rows={5} />
 						</div>
 						<div className='col-span-3 flex gap-2'>
-							<SubmitButton isError={isError} isLoading={isLoading} disableOnLoading>
+							<SubmitButton isLoading={isLoading} disableOnLoading>
 								{submitText || t('buttons.submit')}
 							</SubmitButton>
 							<Button onClick={onCancel} v='secondary'>

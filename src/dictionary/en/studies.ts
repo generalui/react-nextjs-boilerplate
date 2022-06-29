@@ -24,6 +24,7 @@ const studies = {
 		edit: { message: 'Edit Details' },
 		title: { message: 'Study Details' },
 		description: { message: 'Description' },
+		submissionDate: { message: 'Submission Date' },
 		endDate: { message: 'End Date' },
 		dataTypes: { message: 'Data Types' },
 		consents: { message: 'Consents' }

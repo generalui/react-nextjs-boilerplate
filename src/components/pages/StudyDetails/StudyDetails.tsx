@@ -2,10 +2,10 @@
  * Study details page
  */
 import { useRouter } from 'next/router'
+import { getCombinedString } from 'utils/text'
 import { useStudy } from 'hooks/api/studies/useStudy'
 import { useText } from 'hooks/useText'
 import { EditStudy } from 'partials/EditStudy'
-import { ModalButton } from 'partials/ModalButton'
 import { PageWrapper } from 'partials/PageWrapper'
 import { TagContainer } from 'partials/TagContainer'
 import { Breadcrumbs } from 'common/Breadcrumbs'
@@ -22,7 +22,7 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 	const router = useRouter()
 	const { studyId = '' } = router.query
 	const { t } = useText('studies.details')
-	const singleStudyId = Array.isArray(studyId) ? studyId.join('') : studyId
+	const singleStudyId = getCombinedString(studyId)
 	const { data: study, isLoading, update } = useStudy(singleStudyId)
 
 	return (
@@ -65,7 +65,7 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 								</div>
 								<div className='flex flex-col lg:flex-row gap-4 justify-between'>
 									<Detail label={t('coordinator')}>{study.users[0].user.name}</Detail>
-									<Detail label={t('title')}>
+									<Detail label={t('submissionDate')}>
 										{new Date(study.submissionDate).toLocaleDateString()}
 									</Detail>
 									<Detail label={t('endDate')}>

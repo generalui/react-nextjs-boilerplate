@@ -1,28 +1,43 @@
+import { useSession } from 'next-auth/react'
 import { UseMutationResult, UseQueryResult, useMutation, useQuery } from 'react-query'
-import { Study } from 'types/Study'
+import { Study, StudyInput } from 'types/Study'
 import { getStudy, updateStudy } from 'utils/api/studies'
 import { reactQueryClient } from 'utils/react-query'
+import { createPartialStudyFromFormData } from 'utils/studies'
 
 export const useStudy = (
 	studyId: string
 ): UseQueryResult<Study> & {
-	update: UseMutationResult<Study, unknown, Partial<Study>>
+	update: UseMutationResult<Study, unknown, Partial<StudyInput>>
 } => {
+	const { data: session } = useSession()
 	const query = useQuery(['studies', studyId], () => getStudy(studyId))
 
 	const updateMutation = useMutation(
 		`study-${studyId}`,
-		(updatedStudy: Partial<Study>) => updateStudy(studyId, updatedStudy),
+		(studyUpdate: Partial<StudyInput>) => updateStudy(studyId, studyUpdate),
 		{
-			onMutate: async (updatedStudy) => {
+			onMutate: async (studyUpdate) => {
 				await reactQueryClient.cancelQueries(['studies', studyId])
 				const previousStudy = reactQueryClient.getQueryData<Study>(['studies', studyId])
 
-				// Optimistically update to the new value
-				reactQueryClient.setQueryData(['studies', studyId], { ...previousStudy, ...updatedStudy })
+				if (!previousStudy) {
+					// TODO: Handle trying to update a study that doesn't exist
+					return
+				}
 
-				// Return a context with the previous and new todo
-				return { previousStudy, updatedStudy }
+				const optimisticStudy: Study = {
+					...previousStudy,
+					...createPartialStudyFromFormData(studyUpdate, session)
+				}
+
+				// Optimistically update to the new value
+				reactQueryClient.setQueryData(['studies', studyId], {
+					...previousStudy,
+					...optimisticStudy
+				})
+
+				return { previousStudy }
 			},
 			onError: (err, newStudy, context) => {
 				reactQueryClient.setQueryData(['studies', studyId], context?.previousStudy)
@@ -34,7 +49,4 @@ export const useStudy = (
 	)
 
 	return { ...query, update: updateMutation }
-}
-function createOptimisticStudyFromFormData(newStudy: any, session: any): Study {
-	throw new Error('Function not implemented.')
 }

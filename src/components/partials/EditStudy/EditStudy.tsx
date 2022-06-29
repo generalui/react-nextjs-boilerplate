@@ -1,9 +1,6 @@
-import { values } from 'lodash'
-import { useSession } from 'next-auth/react'
 import { memo } from 'react'
-import { Study, StudyInput } from 'types/index'
+import { StudyInput } from 'types/index'
 import { formatFormDate } from 'utils/date'
-import { createOptimisticStudyFromFormData } from 'utils/studies'
 import { useStudy } from 'hooks/api/studies/useStudy'
 import { useModal } from 'hooks/useModal'
 import { useText } from 'hooks/useText'
@@ -16,28 +13,24 @@ export const EditStudy = memo(function EditStudy({
 	studyId,
 	testId = 'EditStudy'
 }: EditStudyProps) {
-	const { data: session } = useSession()
 	const { t } = useText('studies.edit')
 	const { close } = useModal('edit-study')
 	const { data: study } = useStudy(studyId)
-	const {
-		update: { mutate: update, isLoading, isError }
-	} = useStudy(studyId)
+	const { update } = useStudy(studyId)
 
 	const onSubmit = async (values: StudyInput) => {
-		if (isLoading) return
+		if (update.isLoading) return
 
-		// Create optimistic study
-		const optimisticStudy: Study = createOptimisticStudyFromFormData(values, session)
-
-		const x = await update(optimisticStudy)
-		console.log(x)
-
-		close()
+		try {
+			await update.mutateAsync(values)
+			close()
+		} catch (error) {
+			// TODO: Add proper error handling
+		}
 	}
 
 	if (!study) {
-		// TODO: Add error handling
+		// TODO: Handle case where study doesn't exist
 		return null
 	}
 
@@ -57,13 +50,14 @@ export const EditStudy = memo(function EditStudy({
 				>
 					<StudyForm
 						initialValues={{
-							...study,
 							coordinator: study.users[0].user.email || '',
+							description: study.description,
+							endDate: formatFormDate(study.endDate),
 							image: study.image?.url || '',
-							endDate: formatFormDate(study.endDate)
+							status: study.status,
+							title: study.title
 						}}
-						isError={isError}
-						isLoading={isLoading}
+						isLoading={update.isLoading}
 						onCancel={close}
 						onSubmit={onSubmit}
 						submitText={t('submit')}
