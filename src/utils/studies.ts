@@ -25,10 +25,13 @@ const createStudyImage: StudyKeyHandler<'image'> = (imageUrl: StudyInput['image'
 				studyId: null,
 				url: imageUrl
 		  }
-		: undefined
+		: null
 
 const createStudyUser: StudyKeyHandler<'coordinator'> = (_value, session) => [
 	{
+		studyId: new Date().toISOString(),
+		userId: new Date().toISOString(),
+		inserted_at: new Date(),
 		user: {
 			id: new Date().toISOString(),
 			email: session?.user?.email || '',

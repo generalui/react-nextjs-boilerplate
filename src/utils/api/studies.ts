@@ -22,5 +22,6 @@ export const updateStudy = async (
 	updatedStudy: Partial<StudyInput>
 ): Promise<Study> => {
 	const response = await axios.patch<ApiStudy>(`/studies/${studyId}`, updatedStudy)
+	console.log({ response })
 	return standardizeApiStudy(response.data)
 }

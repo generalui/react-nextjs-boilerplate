@@ -11,7 +11,7 @@ import { CreateStudyProps } from './CreateStudy.types'
 export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }: CreateStudyProps) {
 	const { t } = useText('createStudy')
 	const { close } = useModal('create-study')
-	const { createStudy, isError, isLoading } = useCreateStudy()
+	const { createStudy, isLoading } = useCreateStudy()
 
 	const onSubmit = async (values: StudyInput) => {
 		if (isLoading) return
@@ -32,7 +32,7 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 						</>
 					}
 				>
-					<StudyForm isError={isError} isLoading={isLoading} onCancel={close} onSubmit={onSubmit} />
+					<StudyForm isLoading={isLoading} onCancel={close} onSubmit={onSubmit} />
 				</ModalButton>
 			</div>
 		</>

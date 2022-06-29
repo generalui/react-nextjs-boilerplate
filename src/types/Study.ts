@@ -18,19 +18,17 @@ export type Study = Prisma.StudyGetPayload<{
 			include: {
 				user: true
 			}
-		} // Include all users in the returned object,
+		} // Include all users in the returned object
 		image: true
 	}
 }>
-
-// export type Study = S & { users: (CoordinatorsOnStudies & { user: User })[] } & { image?: Document }
 
 export type ApiStudy = Omit<Study, 'endDate' | 'submissionDate'> & {
 	endDate: string
 	submissionDate: string
 }
 
-export type OptimisticStudy = S & { users: { user: User }[] } & {
+export type OptimisticStudy = Study & { users: { user: User }[] } & {
 	image?: Document
 }
 

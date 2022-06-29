@@ -67,8 +67,8 @@ export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 					title: <Link href={`/studies/${study?.id}`}>{study?.title || 'Test'}</Link>,
 					coordinator: (
 						<div className='flex flex-col'>
-							{study?.users[0]?.user?.name}
-							<Text v='subtitle'>{study?.users[0]?.user?.email}</Text>
+							{study?.users?.[0]?.user?.name}
+							<Text v='subtitle'>{study?.users?.[0]?.user?.email}</Text>
 						</div>
 					),
 					submissionDate: <Text v='subtitle'>{new Date(study?.endDate).toLocaleDateString()}</Text>,
