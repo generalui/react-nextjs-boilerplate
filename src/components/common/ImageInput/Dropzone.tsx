@@ -5,13 +5,17 @@ import { useDropzone } from 'react-dropzone'
 import { getBase64 } from 'utils/files'
 import { DropZoneProps, ImagePreview } from 'common/ImageInput/ImageInput.types'
 
+const getImagePreview = (imageFile: ImagePreview | string | undefined) =>
+	typeof imageFile === 'string'
+		? imageFile.length > 0
+			? imageFile
+			: '/images/image_placeholder.jpg'
+		: imageFile?.preview || '/images/image_placeholder.jpg'
+
 export const Dropzone = ({ onChange, className, testId, value }: DropZoneProps) => {
 	const [imageFile, setImageFile] = useState<ImagePreview | string | undefined>(value)
 
-	const imagePreview =
-		typeof imageFile === 'string'
-			? imageFile
-			: imageFile?.preview || '/images/image_placeholder.jpg'
+	const imagePreview = getImagePreview(imageFile)
 
 	const { getRootProps, getInputProps } = useDropzone({
 		maxSize: 5 * 1000000, // 5 MB file limit
