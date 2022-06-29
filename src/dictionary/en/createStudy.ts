@@ -13,6 +13,12 @@ const createStudy = {
 			message: 'Study Description'
 		}
 	},
+	dataTypes: {
+		consents: { message: 'Consents' },
+		geneticData: { message: 'Genetic Data' },
+		healthRecords: { message: 'Health Records' },
+		specimens: { message: 'Specimens' }
+	},
 	buttons: {
 		submit: {
 			message: 'Create Study'

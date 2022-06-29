@@ -68,6 +68,13 @@ enum StudyStatus {
   archived
 }
 
+enum StudyDataTypes {
+  consents
+  geneticData
+  healthRecords
+  specimens
+}
+
 model Study {
   id             String                  @id @default(cuid())
   description    String
@@ -77,6 +84,7 @@ model Study {
   submissionDate DateTime                @default(now())
   endDate        DateTime
   title          String
+  dataTypes      StudyDataTypes[]        @map("data_types")
   users          CoordinatorsOnStudies[]
 }
 

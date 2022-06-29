@@ -1,6 +1,7 @@
 import { ChangeEvent } from 'react'
+import { GroupBase, OptionsOrGroups } from 'react-select'
 import { CommonProps } from 'types/CommonProps'
-import { OnChangeValue } from 'types/index'
+import { OnChangeValue, selectOptionsType } from 'types/index'
 
 export interface InputProps extends CommonProps {
 	onChange?: (value: OnChangeValue, previousValue: OnChangeValue) => void
@@ -8,6 +9,8 @@ export interface InputProps extends CommonProps {
 	placeholder?: string
 	name: string
 	rows?: number
+	isMulti?: true
+	selectOptions?: OptionsOrGroups<selectOptionsType, GroupBase<selectOptionsType>>
 }
 
 export interface InputPropsV1 extends CommonProps {

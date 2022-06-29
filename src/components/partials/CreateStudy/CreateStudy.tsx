@@ -1,7 +1,7 @@
 import { PlusIcon } from '@heroicons/react/solid'
 import { memo } from 'react'
 import { Form } from 'react-final-form'
-import { StudyInput, StudySchema } from 'types/index'
+import { StudyInput, StudySchema, selectOptionsType } from 'types/index'
 import { useCreateStudy } from 'hooks/api/studies/useCreateStudy'
 import { useModal } from 'hooks/useModal'
 import { useText } from 'hooks/useText'
@@ -20,10 +20,18 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 
 	const onSubmit = async (values: StudyInput) => {
 		if (isLoading) return
+		console.log('values: ', values)
 
-		await createStudy(StudySchema.parse(values))
-		close()
+		// await createStudy(StudySchema.parse(values))
+		// close()
 	}
+
+	const studyDataTypes: selectOptionsType[] = [
+		{ label: t('dataTypes.consents'), value: 'consents' },
+		{ label: t('dataTypes.geneticData'), value: 'geneticData' },
+		{ label: t('dataTypes.healthRecords'), value: 'healthRecords' },
+		{ label: t('dataTypes.specimens'), value: 'specimens' }
+	]
 
 	return (
 		<>
@@ -64,6 +72,14 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 									</label>
 									<div className='col-span-3'>
 										<Input name='description' placeholder='Description' type='textarea' rows={5} />
+									</div>
+									<div className='col-span-3'>
+										<Input
+											type='select'
+											name='dataTypes'
+											isMulti={true}
+											selectOptions={studyDataTypes}
+										/>
 									</div>
 									<div className='col-span-3'>
 										<ModalFooter>
