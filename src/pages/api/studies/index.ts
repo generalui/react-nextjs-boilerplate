@@ -1,6 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { Study, StudyStatus } from '@prisma/client'
+import { StudyDataTypes, StudyStatus } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { Study, selectOptionsType } from 'types/index'
 import { connect } from 'utils/api/connect'
 import { getSessionFromReq } from 'utils/api/getSessionFromReq'
 import { handleQuery } from 'utils/api/handleQuery'
@@ -41,7 +42,12 @@ apiRoute.post(async (req: NextApiRequest, res: NextApiResponse) => {
 	const session = await getSessionFromReq(req)
 
 	const studyQuery = async () => {
-		const { title, coordinator, endDate, description, image } = req.body
+		const { title, coordinator, endDate, description, image, dataTypes: dt } = req.body
+
+		const dataTypes: StudyDataTypes[] = dt.map(
+			(dataType: selectOptionsType) => dataType.value as StudyDataTypes
+		)
+		console.log('dataTypes: ', dataTypes)
 
 		// Upload (to cloudinary)
 		const { secure_url, public_id } = await upload({ file: image })
@@ -53,6 +59,7 @@ apiRoute.post(async (req: NextApiRequest, res: NextApiResponse) => {
 				description,
 				status: StudyStatus.new,
 				submissionDate: new Date(),
+				dataTypes,
 				users: {
 					create: {
 						user: {

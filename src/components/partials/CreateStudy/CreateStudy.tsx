@@ -1,7 +1,7 @@
 import { PlusIcon } from '@heroicons/react/solid'
 import { memo } from 'react'
 import { Form } from 'react-final-form'
-import { StudyInput } from 'types/index'
+import { StudyInput, StudySchema } from 'types/index'
 import { selectOptionsType } from 'types/index'
 import { useCreateStudy } from 'hooks/api/studies/useCreateStudy'
 import { useModal } from 'hooks/useModal'
@@ -22,10 +22,9 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 
 	const onSubmit = async (values: StudyInput) => {
 		if (isLoading) return
-		console.log('values: ', values)
 
-		// await createStudy(StudySchema.parse(values))
-		// close()
+		await createStudy(StudySchema.parse(values))
+		close()
 	}
 
 	const studyDataTypes: selectOptionsType[] = [
@@ -77,7 +76,7 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 										<Input name='description' placeholder='Description' type='textarea' rows={5} />
 									</div>
 									<div className='col-span-3'>
-										<DataTypesSelect />
+										<DataTypesSelect options={studyDataTypes} />
 									</div>
 									<div className='col-span-3'>
 										<ModalFooter>
