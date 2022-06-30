@@ -36,7 +36,7 @@ export const DropDown = ({
 
 	return (
 		<div
-			className={cn('z-50 rounded-lg relative', variantClasses.container, className)}
+			className={cn('rounded-lg relative', variantClasses.container, className)}
 			ref={wrapperRef}
 			data-testid={testId}
 		>
