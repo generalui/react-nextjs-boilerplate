@@ -12,7 +12,7 @@ export const SidebarLink = ({
 	isSelected,
 	testId = 'SidebarLink'
 }: SidebarLinkProps) => (
-	<li className={cn(className, 'mb-2')} data-testId={testId}>
+	<li className={cn(className, 'mb-2')} data-testid={testId}>
 		<Link href={href} passHref>
 			<Text
 				className={cn(

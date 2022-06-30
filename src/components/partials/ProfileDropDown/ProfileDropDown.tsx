@@ -17,7 +17,7 @@ export const ProfileDropDown = ({
 
 	return (
 		<DropDown
-			className={cn('w-64', className)}
+			className={cn('w-64 z-50', className)}
 			items={[
 				{
 					label: t('profile'),
