@@ -1,7 +1,7 @@
 import { PlusIcon } from '@heroicons/react/solid'
 import { memo } from 'react'
 import { Form } from 'react-final-form'
-import { StudyInput, StudySchema, selectOptionsType } from 'types/index'
+import { StudyInput } from 'types/index'
 import { useCreateStudy } from 'hooks/api/studies/useCreateStudy'
 import { useModal } from 'hooks/useModal'
 import { useText } from 'hooks/useText'
@@ -11,6 +11,7 @@ import { ImageInput } from 'common/ImageInput'
 import { Input } from 'common/Input'
 import { ModalFooter } from 'common/ModalFooter'
 import { SubmitButton } from 'common/SubmitButton'
+import { DataTypesSelect } from '../DataTypesSelect'
 import { CreateStudyProps } from './CreateStudy.types'
 
 export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }: CreateStudyProps) {
@@ -25,13 +26,6 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 		// await createStudy(StudySchema.parse(values))
 		// close()
 	}
-
-	const studyDataTypes: selectOptionsType[] = [
-		{ label: t('dataTypes.consents'), value: 'consents' },
-		{ label: t('dataTypes.geneticData'), value: 'geneticData' },
-		{ label: t('dataTypes.healthRecords'), value: 'healthRecords' },
-		{ label: t('dataTypes.specimens'), value: 'specimens' }
-	]
 
 	return (
 		<>
@@ -74,12 +68,7 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 										<Input name='description' placeholder='Description' type='textarea' rows={5} />
 									</div>
 									<div className='col-span-3'>
-										<Input
-											type='select'
-											name='dataTypes'
-											isMulti={true}
-											selectOptions={studyDataTypes}
-										/>
+										<DataTypesSelect />
 									</div>
 									<div className='col-span-3'>
 										<ModalFooter>

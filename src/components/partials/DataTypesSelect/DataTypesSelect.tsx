@@ -6,11 +6,19 @@
 import { jsx } from '@emotion/react'
 import cn from 'classnames'
 import Image from 'next/image'
-import S, { GroupBase, MultiValueGenericProps, OptionProps, components } from 'react-select'
+import {
+	GroupBase,
+	MultiValueGenericProps,
+	OptionProps,
+	StylesConfig,
+	components
+} from 'react-select'
 import { SelectComponents } from 'react-select/dist/declarations/src/components'
 import { selectOptionsType } from 'types/index'
-import { SelectProps } from './Select.types'
-import { selectStyles } from './styles'
+import { useText } from 'hooks/useText'
+import { SelectInput } from 'common/SelectInput'
+import { DataTypesSelectProps } from './DataTypesSelect.types'
+import { dataTypesStyles } from './styles'
 
 const MultiValueLabel = (props: MultiValueGenericProps<selectOptionsType>) => {
 	return (
@@ -58,30 +66,26 @@ const Option = (props: OptionProps<selectOptionsType>) => {
 	)
 }
 
-export const Select = ({
-	className,
-	testId = 'Select',
-	props,
-	isMulti,
-	selectOptions
-}: SelectProps) => {
+export const DataTypesSelect = ({ testId = 'DataTypesSelect' }: DataTypesSelectProps<unknown>) => {
+	const { t } = useText('createStudy')
+
+	const studyDataTypes: selectOptionsType[] = [
+		{ label: t('dataTypes.consents'), value: 'consents' },
+		{ label: t('dataTypes.geneticData'), value: 'geneticData' },
+		{ label: t('dataTypes.healthRecords'), value: 'healthRecords' },
+		{ label: t('dataTypes.specimens'), value: 'specimens' }
+	]
+
 	return (
-		<div className={className} data-testid={testId}>
-			<S
-				menuIsOpen={true}
-				name={props.input.name}
-				value={props.input.value}
-				onChange={props.input.onChange}
-				isMulti={isMulti}
-				options={selectOptions}
-				classNamePrefix='react-select'
-				components={
-					{ MultiValueLabel, Option } as Partial<
-						SelectComponents<selectOptionsType, true, GroupBase<selectOptionsType>>
-					>
-				}
-				styles={selectStyles}
-			/>
-		</div>
+		<SelectInput
+			data-testid={testId}
+			isMulti={true}
+			name='dataTypes'
+			options={studyDataTypes}
+			components={
+				{ MultiValueLabel, Option } as Partial<SelectComponents<unknown, true, GroupBase<unknown>>>
+			}
+			styles={dataTypesStyles as StylesConfig<unknown, true, GroupBase<unknown>>}
+		/>
 	)
 }

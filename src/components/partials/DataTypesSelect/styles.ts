@@ -1,7 +1,7 @@
 import { StylesConfig } from 'react-select'
 import { selectOptionsType } from 'types/index'
 
-export const selectStyles: StylesConfig<selectOptionsType, true> = {
+export const dataTypesStyles: StylesConfig<selectOptionsType, true> = {
 	option: (base, { isFocused, isSelected }) => ({
 		...base,
 		backgroundColor: isFocused || isSelected ? '#f3f4f6' : undefined,

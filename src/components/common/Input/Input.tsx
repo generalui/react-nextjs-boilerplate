@@ -3,7 +3,6 @@ import cn from 'classnames'
 import React, { LegacyRef, forwardRef } from 'react'
 import { Field } from 'react-final-form'
 import { OnChange } from 'react-final-form-listeners'
-import { Select } from 'common/Input/Select'
 import { TextArea } from 'common/TextArea'
 import { InputProps } from './Input.types'
 
@@ -18,9 +17,7 @@ export const Input = forwardRef(
 			onChange,
 			testId = 'Input',
 			rows = 4,
-			disabled,
-			isMulti,
-			selectOptions
+			disabled
 		}: InputProps,
 		reference
 	) => {
@@ -40,8 +37,6 @@ export const Input = forwardRef(
 										disabled={disabled}
 									/>
 								)
-							case 'select':
-								return <Select props={props} isMulti={isMulti} selectOptions={selectOptions} />
 							default:
 								return (
 									<input
