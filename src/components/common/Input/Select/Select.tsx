@@ -6,19 +6,18 @@
 import { jsx } from '@emotion/react'
 import cn from 'classnames'
 import Image from 'next/image'
-import S, { GroupBase, MultiValueRemoveProps, OptionProps, StylesConfig } from 'react-select'
+import S, { GroupBase, MultiValueGenericProps, OptionProps, components } from 'react-select'
 import { SelectComponents } from 'react-select/dist/declarations/src/components'
 import { selectOptionsType } from 'types/index'
 import { SelectProps } from './Select.types'
+import { selectStyles } from './styles'
 
-const MultiValue = (props: MultiValueRemoveProps<selectOptionsType>) => {
+const MultiValueLabel = (props: MultiValueGenericProps<selectOptionsType>) => {
 	return (
-		<div {...props}>
-			<div className='flex items-center gap-2'>
-				<Image src={`/icons/consents.svg`} width='20' height='20' alt='Data type icon' />
+		<div className='flex items-center gap-1 pr-2'>
+			<Image src={`/icons/consents.svg`} width='20' height='20' alt='Data type icon' />
 
-				{props.children}
-			</div>
+			<components.MultiValueLabel {...props} />
 		</div>
 	)
 }
@@ -51,7 +50,7 @@ const Option = (props: OptionProps<selectOptionsType>) => {
 			{...innerProps}
 		>
 			<div className='flex items-center gap-2'>
-				<Image src={`/icons/consents.svg`} width='20' height='20' alt='Data type icon' />
+				<Image src={`/icons/gray_consents.svg`} width='20' height='20' alt='Data type icon' />
 
 				{children}
 			</div>
@@ -66,14 +65,6 @@ export const Select = ({
 	isMulti,
 	selectOptions
 }: SelectProps) => {
-	const selectStyles: StylesConfig<any, true> = {
-		option: (base, { isFocused, isSelected }) => ({
-			...base,
-			backgroundColor: isFocused || isSelected ? '#d5f2ff' : undefined
-		}),
-		multiValue: (base) => ({ ...base, backgroundColor: '#d5f2ff' })
-	}
-
 	return (
 		<div className={className} data-testid={testId}>
 			<S
@@ -85,10 +76,9 @@ export const Select = ({
 				options={selectOptions}
 				classNamePrefix='react-select'
 				components={
-					{ MultiValue, Option } as Partial<
+					{ MultiValueLabel, Option } as Partial<
 						SelectComponents<selectOptionsType, true, GroupBase<selectOptionsType>>
 					>
-					// { MultiValue }
 				}
 				styles={selectStyles}
 			/>
