@@ -41,6 +41,7 @@
     "cloudinary": "^1.30.0",
     "daisyui": "^2.15.0",
     "dotenv-cli": "^5.1.0",
+    "emotion": "^11.0.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "final-form": "^4.20.7",
     "flowbite": "^1.4.7",

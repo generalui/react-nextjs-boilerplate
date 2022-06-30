@@ -1,10 +1,9 @@
 /* eslint-disable react/display-name */
 import cn from 'classnames'
-import { LegacyRef, forwardRef } from 'react'
+import React, { LegacyRef, forwardRef } from 'react'
 import { Field } from 'react-final-form'
 import { OnChange } from 'react-final-form-listeners'
-import Select from 'react-select'
-import { StylesConfig } from 'react-select'
+import { Select } from 'common/Input/Select'
 import { TextArea } from 'common/TextArea'
 import { InputProps } from './Input.types'
 
@@ -25,18 +24,6 @@ export const Input = forwardRef(
 		}: InputProps,
 		reference
 	) => {
-		const selectStyles: StylesConfig<any, true> = {
-			option: (styles) => ({
-				...styles,
-				':hover': { background: '#d5f2ff' },
-				':focus': {
-					...styles[':active'],
-					background: '#d5f2ff'
-				}
-			}),
-			multiValue: (styles) => ({ ...styles, background: '#d5f2ff' })
-		}
-
 		return (
 			<>
 				<Field name={name}>
@@ -54,16 +41,7 @@ export const Input = forwardRef(
 									/>
 								)
 							case 'select':
-								return (
-									<Select
-										name={props.input.name}
-										value={props.input.value}
-										onChange={props.input.onChange}
-										isMulti={isMulti}
-										options={selectOptions}
-										styles={selectStyles}
-									/>
-								)
+								return <Select props={props} isMulti={isMulti} selectOptions={selectOptions} />
 							default:
 								return (
 									<input
