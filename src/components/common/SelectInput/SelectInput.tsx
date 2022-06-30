@@ -2,7 +2,8 @@ import { Field } from 'react-final-form'
 import { Select } from '../Select/Select'
 import { SelectInputProps } from './SelectInput.types'
 
-export const SelectInput = ({
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
+export const SelectInput = <T extends unknown>({
 	className,
 	testId = 'SelectInput',
 	name,
@@ -10,7 +11,7 @@ export const SelectInput = ({
 	options,
 	components,
 	styles
-}: SelectInputProps<unknown>) => {
+}: SelectInputProps<T>) => {
 	return (
 		<Field name={name} className={className} data-testid={testId}>
 			{(props) => (

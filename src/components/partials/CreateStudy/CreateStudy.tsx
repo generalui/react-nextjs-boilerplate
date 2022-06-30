@@ -2,6 +2,7 @@ import { PlusIcon } from '@heroicons/react/solid'
 import { memo } from 'react'
 import { Form } from 'react-final-form'
 import { StudyInput } from 'types/index'
+import { selectOptionsType } from 'types/index'
 import { useCreateStudy } from 'hooks/api/studies/useCreateStudy'
 import { useModal } from 'hooks/useModal'
 import { useText } from 'hooks/useText'
@@ -27,6 +28,13 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 		// close()
 	}
 
+	const studyDataTypes: selectOptionsType[] = [
+		{ label: t('dataTypes.consents'), value: 'consents' },
+		{ label: t('dataTypes.geneticData'), value: 'geneticData' },
+		{ label: t('dataTypes.healthRecords'), value: 'healthRecords' },
+		{ label: t('dataTypes.specimens'), value: 'specimens' }
+	]
+
 	return (
 		<>
 			<div data-testid={testId}>
@@ -41,6 +49,7 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 				>
 					<Form
 						data-testid={testId}
+						initialValues={{ dataTypes: [studyDataTypes[0]] }}
 						onSubmit={onSubmit}
 						render={({ handleSubmit }) => (
 							<form onSubmit={handleSubmit}>

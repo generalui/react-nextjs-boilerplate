@@ -6,16 +6,8 @@
 import { jsx } from '@emotion/react'
 import cn from 'classnames'
 import Image from 'next/image'
-import {
-	GroupBase,
-	MultiValueGenericProps,
-	OptionProps,
-	StylesConfig,
-	components
-} from 'react-select'
-import { SelectComponents } from 'react-select/dist/declarations/src/components'
+import { MultiValueGenericProps, OptionProps, components } from 'react-select'
 import { selectOptionsType } from 'types/index'
-import { useText } from 'hooks/useText'
 import { SelectInput } from 'common/SelectInput'
 import { DataTypesSelectProps } from './DataTypesSelect.types'
 import { dataTypesStyles } from './styles'
@@ -66,26 +58,18 @@ const Option = (props: OptionProps<selectOptionsType>) => {
 	)
 }
 
-export const DataTypesSelect = ({ testId = 'DataTypesSelect' }: DataTypesSelectProps<unknown>) => {
-	const { t } = useText('createStudy')
-
-	const studyDataTypes: selectOptionsType[] = [
-		{ label: t('dataTypes.consents'), value: 'consents' },
-		{ label: t('dataTypes.geneticData'), value: 'geneticData' },
-		{ label: t('dataTypes.healthRecords'), value: 'healthRecords' },
-		{ label: t('dataTypes.specimens'), value: 'specimens' }
-	]
-
+export const DataTypesSelect = ({
+	options,
+	testId = 'DataTypesSelect'
+}: DataTypesSelectProps<selectOptionsType>) => {
 	return (
-		<SelectInput
+		<SelectInput<selectOptionsType>
 			data-testid={testId}
 			isMulti={true}
 			name='dataTypes'
-			options={studyDataTypes}
-			components={
-				{ MultiValueLabel, Option } as Partial<SelectComponents<unknown, true, GroupBase<unknown>>>
-			}
-			styles={dataTypesStyles as StylesConfig<unknown, true, GroupBase<unknown>>}
+			options={options}
+			components={{ MultiValueLabel, Option }}
+			styles={dataTypesStyles}
 		/>
 	)
 }
