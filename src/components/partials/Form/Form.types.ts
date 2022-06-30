@@ -5,7 +5,7 @@ import { StudyInput } from 'types/Study'
 export interface FormProps<T extends Record<string, unknown>> extends CommonProps {
 	initialValues?: T
 	onSubmit: (values: T) => void
-	render: FinalFormProps<T>['render']
+	render: Required<FinalFormProps<T>>['render']
 	submitText?: string
 }
 

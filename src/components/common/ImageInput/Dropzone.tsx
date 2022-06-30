@@ -35,9 +35,11 @@ export const Dropzone = ({ onChange, className, testId, value }: DropZoneProps) 
 	useEffect(
 		() => () => {
 			// Make sure to revoke the data uris to avoid memory leaks
-			if (imagePreview) URL.revokeObjectURL(imagePreview)
+			if (typeof imageFile === 'object' && imageFile.preview) {
+				URL.revokeObjectURL(imageFile.preview)
+			}
 		},
-		[imagePreview]
+		[imageFile]
 	)
 
 	return (

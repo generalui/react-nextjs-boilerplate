@@ -1,4 +1,6 @@
-export const mockUseQueryReturn = {
+import { Study } from 'types/Study'
+
+export const mockUseQueryBaseReturn = {
 	data: undefined,
 	error: null,
 	isError: false,
@@ -8,6 +10,25 @@ export const mockUseQueryReturn = {
 	isRefetchError: false,
 	isSuccess: true,
 	status: 'success'
+}
+
+const mockUseQueryDataMap: Record<string, Record<string, unknown>> = {
+	studies: {
+		id: new Date().toISOString(),
+		title: 'Test Study',
+		description: 'Test',
+		endDate: new Date(),
+		submissionDate: new Date(),
+		imageId: null,
+		status: 'new',
+		users: [
+			{
+				user: {
+					name: 'Test User'
+				}
+			}
+		]
+	} as Study
 }
 
 export const mockMutateFunction = jest.fn((args) => console.log('mutate', args))
@@ -28,6 +49,11 @@ jest.mock('react-query', () => {
 	return {
 		...jest.requireActual('react-query'),
 		useMutation: jest.fn(() => mockUseMutationReturn),
-		useQuery: jest.fn(() => mockUseQueryReturn)
+		useQuery: jest.fn((queryKey: string[]) => {
+			return {
+				...mockUseQueryBaseReturn,
+				data: mockUseQueryDataMap[queryKey[0]] || undefined
+			}
+		})
 	}
 })

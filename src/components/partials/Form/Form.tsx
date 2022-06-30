@@ -7,14 +7,16 @@ export const Form = <T extends Record<string, unknown>>({
 	onSubmit,
 	render,
 	testId = 'Form'
-}: FormProps<T>) => {
-	return (
-		<FinalForm
-			className={className}
-			data-testid={testId}
-			initialValues={initialValues}
-			onSubmit={onSubmit}
-			render={render}
-		/>
-	)
-}
+}: FormProps<T>) => (
+	<FinalForm
+		className={className}
+		testId={testId}
+		initialValues={initialValues}
+		onSubmit={onSubmit}
+		render={(props) => {
+			const body = render(props)
+
+			return body ? <div data-testid={testId}>{body}</div> : null
+		}}
+	/>
+)

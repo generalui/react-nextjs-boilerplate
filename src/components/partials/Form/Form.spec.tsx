@@ -7,7 +7,7 @@ import { Form } from './index'
 
 describe('Form Component', () => {
 	it('renders on the page', () => {
-		render(<Form onSubmit={jest.fn()} render={() => <div>Hello</div>} />)
+		render(<Form onSubmit={jest.fn()} render={(props) => <div data-testid={props}></div>} />)
 
 		const component = screen.getByTestId('Form')
 

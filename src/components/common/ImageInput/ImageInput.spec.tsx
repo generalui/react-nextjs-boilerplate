@@ -3,17 +3,20 @@
  */
 import { render, screen } from '@testing-library/react'
 import React from 'react'
-import { Form } from 'react-final-form'
+import { Form } from 'partials/Form'
 import { ImageInput } from './index'
 
 describe('ImageInput Component', () => {
+	// Mock revokeObjectURL
+	global.URL.revokeObjectURL = jest.fn()
+
 	it('renders on the page', () => {
 		render(
 			<Form
 				onSubmit={() => {
 					return
 				}}
-				render={() => <ImageInput />}
+				render={() => <ImageInput name={''} />}
 			/>
 		)
 
