@@ -49,7 +49,7 @@ export const DropDown = ({
 				onClick={toggleOpen}
 				type='button'
 			>
-				<div className='truncate'>{children}</div>
+				<div className='truncate flex items-center gap-3'>{children}</div>
 				<Icon icon='ChevronDownIcon' className='text-blue-600' />
 			</button>
 			<div

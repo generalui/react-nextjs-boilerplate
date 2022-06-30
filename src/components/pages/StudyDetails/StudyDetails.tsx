@@ -57,7 +57,7 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 								className='block h-52 w-52 bg-center bg-cover rounded-lg flex-shrink-0'
 								role='img'
 							/>
-							<div className='flex flex-col gap-3 justify-between lg:h-52'>
+							<div className='flex flex-col gap-3 justify-between lg:h-52 flex-grow'>
 								<div className='bg-gray-50 rounded px-4 py-2 flex-grow'>
 									<Text className='text-lg font-bold line-clamp-4 md:line-clamp-none'>
 										{study.title}

@@ -7,15 +7,13 @@ export const DropDownItem = ({
 	className,
 	onClick,
 	testId = 'DropDownItem'
-}: DropDownItemProps) => {
-	return (
-		<Button
-			onClick={onClick}
-			className={cn(className, 'w-full rounded-xl')}
-			testId={testId}
-			v='transparent'
-		>
-			{label}
-		</Button>
-	)
-}
+}: DropDownItemProps) => (
+	<Button
+		onClick={onClick}
+		className={cn(className, 'w-full rounded-xl flex items-center gap-3')}
+		testId={testId}
+		v='transparent'
+	>
+		{label}
+	</Button>
+)
