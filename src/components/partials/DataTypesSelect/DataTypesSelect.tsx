@@ -5,7 +5,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react'
 import cn from 'classnames'
-import Image from 'next/image'
 import { MultiValueGenericProps, OptionProps, components } from 'react-select'
 import { selectOptionsType } from 'types/index'
 import { DataTypeLabel } from 'common/DataTypeLabel'
