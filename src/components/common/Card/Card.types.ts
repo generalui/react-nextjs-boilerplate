@@ -4,4 +4,5 @@ export interface CardProps extends CommonProps {
 	title?: string
 	img?: string
 	imgAlt?: string
+	titleClassName?: string
 }
