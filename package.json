@@ -49,6 +49,7 @@
     "handlebars-loader": "^1.7.2",
     "hooks-for-redux": "^2.0.3",
     "lodash": "^4.17.21",
+    "logrocket": "^3.0.1",
     "multer": "^1.4.5-lts.1",
     "next": "^12.1.6",
     "next-auth": "^4.3.4",
