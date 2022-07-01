@@ -149,9 +149,14 @@ export const SignInForm = ({
 										>
 											{t('signIn')}
 										</Button>
-										<Button className='w-full' onClick={() => createAccount(provider)}>
-											{t('createAccount')}
-										</Button>
+										{process.env.NEXT_PUBLIC_ENV === 'development' && (
+											<div>
+												<p className='text-muted'>{'This is only visible in development'}</p>
+												<Button className='w-full' onClick={() => createAccount(provider)}>
+													{t('createAccount')}
+												</Button>
+											</div>
+										)}
 									</div>
 								</div>
 							))}
