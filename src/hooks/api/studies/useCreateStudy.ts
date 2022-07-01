@@ -25,7 +25,7 @@ export function useCreateStudy() {
 			// Return context with the optimistic study
 			return { optimisticStudy }
 		},
-		onSuccess: (data, variables, context: { optimisticStudy: Study } | undefined) => {
+		onSuccess: (data, _variables, context?: { optimisticStudy: Study }) => {
 			// Replace optimistic study in the studies list with the result
 			reactQueryClient.setQueryData('studies', (old: Study[] | undefined) => {
 				const nextCache = (old || []).map((study: any) =>
@@ -34,7 +34,7 @@ export function useCreateStudy() {
 				return nextCache
 			})
 		},
-		onError: (error, variables, context) => {
+		onError: (_error, _variables, context?: { optimisticStudy: Study }) => {
 			// Remove optimistic study from the studies list
 			reactQueryClient.setQueryData(
 				'studies',

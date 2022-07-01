@@ -39,7 +39,7 @@ export const useStudy = (
 
 				return { previousStudy }
 			},
-			onError: (err, newStudy, context) => {
+			onError: (_err, _newStudy, context?: { previousStudy: Study }) => {
 				reactQueryClient.setQueryData(['studies', studyId], context?.previousStudy)
 			},
 			onSettled: () => {
