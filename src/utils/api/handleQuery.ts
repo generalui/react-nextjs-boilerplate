@@ -50,7 +50,7 @@ export const handleQuery: HandleQuery = async ({
 
 		await res.status(200).json(queryResult)
 	} catch (error) {
-		console.log({ error })
+		console.error({ error })
 		res.status(400).json({ message: error })
 	}
 }
