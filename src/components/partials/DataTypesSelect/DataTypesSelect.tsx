@@ -8,17 +8,16 @@ import cn from 'classnames'
 import Image from 'next/image'
 import { MultiValueGenericProps, OptionProps, components } from 'react-select'
 import { selectOptionsType } from 'types/index'
+import { DataTypeLabel } from 'common/DataTypeLabel'
 import { SelectInput } from 'common/SelectInput'
 import { DataTypesSelectProps } from './DataTypesSelect.types'
 import { dataTypesStyles } from './styles'
 
 const MultiValueLabel = (props: MultiValueGenericProps<selectOptionsType>) => {
 	return (
-		<div className='flex items-center gap-1 pr-2'>
-			<Image src={`/icons/consents.svg`} width='20' height='20' alt='Data type icon' />
-
+		<DataTypeLabel img={'/icons/consents.svg'}>
 			<components.MultiValueLabel {...props} />
-		</div>
+		</DataTypeLabel>
 	)
 }
 
@@ -49,11 +48,7 @@ const Option = (props: OptionProps<selectOptionsType>) => {
 			)}
 			{...innerProps}
 		>
-			<div className='flex items-center gap-2'>
-				<Image src={`/icons/gray_consents.svg`} width='20' height='20' alt='Data type icon' />
-
-				{children}
-			</div>
+			<DataTypeLabel img={'/icons/gray_consents.svg'}>{children}</DataTypeLabel>
 		</div>
 	)
 }
