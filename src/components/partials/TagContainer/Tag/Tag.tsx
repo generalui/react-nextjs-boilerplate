@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import { Icon } from 'common/Icon'
+import Image from 'next/image'
 import { Text } from 'common/Text'
 import { TagProps } from './Tag.types'
 
@@ -12,7 +12,7 @@ export const Tag = ({ children, className, icon, testId = 'Tag' }: TagProps) => 
 			)}
 			data-testid={testId}
 		>
-			{icon && <Icon icon={icon} />}
+			{icon && <Image src={icon} width='20' height='20' alt='Data type icon' />}
 			<Text className='truncate'>{children}</Text>
 		</div>
 	)

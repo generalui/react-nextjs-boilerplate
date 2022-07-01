@@ -81,7 +81,12 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 						</div>
 						<Detail label={t('description')}>{study.description}</Detail>
 						<Detail label={t('dataTypes')}>
-							<TagContainer tags={[{ label: t('consents'), icon: 'FolderIcon' }]} />
+							<TagContainer
+								tags={study?.dataTypes.map((dataType) => ({
+									label: t(dataType),
+									icon: `/icons/${dataType}.svg`
+								}))}
+							/>
 						</Detail>
 					</Card>
 				)}
