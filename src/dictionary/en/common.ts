@@ -36,6 +36,12 @@ const common = {
 		settings: {
 			message: 'Settings'
 		}
+	},
+	dataTypes: {
+		consents: { message: 'Consents' },
+		geneticData: { message: 'Genetic Data' },
+		healthRecords: { message: 'Health Records' },
+		specimens: { message: 'Specimens' }
 	}
 }
 

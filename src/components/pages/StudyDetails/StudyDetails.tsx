@@ -21,6 +21,7 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 	const router = useRouter()
 	const { studyId = '' } = router.query
 	const { t } = useText('studies.details')
+	const { t: common } = useText('common')
 	const {
 		data: study,
 		isLoading,
@@ -82,8 +83,8 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 						<Detail label={t('description')}>{study.description}</Detail>
 						<Detail label={t('dataTypes')}>
 							<TagContainer
-								tags={study?.dataTypes.map((dataType) => ({
-									label: t(dataType),
+								tags={study?.dataTypes.sort().map((dataType) => ({
+									label: common(`dataTypes.${dataType}`),
 									icon: `/icons/${dataType}.svg`
 								}))}
 							/>

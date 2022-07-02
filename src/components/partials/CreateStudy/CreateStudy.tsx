@@ -17,6 +17,7 @@ import { CreateStudyProps } from './CreateStudy.types'
 
 export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }: CreateStudyProps) {
 	const { t } = useText('createStudy')
+	const { t: common } = useText('common')
 	const { createStudy, isError, isLoading } = useCreateStudy()
 	const { close } = useModal('create-study')
 
@@ -28,10 +29,10 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 	}
 
 	const studyDataTypes: selectOptionsType[] = [
-		{ label: t('dataTypes.consents'), value: 'consents' },
-		{ label: t('dataTypes.geneticData'), value: 'geneticData' },
-		{ label: t('dataTypes.healthRecords'), value: 'healthRecords' },
-		{ label: t('dataTypes.specimens'), value: 'specimens' }
+		{ label: common('dataTypes.consents'), value: 'consents' },
+		{ label: common('dataTypes.geneticData'), value: 'geneticData' },
+		{ label: common('dataTypes.healthRecords'), value: 'healthRecords' },
+		{ label: common('dataTypes.specimens'), value: 'specimens' }
 	]
 
 	return (
@@ -48,7 +49,6 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 				>
 					<Form
 						data-testid={testId}
-						initialValues={{ dataTypes: [studyDataTypes[0]] }}
 						onSubmit={onSubmit}
 						render={({ handleSubmit }) => (
 							<form onSubmit={handleSubmit}>
