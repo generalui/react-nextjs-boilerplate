@@ -25,11 +25,7 @@ const studies = {
 		title: { message: 'Study Details' },
 		description: { message: 'Description' },
 		endDate: { message: 'End Date' },
-		dataTypes: { message: 'Data Types' },
-		consents: { message: 'Consents' },
-		geneticData: { message: 'Genetic Data' },
-		healthRecords: { message: 'Health Records' },
-		specimens: { message: 'Specimens' }
+		dataTypes: { message: 'Data Types' }
 	},
 	status: {
 		approved: { message: 'Approved' },

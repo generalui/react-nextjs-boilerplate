@@ -76,6 +76,9 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 										<Input name='description' placeholder='Description' type='textarea' rows={5} />
 									</div>
 									<div className='col-span-3'>
+										<label className='text-xs text-gray-500' htmlFor='description'>
+											{t('fields.dataTypes')}
+										</label>
 										<DataTypesSelect options={studyDataTypes} />
 									</div>
 									<div className='col-span-3'>

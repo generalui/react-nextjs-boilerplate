@@ -5,6 +5,7 @@ export const dataTypesStyles: StylesConfig<selectOptionsType, boolean> = {
 	option: (base, { isFocused, isSelected }) => ({
 		...base,
 		backgroundColor: isFocused || isSelected ? '#f3f4f6' : undefined,
+		borderRadius: '12px',
 		display: 'flex',
 		flexDirection: 'row',
 		alignItems: 'center',
@@ -21,16 +22,18 @@ export const dataTypesStyles: StylesConfig<selectOptionsType, boolean> = {
 		borderRadius: '4px',
 		alignItems: 'center'
 	}),
+	multiValueLabel: (base) => ({ ...base, color: '#0093d8' }),
 	multiValueRemove: (base) => ({
 		...base,
 		alignItems: 'center',
 		backgroundColor: '#0093d8',
-		borderRadius: '8px',
-		height: '16px',
-		width: '16px',
+		borderRadius: '50%',
+		height: '18px',
+		width: '18px',
 		color: '#d5f2ff',
 		':hover': {
-			cursor: 'pointer'
+			cursor: 'pointer',
+			backgroundColor: '#0772b0'
 		}
 	})
 }
