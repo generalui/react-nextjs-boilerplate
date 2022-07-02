@@ -10,7 +10,7 @@ import '../store'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 	useEffect(() => {
-		if (process.env.NEXT_PUBLIC_URL === 'staging') {
+		if (process.env.NEXT_PUBLIC_ENV === 'staging') {
 			LogRocket.init('eog9r1/test-logrocket')
 		}
 	}, [])

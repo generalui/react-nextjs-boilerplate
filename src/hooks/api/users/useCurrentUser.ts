@@ -10,7 +10,7 @@ export const useCurrentUser = (): Omit<UseQueryResult<Awaited<User>, unknown>, '
 	const { data: currentUser, ...query } = useQuery('current-user', getCurrentUser)
 
 	useEffect(() => {
-		if (process.env.NEXT_PUBLIC_URL === 'staging' && currentUser)
+		if (process.env.NEXT_PUBLIC_ENV === 'staging' && currentUser)
 			LogRocket.identify(currentUser.id, {
 				name: currentUser.name || '',
 				email: currentUser.email || ''
