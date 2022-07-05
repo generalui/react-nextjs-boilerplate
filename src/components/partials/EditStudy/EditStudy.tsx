@@ -57,7 +57,7 @@ export const EditStudy = memo(function EditStudy({
 							image: study.image?.url || '',
 							status: study.status,
 							title: study.title,
-							dataTypes: study.dataTypes.map((dataType) => ({
+							dataTypes: study.dataTypes?.map((dataType) => ({
 								label: common(dataType),
 								value: dataType
 							}))

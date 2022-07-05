@@ -7,7 +7,7 @@ import { DataTypeLabel } from './index'
 
 describe('DataTypeLabel Component', () => {
 	it('renders on the page', () => {
-		render(<DataTypeLabel />)
+		render(<DataTypeLabel img='/icons/consents.svg' />)
 
 		const component = screen.getByTestId('DataTypeLabel')
 

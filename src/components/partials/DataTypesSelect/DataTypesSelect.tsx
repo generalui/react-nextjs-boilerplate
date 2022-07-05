@@ -60,13 +60,15 @@ export const DataTypesSelect = ({
 	testId = 'DataTypesSelect'
 }: DataTypesSelectProps<selectOptionsType>) => {
 	return (
-		<SelectInput<selectOptionsType>
-			data-testid={testId}
-			isMulti={true}
-			name='dataTypes'
-			options={options}
-			components={{ MultiValueLabel, Option }}
-			styles={dataTypesStyles}
-		/>
+		<div data-testid={testId}>
+			<SelectInput<selectOptionsType>
+				data-testid={testId}
+				isMulti={true}
+				name='dataTypes'
+				options={options}
+				components={{ MultiValueLabel, Option }}
+				styles={dataTypesStyles}
+			/>
+		</div>
 	)
 }

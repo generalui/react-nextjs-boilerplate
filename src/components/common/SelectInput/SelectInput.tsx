@@ -13,18 +13,20 @@ export const SelectInput = <T extends unknown>({
 	styles
 }: SelectInputProps<T>) => {
 	return (
-		<Field name={name} className={className} data-testid={testId}>
-			{(props) => (
-				<Select
-					name={props.input.name}
-					value={props.input.value}
-					onChange={props.input.onChange}
-					isMulti={isMulti}
-					options={options}
-					components={components}
-					styles={styles}
-				/>
-			)}
-		</Field>
+		<div data-testid={testId}>
+			<Field name={name} className={className}>
+				{(props) => (
+					<Select
+						name={props.input.name}
+						value={props.input.value}
+						onChange={props.input.onChange}
+						isMulti={isMulti}
+						options={options}
+						components={components}
+						styles={styles}
+					/>
+				)}
+			</Field>
+		</div>
 	)
 }

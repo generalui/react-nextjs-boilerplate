@@ -78,7 +78,7 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 						<Detail label={t('description')}>{study.description}</Detail>
 						<Detail label={t('dataTypes')}>
 							<TagContainer
-								tags={study?.dataTypes.sort().map((dataType) => ({
+								tags={study?.dataTypes?.sort().map((dataType) => ({
 									label: common(`dataTypes.${dataType}`),
 									icon: `/icons/${dataType}.svg`
 								}))}
