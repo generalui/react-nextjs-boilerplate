@@ -16,7 +16,7 @@ export const PageWrapper = ({
 	testId = 'PageWrapper'
 }: PageWrapperProps) => {
 	return (
-		<div data-testid={testId}>
+		<div data-testid={testId} className='font-inter'>
 			<Head>
 				{title && <title>{title}</title>}
 				{/* TODO: Handle common meta data here */}

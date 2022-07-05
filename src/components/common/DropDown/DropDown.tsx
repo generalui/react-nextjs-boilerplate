@@ -36,7 +36,7 @@ export const DropDown = ({
 
 	return (
 		<div
-			className={cn('z-50 rounded-lg relative', variantClasses.container, className)}
+			className={cn('rounded-lg relative', variantClasses.container, className)}
 			ref={wrapperRef}
 			data-testid={testId}
 		>
@@ -49,7 +49,7 @@ export const DropDown = ({
 				onClick={toggleOpen}
 				type='button'
 			>
-				<div className='truncate'>{children}</div>
+				<div className='truncate flex items-center gap-3'>{children}</div>
 				<Icon icon='ChevronDownIcon' className='text-blue-600' />
 			</button>
 			<div

@@ -13,9 +13,9 @@ export const StudyStatusDropdown = ({
 	const { t } = useText('studies.status')
 	const createDropdownItem = (key: StudyStatus) => ({
 		label: (
-			<div className='flex items-center gap-3'>
+			<>
 				<StatusBadge size='sm' v={key} /> {t(key).toUpperCase()}
-			</div>
+			</>
 		),
 		onClick: () => onChange(key),
 		value: key

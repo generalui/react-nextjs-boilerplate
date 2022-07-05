@@ -2,7 +2,15 @@ import cn from 'classnames'
 import Image from 'next/image'
 import { CardProps } from './Card.types'
 
-export const Card = ({ className, children, title, img, imgAlt, testId = 'Card' }: CardProps) => {
+export const Card = ({
+	className,
+	titleClassName,
+	children,
+	title,
+	img,
+	imgAlt,
+	testId = 'Card'
+}: CardProps) => {
 	return (
 		<div data-testid={testId} className={cn('bg-white p-4 bg-base-100 rounded-lg', className)}>
 			{img && (
@@ -10,7 +18,7 @@ export const Card = ({ className, children, title, img, imgAlt, testId = 'Card' 
 					<Image layout='fill' src={img} alt={imgAlt} />
 				</figure>
 			)}
-			{title && <h1 className='mb-4 font-bold text-3xl'>{title}</h1>}
+			{title && <h2 className={cn('mb-4 font-bold text-3xl', titleClassName)}>{title}</h2>}
 			{children}
 		</div>
 	)

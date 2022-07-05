@@ -36,6 +36,14 @@ const signIn = {
 				message: 'Failed to login.'
 			}
 		}
+	},
+	stagingWarning: {
+		title: { message: '⚠️ ATTENTION ⚠️' },
+		description: {
+			message: `This is a test version of the Native BioData Consortium - Consent Portal.
+			Do not upload any content that can be connected to a patient's Personally Identifiable Information (PII), 
+			or any content that is sensitive to HIPAA or any other regulatory agency.`
+		}
 	}
 }
 
