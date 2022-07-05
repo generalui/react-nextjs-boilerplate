@@ -14,6 +14,7 @@ export const EditStudy = memo(function EditStudy({
 	testId = 'EditStudy'
 }: EditStudyProps) {
 	const { t } = useText('studies.edit')
+	const { t: common } = useText('common.dataTypes')
 	const { close } = useModal('edit-study')
 	const { data: study } = useStudy(studyId)
 	const { update } = useStudy(studyId)
@@ -55,7 +56,11 @@ export const EditStudy = memo(function EditStudy({
 							endDate: formatFormDate(study.endDate),
 							image: study.image?.url || '',
 							status: study.status,
-							title: study.title
+							title: study.title,
+							dataTypes: study.dataTypes.map((dataType) => ({
+								label: common(dataType),
+								value: dataType
+							}))
 						}}
 						isLoading={update.isLoading}
 						onCancel={close}

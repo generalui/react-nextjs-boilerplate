@@ -47,7 +47,6 @@ apiRoute.post(async (req: NextApiRequest, res: NextApiResponse) => {
 		const dataTypes: StudyDataTypes[] = dt.map(
 			(dataType: selectOptionsType) => dataType.value as StudyDataTypes
 		)
-		console.log('dataTypes: ', dataTypes)
 
 		// Upload (to cloudinary)
 		const { secure_url, public_id } = await upload({ file: image })

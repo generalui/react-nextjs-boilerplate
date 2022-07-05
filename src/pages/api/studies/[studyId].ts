@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { Prisma } from '@prisma/client'
+import { StudyDataTypes } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { Study } from 'types/Study'
+import { selectOptionsType } from 'types/index'
 import { connect } from 'utils/api/connect'
 import { getSessionFromReq } from 'utils/api/getSessionFromReq'
 import { handleQuery } from 'utils/api/handleQuery'
@@ -43,7 +43,11 @@ apiRoute.patch(async (req: NextApiRequest, res: NextApiResponse) => {
 	const session = await getSessionFromReq(req)
 
 	// Extract body values that need transformation
-	const { endDate, image, ...simpleBody } = req.body
+	const { endDate, image, dataTypes: dt, ...simpleBody } = req.body
+
+	const dataTypes: StudyDataTypes[] = dt.map(
+		(dataType: selectOptionsType) => dataType.value as StudyDataTypes
+	)
 
 	// Remove values that don't belong in the database
 	delete simpleBody.coordinator
@@ -78,6 +82,7 @@ apiRoute.patch(async (req: NextApiRequest, res: NextApiResponse) => {
 			data: {
 				...simpleBody,
 				endDate: endDate ? new Date(endDate) : undefined,
+				dataTypes,
 				...imageUpdate
 			}
 		})
