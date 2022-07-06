@@ -19,7 +19,6 @@ export const routeMap: Record<
 		subRoutes: { default: { labelKey: 'studies.details.title' } }
 	},
 	'/profile': {
-		className: 'border-t',
 		href: '/profile',
 		icon: 'CogIcon',
 		labelKey: 'common.sidebar.nav.settings',
