@@ -19,7 +19,7 @@ describe('SignIn Component', () => {
 	it('renders on the page', () => {
 		render(<SignIn providers={{ credentials: MOCK_PROVIDER }} csrfToken={''} />)
 
-		const component = screen.getByTestId('SignIn')
+		const component = screen.getByTestId('SignInForm')
 
 		expect(component).toBeInTheDocument()
 	})
