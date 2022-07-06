@@ -6,6 +6,11 @@ type HandleValidate = <T>(
 	schema: ZodSchema
 ) => ValidationErrors | Promise<ValidationErrors> | undefined
 
+/**
+ * Handle validation for zod schema with ReactFinal form
+ *
+ * @returns undefined if no errors are thrown. Otherwise it returns validation errors.
+ */
 export const handleValidate: HandleValidate = (values, schema) => {
 	try {
 		schema.parse(values)

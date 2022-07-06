@@ -16,7 +16,7 @@ import { Input } from 'common/Input'
 import { SubmitButton } from 'common/SubmitButton'
 import { SignInFormProps } from './SignInForm.types'
 
-export const SignInForm = ({ csrfToken, className, testId = 'SignInForm' }: SignInFormProps) => {
+export const SignInForm = ({ className, testId = 'SignInForm' }: SignInFormProps) => {
 	const { t } = useText('signIn.form')
 	const { status } = useSession()
 	const [loginErrors, setLoginErrors] = useState<SigninError[]>([])
@@ -72,7 +72,6 @@ export const SignInForm = ({ csrfToken, className, testId = 'SignInForm' }: Sign
 			createAccount: true,
 			redirect: false
 		})
-		console.log('~ createAccount createAccountResponse', createAccountResponse)
 
 		if (!createAccountResponse) {
 			setLoginErrors([
@@ -85,7 +84,6 @@ export const SignInForm = ({ csrfToken, className, testId = 'SignInForm' }: Sign
 		}
 
 		const error = (createAccountResponse as unknown as SignInResponse)?.error as string
-		console.log('~ createAccountResponse error', error)
 
 		if (error)
 			setLoginErrors([
