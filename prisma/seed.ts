@@ -14,6 +14,7 @@ const createdUsers: CreatedUser[] = []
 
 // Format seed users for prisma insertion
 const prismaSafeTestUsers = users.map(
+	// 'P1.' as a prefix was the easiest way to add a number and special character  to the generated password
 	({ email, name, password = faker.internet.password(8, false, /[A-z 0-9]/, 'P1.') }) => {
 		createdUsers.push({ email, name, password })
 		return {
