@@ -13,14 +13,16 @@ type CreatedUser = {
 const createdUsers: CreatedUser[] = []
 
 // Format seed users for prisma insertion
-const prismaSafeTestUsers = users.map(({ email, name, password = faker.internet.password() }) => {
-	createdUsers.push({ email, name, password })
-	return {
-		where: { email },
-		update: {},
-		create: { email, name, password: bcrypt.hashSync(password, 8) }
+const prismaSafeTestUsers = users.map(
+	({ email, name, password = faker.internet.password(8, false, /[A-z 0-9]/, 'P1.') }) => {
+		createdUsers.push({ email, name, password })
+		return {
+			where: { email },
+			update: {},
+			create: { email, name, password: bcrypt.hashSync(password, 8) }
+		}
 	}
-})
+)
 
 async function main() {
 	await Promise.all(prismaSafeTestUsers.map((user) => prisma.user.upsert(user)))
