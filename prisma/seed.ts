@@ -1,25 +1,30 @@
+import { faker } from '@faker-js/faker'
 import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 import { studies, users } from './seedData'
 
 const prisma = new PrismaClient()
+type CreatedUser = {
+	email: string
+	name: string
+	password: string
+}
+// Keep track of created users without hashed password
+const createdUsers: CreatedUser[] = []
 
 // Format seed users for prisma insertion
-const prismaSafeTestUsers = users.map(({ email, name, password }) => ({
-	where: { email },
-	update: {},
-	create: {
-		email,
-		name,
-		password: bcrypt.hashSync(password, 10)
+const prismaSafeTestUsers = users.map(({ email, name, password = faker.internet.password() }) => {
+	createdUsers.push({ email, name, password })
+	return {
+		where: { email },
+		update: {},
+		create: { email, name, password: bcrypt.hashSync(password, 8) }
 	}
-}))
+})
 
 async function main() {
-	const createdUsers = await Promise.all(
-		prismaSafeTestUsers.map((user) => prisma.user.upsert(user))
-	)
-	console.log(createdUsers)
+	await Promise.all(prismaSafeTestUsers.map((user) => prisma.user.upsert(user)))
+	console.log('Created users:\n', createdUsers)
 
 	const createdStudies = await Promise.all(
 		studies.map(({ imageUrl, ...study }) =>
@@ -39,7 +44,7 @@ async function main() {
 			})
 		)
 	)
-	console.log(createdStudies)
+	console.log('Created studies:\n', createdStudies.length)
 }
 
 main()
