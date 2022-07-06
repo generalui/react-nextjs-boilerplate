@@ -97,7 +97,7 @@ export const SignInForm = ({ className, testId = 'SignInForm' }: SignInFormProps
 
 	return (
 		<Form
-			data-testid={testId}
+			testId={testId}
 			onSubmit={handleSignIn}
 			className={className}
 			validate={(values) => handleValidate(values, SignInSchema)}
