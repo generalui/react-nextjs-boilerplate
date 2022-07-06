@@ -7,6 +7,7 @@ export interface FormProps<T extends Record<string, unknown>> extends CommonProp
 	onSubmit: (values: T) => void
 	render: Required<FinalFormProps<T>>['render']
 	submitText?: string
+	validate?: FinalFormProps<T>['validate']
 }
 
 export interface StudyFormProps extends Omit<FormProps<StudyInput>, 'render'> {

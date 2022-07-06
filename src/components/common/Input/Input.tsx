@@ -24,31 +24,49 @@ export const Input = forwardRef(
 		return (
 			<>
 				<Field name={name}>
-					{(props) =>
-						type === 'textarea' ? (
-							<TextArea
-								rows={rows}
-								placeholder={placeholder}
-								name={props.input.name}
-								value={props.input.value}
-								onChange={props.input.onChange}
-								disabled={disabled}
-							/>
-						) : (
-							<input
-								data-testid={testId}
-								name={props.input.name}
-								id={id || name}
-								className={cn('input input-bordered block w-full', className)}
-								placeholder={placeholder}
-								type={type}
-								value={props.input.value}
-								onChange={props.input.onChange}
-								ref={reference as LegacyRef<HTMLInputElement>}
-								disabled={disabled}
-							/>
+					{({ input, meta }) => {
+						const isError = meta.error && meta.touched
+
+						return (
+							<>
+								{type === 'textarea' ? (
+									<TextArea
+										rows={rows}
+										placeholder={placeholder}
+										name={input.name}
+										value={input.value}
+										onChange={input.onChange}
+										disabled={disabled}
+										className={cn(isError && 'border-red-500', className)}
+									/>
+								) : (
+									<input
+										data-testid={testId}
+										name={input.name}
+										id={id || name}
+										className={cn(
+											'input input-bordered block w-full',
+											isError && 'border-red-500',
+											className
+										)}
+										placeholder={placeholder}
+										type={type}
+										value={input.value}
+										onChange={input.onChange}
+										ref={reference as LegacyRef<HTMLInputElement>}
+										disabled={disabled}
+									/>
+								)}
+								{isError && (
+									<>
+										<span className='text-xs text-red-500 mt-5'>
+											{'*'} {meta.error}
+										</span>
+									</>
+								)}
+							</>
 						)
-					}
+					}}
 				</Field>
 				{onChange && (
 					<OnChange name={name}>

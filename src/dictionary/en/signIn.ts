@@ -19,11 +19,13 @@ const signIn = {
 				message: 'Password'
 			}
 		},
-		signIn: {
-			message: 'Sign in'
-		},
-		createAccount: {
-			message: 'Create account'
+		buttons: {
+			submit: {
+				message: 'Sign in'
+			},
+			createAccount: {
+				message: 'Create account'
+			}
 		},
 		errors: {
 			credentialsSignin: {
