@@ -1,5 +1,5 @@
 import { ApiStudy, Study, StudyInput } from 'types/index'
-import { axios } from 'utils/client/axios'
+import { axios, withFile } from 'utils/client/axios'
 import { standardizeApiStudy } from 'utils/models/studies'
 
 export const getStudies = async (): Promise<Study[]> => {
@@ -12,15 +12,20 @@ export const getStudy = async (studyId: string): Promise<Study> => {
 	return standardizeApiStudy(response.data)
 }
 
-export const createStudy = async (newStudy: StudyInput) => {
-	const response = await axios.post<ApiStudy>('/studies', newStudy)
+export const createStudy = async ({ image, ...newStudy }: StudyInput) => {
+	const response = await withFile<ApiStudy>('/studies', newStudy, image)
 	return standardizeApiStudy(response.data)
 }
 
 export const updateStudy = async (
 	studyId: string,
-	updatedStudy: Partial<StudyInput>
+	{ image, ...updatedStudy }: Partial<StudyInput>
 ): Promise<Study> => {
-	const response = await axios.patch<ApiStudy>(`/studies/${studyId}`, updatedStudy)
+	let response
+	if (image && typeof image !== 'string') {
+		response = await withFile<ApiStudy>(`/studies/${studyId}`, updatedStudy, image, 'patch')
+	} else {
+		response = await axios.patch<ApiStudy>(`/studies/${studyId}`, updatedStudy)
+	}
 	return standardizeApiStudy(response.data)
 }

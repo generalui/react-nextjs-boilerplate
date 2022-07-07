@@ -9,6 +9,6 @@ export type ImagePreview = File & {
 	preview: string
 }
 export interface DropZoneProps extends CommonProps {
-	onChange?: (file: string | undefined) => void
+	onChange?: (file: File) => void
 	value?: string
 }

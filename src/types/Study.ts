@@ -1,4 +1,4 @@
-import { Document, Prisma, Study as S, StudyStatus, User } from '@prisma/client'
+import { Document, Prisma, StudyStatus, User } from '@prisma/client'
 import { z } from 'zod'
 
 export const StudySchema = z.object({
@@ -7,7 +7,7 @@ export const StudySchema = z.object({
 	endDate: z.string(),
 	description: z.string(),
 	status: z.nativeEnum(StudyStatus).optional().default('new'),
-	image: z.instanceof(File) // base 64 string
+	image: z.any().optional()
 })
 
 export type StudyInput = z.infer<typeof StudySchema>
