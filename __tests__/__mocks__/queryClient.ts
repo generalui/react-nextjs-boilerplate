@@ -14,7 +14,7 @@ export const mockQueryClient = {
 	mutationDefaults: []
 }
 
-jest.mock('utils/react-query', () => {
+jest.mock('utils/client/react-query', () => {
 	return {
 		reactQueryClient: jest.fn().mockImplementation(() => mockQueryClient)
 	}

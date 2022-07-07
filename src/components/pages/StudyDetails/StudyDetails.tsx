@@ -2,7 +2,7 @@
  * Study details page
  */
 import { useRouter } from 'next/router'
-import { getCombinedString } from 'utils/text'
+import { getCombinedString } from 'utils/client/text'
 import { useStudy } from 'hooks/api/studies/useStudy'
 import { useText } from 'hooks/useText'
 import { EditStudy } from 'partials/EditStudy'

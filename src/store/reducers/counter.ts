@@ -1,5 +1,5 @@
 import { createReduxModule } from 'hooks-for-redux'
-import { getLocalState, persistState } from 'utils/persist'
+import { getLocalState, persistState } from 'utils/client/persist'
 
 type ExampleState = {
 	count: number

@@ -7,7 +7,7 @@ export const StudySchema = z.object({
 	endDate: z.string(),
 	description: z.string(),
 	status: z.nativeEnum(StudyStatus).optional().default('new'),
-	image: z.string().optional() // base 64 string
+	image: z.instanceof(File) // base 64 string
 })
 
 export type StudyInput = z.infer<typeof StudySchema>

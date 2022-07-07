@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { setRouterQuery } from 'utils/setRouterQuery'
+import { setRouterQuery } from 'utils/client/setRouterQuery'
 
 export const useModal = (name: string) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false)

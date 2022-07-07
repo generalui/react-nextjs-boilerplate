@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios'
 import { ChangeEvent, useState } from 'react'
 import { ReqStatus } from 'types/ReqStatus'
-import { axios } from 'utils/axios'
+import { axios } from 'utils/client/axios'
 import { useText } from 'hooks/useText'
 import { Alert } from 'common/Alert'
 import { AlertError } from 'common/AlertError'

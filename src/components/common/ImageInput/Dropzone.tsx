@@ -2,7 +2,7 @@ import { PencilAltIcon } from '@heroicons/react/solid'
 import cn from 'classnames'
 import { useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
-import { getBase64 } from 'utils/files'
+import { getBase64 } from 'utils/client/files'
 import { DropZoneProps, ImagePreview } from 'common/ImageInput/ImageInput.types'
 
 const getImagePreview = (imageFile: ImagePreview | string | undefined) =>

@@ -4,7 +4,7 @@ import { getSessionFromReq } from 'utils/api/getSessionFromReq'
 import { handleQuery } from 'utils/api/handleQuery'
 import { upload } from 'utils/api/media'
 import { prisma } from 'utils/api/prisma'
-import { getCombinedString } from 'utils/text'
+import { getCombinedString } from 'utils/client/text'
 
 const apiRoute = connect()
 

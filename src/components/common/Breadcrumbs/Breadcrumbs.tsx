@@ -1,7 +1,7 @@
 import cn from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { routeMap } from 'utils/navigation'
+import { routeMap } from 'utils/client/navigation'
 import { useText } from 'hooks/useText'
 import { Icon } from 'common/Icon'
 import { Text } from 'common/Text'
