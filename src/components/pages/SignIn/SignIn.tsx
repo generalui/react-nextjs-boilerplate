@@ -1,11 +1,11 @@
 import { useText } from 'hooks/useText'
 import { PageWrapper } from 'partials/PageWrapper'
-import { SignInForm } from 'partials/SignInForm'
+import { SignInForm } from 'partials/SignInForm/SignInForm'
 import { StagingWarning } from 'partials/StagingWarning'
 import { Card } from 'common/Card'
 import { SignInProps } from './SignIn.types'
 
-export const SignIn = ({ providers, csrfToken }: SignInProps) => {
+export const SignIn = ({ csrfToken }: SignInProps) => {
 	const { t } = useText('signIn')
 
 	return (
@@ -13,7 +13,7 @@ export const SignIn = ({ providers, csrfToken }: SignInProps) => {
 			<StagingWarning className='mb-10' />
 
 			<Card className='md:max-w-xl mx-auto p-6 mb-80 md:shadow-md'>
-				<SignInForm className='max-w-xxl mx-auto' providers={providers} csrfToken={csrfToken} />
+				<SignInForm className='max-w-xxl mx-auto' csrfToken={csrfToken} />
 			</Card>
 		</PageWrapper>
 	)

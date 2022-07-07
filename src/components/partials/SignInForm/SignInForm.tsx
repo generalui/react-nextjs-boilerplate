@@ -2,31 +2,27 @@
  * SignIn
  */
 import { SignInResponse, signIn, useSession } from 'next-auth/react'
-import { ClientSafeProvider } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useMemo } from 'react'
+import { SignInInput, SignInSchema } from 'types/Auth'
 import { SigninError } from 'types/Error'
+import { handleValidate } from 'utils/handleValidate'
 import { useText } from 'hooks/useText'
+import { Form } from 'partials/Form'
 import { AlertError } from 'common/AlertError'
 import { Button } from 'common/Button'
-import { InputV1 } from 'common/Input/InputV1'
+import { Input } from 'common/Input'
+import { SubmitButton } from 'common/SubmitButton'
 import { SignInFormProps } from './SignInForm.types'
 
-export const SignInForm = ({
-	providers,
-	csrfToken,
-	className,
-	testId = 'SignInForm'
-}: SignInFormProps) => {
+export const SignInForm = ({ className, testId = 'SignInForm' }: SignInFormProps) => {
 	const { t } = useText('signIn.form')
 	const { status } = useSession()
-	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
 	const [loginErrors, setLoginErrors] = useState<SigninError[]>([])
 	const router = useRouter()
 	const { callbackUrl, error } = router.query
-
+	const isLoading = status === 'loading'
 	const LOGIN_ERRORS: Record<string, string> = useMemo(
 		() => ({
 			CredentialsSignin: t('errors.credentialsSignin'),
@@ -37,7 +33,7 @@ export const SignInForm = ({
 	)
 
 	useEffect(() => {
-		if (status !== 'loading') {
+		if (!isLoading) {
 			if (error) {
 				if (Array.isArray(error)) {
 					setLoginErrors(
@@ -56,21 +52,28 @@ export const SignInForm = ({
 				}
 			}
 		}
+
 		if (status === 'authenticated') {
 			const redirectUrl = callbackUrl || '/'
 			router.push(redirectUrl as string)
 		}
-	}, [status, router, callbackUrl, error, setLoginErrors, LOGIN_ERRORS])
+	}, [status, router, callbackUrl, error, setLoginErrors, LOGIN_ERRORS, isLoading])
 
-	const createAccount = async (provider: ClientSafeProvider) => {
-		const signInResponse: SignInResponse | undefined = await signIn(provider.id, {
+	const handleSignIn = async (values: SignInInput) => {
+		const signInValues = await SignInSchema.parse(values)
+
+		signIn('credentials', signInValues)
+	}
+
+	const createAccount = async ({ email, password }: SignInInput) => {
+		const createAccountResponse: SignInResponse | undefined = await signIn('credentials', {
 			email,
 			password,
 			createAccount: true,
 			redirect: false
 		})
 
-		if (!signInResponse) {
+		if (!createAccountResponse) {
 			setLoginErrors([
 				...loginErrors,
 				{
@@ -80,7 +83,7 @@ export const SignInForm = ({
 			])
 		}
 
-		const error = (signInResponse as unknown as SignInResponse)?.error as string
+		const error = (createAccountResponse as unknown as SignInResponse)?.error as string
 
 		if (error)
 			setLoginErrors([
@@ -93,76 +96,48 @@ export const SignInForm = ({
 	}
 
 	return (
-		<div data-testid={testId} className={className}>
-			<div style={{ overflow: 'hidden', position: 'relative' }} data-testid='SignIn'>
-				<div>
-					{/* TODO: add logo */}
-					<img className='h-36 mx-auto' src='/images/NBDC_logo_full.svg' alt='NBDC Logo' />
-
-					<div>
-						<input name='csrfToken' type='hidden' defaultValue={csrfToken} />
-						{Object.values(providers).length &&
-							Object.values(providers).map((provider) => (
-								<div
-									className='grid grid-cols-1 gap-6'
-									key={provider.name}
-									style={{ marginBottom: 0 }}
-								>
-									{provider.id === 'credentials' && (
-										<div className='mb-5'>
-											<label className='label' htmlFor='email'>
-												{t('email.label')}
-											</label>
-											<InputV1
-												id='email'
-												className='w-full mb-2'
-												type='email'
-												data-testid='signin-email'
-												value={email}
-												placeholder={t('email.placeholder')}
-												onChange={(e) => setEmail(e.target.value)}
-											/>
-											<label className='label' htmlFor='password'>
-												{t('password.label')}
-											</label>
-
-											<InputV1
-												className='w-full mb-2'
-												id='password'
-												type='password'
-												data-testid='signin-password'
-												value={password}
-												placeholder={t('password.placeholder')}
-												onChange={(e) => setPassword(e.target.value)}
-											/>
-										</div>
-									)}
-									<div className='grid grid-cols-1 gap-4'>
-										{loginErrors &&
-											loginErrors.map((err) => <AlertError key={err.id}>{err.message}</AlertError>)}
-									</div>
-
-									<div className='grid grid-cols-1 gap-4'>
-										<Button
-											className='w-full'
-											onClick={() => signIn(provider.id, { email, password })}
-										>
-											{t('signIn')}
-										</Button>
-										{process.env.NEXT_PUBLIC_ENV === 'development' && (
-											<div>
-												<p className='text-muted'>{'This is only visible in development'}</p>
-												<Button className='w-full' onClick={() => createAccount(provider)}>
-													{t('createAccount')}
-												</Button>
-											</div>
-										)}
-									</div>
-								</div>
-							))}
+		<Form
+			testId={testId}
+			onSubmit={handleSignIn}
+			className={className}
+			validate={(values) => handleValidate(values, SignInSchema)}
+			render={({ handleSubmit, values }) => (
+				<form onSubmit={handleSubmit}>
+					<img className='h-36 mx-auto mb-10' src='/images/NBDC_logo_full.svg' alt='NBDC Logo' />
+					<div className='flex flex-col gap-2 mb-12 xl:mb-16'>
+						<div>
+							<label className='text-xs text-gray-500' htmlFor='coordinator'>
+								{t('email.label')}
+							</label>
+							<Input name='email' type='text' placeholder={t('email.placeholder')} />
+						</div>
+						<div>
+							<label className='text-xs text-gray-500' htmlFor='endDate'>
+								{t('password.placeholder')}
+							</label>
+							<Input name='password' type='password' placeholder={t('password.placeholder')} />
+						</div>
 					</div>
-				</div>
-			</div>
-		</div>
+					<div className='grid grid-cols-1 gap-4 mb-6'>
+						{loginErrors &&
+							loginErrors.map((err) => <AlertError key={err.id}>{err.message}</AlertError>)}
+					</div>
+					<div className='flex flex-col gap-2'>
+						<SubmitButton isLoading={isLoading} disableOnLoading>
+							{t('buttons.submit')}
+						</SubmitButton>
+
+						{process.env.NEXT_PUBLIC_ENV === 'development' && (
+							<div>
+								<p className='text-muted'>{'This is only visible in development'}</p>
+								<Button className='w-full' onClick={() => createAccount(values)}>
+									{t('buttons.createAccount')}
+								</Button>
+							</div>
+						)}
+					</div>
+				</form>
+			)}
+		/>
 	)
 }

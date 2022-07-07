@@ -31,9 +31,12 @@ yarn-error.log*
 
 # local env files
 .env.local
-# .env.development.local
+.env.development.local
 .env.test.local
-# .env.production.local
+.env.production.local
+
+# Local seed scripts
+*.local.ts
 
 # Docs
 # TODO: add this folder to the github project once jsdoc kinks are worked out

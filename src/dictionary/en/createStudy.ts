@@ -23,6 +23,20 @@ const createStudy = {
 		cancel: {
 			message: 'Cancel'
 		}
+	},
+	placeholders: {
+		title: {
+			message: 'Title'
+		},
+		coordinator: {
+			message: 'Coordinator'
+		},
+		endDate: {
+			message: 'Select End Date'
+		},
+		description: {
+			message: 'Study Description'
+		}
 	}
 }
 
