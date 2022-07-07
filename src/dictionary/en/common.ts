@@ -36,6 +36,11 @@ const common = {
 		settings: {
 			message: 'Settings'
 		}
+	},
+	errors: {
+		maxFileSizeExceeded: {
+			message: 'Max file size {1} exceeded'
+		}
 	}
 }
 

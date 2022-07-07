@@ -11,7 +11,7 @@ import { CreateStudyProps } from './CreateStudy.types'
 export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }: CreateStudyProps) {
 	const { t } = useText('createStudy')
 	const { close } = useModal('create-study')
-	const { createStudy, isLoading, isSuccess } = useCreateStudy()
+	const { createStudy, isLoading, isSuccess, reset } = useCreateStudy()
 
 	const onSubmit = async (values: StudyInput) => {
 		if (isLoading) return
@@ -20,8 +20,11 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 	}
 
 	useEffect(() => {
-		if (!isLoading && isSuccess) close()
-	}, [isLoading, isSuccess, close])
+		if (!isLoading && isSuccess) {
+			close()
+			reset()
+		}
+	}, [isLoading, isSuccess, close, reset])
 
 	return (
 		<>
