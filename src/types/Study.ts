@@ -7,7 +7,7 @@ export const StudySchema = z.object({
 	endDate: z.string(),
 	description: z.string(),
 	status: z.nativeEnum(StudyStatus).optional().default('new'),
-	image: z.string().optional(), // base 64 string
+	image: z.any().optional(),
 	dataTypes: z.object({ label: z.string(), value: z.string() }).array()
 })
 

@@ -1,8 +1,8 @@
 import { User } from '@prisma/client'
 import { useMutation } from 'react-query'
 import { UserInput } from 'types/index'
-import { axios } from 'utils/axios'
-import { reactQueryClient } from 'utils/react-query'
+import { axios } from 'utils/client/axios'
+import { reactQueryClient } from 'utils/client/react-query'
 import { useCurrentUser } from './useCurrentUser'
 
 function updateCurrentUser(currentUserUpdate: UserInput) {

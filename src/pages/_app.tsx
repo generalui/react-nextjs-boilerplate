@@ -4,7 +4,7 @@ import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
 import { useEffect } from 'react'
 import { QueryClientProvider } from 'react-query'
-import { reactQueryClient } from 'utils/react-query'
+import { reactQueryClient } from 'utils/client/react-query'
 import 'styles/globals.scss'
 import '../store'
 

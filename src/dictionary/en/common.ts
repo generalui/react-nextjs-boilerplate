@@ -60,6 +60,11 @@ const common = {
 				message: 'Specimens data type icon'
 			}
 		}
+	},
+	errors: {
+		maxFileSizeExceeded: {
+			message: 'Max file size {1} exceeded'
+		}
 	}
 }
 

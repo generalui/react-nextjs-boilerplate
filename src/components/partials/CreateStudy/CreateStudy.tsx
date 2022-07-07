@@ -1,5 +1,5 @@
 import { PlusIcon } from '@heroicons/react/solid'
-import { memo } from 'react'
+import { memo, useEffect } from 'react'
 import { StudyInput, StudySchema } from 'types/index'
 import { useCreateStudy } from 'hooks/api/studies/useCreateStudy'
 import { useModal } from 'hooks/useModal'
@@ -11,14 +11,20 @@ import { CreateStudyProps } from './CreateStudy.types'
 export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }: CreateStudyProps) {
 	const { t } = useText('createStudy')
 	const { close } = useModal('create-study')
-	const { createStudy, isLoading } = useCreateStudy()
+	const { createStudy, isLoading, isSuccess, reset } = useCreateStudy()
 
 	const onSubmit = async (values: StudyInput) => {
 		if (isLoading) return
 
-		await createStudy(StudySchema.parse(values))
-		close()
+		await createStudy({ ...StudySchema.parse(values), image: values.image })
 	}
+
+	useEffect(() => {
+		if (!isLoading && isSuccess) {
+			close()
+			reset()
+		}
+	}, [isLoading, isSuccess, close, reset])
 
 	return (
 		<>

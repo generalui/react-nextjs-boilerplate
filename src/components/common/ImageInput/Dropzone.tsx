@@ -2,8 +2,9 @@ import { PencilAltIcon } from '@heroicons/react/solid'
 import cn from 'classnames'
 import { useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
-import { getBase64 } from 'utils/files'
 import { DropZoneProps, ImagePreview } from 'common/ImageInput/ImageInput.types'
+
+const MAX_FILE_SIZE = 5 * 1000000 // 5 mb
 
 const getImagePreview = (imageFile: ImagePreview | string | undefined) =>
 	typeof imageFile === 'string'
@@ -18,17 +19,24 @@ export const Dropzone = ({ onChange, className, testId, value }: DropZoneProps) 
 	const imagePreview = getImagePreview(imageFile)
 
 	const { getRootProps, getInputProps } = useDropzone({
-		maxSize: 5 * 1000000, // 5 MB file limit
 		maxFiles: 1, // 1 file limit
 		accept: { 'image/png': ['.jpeg', '.jpg', '.png', '.gif'] }, // Accept only images
 		onDrop: async (acceptedFiles: File[]) => {
-			const file: ImagePreview = {
-				...acceptedFiles[0],
-				preview: URL.createObjectURL(acceptedFiles[0])
-			}
+			if (!acceptedFiles || !acceptedFiles.length) return
 
-			setImageFile(file)
-			onChange?.(await getBase64(acceptedFiles[0]))
+			const file = acceptedFiles[0]
+
+			if (file.size > MAX_FILE_SIZE) {
+				onChange?.(new Error('maxFileSizeExceeded'))
+			} else {
+				const imageFile: ImagePreview = {
+					...file,
+					preview: URL.createObjectURL(file)
+				}
+
+				setImageFile(imageFile)
+				onChange?.(file)
+			}
 		}
 	})
 
@@ -54,7 +62,7 @@ export const Dropzone = ({ onChange, className, testId, value }: DropZoneProps) 
 			tabIndex={0}
 			role='button'
 		>
-			<img src={imagePreview} alt='PCR' />
+			<img src={imagePreview} alt='PCR' className='w-full h-auto' />
 			<input {...getInputProps()} />
 			<PencilAltIcon className='h-5 w-5 absolute bottom-3.5 right-3.5' />
 		</div>

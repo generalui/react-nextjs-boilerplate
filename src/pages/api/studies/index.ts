@@ -1,14 +1,31 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { StudyDataTypes, StudyStatus } from '@prisma/client'
+import multer from 'multer'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { ApiRequestWithFile } from 'types/ApiRequestWithFile'
+import { StudyInput } from 'types/Study'
 import { Study, selectOptionsType } from 'types/index'
 import { connect } from 'utils/api/connect'
 import { getSessionFromReq } from 'utils/api/getSessionFromReq'
+import { handleFileCreate } from 'utils/api/handleFileCreate'
 import { handleQuery } from 'utils/api/handleQuery'
-import { upload } from 'utils/api/media'
 import { prisma } from 'utils/api/prisma'
 
+/**
+ * Api setup for uploading documents
+ *
+ * Reference tutorial: https://betterprogramming.pub/upload-files-to-next-js-with-api-routes-839ce9f28430
+ * Multer reference: https://github.com/expressjs/multer#readme
+ */
 const apiRoute = connect()
+
+// Config multer to process files in memory
+const uploadMiddleware = multer({
+	storage: multer.memoryStorage()
+})
+
+// Middleware processing FormData to file
+apiRoute.use(uploadMiddleware.single('file'))
 
 // Get a list of studies
 apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
@@ -38,18 +55,26 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 })
 
 // Create a new study
-apiRoute.post(async (req: NextApiRequest, res: NextApiResponse) => {
+apiRoute.post(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 	const session = await getSessionFromReq(req)
 
 	const studyQuery = async () => {
-		const { title, coordinator, endDate, description, image, dataTypes: dt } = req.body
+		const {
+			title,
+			coordinator,
+			endDate,
+			description,
+			dataTypes: dt
+		} = req.body as Omit<StudyInput, 'dataTypes'> & { dataTypes: string }
+		console.log('req.body: ', req.body as StudyInput)
 
-		const dataTypes: StudyDataTypes[] = dt.map(
+		const dataTypes: StudyDataTypes[] = JSON.parse(dt).map(
 			(dataType: selectOptionsType) => dataType.value as StudyDataTypes
 		)
+		// const { title, coordinator, endDate, description } = req.body as StudyInput
 
 		// Upload (to cloudinary)
-		const { secure_url, public_id } = await upload({ file: image })
+		const createImage = await handleFileCreate(req.file, session.userId)
 
 		return await prisma.study.create({
 			data: {
@@ -68,18 +93,7 @@ apiRoute.post(async (req: NextApiRequest, res: NextApiResponse) => {
 						}
 					}
 				},
-				image: {
-					create: {
-						name: public_id,
-						url: secure_url,
-						fileType: 'mimeType',
-						uploadedBy: {
-							connect: {
-								id: session.userId as string
-							}
-						}
-					}
-				}
+				image: createImage
 			},
 			include: {
 				users: {
@@ -102,3 +116,10 @@ apiRoute.post(async (req: NextApiRequest, res: NextApiResponse) => {
 })
 
 export default apiRoute
+
+// Disallow body parsing, consume as stream, for file upload
+export const config = {
+	api: {
+		bodyParser: false
+	}
+}

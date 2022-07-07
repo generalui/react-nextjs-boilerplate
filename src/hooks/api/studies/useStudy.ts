@@ -1,9 +1,9 @@
 import { useSession } from 'next-auth/react'
 import { UseMutationResult, UseQueryResult, useMutation, useQuery } from 'react-query'
 import { Study, StudyInput } from 'types/Study'
-import { getStudy, updateStudy } from 'utils/api/studies'
-import { reactQueryClient } from 'utils/react-query'
-import { createPartialStudyFromFormData } from 'utils/studies'
+import { reactQueryClient } from 'utils/client/react-query'
+import { createPartialStudyFromFormData } from 'utils/models/studies'
+import { getStudy, updateStudy } from 'utils/requests/studies'
 
 export const useStudy = (
 	studyId: string

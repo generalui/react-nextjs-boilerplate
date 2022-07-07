@@ -6,5 +6,5 @@ export const mockUseRouterReturn = {
 }
 
 jest.mock('next/router', () => {
-	return { useRouter: jest.fn(() => mockUseRouterReturn) }
+	return { useRouter: jest.fn(() => mockUseRouterReturn), push: jest.fn(() => null) }
 })
