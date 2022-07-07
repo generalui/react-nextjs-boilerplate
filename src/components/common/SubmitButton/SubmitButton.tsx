@@ -8,7 +8,7 @@ const DefaultLoadingLabel = () => {
 
 	return (
 		<div className='flex items-center justify-center'>
-			<Spinner className='h-4 w-4' />
+			<Spinner className='h-3 w-3' />
 			{t('loading')}
 		</div>
 	)

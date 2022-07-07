@@ -8,6 +8,8 @@ export interface InputProps extends CommonProps {
 	placeholder?: string
 	name: string
 	rows?: number
+	label?: string
+	labelClassName?: string
 }
 
 export interface InputPropsV1 extends CommonProps {

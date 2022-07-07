@@ -31,7 +31,7 @@ export const ImageInput = ({
 					}
 
 					return (
-						<div className={className}>
+						<div className={cn('flex flex-col', className)}>
 							<Dropzone
 								className={cn(isError && 'border-red-500')}
 								onClick={onClick}

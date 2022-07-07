@@ -17,12 +17,19 @@ export const Input = forwardRef(
 			onChange,
 			testId = 'Input',
 			rows = 4,
-			disabled
+			disabled,
+			label,
+			labelClassName
 		}: InputProps,
 		reference
 	) => {
 		return (
 			<>
+				{label && (
+					<label className={cn('text-xs text-gray-500', labelClassName)} htmlFor={name}>
+						{label}
+					</label>
+				)}
 				<Field name={name}>
 					{({ input, meta }) => {
 						const isError = meta.error && meta.touched
