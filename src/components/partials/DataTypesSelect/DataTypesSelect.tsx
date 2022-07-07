@@ -15,7 +15,7 @@ import { dataTypesStyles } from './styles'
 const MultiValueLabel = (props: MultiValueGenericProps<selectOptionsType>) => {
 	const { value } = props.data
 	return (
-		<DataTypeLabel img={`/icons/${value}.svg`}>
+		<DataTypeLabel img={`/icons/${value}.svg`} dataType={value}>
 			<components.MultiValueLabel {...props} />
 		</DataTypeLabel>
 	)
@@ -50,7 +50,9 @@ const Option = (props: OptionProps<selectOptionsType>) => {
 			)}
 			{...innerProps}
 		>
-			<DataTypeLabel img={`/icons/gray_${value}.svg`}>{children}</DataTypeLabel>
+			<DataTypeLabel className='gap-2' img={`/icons/gray_${value}.svg`} dataType={value}>
+				{children}
+			</DataTypeLabel>
 		</div>
 	)
 }

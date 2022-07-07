@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import {
 	ActionMeta,
 	GroupBase,
@@ -18,3 +19,5 @@ export interface SelectProps<T> extends CommonProps {
 	value?: PropsValue<T>
 	onChange?: (newValue: OnChangeValue<T, boolean>, actionMeta: ActionMeta<T>) => void
 }
+
+export type SelectComponent = <T>(props: SelectProps<T>) => ReactNode

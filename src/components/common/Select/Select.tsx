@@ -1,8 +1,7 @@
 import S from 'react-select'
-import { SelectProps } from './Select.types'
+import { SelectComponent } from './Select.types'
 
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
-export const Select = <T extends unknown>({
+export const Select: SelectComponent = ({
 	className,
 	testId = 'Select',
 	isMulti,
@@ -12,7 +11,7 @@ export const Select = <T extends unknown>({
 	name,
 	value,
 	onChange
-}: SelectProps<T>) => {
+}) => {
 	return (
 		<div className={className} data-testid={testId}>
 			<S

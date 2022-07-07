@@ -6,11 +6,7 @@ export const dataTypesStyles: StylesConfig<selectOptionsType, boolean> = {
 		...base,
 		backgroundColor: isFocused || isSelected ? '#f3f4f6' : undefined,
 		borderRadius: '12px',
-		display: 'flex',
-		flexDirection: 'row',
-		alignItems: 'center',
 		padding: '4px 10px',
-		gap: '6px',
 		height: '28px',
 		cursor: 'pointer'
 	}),

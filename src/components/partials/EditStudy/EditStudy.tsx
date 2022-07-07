@@ -58,7 +58,7 @@ export const EditStudy = memo(function EditStudy({
 							status: study.status,
 							title: study.title,
 							dataTypes: study.dataTypes?.map((dataType) => ({
-								label: common(dataType),
+								label: common(`${dataType}.label`),
 								value: dataType
 							}))
 						}}

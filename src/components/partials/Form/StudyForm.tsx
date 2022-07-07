@@ -17,13 +17,13 @@ export const StudyForm = ({
 	submitText
 }: StudyFormProps) => {
 	const { t } = useText('createStudy')
-	const { t: common } = useText('common')
+	const { t: common } = useText('common.dataTypes')
 
 	const studyDataTypes: selectOptionsType[] = [
-		{ label: common('dataTypes.consents'), value: 'consents' },
-		{ label: common('dataTypes.geneticData'), value: 'geneticData' },
-		{ label: common('dataTypes.healthRecords'), value: 'healthRecords' },
-		{ label: common('dataTypes.specimens'), value: 'specimens' }
+		{ label: common('consents.label'), value: 'consents' },
+		{ label: common('geneticData.label'), value: 'geneticData' },
+		{ label: common('healthRecords.label'), value: 'healthRecords' },
+		{ label: common('specimens.label'), value: 'specimens' }
 	]
 
 	return (
