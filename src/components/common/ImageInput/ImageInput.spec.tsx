@@ -2,6 +2,7 @@
  * Test file for ImageInput
  */
 import { render, screen } from '@testing-library/react'
+import '__mocks__/index'
 import React from 'react'
 import { Form } from 'partials/Form'
 import { ImageInput } from './index'

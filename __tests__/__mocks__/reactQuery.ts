@@ -34,15 +34,11 @@ const mockUseQueryDataMap: Record<string, Record<string, unknown>> = {
 export const mockMutateFunction = jest.fn((args) => console.log('mutate', args))
 
 export const mockUseMutationReturn = {
+	...mockUseQueryBaseReturn,
 	mutate: mockMutateFunction,
-	error: null,
-	isError: false,
-	isIdle: false,
-	isLoading: false,
-	isLoadingError: false,
-	isRefetchError: false,
-	isSuccess: true,
-	status: 'success'
+	reset: jest.fn(() => {
+		console.log('React query reset called')
+	})
 }
 
 jest.mock('react-query', () => {
