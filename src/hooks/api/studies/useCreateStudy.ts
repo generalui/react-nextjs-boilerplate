@@ -1,9 +1,9 @@
 import { useSession } from 'next-auth/react'
 import { useMutation } from 'react-query'
 import { Study } from 'types/index'
-import { createStudy } from 'utils/api/studies'
-import { reactQueryClient } from 'utils/react-query'
-import { createOptimisticStudyFromFormData } from 'utils/studies'
+import { reactQueryClient } from 'utils/client/react-query'
+import { createOptimisticStudyFromFormData } from 'utils/models/studies'
+import { createStudy } from 'utils/requests/studies'
 
 export function useCreateStudy() {
 	const { data: session } = useSession()

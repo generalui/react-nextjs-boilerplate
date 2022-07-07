@@ -1,12 +1,22 @@
+import multer from 'multer'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { ApiRequestWithFile } from 'types/ApiRequestWithFile'
 import { connect } from 'utils/api/connect'
 import { getSessionFromReq } from 'utils/api/getSessionFromReq'
+import { handleFileCreate } from 'utils/api/handleFileCreate'
 import { handleQuery } from 'utils/api/handleQuery'
-import { upload } from 'utils/api/media'
 import { prisma } from 'utils/api/prisma'
-import { getCombinedString } from 'utils/text'
+import { getCombinedString } from 'utils/client/text'
 
 const apiRoute = connect()
+
+// Config multer to process files in memory
+const uploadMiddleware = multer({
+	storage: multer.memoryStorage()
+})
+
+// Middleware processing FormData to file
+apiRoute.use(uploadMiddleware.single('file'))
 
 // Get a study by ID
 apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
@@ -35,37 +45,19 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 })
 
 // Update study by ID
-apiRoute.patch(async (req: NextApiRequest, res: NextApiResponse) => {
+apiRoute.patch(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 	const studyId = getCombinedString(req.query.studyId)
 	const session = await getSessionFromReq(req)
 
 	// Extract body values that need transformation
-	const { endDate, image, ...simpleBody } = req.body
+	const { endDate, ...simpleBody } = req.body
 
 	// Remove values that don't belong in the database
 	delete simpleBody.coordinator
 
-	let imageUpdate: { image: { create: unknown } }
-
-	// Upload to Cloudinary if this is a new image
-	if (image?.startsWith('data:')) {
-		const { secure_url, public_id } = await upload({ file: image })
-
-		imageUpdate = {
-			image: {
-				create: {
-					name: public_id,
-					url: secure_url,
-					fileType: 'mimeType',
-					uploadedBy: {
-						connect: {
-							id: session.userId
-						}
-					}
-				}
-			}
-		}
-	}
+	// Upload (to cloudinary)
+	const createImage = await handleFileCreate(req.file, session.userId)
+	const imageUpdate = createImage ? { image: createImage } : undefined
 
 	const studyQuery = async () =>
 		prisma.study.update({
@@ -88,3 +80,10 @@ apiRoute.patch(async (req: NextApiRequest, res: NextApiResponse) => {
 })
 
 export default apiRoute
+
+// Disallow body parsing, consume as stream, for file upload
+export const config = {
+	api: {
+		bodyParser: false
+	}
+}

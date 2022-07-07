@@ -2,7 +2,6 @@ import { PencilAltIcon } from '@heroicons/react/solid'
 import cn from 'classnames'
 import { useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
-import { getBase64 } from 'utils/files'
 import { DropZoneProps, ImagePreview } from 'common/ImageInput/ImageInput.types'
 
 const getImagePreview = (imageFile: ImagePreview | string | undefined) =>
@@ -28,7 +27,7 @@ export const Dropzone = ({ onChange, className, testId, value }: DropZoneProps) 
 			}
 
 			setImageFile(file)
-			onChange?.(await getBase64(acceptedFiles[0]))
+			onChange?.(acceptedFiles[0])
 		}
 	})
 

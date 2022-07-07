@@ -1,4 +1,4 @@
-import cookies from 'utils/cookies'
+import cookies from 'utils/client/cookies'
 
 const ACCESS_TOKEN_KEY = 'access_token'
 const APP_STATE = 'react_starter_storage'

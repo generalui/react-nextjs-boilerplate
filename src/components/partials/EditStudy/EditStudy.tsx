@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import { StudyInput } from 'types/index'
-import { formatFormDate } from 'utils/date'
+import { formatFormDate } from 'utils/client/date'
 import { useStudy } from 'hooks/api/studies/useStudy'
 import { useModal } from 'hooks/useModal'
 import { useText } from 'hooks/useText'

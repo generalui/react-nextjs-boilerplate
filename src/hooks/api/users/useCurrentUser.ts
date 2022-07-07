@@ -2,7 +2,7 @@ import { User } from '@prisma/client'
 import LogRocket from 'logrocket'
 import { useEffect } from 'react'
 import { UseQueryResult, useQuery } from 'react-query'
-import { getCurrentUser } from 'utils/api/getCurrentUser'
+import { getCurrentUser } from 'utils/requests/getCurrentUser'
 
 export const useCurrentUser = (): Omit<UseQueryResult<Awaited<User>, unknown>, 'data'> & {
 	currentUser?: User
