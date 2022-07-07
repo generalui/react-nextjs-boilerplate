@@ -5,7 +5,7 @@ export const studies: (Prisma.StudyCreateInput & { imageUrl?: string })[] = [
 		description: 'Test study 1',
 		title:
 			'Real-time PCR designs to estimate nuclear and mitochondrial DNA copy number in forensic and ancient DNA studies',
-		users: { create: { user: { connect: { email: 'test@email.com' } } } },
+		users: { create: { user: { connect: { email: 'devan@genui.com' } } } },
 		submissionDate: new Date('2022-01-01'),
 		endDate: new Date('2022-10-01'),
 		imageUrl:
@@ -15,7 +15,7 @@ export const studies: (Prisma.StudyCreateInput & { imageUrl?: string })[] = [
 		description: 'Test study 2',
 		title:
 			'Distribution of mitochondrial DNA lineages among Native American tribes of Northeastern North America',
-		users: { create: { user: { connect: { email: 'test@email.com' } } } },
+		users: { create: { user: { connect: { email: 'devan@genui.com' } } } },
 		status: 'approved',
 		submissionDate: new Date('2021-01-01'),
 		endDate: new Date('2021-12-01'),
@@ -26,7 +26,7 @@ export const studies: (Prisma.StudyCreateInput & { imageUrl?: string })[] = [
 		description: 'Test study 3',
 		title:
 			'Development of Gene Editing and Cell Culture Capacity and Expertise in the Tribal Northern Plains',
-		users: { create: { user: { connect: { email: 'test@email.com' } } } },
+		users: { create: { user: { connect: { email: 'devan@genui.com' } } } },
 		status: 'archived',
 		submissionDate: new Date('2020-01-01'),
 		endDate: new Date('2020-05-01'),
