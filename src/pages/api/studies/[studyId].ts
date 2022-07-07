@@ -6,7 +6,7 @@ import { ApiRequestWithFile } from 'types/ApiRequestWithFile'
 import { selectOptionsType } from 'types/index'
 import { connect } from 'utils/api/connect'
 import { getSessionFromReq } from 'utils/api/getSessionFromReq'
-import { handleFileCreate } from 'utils/api/handleFileCreate'
+import { CreateFileInput, handleFileCreate } from 'utils/api/handleFileCreate'
 import { handleQuery } from 'utils/api/handleQuery'
 import { prisma } from 'utils/api/prisma'
 import { getCombinedString } from 'utils/client/text'
@@ -48,12 +48,13 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 })
 
 // Update study by ID
-apiRoute.patch(async (req: ApiRequestWithFile, res: NextApiResponse) => {
+apiRoute.patch(async (req: ApiRequestWithFile | NextApiRequest, res: NextApiResponse) => {
 	const studyId = getCombinedString(req.query.studyId)
 	const session = await getSessionFromReq(req)
 
 	// Extract body values that need transformation
 	const { endDate, dataTypes: dt, ...simpleBody } = req.body
+	console.log('dt: ', dt)
 
 	const dataTypes: StudyDataTypes[] = dt.map(
 		(dataType: selectOptionsType) => dataType.value as StudyDataTypes
@@ -63,8 +64,15 @@ apiRoute.patch(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 	delete simpleBody.coordinator
 
 	// Upload (to cloudinary)
-	const createImage = await handleFileCreate(req.file, session.userId)
-	const imageUpdate = createImage ? { image: createImage } : undefined
+	let imageUpdate:
+		| {
+				image: CreateFileInput
+		  }
+		| undefined = undefined
+	if ('file' in req) {
+		const createImage = await handleFileCreate(req.file, session.userId)
+		imageUpdate = createImage ? { image: createImage } : undefined
+	}
 
 	const studyQuery = async () =>
 		prisma.study.update({

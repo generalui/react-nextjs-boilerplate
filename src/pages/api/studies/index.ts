@@ -71,7 +71,6 @@ apiRoute.post(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 		const dataTypes: StudyDataTypes[] = JSON.parse(dt).map(
 			(dataType: selectOptionsType) => dataType.value as StudyDataTypes
 		)
-		// const { title, coordinator, endDate, description } = req.body as StudyInput
 
 		// Upload (to cloudinary)
 		const createImage = await handleFileCreate(req.file, session.userId)

@@ -16,7 +16,8 @@ export const withFile: WithFile = async (url, body, selectedFile, method = 'post
 
 	formData.append('file', selectedFile)
 	Object.keys(body).forEach((key) => {
-		formData.append(key, body[key])
+		if (key !== 'dataTypes') formData.append(key, body[key])
+		else formData.append(key, JSON.stringify(body[key]))
 	})
 
 	return await axios({

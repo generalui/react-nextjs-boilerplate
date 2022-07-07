@@ -2,7 +2,7 @@
 import { upload } from './media'
 import { parseFile } from './parseFile'
 
-type CreateFileInput = {
+export type CreateFileInput = {
 	create: {
 		name: string
 		url: string
