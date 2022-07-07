@@ -31,5 +31,13 @@ export const dataTypesStyles: StylesConfig<selectOptionsType, boolean> = {
 			cursor: 'pointer',
 			backgroundColor: '#0772b0'
 		}
+	}),
+	input: (base) => ({
+		...base,
+		'> input': {
+			':focus': {
+				boxShadow: 'none'
+			}
+		}
 	})
 }

@@ -59,10 +59,11 @@ const Option = (props: OptionProps<selectOptionsType>) => {
 
 export const DataTypesSelect = ({
 	options,
+	className,
 	testId = 'DataTypesSelect'
 }: DataTypesSelectProps<selectOptionsType>) => {
 	return (
-		<div data-testid={testId}>
+		<div data-testid={testId} className={cn('pb-6', className)}>
 			<SelectInput<selectOptionsType>
 				data-testid={testId}
 				isMulti={true}
