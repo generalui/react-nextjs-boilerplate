@@ -2,6 +2,7 @@
  * Study details page
  */
 import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import { getCombinedString } from 'utils/client/text'
 import { useStudy } from 'hooks/api/studies/useStudy'
 import { useText } from 'hooks/useText'
@@ -24,7 +25,14 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 	const { t } = useText('studies.details')
 	const { t: common } = useText('common.dataTypes')
 	const singleStudyId = getCombinedString(studyId)
-	const { data: study, isLoading, update } = useStudy(singleStudyId)
+	const { data: study, isLoading, isFetched, update } = useStudy(singleStudyId)
+
+	useEffect(() => {
+		if (isFetched && !study?.id) {
+			// TODO: Show a toast or similar notification of redirection
+			router.push('/studies')
+		}
+	}, [isFetched, router, study, singleStudyId])
 
 	return (
 		<PageWrapper title='Studies' testId={testId}>
@@ -36,7 +44,7 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 					value={study?.status || 'new'}
 				/>
 			</PageHeader>
-			<Loader isLoading={isLoading}>
+			<Loader isLoading={isLoading || !study?.id}>
 				{!study ? null : (
 					<Card className='flex flex-col gap-6'>
 						<div className='flex justify-between items-center'>

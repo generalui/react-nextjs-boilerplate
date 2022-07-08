@@ -24,7 +24,7 @@
     "prisma:seed": "prisma db seed",
     "prisma:studio": "prisma studio",
     "build-css": "yarn tailwindcss -i",
-    "docker:db": "docker-compose -f docker-compose.yml up db -d --build --remove-orphans",
+    "docker:db": "docker-compose -f docker-compose.yml up -d --build --remove-orphans db",
     "docker:compose": "docker-compose -f docker-compose.yml up -d && docker-compose logs -f -t >> docker.log"
   },
   "prisma": {
