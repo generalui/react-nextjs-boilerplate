@@ -3,6 +3,9 @@ const createStudy = {
 		message: 'Create Study'
 	},
 	fields: {
+		title: {
+			message: 'Title'
+		},
 		coordinator: {
 			message: 'Coordinator'
 		},

@@ -54,7 +54,7 @@ export const Dropzone = ({ onChange, className, testId, value }: DropZoneProps) 
 		<div
 			{...getRootProps({
 				className: cn(
-					'dropzone relative rounded-lg border border-gray-400 focus:border-2 focus:border-blue-600 focus:outline-2 focus:outline-offset-2 focus:outline-gray-400 overflow-hidden flex items-center justify-center',
+					'dropzone relative rounded-lg border border-gray-400 focus:border-2 focus:border-blue-600 focus:outline-2  focus:outline-gray-400 overflow-hidden flex flex-col items-center grow-0 w-full h-full h-40 w-40 lg:h-[198px] lg:w-[198px] ',
 					className
 				)
 			})}
@@ -62,7 +62,10 @@ export const Dropzone = ({ onChange, className, testId, value }: DropZoneProps) 
 			tabIndex={0}
 			role='button'
 		>
-			<img src={imagePreview} alt='PCR' className='w-full h-auto' />
+			<div
+				style={{ backgroundImage: `url(${imagePreview})` }}
+				className='block w-full h-full bg-cover bg-center'
+			/>
 			<input {...getInputProps()} />
 			<PencilAltIcon className='h-5 w-5 absolute bottom-3.5 right-3.5' />
 		</div>
