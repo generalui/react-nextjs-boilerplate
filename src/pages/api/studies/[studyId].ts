@@ -3,7 +3,7 @@ import { StudyDataTypes } from '@prisma/client'
 import multer from 'multer'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { ApiRequestWithFile } from 'types/ApiRequestWithFile'
-import { selectOptionsType } from 'types/index'
+import { StudyInput, selectOptionsType } from 'types/index'
 import { connect } from 'utils/api/connect'
 import { getSessionFromReq } from 'utils/api/getSessionFromReq'
 import { CreateFileInput, handleFileCreate } from 'utils/api/handleFileCreate'
@@ -53,10 +53,16 @@ apiRoute.patch(async (req: ApiRequestWithFile | NextApiRequest, res: NextApiResp
 	const session = await getSessionFromReq(req)
 
 	// Extract body values that need transformation
-	const { endDate, dataTypes: dt, ...simpleBody } = req.body
-	console.log('dt: ', dt)
+	const {
+		endDate,
+		dataTypes: dt,
+		...simpleBody
+	} = req.body as Omit<StudyInput, 'coordinator' | 'dataTypes'> & {
+		coordinator?: string
+		dataTypes: string
+	}
 
-	const dataTypes: StudyDataTypes[] = dt.map(
+	const dataTypes: StudyDataTypes[] = JSON.parse(dt).map(
 		(dataType: selectOptionsType) => dataType.value as StudyDataTypes
 	)
 

@@ -21,11 +21,6 @@ export const updateStudy = async (
 	studyId: string,
 	{ image, ...updatedStudy }: Partial<StudyInput>
 ): Promise<Study> => {
-	let response
-	if (image && typeof image !== 'string') {
-		response = await withFile<ApiStudy>(`/studies/${studyId}`, updatedStudy, image, 'patch')
-	} else {
-		response = await axios.patch<ApiStudy>(`/studies/${studyId}`, updatedStudy)
-	}
+	const response = await withFile<ApiStudy>(`/studies/${studyId}`, updatedStudy, image, 'patch')
 	return standardizeApiStudy(response.data)
 }

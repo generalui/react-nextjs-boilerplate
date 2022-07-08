@@ -66,7 +66,6 @@ apiRoute.post(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 			description,
 			dataTypes: dt
 		} = req.body as Omit<StudyInput, 'dataTypes'> & { dataTypes: string }
-		console.log('req.body: ', req.body as StudyInput)
 
 		const dataTypes: StudyDataTypes[] = JSON.parse(dt).map(
 			(dataType: selectOptionsType) => dataType.value as StudyDataTypes
