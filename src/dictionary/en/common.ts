@@ -37,6 +37,30 @@ const common = {
 			message: 'Settings'
 		}
 	},
+	dataTypes: {
+		consents: {
+			label: { message: 'Consents' },
+			alt: {
+				message: 'Consent data type icon'
+			}
+		},
+		geneticData: {
+			label: { message: 'Genetic Data' },
+			alt: {
+				message: 'Genetic data type icon'
+			}
+		},
+		healthRecords: {
+			label: { message: 'Health Records' },
+			alt: { message: 'Health records data type icon' }
+		},
+		specimens: {
+			label: { message: 'Specimens' },
+			alt: {
+				message: 'Specimens data type icon'
+			}
+		}
+	},
 	errors: {
 		maxFileSizeExceeded: {
 			message: 'Max file size {1} exceeded'

@@ -1,15 +1,15 @@
 /**
- * Test file for Tag
+ * Test file for Select
  */
 import { render, screen } from '@testing-library/react'
 import React from 'react'
-import { Tag } from './index'
+import { Select } from './index'
 
-describe('Tag Component', () => {
+describe('Select Component', () => {
 	it('renders on the page', () => {
-		render(<Tag />)
+		render(<Select />)
 
-		const component = screen.getByTestId('Tag')
+		const component = screen.getByTestId('Select')
 
 		expect(component).toBeInTheDocument()
 	})

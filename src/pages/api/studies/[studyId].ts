@@ -1,9 +1,12 @@
+// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { StudyDataTypes } from '@prisma/client'
 import multer from 'multer'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { ApiRequestWithFile } from 'types/ApiRequestWithFile'
+import { StudyInput, selectOptionsType } from 'types/index'
 import { connect } from 'utils/api/connect'
 import { getSessionFromReq } from 'utils/api/getSessionFromReq'
-import { handleFileCreate } from 'utils/api/handleFileCreate'
+import { CreateFileInput, handleFileCreate } from 'utils/api/handleFileCreate'
 import { handleQuery } from 'utils/api/handleQuery'
 import { prisma } from 'utils/api/prisma'
 import { getCombinedString } from 'utils/client/text'
@@ -45,19 +48,37 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 })
 
 // Update study by ID
-apiRoute.patch(async (req: ApiRequestWithFile, res: NextApiResponse) => {
+apiRoute.patch(async (req: ApiRequestWithFile | NextApiRequest, res: NextApiResponse) => {
 	const studyId = getCombinedString(req.query.studyId)
 	const session = await getSessionFromReq(req)
 
 	// Extract body values that need transformation
-	const { endDate, ...simpleBody } = req.body
+	const {
+		endDate,
+		dataTypes: dt,
+		...simpleBody
+	} = req.body as Omit<StudyInput, 'coordinator' | 'dataTypes'> & {
+		coordinator?: string
+		dataTypes: string
+	}
+
+	const dataTypes: StudyDataTypes[] = JSON.parse(dt).map(
+		(dataType: selectOptionsType) => dataType.value as StudyDataTypes
+	)
 
 	// Remove values that don't belong in the database
 	delete simpleBody.coordinator
 
 	// Upload (to cloudinary)
-	const createImage = await handleFileCreate(req.file, session.userId)
-	const imageUpdate = createImage ? { image: createImage } : undefined
+	let imageUpdate:
+		| {
+				image: CreateFileInput
+		  }
+		| undefined = undefined
+	if ('file' in req) {
+		const createImage = await handleFileCreate(req.file, session.userId)
+		imageUpdate = createImage ? { image: createImage } : undefined
+	}
 
 	const studyQuery = async () =>
 		prisma.study.update({
@@ -67,6 +88,7 @@ apiRoute.patch(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 			data: {
 				...simpleBody,
 				endDate: endDate ? new Date(endDate) : undefined,
+				dataTypes,
 				...imageUpdate
 			}
 		})

@@ -1,3 +1,4 @@
+import { selectOptionsType } from 'types/index'
 import { useText } from 'hooks/useText'
 import { Form } from 'partials/Form'
 import { Button } from 'common/Button'
@@ -5,6 +6,7 @@ import { ImageInput } from 'common/ImageInput'
 import { Input } from 'common/Input'
 import { ModalFooter } from 'common/ModalFooter'
 import { SubmitButton } from 'common/SubmitButton'
+import { DataTypesSelect } from '../DataTypesSelect'
 import { StudyFormProps } from './Form.types'
 
 export const StudyForm = ({
@@ -16,6 +18,14 @@ export const StudyForm = ({
 	submitText
 }: StudyFormProps) => {
 	const { t } = useText('createStudy')
+	const { t: common } = useText('common.dataTypes')
+
+	const studyDataTypes: selectOptionsType[] = [
+		{ label: common('consents.label'), value: 'consents' },
+		{ label: common('geneticData.label'), value: 'geneticData' },
+		{ label: common('healthRecords.label'), value: 'healthRecords' },
+		{ label: common('specimens.label'), value: 'specimens' }
+	]
 
 	return (
 		<Form
@@ -70,6 +80,12 @@ export const StudyForm = ({
 								type='textarea'
 								rows={5}
 							/>
+						</div>
+						<div className='col-span-3'>
+							<label className='text-xs text-gray-500' htmlFor='description'>
+								{t('fields.dataTypes')}
+							</label>
+							<DataTypesSelect options={studyDataTypes} />
 						</div>
 					</div>
 					<ModalFooter className='flex gap-2'>
