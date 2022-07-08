@@ -87,14 +87,6 @@ export const StudyForm = ({
 							</label>
 							<DataTypesSelect options={studyDataTypes} />
 						</div>
-						<div className='col-span-3 flex gap-2'>
-							<SubmitButton isLoading={isLoading} disableOnLoading>
-								{submitText || t('buttons.submit')}
-							</SubmitButton>
-							<Button onClick={onCancel} v='secondary'>
-								{t('buttons.cancel')}
-							</Button>
-						</div>
 					</div>
 					<ModalFooter className='flex gap-2'>
 						<SubmitButton
