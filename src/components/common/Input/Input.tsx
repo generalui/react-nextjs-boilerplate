@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import cn from 'classnames'
-import React, { LegacyRef, forwardRef } from 'react'
+import { LegacyRef, forwardRef } from 'react'
 import { Field } from 'react-final-form'
 import { OnChange } from 'react-final-form-listeners'
 import { TextArea } from 'common/TextArea'
