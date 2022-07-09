@@ -6,7 +6,7 @@ import { ApiRequestWithFile } from 'types/ApiRequestWithFile'
 import { StudyInput } from 'types/Study'
 import { connect } from 'utils/api/connect'
 import { getSessionFromReq } from 'utils/api/getSessionFromReq'
-import { handleFileCreate } from 'utils/api/handleFileCreate'
+import { handleAvatarJoin } from 'utils/api/handleAvatarJoin'
 import { handleQuery } from 'utils/api/handleQuery'
 import { prisma } from 'utils/api/prisma'
 
@@ -26,23 +26,33 @@ const uploadMiddleware = multer({
 // Middleware processing FormData to file
 apiRoute.use(uploadMiddleware.single('file'))
 
+// Included on all studies
+const includes = {
+	include: {
+		// Include all users in the returned object,
+		users: {
+			include: {
+				user: true
+			}
+		},
+		// Include image as join to documents table
+		image: {
+			include: {
+				image: true
+			}
+		}
+	}
+}
 // Get a list of studies
 apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	const studiesQuery = async () =>
 		await prisma.study.findMany({
-			include: {
-				users: {
-					include: {
-						user: true
-					}
-				}, // Include all users in the returned object,
-				image: true
-			},
 			orderBy: [
 				{
 					submissionDate: 'desc'
 				}
-			]
+			],
+			...includes
 		})
 
 	handleQuery<Study[]>({
@@ -60,8 +70,7 @@ apiRoute.post(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 	const studyQuery = async () => {
 		const { title, coordinator, endDate, description } = req.body as StudyInput
 
-		// Upload (to cloudinary)
-		const createImage = await handleFileCreate(req.file, session.userId)
+		const upsertImage = await handleAvatarJoin(req.file, session.userId)
 
 		return await prisma.study.create({
 			data: {
@@ -79,16 +88,9 @@ apiRoute.post(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 						}
 					}
 				},
-				image: createImage
+				...upsertImage
 			},
-			include: {
-				users: {
-					include: {
-						user: true
-					}
-				}, // Include all users in the returned object
-				image: true // Include image in the returned object
-			}
+			...includes
 		})
 	}
 

@@ -12,13 +12,26 @@ type WithFile = <T>(
 	method?: string
 ) => Promise<AxiosResponse<T>>
 export const withFile: WithFile = async (url, body, selectedFile, method = 'post') => {
+	// If no selected file or select file is not of type file (default state) make a regular axios request
+	if (!selectedFile || !(selectedFile instanceof File))
+		return await axios({
+			method,
+			url,
+			data: body
+		})
+
+	// Create a form data object
 	const formData = new FormData()
 
+	// Append the file to the form data object
 	formData.append('file', selectedFile)
+
+	// Parse the rest of the request body into the formdata object
 	Object.keys(body).forEach((key) => {
 		formData.append(key, body[key])
 	})
 
+	// Call axios passing formData where the body would normally go
 	return await axios({
 		method,
 		url,

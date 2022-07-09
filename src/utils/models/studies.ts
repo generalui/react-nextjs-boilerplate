@@ -10,6 +10,7 @@ export const standardizeApiStudy = (apiStudy: ApiStudy): Study => ({
 	submissionDate: new Date(apiStudy.submissionDate)
 })
 
+// TODO: Study Input should only be used for form outgoing methods
 type StudyKeyHandler<T extends keyof StudyInput> = (
 	value: string,
 	session: Session | null
@@ -19,11 +20,18 @@ const createStudyImage: StudyKeyHandler<'image'> = (imageUrl: StudyInput['image'
 	imageUrl
 		? {
 				id: new Date().toISOString(),
-				name: '',
-				fileType: 'image',
-				uploadedById: null,
-				studyId: null,
-				url: imageUrl
+				imageId: new Date().toISOString(),
+				studyId: '',
+				userId: '',
+				inserted_at: new Date(),
+				image: {
+					id: new Date().toISOString(),
+					name: '',
+					fileType: 'image',
+					uploadedById: null,
+					studyId: null,
+					url: imageUrl
+				}
 		  }
 		: null
 
