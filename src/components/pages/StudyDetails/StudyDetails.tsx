@@ -5,9 +5,9 @@ import { useRouter } from 'next/router'
 import { getCombinedString } from 'utils/client/text'
 import { useStudy } from 'hooks/api/studies/useStudy'
 import { useText } from 'hooks/useText'
+import { DataTypeContainer } from 'partials/DataTypeContainer'
 import { EditStudy } from 'partials/EditStudy'
 import { PageWrapper } from 'partials/PageWrapper'
-import { TagContainer } from 'partials/TagContainer'
 import { Breadcrumbs } from 'common/Breadcrumbs'
 import { Card } from 'common/Card'
 import { StudyStatusDropdown } from 'common/DropDown/StudyStatusDropdown'
@@ -22,6 +22,7 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 	const router = useRouter()
 	const { studyId = '' } = router.query
 	const { t } = useText('studies.details')
+	const { t: common } = useText('common.dataTypes')
 	const singleStudyId = getCombinedString(studyId)
 	const { data: study, isLoading, update } = useStudy(singleStudyId)
 
@@ -76,7 +77,13 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 						</div>
 						<Detail label={t('description')}>{study.description}</Detail>
 						<Detail label={t('dataTypes')}>
-							<TagContainer tags={[{ label: t('consents'), icon: 'FolderIcon' }]} />
+							<DataTypeContainer
+								tags={study?.dataTypes?.sort().map((dataType) => ({
+									label: common(`${dataType}.label`),
+									icon: `/icons/${dataType}.svg`,
+									dataType
+								}))}
+							/>
 						</Detail>
 					</Card>
 				)}

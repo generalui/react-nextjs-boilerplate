@@ -1,4 +1,4 @@
-import { StudyStatus } from '@prisma/client'
+import { StudyDataTypes, StudyStatus } from '@prisma/client'
 import { Session } from 'next-auth'
 import { ApiStudy, OptimisticStudy, Study, StudyInput, StudyInputMap } from 'types/Study'
 
@@ -12,7 +12,7 @@ export const standardizeApiStudy = (apiStudy: ApiStudy): Study => ({
 
 // TODO: Study Input should only be used for form outgoing methods
 type StudyKeyHandler<T extends keyof StudyInput> = (
-	value: string,
+	value: StudyInput[T],
 	session: Session | null
 ) => Study[StudyInputMap[T]]
 
@@ -59,7 +59,8 @@ const optimisticStudyKeyHandlers: {
 	endDate: (endDate) => new Date(endDate),
 	image: createStudyImage,
 	status: (value) => value as StudyStatus,
-	title: (value) => value
+	title: (value) => value,
+	dataTypes: (dataTypes) => dataTypes.map((dataType) => dataType.value as StudyDataTypes)
 }
 
 // TODO: coordinator should be an object from a react select component
@@ -67,22 +68,22 @@ export const createOptimisticStudyFromFormData = (
 	data: StudyInput,
 	session: Session | null
 ): OptimisticStudy =>
-	(Object.keys(data) as (keyof StudyInput)[]).reduce(
-		(accumulator, key) => ({
+	(Object.keys(data) as (keyof StudyInput)[]).reduce((accumulator, key) => {
+		const value = data[key] as StudyInput[typeof key]
+		return {
 			...accumulator,
-			[key]: optimisticStudyKeyHandlers[key](data[key] || '', session)
-		}),
-		{} as OptimisticStudy
-	)
+			[key]: value ? optimisticStudyKeyHandlers[key](value as any, session) : undefined
+		}
+	}, {} as OptimisticStudy)
 
 export const createPartialStudyFromFormData = (
 	data: Partial<StudyInput>,
 	session: Session | null
 ) =>
-	(Object.keys(data) as (keyof StudyInput)[]).reduce(
-		(accumulator, key) => ({
+	(Object.keys(data) as (keyof StudyInput)[]).reduce((accumulator, key) => {
+		const value = data[key] as StudyInput[typeof key]
+		return {
 			...accumulator,
-			[key]: optimisticStudyKeyHandlers[key](data[key] || '', session)
-		}),
-		{}
-	)
+			[key]: value ? optimisticStudyKeyHandlers[key](value as any, session) : undefined
+		}
+	}, {})

@@ -7,7 +7,8 @@ export const StudySchema = z.object({
 	endDate: z.string(),
 	description: z.string(),
 	status: z.nativeEnum(StudyStatus).optional().default('new'),
-	image: z.any().optional()
+	image: z.any().optional(),
+	dataTypes: z.object({ label: z.string(), value: z.string() }).array()
 })
 
 // The shape of data in outgoing axios requests
@@ -45,4 +46,10 @@ export interface StudyInputMap extends StudyInputToStudyMap {
 	image: 'image'
 	status: 'status'
 	title: 'title'
+	dataTypes: 'dataTypes'
+}
+
+export type selectOptionsType = {
+	value: string
+	label: string
 }

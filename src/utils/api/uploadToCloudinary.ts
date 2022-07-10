@@ -5,7 +5,7 @@ import { parseFile } from './parseFile'
 type UploadToCloudinaryReturn = { name: string; url: string; fileType: string }
 
 type UploadToCloudinary = (
-	file: Express.Multer.File
+	file?: Express.Multer.File
 ) => Promise<UploadToCloudinaryReturn | undefined>
 
 /**
@@ -20,7 +20,7 @@ export const uploadToCloudinary: UploadToCloudinary = async (file) => {
 	if (!file) return undefined
 
 	// Add data type to base64 string
-	const { base64, publicId, originalName, mimeType } = parseFile(file)
+	const { base64, publicId, originalName, mimeType } = parseFile(file as Express.Multer.File)
 
 	// Upload (to cloudinary)
 	const { secure_url } = await upload({ file: base64, publicId })

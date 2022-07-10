@@ -1,9 +1,10 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { Study, StudyStatus } from '@prisma/client'
+import { StudyDataTypes, StudyStatus } from '@prisma/client'
 import multer from 'multer'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { ApiRequestWithFile } from 'types/ApiRequestWithFile'
 import { StudyInput } from 'types/Study'
+import { Study, selectOptionsType } from 'types/index'
 import { connect } from 'utils/api/connect'
 import { getSessionFromReq } from 'utils/api/getSessionFromReq'
 import { handleAvatarJoin } from 'utils/api/handleAvatarJoin'
@@ -68,7 +69,17 @@ apiRoute.post(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 	const session = await getSessionFromReq(req)
 
 	const studyQuery = async () => {
-		const { title, coordinator, endDate, description } = req.body as StudyInput
+		const {
+			title,
+			coordinator,
+			endDate,
+			description,
+			dataTypes: dt
+		} = req.body as Omit<StudyInput, 'dataTypes'> & { dataTypes: string }
+
+		const dataTypes: StudyDataTypes[] = JSON.parse(dt).map(
+			(dataType: selectOptionsType) => dataType.value as StudyDataTypes
+		)
 
 		const upsertImage = await handleAvatarJoin(req.file, session.userId)
 
@@ -79,6 +90,7 @@ apiRoute.post(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 				description,
 				status: StudyStatus.new,
 				submissionDate: new Date(),
+				dataTypes,
 				users: {
 					create: {
 						user: {

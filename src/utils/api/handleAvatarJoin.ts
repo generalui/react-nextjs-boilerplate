@@ -26,7 +26,7 @@ type UpsertFileInput = {
 }
 
 type HandleAvatarJoin = (
-	file: Express.Multer.File,
+	file: Express.Multer.File | undefined,
 	userId: string
 ) => Promise<UpsertFileInput | undefined>
 

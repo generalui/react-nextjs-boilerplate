@@ -1,6 +1,9 @@
+// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { StudyDataTypes } from '@prisma/client'
 import multer from 'multer'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { ApiRequestWithFile } from 'types/ApiRequestWithFile'
+import { StudyInput, selectOptionsType } from 'types/index'
 import { connect } from 'utils/api/connect'
 import { getSessionFromReq } from 'utils/api/getSessionFromReq'
 import { handleAvatarJoin } from 'utils/api/handleAvatarJoin'
@@ -59,7 +62,18 @@ apiRoute.patch(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 	const session = await getSessionFromReq(req)
 
 	// Extract body values that need transformation
-	const { endDate, ...simpleBody } = req.body
+	const {
+		endDate,
+		dataTypes: dt,
+		...simpleBody
+	} = req.body as Omit<StudyInput, 'coordinator' | 'dataTypes'> & {
+		coordinator?: string
+		dataTypes: string
+	}
+
+	const dataTypes: StudyDataTypes[] = JSON.parse(dt).map(
+		(dataType: selectOptionsType) => dataType.value as StudyDataTypes
+	)
 
 	// Remove values that don't belong in the database
 	delete simpleBody.coordinator
@@ -74,6 +88,7 @@ apiRoute.patch(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 			data: {
 				...simpleBody,
 				endDate: endDate ? new Date(endDate) : undefined,
+				dataTypes,
 				...upsertImage
 			},
 			...includes

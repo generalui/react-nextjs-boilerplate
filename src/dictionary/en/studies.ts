@@ -26,8 +26,7 @@ const studies = {
 		description: { message: 'Description' },
 		submissionDate: { message: 'Submission Date' },
 		endDate: { message: 'End Date' },
-		dataTypes: { message: 'Data Types' },
-		consents: { message: 'Consents' }
+		dataTypes: { message: 'Data Types' }
 	},
 	edit: {
 		buttonLabel: { message: 'Edit Details' },

@@ -14,6 +14,9 @@ const createStudy = {
 		},
 		description: {
 			message: 'Study Description'
+		},
+		dataTypes: {
+			message: 'Study Data Types'
 		}
 	},
 	buttons: {
