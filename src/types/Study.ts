@@ -11,16 +11,22 @@ export const StudySchema = z.object({
 	dataTypes: z.object({ label: z.string(), value: z.string() }).array()
 })
 
+// The shape of data in outgoing axios requests
 export type StudyInput = z.infer<typeof StudySchema>
 
 export type Study = Prisma.StudyGetPayload<{
 	include: {
 		users: {
+			// Include all users in the returned object
 			include: {
 				user: true
 			}
-		} // Include all users in the returned object
-		image: true
+		}
+		image: {
+			include: {
+				image: true
+			}
+		}
 	}
 }>
 
@@ -29,9 +35,7 @@ export type ApiStudy = Omit<Study, 'endDate' | 'submissionDate'> & {
 	submissionDate: string
 }
 
-export type OptimisticStudy = Study & { users: { user: User }[] } & {
-	image?: Document
-}
+export type OptimisticStudy = Study & { users: { user: User }[] }
 
 type StudyInputToStudyMap = { [key in keyof StudyInput]: keyof Study }
 

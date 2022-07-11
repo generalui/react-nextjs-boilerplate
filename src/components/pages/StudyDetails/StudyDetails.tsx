@@ -60,7 +60,7 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 							<div
 								style={{
 									backgroundImage: `url(${
-										study.image?.url || '/images/image_placeholder_centered.jpg'
+										study.image?.image?.url || '/images/image_placeholder_centered.jpg'
 									})`
 								}}
 								className='block h-52 w-52 bg-center bg-cover rounded-lg flex-shrink-0'

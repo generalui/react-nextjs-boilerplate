@@ -27,5 +27,6 @@ export const updateStudy = async (
 	{ image, ...updatedStudy }: Partial<StudyInput>
 ): Promise<Study> => {
 	const response = await withFile<ApiStudy>(`/studies/${studyId}`, updatedStudy, image, 'patch')
+
 	return standardizeApiStudy(response.data)
 }

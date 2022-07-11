@@ -53,7 +53,7 @@ export const EditStudy = memo(function EditStudy({
 							coordinator: study.users[0].user.email || '',
 							description: study.description,
 							endDate: formatFormDate(study.endDate),
-							image: study.image?.url || '',
+							image: study.image?.image?.url || '',
 							status: study.status,
 							title: study.title,
 							dataTypes: study.dataTypes?.map((dataType) => ({

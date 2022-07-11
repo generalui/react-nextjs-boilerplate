@@ -32,6 +32,8 @@ apiRoute.post(async (req: ApiRequestWithFile, res) => {
 
 	try {
 		const documentsQuery = async () => {
+			if (!req.file) throw Error('File required')
+
 			// Add data type to base64 string
 			const { base64, publicId, originalName } = parseFile(req.file)
 
