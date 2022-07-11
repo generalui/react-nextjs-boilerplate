@@ -88,7 +88,7 @@ export const StudyForm = ({
 							<DataTypesSelect options={studyDataTypes} />
 						</div>
 					</div>
-					<ModalFooter className='flex gap-2'>
+					<ModalFooter>
 						<SubmitButton
 							className='w-full justify-center md:justify-start md:w-auto'
 							isLoading={isLoading}

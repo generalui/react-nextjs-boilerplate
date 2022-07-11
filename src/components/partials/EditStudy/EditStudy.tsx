@@ -16,8 +16,7 @@ export const EditStudy = memo(function EditStudy({
 	const { t } = useText('studies.edit')
 	const { t: common } = useText('common.dataTypes')
 	const { close } = useModal('edit-study')
-	const { data: study } = useStudy(studyId)
-	const { update } = useStudy(studyId)
+	const { data: study, update } = useStudy(studyId)
 
 	const onSubmit = async (values: StudyInput) => {
 		if (update.isLoading) return
@@ -54,7 +53,7 @@ export const EditStudy = memo(function EditStudy({
 							coordinator: study.users[0].user.email || '',
 							description: study.description,
 							endDate: formatFormDate(study.endDate),
-							image: study.image?.url || '',
+							image: study.image?.image?.url || '',
 							status: study.status,
 							title: study.title,
 							dataTypes: study.dataTypes?.map((dataType) => ({

@@ -47,7 +47,7 @@ model User {
   email         String?                 @unique
   emailVerified DateTime?
   password      String?
-  image         String?
+  image         Avatar?
   accounts      Account[]
   sessions      Session[]
   documents     Document[]
@@ -78,14 +78,25 @@ enum StudyDataTypes {
 model Study {
   id             String                  @id @default(cuid())
   description    String
-  image          Document?               @relation(fields: [imageId], references: [id])
-  imageId        String?                 @unique
+  image          Avatar?
   status         StudyStatus             @default(new)
   submissionDate DateTime                @default(now())
   endDate        DateTime
   title          String
   dataTypes      StudyDataTypes[]        @map("data_types")
   users          CoordinatorsOnStudies[]
+}
+
+model Avatar {
+  study       Study?   @relation(fields: [studyId], references: [id])
+  studyId     String?  @unique
+  user        User?    @relation(fields: [userId], references: [id])
+  userId      String?  @unique
+  image       Document @relation(fields: [imageId], references: [id])
+  imageId     String
+  inserted_at DateTime @default(now())
+
+  @@id([imageId])
 }
 
 model CoordinatorsOnStudies {
@@ -99,14 +110,13 @@ model CoordinatorsOnStudies {
 }
 
 model Document {
-  id           String  @id @default(cuid())
+  id           String       @id @default(cuid())
   uploadedById String?
   name         String
   url          String
   fileType     String
-  uploadedBy   User?   @relation(fields: [uploadedById], references: [id], onDelete: Cascade)
-  study        Study?
-  studyId      String?
+  uploadedBy   User?        @relation(fields: [uploadedById], references: [id], onDelete: Cascade)
+  avatar       Avatar?
 }
 
 model NotificationEvent {

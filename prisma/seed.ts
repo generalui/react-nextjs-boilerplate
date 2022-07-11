@@ -37,9 +37,13 @@ async function main() {
 					image: imageUrl
 						? {
 								create: {
-									name: imageUrl,
-									url: imageUrl,
-									fileType: 'mimetype'
+									image: {
+										create: {
+											name: imageUrl,
+											url: imageUrl,
+											fileType: 'mimetype'
+										}
+									}
 								}
 						  }
 						: undefined

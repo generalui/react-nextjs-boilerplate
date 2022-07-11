@@ -57,7 +57,7 @@ export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 						<div
 							style={{
 								backgroundImage: `url(${
-									study?.image?.url || '/images/image_placeholder_centered.jpg'
+									study?.image?.image?.url || '/images/image_placeholder_centered.jpg'
 								})`
 							}}
 							className='block h-16 w-16 bg-center bg-cover rounded-lg'

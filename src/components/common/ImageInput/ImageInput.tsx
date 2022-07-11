@@ -8,10 +8,14 @@ import { ImageInputProps } from './ImageInput.types'
 
 export const ImageInput = ({
 	className,
+	dropzoneClassName,
+	editIconClassName,
+	errorClassName,
 	onClick,
 	testId = 'ImageInput',
 	name,
-	onChange
+	onChange,
+	placeholder
 }: ImageInputProps) => {
 	const [dropzoneErrors, setDropzoneErrors] = useState<string[]>([])
 	const { t } = useText('common.errors')
@@ -31,16 +35,23 @@ export const ImageInput = ({
 					}
 
 					return (
-						<div className={cn('flex flex-col', className)}>
+						<div className={cn('flex flex-col relative', className)}>
 							<Dropzone
-								className={cn(isError && 'border-red-500')}
+								className={cn(isError && 'border-red-500', dropzoneClassName)}
 								onClick={onClick}
 								testId={testId}
 								{...input}
+								placeholder={placeholder}
+								editIconClassName={editIconClassName}
 								onChange={handleChange}
 							/>
 							{isError && (
-								<div className='flex flex-col gap-2 mt-2'>
+								<div
+									className={cn(
+										'flex flex-col gap-2 mt-5 absolute bottom-[-1.5rem] left-0',
+										errorClassName
+									)}
+								>
 									{dropzoneErrors.length > 0 &&
 										dropzoneErrors.map((error) => (
 											<span key={error} className='text-xs text-red-500'>

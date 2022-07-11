@@ -11,7 +11,10 @@ export const useStudy = (
 	update: UseMutationResult<Study, unknown, Partial<StudyInput>>
 } => {
 	const { data: session } = useSession()
-	const query = useQuery(['studies', studyId], () => getStudy(studyId))
+	const query = useQuery(['studies', studyId], () => getStudy(studyId), {
+		enabled: !!studyId,
+		retry: false
+	})
 
 	const updateMutation = useMutation(
 		`study-${studyId}`,

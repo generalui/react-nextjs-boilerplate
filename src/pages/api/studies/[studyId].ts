@@ -6,7 +6,7 @@ import { ApiRequestWithFile } from 'types/ApiRequestWithFile'
 import { StudyInput, selectOptionsType } from 'types/index'
 import { connect } from 'utils/api/connect'
 import { getSessionFromReq } from 'utils/api/getSessionFromReq'
-import { CreateFileInput, handleFileCreate } from 'utils/api/handleFileCreate'
+import { handleAvatarJoin } from 'utils/api/handleAvatarJoin'
 import { handleQuery } from 'utils/api/handleQuery'
 import { prisma } from 'utils/api/prisma'
 import { getCombinedString } from 'utils/client/text'
@@ -21,22 +21,32 @@ const uploadMiddleware = multer({
 // Middleware processing FormData to file
 apiRoute.use(uploadMiddleware.single('file'))
 
+// Included on all studies
+const includes = {
+	include: {
+		users: {
+			include: {
+				user: true
+			}
+		},
+		image: {
+			include: {
+				image: true
+			}
+		}
+	}
+}
+
 // Get a study by ID
 apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	const { studyId } = req.query
+
 	const studyQuery = async () =>
 		await prisma.study.findUnique({
 			where: {
 				id: studyId as string
 			},
-			include: {
-				users: {
-					include: {
-						user: true
-					}
-				},
-				image: true
-			}
+			...includes
 		})
 
 	handleQuery({
@@ -48,7 +58,7 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 })
 
 // Update study by ID
-apiRoute.patch(async (req: ApiRequestWithFile | NextApiRequest, res: NextApiResponse) => {
+apiRoute.patch(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 	const studyId = getCombinedString(req.query.studyId)
 	const session = await getSessionFromReq(req)
 
@@ -69,16 +79,7 @@ apiRoute.patch(async (req: ApiRequestWithFile | NextApiRequest, res: NextApiResp
 	// Remove values that don't belong in the database
 	delete simpleBody.coordinator
 
-	// Upload (to cloudinary)
-	let imageUpdate:
-		| {
-				image: CreateFileInput
-		  }
-		| undefined = undefined
-	if ('file' in req) {
-		const createImage = await handleFileCreate(req.file, session.userId)
-		imageUpdate = createImage ? { image: createImage } : undefined
-	}
+	const upsertImage = await handleAvatarJoin(req.file, session.userId)
 
 	const studyQuery = async () =>
 		prisma.study.update({
@@ -89,8 +90,9 @@ apiRoute.patch(async (req: ApiRequestWithFile | NextApiRequest, res: NextApiResp
 				...simpleBody,
 				endDate: endDate ? new Date(endDate) : undefined,
 				dataTypes,
-				...imageUpdate
-			}
+				...upsertImage
+			},
+			...includes
 		})
 
 	handleQuery({

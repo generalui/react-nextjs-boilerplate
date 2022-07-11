@@ -19,7 +19,7 @@ const formatName = (originalName: string) => {
 }
 
 export const parseFile: ParseFile = (file) => {
-	const { mimetype, originalname, buffer, size } = file
+	const { mimetype, originalname, buffer } = file
 	const base64 = `data:${mimetype};base64,${buffer.toString('base64')}`
 	const publicId = `${process.env.CLOUD_FOLDER_NAME}/${formatName(originalname)}`
 
