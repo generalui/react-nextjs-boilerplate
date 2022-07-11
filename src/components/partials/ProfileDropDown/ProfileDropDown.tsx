@@ -17,7 +17,7 @@ export const ProfileDropDown = ({
 
 	return (
 		<DropDown
-			className={cn('w-64 z-50', className)}
+			className={cn('w-32 lg:w-64 z-50', className)}
 			items={[
 				{
 					label: t('profile'),
@@ -31,7 +31,8 @@ export const ProfileDropDown = ({
 			testId={testId}
 			v='secondary'
 		>
-			{label}
+			<div className='hidden lg:block'>{label}</div>
+			<div className='block lg:hidden'>{label.split(' ')[0]}</div>
 		</DropDown>
 	)
 }

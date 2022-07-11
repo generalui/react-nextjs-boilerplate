@@ -9,7 +9,7 @@ import { textVariants } from './Text.variants'
  * V stands for variant. Sorry, I'm lazy. :(
  */
 export const Text = React.forwardRef<HTMLAnchorElement, TextProps>(function Text(
-	{ children, className, href, testId = 'Text', v = 'default' }: TextProps,
+	{ children, className, href, onClick, testId = 'Text', v = 'default' }: TextProps,
 	ref
 ) {
 	const Component = href ? 'a' : 'div'
@@ -21,6 +21,7 @@ export const Text = React.forwardRef<HTMLAnchorElement, TextProps>(function Text
 			href={href}
 			// @ts-expect-error Not sure how to type this ref since the base component can change
 			ref={Component === 'a' ? ref : null}
+			onClick={onClick}
 		>
 			{children}
 		</Component>

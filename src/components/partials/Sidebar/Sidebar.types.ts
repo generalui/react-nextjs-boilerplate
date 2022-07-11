@@ -1,3 +1,5 @@
 import { CommonProps } from 'types/CommonProps'
 
-export interface SidebarProps extends CommonProps {}
+export interface SidebarProps extends CommonProps {
+	sidebarLinkOnClick?: () => void
+}

@@ -29,7 +29,7 @@ export const Profile = function Profile({ testId = 'Profile' }: ProfileProps) {
 					<div className='grid grid-cols-6'>
 						<div className=''>
 							<img
-								className='mb-3 w-36 h-36 rounded-full'
+								className='mb-3 rounded-full w-23 h-23 lg:w-30 lg:h-30 xl:w-36 xl:h-36'
 								src='/images/profile-image-placeholder.jpg'
 								alt='user'
 							/>

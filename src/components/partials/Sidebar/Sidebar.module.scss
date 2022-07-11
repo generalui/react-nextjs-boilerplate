@@ -1,6 +1,16 @@
+@import 'styles/breakpoints';
 @import 'styles/variables';
 
+/* MUST UPDATE SIDEBAR WIDTH WHEN UPDATING withSideBar width property  */
+
 .sideBar {
-	width: $sideBarWidth;
+	width: 100%;
 	top: $sideBarTop;
+
+  @include md() {
+		width: 75%;
+	}
+  @include lg() {
+		width: $sideBarWidth;
+	}
 }

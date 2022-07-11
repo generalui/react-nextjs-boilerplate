@@ -1,3 +1,4 @@
+import { MenuIcon, XIcon } from '@heroicons/react/solid'
 import cn from 'classnames'
 import { useText } from 'hooks/useText'
 import { ProfileDropDown } from 'partials/ProfileDropDown'
@@ -8,7 +9,12 @@ import { NavBarProps } from './NavBar.types'
  * Side bar top and height are derived from the height of the NavBar
  */
 
-export const NavBar = ({ hideAuth, testId = 'NavBar' }: NavBarProps) => {
+export const NavBar = ({
+	hideAuth,
+	isMobileView,
+	handleMenuToggle,
+	testId = 'NavBar'
+}: NavBarProps) => {
 	const { t } = useText('common.client')
 
 	return (
@@ -19,9 +25,14 @@ export const NavBar = ({ hideAuth, testId = 'NavBar' }: NavBarProps) => {
 			)}
 			data-testid={testId}
 		>
-			<div className='grid grid-cols-2 w-full items-center'>
-				<div>
-					<img className='h-12' src='/images/NBDC_logo_full.svg' alt={t('logoAlt')} />
+			<div className='flex justify-between w-full items-center'>
+				<div className='cursor-pointer flex items-center'>
+					<button className='block lg:hidden h-8 w-8' onClick={handleMenuToggle}>
+						{isMobileView ? <XIcon /> : <MenuIcon />}
+					</button>
+					<div>
+						<img className='h-12' src='/images/NBDC_logo_full.svg' alt={t('logoAlt')} />
+					</div>
 				</div>
 
 				<div>
