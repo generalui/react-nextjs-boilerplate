@@ -9,6 +9,11 @@ export const getStudies = async (): Promise<Study[]> => {
 
 export const getStudy = async (studyId: string): Promise<Study> => {
 	const response = await axios.get<ApiStudy>(`/studies/${studyId}`)
+
+	if (!response.data) {
+		throw new Error('Study not found')
+	}
+
 	return standardizeApiStudy(response.data)
 }
 

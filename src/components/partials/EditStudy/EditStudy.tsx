@@ -16,8 +16,7 @@ export const EditStudy = memo(function EditStudy({
 	const { t } = useText('studies.edit')
 	const { t: common } = useText('common.dataTypes')
 	const { close } = useModal('edit-study')
-	const { data: study } = useStudy(studyId)
-	const { update } = useStudy(studyId)
+	const { data: study, update } = useStudy(studyId)
 
 	const onSubmit = async (values: StudyInput) => {
 		if (update.isLoading) return

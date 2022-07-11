@@ -24,6 +24,7 @@ apiRoute.use(uploadMiddleware.single('file'))
 // Get a study by ID
 apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	const { studyId } = req.query
+
 	const studyQuery = async () =>
 		await prisma.study.findUnique({
 			where: {
