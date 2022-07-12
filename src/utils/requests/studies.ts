@@ -4,7 +4,7 @@ import { standardizeApiStudy } from 'utils/models/studies'
 
 export const getStudies = async (query?: string): Promise<Study[]> => {
 	const response = await axios.get<ApiStudy[]>(`/studies${query || ''}`)
-	return response.data.map((study) => standardizeApiStudy(study))
+	return response.data.map(standardizeApiStudy)
 }
 
 export const getStudy = async (studyId: string): Promise<Study> => {
@@ -27,7 +27,6 @@ export const updateStudy = async (
 	{ image, ...updatedStudy }: Partial<StudyInput>
 ): Promise<Study> => {
 	const response = await withFile<ApiStudy>(`/studies/${studyId}`, updatedStudy, image, 'patch')
-
 	return standardizeApiStudy(response.data)
 }
 

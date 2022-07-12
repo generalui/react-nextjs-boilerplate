@@ -2,8 +2,10 @@ import { useSession } from 'next-auth/react'
 import { UseMutationResult, UseQueryResult, useMutation, useQuery } from 'react-query'
 import { Study, StudyInput } from 'types/Study'
 import { reactQueryClient } from 'utils/client/react-query'
+import { toast } from 'utils/client/toast'
 import { createPartialStudyFromFormData } from 'utils/models/studies'
 import { getStudy, updateStudy } from 'utils/requests/studies'
+import { useText } from 'hooks/useText'
 
 export const useStudy = (
 	studyId: string
@@ -11,6 +13,8 @@ export const useStudy = (
 	update: UseMutationResult<Study, unknown, Partial<StudyInput>>
 } => {
 	const { data: session } = useSession()
+	const { t: error } = useText('studies.error')
+
 	const query = useQuery(['studies', studyId], () => getStudy(studyId), {
 		enabled: !!studyId,
 		retry: false
@@ -25,7 +29,7 @@ export const useStudy = (
 				const previousStudy = reactQueryClient.getQueryData<Study>(['studies', studyId])
 
 				if (!previousStudy) {
-					// TODO: Handle trying to update a study that doesn't exist
+					toast(error('studyDoesNotExist'), 'error')
 					return
 				}
 

@@ -37,6 +37,9 @@ const studies = {
 		approved: { message: 'Approved' },
 		new: { message: 'New' },
 		archived: { message: 'Archived' }
+	},
+	error: {
+		studyDoesNotExist: { message: 'Study does not exist' }
 	}
 }
 
