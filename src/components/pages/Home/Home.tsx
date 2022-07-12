@@ -1,11 +1,14 @@
 import { useAggregatedStudyData } from 'hooks/api/aggregatedData/useAggregatedStudyData'
+import { useStudies } from 'hooks/api/useStudies'
 import { useText } from 'hooks/useText'
 import { AggregatedDataCard } from 'partials/AggregatedDataCard'
 import { PageWrapper } from 'partials/PageWrapper'
+import { StudyList } from 'partials/StudyList'
 import { Card } from 'common/Card'
 
 export const Home = () => {
 	const { t } = useText('home')
+	const { studies = [], isLoading } = useStudies('new')
 	const { data } = useAggregatedStudyData()
 	const AggregatedData = [
 		{
@@ -44,9 +47,7 @@ export const Home = () => {
 				{/* Divider */}
 				<div className='border-b col-span-1 col-span-3 my-2 border-color-black-400' />
 				<Card title={t('recentlyAddedStudies.title')} className='col-span-3'>
-					<div className='flex justify-center items-center py-14'>
-						<p>{t('recentlyAddedStudies.placeHolder')}</p>
-					</div>
+					<StudyList studies={studies} isLoading={isLoading} className='w-full' concise />
 				</Card>
 			</div>
 		</PageWrapper>

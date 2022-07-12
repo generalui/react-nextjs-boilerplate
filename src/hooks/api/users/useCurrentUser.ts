@@ -4,9 +4,11 @@ import { UseQueryResult, useQuery } from 'react-query'
 import { User } from 'types/User'
 import { getCurrentUser } from 'utils/requests/getCurrentUser'
 
-export const useCurrentUser = (): Omit<UseQueryResult<Awaited<User>, unknown>, 'data'> & {
+export type UseCurrentUser = () => Omit<UseQueryResult<Awaited<User>, unknown>, 'data'> & {
 	currentUser?: User
-} => {
+}
+
+export const useCurrentUser: UseCurrentUser = () => {
 	const { data: currentUser, ...query } = useQuery('current-user', getCurrentUser)
 
 	useEffect(() => {
