@@ -17,6 +17,10 @@ const createStudy = {
 		},
 		dataTypes: {
 			message: 'Study Data Types'
+		},
+		documentation: {
+			label: { message: 'Study Documentation' },
+			files: { message: 'Select files or folders to upload' }
 		}
 	},
 	buttons: {

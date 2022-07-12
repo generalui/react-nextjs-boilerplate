@@ -34,7 +34,7 @@ export const StudyForm = ({
 			initialValues={initialValues}
 			render={({ handleSubmit }) => (
 				<form onSubmit={handleSubmit}>
-					<div className='grid grid-cols-3 gap-4 lg:gap-6'>
+					<div className='grid grid-cols-3 gap-4 pb-6 lg:gap-6'>
 						<div className='col-span-3 lg:col-span-1'>
 							<ImageInput name='image' className='h-auto max-h-48 w-full' />
 						</div>
@@ -86,6 +86,16 @@ export const StudyForm = ({
 								{t('fields.dataTypes')}
 							</label>
 							<DataTypesSelect options={studyDataTypes} />
+						</div>
+						<div className='col-span-3'>
+							<label className='text-xs text-gray-500' htmlFor='description'>
+								{t('fields.documentation.label')}
+							</label>
+							<div className='w-full bg-gray-100 h-44 border border-solid  border-gray-400 border-dashed flex flex-col justify-center items-center'>
+								<div>{'01'}</div>
+								<div>{t('fields.documentation.files')}</div>
+								<div>{'03'}</div>
+							</div>
 						</div>
 					</div>
 					<ModalFooter>
