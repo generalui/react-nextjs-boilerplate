@@ -1,4 +1,4 @@
-import { ApiStudy, Study, StudyInput } from 'types/index'
+import { AggregatedStudyData, ApiStudy, Study, StudyInput } from 'types/index'
 import { axios, withFile } from 'utils/client/axios'
 import { standardizeApiStudy } from 'utils/models/studies'
 
@@ -29,4 +29,9 @@ export const updateStudy = async (
 	const response = await withFile<ApiStudy>(`/studies/${studyId}`, updatedStudy, image, 'patch')
 
 	return standardizeApiStudy(response.data)
+}
+
+export const getAggregatedStudyData = async (): Promise<AggregatedStudyData> => {
+	const response = await axios.get<AggregatedStudyData>('/aggregated-study-data')
+	return response.data
 }

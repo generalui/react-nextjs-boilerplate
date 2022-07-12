@@ -7,9 +7,9 @@ const home = {
 			message: 'Current Studies'
 		},
 		placeHolderNumber: {
-			message: '8'
+			message: '0'
 		},
-		activeAndApproved: {
+		subTitle: {
 			message: 'Active & Approved'
 		},
 		description: {
@@ -22,9 +22,9 @@ const home = {
 			message: 'Data Vault'
 		},
 		placeHolderNumber: {
-			message: '2,000'
+			message: '0'
 		},
-		files: {
+		subTitle: {
 			message: 'Files'
 		},
 		description: {
@@ -37,9 +37,9 @@ const home = {
 			message: 'Documentation'
 		},
 		placeHolderNumber: {
-			message: '23'
+			message: '0'
 		},
-		files: {
+		subTitle: {
 			message: 'Files'
 		},
 		description: {

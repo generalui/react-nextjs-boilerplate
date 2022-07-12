@@ -1,6 +1,7 @@
 import cn from 'classnames'
 import { useText } from 'hooks/useText'
 import { ProfileDropDown } from 'partials/ProfileDropDown'
+import { Icon } from 'common/Icon'
 import styles from './NavBar.module.scss'
 import { NavBarProps } from './NavBar.types'
 
@@ -8,7 +9,12 @@ import { NavBarProps } from './NavBar.types'
  * Side bar top and height are derived from the height of the NavBar
  */
 
-export const NavBar = ({ hideAuth, testId = 'NavBar' }: NavBarProps) => {
+export const NavBar = ({
+	hideAuth,
+	isMenuOpen,
+	handleMenuToggle,
+	testId = 'NavBar'
+}: NavBarProps) => {
 	const { t } = useText('common.client')
 
 	return (
@@ -19,8 +25,11 @@ export const NavBar = ({ hideAuth, testId = 'NavBar' }: NavBarProps) => {
 			)}
 			data-testid={testId}
 		>
-			<div className='grid grid-cols-2 w-full items-center'>
-				<div>
+			<div className='flex justify-between w-full items-center'>
+				<div className='cursor-pointer flex items-center'>
+					<button className='block lg:hidden h-8 w-8' onClick={handleMenuToggle}>
+						<Icon icon={isMenuOpen ? 'XIcon' : 'MenuIcon'} />
+					</button>
 					<img className='h-12' src='/images/NBDC_logo_full.svg' alt={t('logoAlt')} />
 				</div>
 

@@ -56,6 +56,7 @@ export const EditStudy = memo(function EditStudy({
 							image: study.image?.image?.url || '',
 							status: study.status,
 							title: study.title,
+							// TODO: refactor to use formatDataTypes
 							dataTypes: study.dataTypes?.map((dataType) => ({
 								label: common(`${dataType}.label`),
 								value: dataType
