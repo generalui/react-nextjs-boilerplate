@@ -7,7 +7,6 @@ import { Card } from 'common/Card'
 export const Home = () => {
 	const { t } = useText('home')
 	const { studies = [], isLoading } = useStudies('new')
-	console.log('~ studies', studies)
 
 	return (
 		<PageWrapper title={t('title')}>

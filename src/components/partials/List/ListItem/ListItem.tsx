@@ -13,7 +13,7 @@ export const ListItem = <DataType extends object>({
 		<div className={cn('p-6 bg-white rounded-2xl items-center', concise && 'px-0 py-2', className)}>
 			{columns.map((column) => (
 				<div className={`col-span-${column.width} ${column.className}`} key={`${column.title}`}>
-					{itemData[column.key]}
+					{itemData[column.key as keyof DataType]}
 				</div>
 			))}
 		</div>
