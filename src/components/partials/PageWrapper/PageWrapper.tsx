@@ -1,5 +1,6 @@
 import cn from 'classnames'
 import Head from 'next/head'
+import { useState } from 'react'
 import { NavBar } from 'partials/NavBar'
 import { Sidebar } from 'partials/Sidebar'
 import { Container } from 'common/Container'
@@ -15,6 +16,16 @@ export const PageWrapper = ({
 	fullWidth,
 	testId = 'PageWrapper'
 }: PageWrapperProps) => {
+	const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+	const handleMenuToggle = () => {
+		setIsMenuOpen(!isMenuOpen)
+	}
+
+	const closeMenu = () => {
+		setIsMenuOpen(false)
+	}
+
 	return (
 		<div data-testid={testId} className='font-inter'>
 			<Head>
@@ -24,8 +35,22 @@ export const PageWrapper = ({
 			</Head>
 
 			<NavBar title={title} hideTitle={hideTitle} hideAuth={hideAuth} />
+			<NavBar
+				title={title}
+				hideTitle={hideTitle}
+				hideAuth={hideAuth}
+				handleMenuToggle={handleMenuToggle}
+				isMenuOpen={isMenuOpen}
+			/>
 
-			{!hideSidebar && <Sidebar />}
+			{!hideSidebar && (
+				<>
+					{isMenuOpen && (
+						<Sidebar sidebarLinkOnClick={closeMenu} className='block lg:hidden shadow-2xl' />
+					)}
+					<Sidebar className='hidden lg:block' />
+				</>
+			)}
 
 			<div className={cn(hideSidebar ? 'w-full' : styles.withSideBar, styles.withNavBar)}>
 				{!fullWidth && (
