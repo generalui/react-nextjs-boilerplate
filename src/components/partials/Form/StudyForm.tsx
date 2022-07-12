@@ -1,12 +1,13 @@
 import { selectOptionsType } from 'types/index'
 import { useText } from 'hooks/useText'
+import { DataTypesSelect } from 'partials/DataTypesSelect'
+import { DocumentsInput } from 'partials/DocumentsInput'
 import { Form } from 'partials/Form'
 import { Button } from 'common/Button'
 import { ImageInput } from 'common/ImageInput'
 import { Input } from 'common/Input'
 import { ModalFooter } from 'common/ModalFooter'
 import { SubmitButton } from 'common/SubmitButton'
-import { DataTypesSelect } from '../DataTypesSelect'
 import { StudyFormProps } from './Form.types'
 
 export const StudyForm = ({
@@ -91,11 +92,7 @@ export const StudyForm = ({
 							<label className='text-xs text-gray-500' htmlFor='description'>
 								{t('fields.documentation.label')}
 							</label>
-							<div className='w-full bg-gray-100 h-44 border border-solid  border-gray-400 border-dashed flex flex-col justify-center items-center'>
-								<div>{'01'}</div>
-								<div>{t('fields.documentation.files')}</div>
-								<div>{'03'}</div>
-							</div>
+							<DocumentsInput name='documentation' />
 						</div>
 					</div>
 					<ModalFooter>

@@ -14,9 +14,10 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 	const { createStudy, isLoading, isSuccess, reset } = useCreateStudy()
 
 	const onSubmit = async (values: StudyInput) => {
+		console.log('values: ', values)
 		if (isLoading) return
 
-		await createStudy({ ...StudySchema.parse(values), image: values.image })
+		// await createStudy({ ...StudySchema.parse(values), image: values.image })
 	}
 
 	useEffect(() => {

@@ -8,7 +8,8 @@ export const StudySchema = z.object({
 	description: z.string(),
 	status: z.nativeEnum(StudyStatus).optional().default('new'),
 	image: z.any().optional(),
-	dataTypes: z.object({ label: z.string(), value: z.string() }).array()
+	dataTypes: z.object({ label: z.string(), value: z.string() }).array(),
+	documentation: z.any().optional()
 })
 
 // The shape of data in outgoing axios requests

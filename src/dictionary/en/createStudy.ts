@@ -20,7 +20,9 @@ const createStudy = {
 		},
 		documentation: {
 			label: { message: 'Study Documentation' },
-			files: { message: 'Select files or folders to upload' }
+			filesSelect: { message: 'Select files or folders to upload' },
+			filesDrag: { message: 'or drag and drop them here' },
+			alt: { message: 'Folder icon' }
 		}
 	},
 	buttons: {
