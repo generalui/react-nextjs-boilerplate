@@ -1,9 +1,13 @@
+import { useStudies } from 'hooks/api/useStudies'
 import { useText } from 'hooks/useText'
 import { PageWrapper } from 'partials/PageWrapper'
+import { StudyList } from 'partials/StudyList'
 import { Card } from 'common/Card'
 
 export const Home = () => {
 	const { t } = useText('home')
+	const { studies = [], isLoading } = useStudies('new')
+	console.log('~ studies', studies)
 
 	return (
 		<PageWrapper title={t('title')}>
@@ -30,9 +34,7 @@ export const Home = () => {
 				</Card>
 				<div className='border-b lg:col-span-3 my-2' />
 				<Card title={t('recentlyAddedStudies.title')} className='col-span-3'>
-					<div className='flex justify-center items-center py-14'>
-						<p>{t('recentlyAddedStudies.placeHolder')}</p>
-					</div>
+					<StudyList studies={studies} isLoading={isLoading} className='w-full' concise />
 				</Card>
 			</div>
 		</PageWrapper>

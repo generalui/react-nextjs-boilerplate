@@ -5,13 +5,17 @@ export const ListItem = <DataType extends object>({
 	className,
 	columns,
 	itemData,
-	testId = 'ListItem'
+	testId = 'ListItem',
+	concise
 }: ListItemProps<DataType>) => (
-	<div className={cn('p-6 bg-white rounded-2xl items-center', className)} data-testid={testId}>
-		{columns.map((column) => (
-			<div className={`col-span-${column.width} ${column.className}`} key={`${column.title}`}>
-				{itemData[column.key]}
-			</div>
-		))}
+	<div data-testid={testId}>
+		{concise && <div className='block border-t col-span-12' />}
+		<div className={cn('p-6 bg-white rounded-2xl items-center', concise && 'px-2 py-3', className)}>
+			{columns.map((column) => (
+				<div className={`col-span-${column.width} ${column.className}`} key={`${column.title}`}>
+					{itemData[column.key]}
+				</div>
+			))}
+		</div>
 	</div>
 )

@@ -48,6 +48,13 @@ const includes = {
 apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	const studiesQuery = async () =>
 		await prisma.study.findMany({
+			where: {
+				status: req.query.new
+					? {
+							equals: 'new'
+					  }
+					: undefined
+			},
 			orderBy: [
 				{
 					submissionDate: 'desc'

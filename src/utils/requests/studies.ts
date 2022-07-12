@@ -2,8 +2,8 @@ import { ApiStudy, Study, StudyInput } from 'types/index'
 import { axios, withFile } from 'utils/client/axios'
 import { standardizeApiStudy } from 'utils/models/studies'
 
-export const getStudies = async (): Promise<Study[]> => {
-	const response = await axios.get<ApiStudy[]>('/studies')
+export const getStudies = async (query?: string): Promise<Study[]> => {
+	const response = await axios.get<ApiStudy[]>(`/studies${query || ''}`)
 	return response.data.map((study) => standardizeApiStudy(study))
 }
 
