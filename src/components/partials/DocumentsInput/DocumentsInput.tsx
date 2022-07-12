@@ -26,7 +26,6 @@ export const DocumentsInput = ({
 
 			const currentFiles = files
 				.map((file) => {
-					console.log('file: ', file)
 					if (file.size > MAX_FILE_SIZE) {
 						onChange?.(new Error('maxFileSizeExceeded'))
 						return undefined
@@ -38,7 +37,6 @@ export const DocumentsInput = ({
 							preview: URL.createObjectURL(file)
 						}
 						onChange?.(file)
-						console.log('currentFile: ', currentFile)
 						return currentFile
 					}
 				})
