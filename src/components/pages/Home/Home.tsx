@@ -1,3 +1,4 @@
+import { useAggregatedStudyData } from 'hooks/api/aggregatedData/useAggregatedStudyData'
 import { useText } from 'hooks/useText'
 import { AggregatedDataCard } from 'partials/AggregatedDataCard'
 import { PageWrapper } from 'partials/PageWrapper'
@@ -5,17 +6,21 @@ import { Card } from 'common/Card'
 
 export const Home = () => {
 	const { t } = useText('home')
+	const { data } = useAggregatedStudyData()
 	const AggregatedData = [
 		{
 			dataClassName: 'text-green-400',
+			value: data?.totalStudies,
 			dataType: 'currentStudies'
 		},
 		{
 			dataClassName: 'text-blue-400',
+			value: data?.totalDataVaultElements,
 			dataType: 'dataVault'
 		},
 		{
 			dataClassName: 'text-red-400',
+			value: data?.totalDocuments,
 			dataType: 'documentation'
 		}
 	]
@@ -23,13 +28,14 @@ export const Home = () => {
 	return (
 		<PageWrapper title={t('title')}>
 			<div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
-				{AggregatedData.map(({ dataType, dataClassName }) => (
+				{/* Aggregated study data */}
+				{AggregatedData.map(({ dataType, dataClassName, value }) => (
 					<AggregatedDataCard
 						key={dataType}
 						className='col-span-3 lg:col-span-1'
 						title={t(`${dataType}.title`)}
 						dataClassName={dataClassName}
-						dataValue={t(`${dataType}.placeHolderNumber`)}
+						dataValue={value}
 						subTitle={t(`${dataType}.subTitle`)}
 						description={t(`${dataType}.description`)}
 					/>
