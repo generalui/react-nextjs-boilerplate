@@ -5,6 +5,6 @@ export interface NavBarProps extends CommonProps {
 	hideTitle?: boolean
 	showAuth?: boolean
 	hideAuth?: boolean
-	isMobileView?: boolean
+	isMenuOpen?: boolean
 	handleMenuToggle?: () => void
 }

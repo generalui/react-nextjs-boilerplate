@@ -15,7 +15,6 @@ export const Sidebar = ({ sidebarLinkOnClick, className, testId = 'Sidebar' }: S
 	const selectedRoute = '/' + router.route.split('/')[1]
 	const links = Object.values(routeMap).map(({ labelKey, href, ...rest }) => (
 		<SidebarLink
-			// onClick={window.innerWidth < 1024 ? sidebarLinkOnClick : undefined}
 			onClick={sidebarLinkOnClick}
 			href={href}
 			isSelected={href === selectedRoute}

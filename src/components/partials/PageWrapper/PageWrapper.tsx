@@ -1,6 +1,6 @@
 import cn from 'classnames'
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { NavBar } from 'partials/NavBar'
 import { Sidebar } from 'partials/Sidebar'
 import { Container } from 'common/Container'
@@ -17,7 +17,6 @@ export const PageWrapper = ({
 	testId = 'PageWrapper'
 }: PageWrapperProps) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
-	console.log('isMenuOpen: ', isMenuOpen)
 
 	const handleMenuToggle = () => {
 		setIsMenuOpen(!isMenuOpen)
@@ -41,12 +40,14 @@ export const PageWrapper = ({
 				hideTitle={hideTitle}
 				hideAuth={hideAuth}
 				handleMenuToggle={handleMenuToggle}
-				isMobileView={isMenuOpen}
+				isMenuOpen={isMenuOpen}
 			/>
 
 			{!hideSidebar && (
 				<>
-					{isMenuOpen && <Sidebar sidebarLinkOnClick={closeMenu} className='block lg:hidden' />}
+					{isMenuOpen && (
+						<Sidebar sidebarLinkOnClick={closeMenu} className='block lg:hidden shadow-2xl' />
+					)}
 					<Sidebar className='hidden lg:block' />
 				</>
 			)}

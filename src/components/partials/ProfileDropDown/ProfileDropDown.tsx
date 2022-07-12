@@ -32,7 +32,7 @@ export const ProfileDropDown = ({
 			v='secondary'
 		>
 			<div className='hidden lg:block'>{label}</div>
-			<div className='block lg:hidden'>{label.split(' ')[0]}</div>
+			<div className='block lg:hidden'>{label === 'Sign In' ? label : label.split(' ')[0]}</div>
 		</DropDown>
 	)
 }
