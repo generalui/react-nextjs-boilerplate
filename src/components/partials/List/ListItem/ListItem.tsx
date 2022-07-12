@@ -10,7 +10,7 @@ export const ListItem = <DataType extends object>({
 }: ListItemProps<DataType>) => (
 	<div data-testid={testId}>
 		{concise && <div className='block border-t col-span-12' />}
-		<div className={cn('p-6 bg-white rounded-2xl items-center', concise && 'px-2 py-3', className)}>
+		<div className={cn('p-6 bg-white rounded-2xl items-center', concise && 'px-0 py-2', className)}>
 			{columns.map((column) => (
 				<div className={`col-span-${column.width} ${column.className}`} key={`${column.title}`}>
 					{itemData[column.key]}

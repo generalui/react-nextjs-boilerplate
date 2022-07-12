@@ -26,8 +26,8 @@ export const List = <DataType extends object>({
 			<div
 				className={cn(
 					sharedClasses,
-					'mb-4 px-6 font-semibold text-black text-xs hidden lg:grid gap-10',
-					concise && 'px-2',
+					'pb-4 px-6 font-semibold text-black text-xs hidden lg:grid gap-10',
+					concise && 'px-0 pb-2',
 					sharedClassName
 				)}
 			>
