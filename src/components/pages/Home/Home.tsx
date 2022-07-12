@@ -1,5 +1,5 @@
-import { useStudies } from 'hooks/api/useStudies'
 import { useAggregatedStudyData } from 'hooks/api/aggregatedData/useAggregatedStudyData'
+import { useStudies } from 'hooks/api/useStudies'
 import { useText } from 'hooks/useText'
 import { AggregatedDataCard } from 'partials/AggregatedDataCard'
 import { PageWrapper } from 'partials/PageWrapper'
