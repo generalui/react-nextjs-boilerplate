@@ -43,8 +43,6 @@ export const Home = () => {
 
 				{/* Divider */}
 				<div className='border-b col-span-1 col-span-3 my-2 border-color-black-400' />
-
-				{/* TODO: Replace and refactor; filler content */}
 				<Card title={t('recentlyAddedStudies.title')} className='col-span-3'>
 					<div className='flex justify-center items-center py-14'>
 						<p>{t('recentlyAddedStudies.placeHolder')}</p>
