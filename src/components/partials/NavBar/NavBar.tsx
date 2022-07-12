@@ -28,7 +28,7 @@ export const NavBar = ({
 			<div className='flex justify-between w-full items-center'>
 				<div className='cursor-pointer flex items-center'>
 					<button className='block lg:hidden h-8 w-8' onClick={handleMenuToggle}>
-						{isMenuOpen ? <Icon icon='XIcon' /> : <Icon icon='MenuIcon' />}
+						<Icon icon={isMenuOpen ? 'XIcon' : 'MenuIcon'} />
 					</button>
 					<img className='h-12' src='/images/NBDC_logo_full.svg' alt={t('logoAlt')} />
 				</div>
