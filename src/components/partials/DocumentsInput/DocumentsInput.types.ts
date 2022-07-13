@@ -7,5 +7,5 @@ export interface DocumentsInputProps extends CommonProps {
 }
 
 export type DocumentPreview = File & {
-	preview: string
+	preview?: string
 }

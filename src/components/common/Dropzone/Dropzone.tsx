@@ -6,6 +6,7 @@ const MAX_FILE_SIZE = 5 * 1000000 // 5 mb
 
 export const Dropzone = ({
 	onChange,
+	onError,
 	className,
 	children,
 	maxFiles,
@@ -18,12 +19,11 @@ export const Dropzone = ({
 		onDrop: async (acceptedFiles: File[]) => {
 			if (!acceptedFiles || !acceptedFiles.length) return
 
-			const file = acceptedFiles[0]
-
-			if (file.size > MAX_FILE_SIZE) {
-				onChange?.(new Error('maxFileSizeExceeded'))
+			const fileSize = acceptedFiles.reduce((size, f) => size + f.size, 0)
+			if (fileSize > MAX_FILE_SIZE) {
+				onError?.(new Error('maxFileSizeExceeded'))
 			} else {
-				onChange?.(file)
+				onChange?.(acceptedFiles)
 			}
 		}
 	})

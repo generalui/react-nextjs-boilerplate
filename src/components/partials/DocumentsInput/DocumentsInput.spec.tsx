@@ -7,7 +7,7 @@ import { DocumentsInput } from './index'
 
 describe('DocumentsInput Component', () => {
 	it('renders on the page', () => {
-		render(<DocumentsInput />)
+		render(<DocumentsInput name='documentsTest' />)
 
 		const component = screen.getByTestId('DocumentsInput')
 
