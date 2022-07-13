@@ -1,4 +1,5 @@
 import cn from 'classnames'
+import { client } from 'utils/client.config'
 import { useText } from 'hooks/useText'
 import { ProfileDropDown } from 'partials/ProfileDropDown'
 import { Icon } from 'common/Icon'
@@ -30,7 +31,7 @@ export const NavBar = ({
 					<button className='block lg:hidden h-8 w-8' onClick={handleMenuToggle}>
 						<Icon icon={isMenuOpen ? 'XIcon' : 'MenuIcon'} />
 					</button>
-					<img className='h-12' src='/images/NBDC_logo_full.svg' alt={t('logoAlt')} />
+					<img className='h-12' src={client.headerLogo} alt={t('logoAlt')} />
 				</div>
 
 				<div>

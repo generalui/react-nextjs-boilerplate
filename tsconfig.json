@@ -31,6 +31,7 @@
 			"types/*": ["src/types/*"],
 			"utils/*": ["src/utils/*"],
 			"dictionary/*": ["src/dictionary/*"],
+			"client.config": ["src/dictionary/client.config.ts"],
 			"__tests__/*": ["__tests__/*"],
 			"__mocks__/*": ["__tests__/__mocks__/*"]
 		}
