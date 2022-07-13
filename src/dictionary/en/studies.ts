@@ -37,6 +37,13 @@ const studies = {
 		approved: { message: 'Approved' },
 		new: { message: 'New' },
 		archived: { message: 'Archived' }
+	},
+	success: {
+		created: { message: 'Study was successfully created' },
+		updated: { message: 'Study has been updated' }
+	},
+	error: {
+		doesNotExist: { message: 'Study does not exist' }
 	}
 }
 
