@@ -2,7 +2,7 @@ import { Prisma } from '@prisma/client'
 import { z } from 'zod'
 
 export const UserSchema = z.object({
-	name: z.string().trim(),
+	name: z.string().trim().min(2),
 	image: z.any().optional()
 })
 

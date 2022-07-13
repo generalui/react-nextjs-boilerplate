@@ -3,6 +3,7 @@
  */
 import { Form } from 'react-final-form'
 import { UserInput, UserSchema } from 'types/index'
+import { handleValidate } from 'utils/client/handleValidate'
 import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
 import { useUpdateCurrentUser } from 'hooks/api/users/useUpdateCurrentUser'
 import { useText } from 'hooks/useText'
@@ -35,6 +36,7 @@ export const Profile = function Profile({ testId = 'Profile' }: ProfileProps) {
 							email: currentUser.email,
 							image: currentUser.image?.image?.url
 						}}
+						validate={(values) => handleValidate(values, UserSchema)}
 						render={({ handleSubmit }) => (
 							<form onSubmit={handleSubmit} className='flex flex-col gap-10	 lg:gap-12'>
 								<div className='flex flex-col lg:flex-row gap-10 lg:gap-6 lg:items-center'>
