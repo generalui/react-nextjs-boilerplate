@@ -14,6 +14,7 @@ export const useStudy = (
 } => {
 	const { data: session } = useSession()
 	const { t: error } = useText('studies.error')
+	const { t: success } = useText('studies.success')
 
 	const query = useQuery(['studies', studyId], () => getStudy(studyId), {
 		enabled: !!studyId,
@@ -29,7 +30,7 @@ export const useStudy = (
 				const previousStudy = reactQueryClient.getQueryData<Study>(['studies', studyId])
 
 				if (!previousStudy) {
-					toast(error('studyDoesNotExist'), 'error')
+					toast(error('doesNotExist'), 'error')
 					return
 				}
 
@@ -45,6 +46,9 @@ export const useStudy = (
 				})
 
 				return { previousStudy }
+			},
+			onSuccess: () => {
+				toast(success('updated'))
 			},
 			onError: (_err, _newStudy, context?: { previousStudy: Study }) => {
 				reactQueryClient.setQueryData(['studies', studyId], context?.previousStudy)
