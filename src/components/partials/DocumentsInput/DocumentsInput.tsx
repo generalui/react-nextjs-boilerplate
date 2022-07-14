@@ -1,12 +1,10 @@
 import cn from 'classnames'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
-import { useDropzone } from 'react-dropzone'
 import { Field, FieldInputProps } from 'react-final-form'
 import { useText } from 'hooks/useText'
 import { DocumentGrid } from 'common/DocumentGrid'
 import { Dropzone } from 'common/Dropzone'
-import { Icon } from 'common/Icon'
 import { InputError } from 'common/InputError'
 import { DocumentPreview, DocumentsInputProps } from './DocumentsInput.types'
 
@@ -20,9 +18,8 @@ export const DocumentsInput = ({
 }: DocumentsInputProps) => {
 	const [documentFiles, setDocumentFiles] = useState<DocumentPreview[] | undefined>()
 	const [dropzoneErrors, setDropzoneErrors] = useState<string[]>([])
-	const inputRef = useRef<FieldInputProps<any, HTMLElement>>()
+	const inputRef = useRef<FieldInputProps<File, HTMLElement>>()
 	const { t } = useText('createStudy.fields.documentation')
-	const { t: common } = useText('common.errors')
 
 	const handleChange = (acceptedFiles: File[]) => {
 		if (!acceptedFiles || !acceptedFiles.length) return
