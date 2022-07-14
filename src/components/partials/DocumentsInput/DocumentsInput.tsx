@@ -1,8 +1,8 @@
 import cn from 'classnames'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
-import { Field } from 'react-final-form'
+import { Field, FieldInputProps } from 'react-final-form'
 import { useText } from 'hooks/useText'
 import { DocumentGrid } from 'common/DocumentGrid'
 import { Dropzone } from 'common/Dropzone'
@@ -16,11 +16,11 @@ export const DocumentsInput = ({
 	className,
 	name,
 	onChange,
-	errorClassName,
 	testId = 'DocumentsInput'
 }: DocumentsInputProps) => {
-	const [documentFile, setDocumentFile] = useState<DocumentPreview[] | undefined>()
+	const [documentFiles, setDocumentFiles] = useState<DocumentPreview[] | undefined>()
 	const [dropzoneErrors, setDropzoneErrors] = useState<string[]>([])
+	const inputRef = useRef<FieldInputProps<any, HTMLElement>>()
 	const { t } = useText('createStudy.fields.documentation')
 	const { t: common } = useText('common.errors')
 
@@ -37,38 +37,47 @@ export const DocumentsInput = ({
 				} else {
 					const currentFile: DocumentPreview = {
 						...file,
+						lastModified: file.lastModified,
 						name: file.name,
+						size: file.size,
 						type: file.type,
+						webkitRelativePath: file.webkitRelativePath,
 						preview: file.type.includes('image') ? URL.createObjectURL(file) : undefined
 					}
 					onChange?.(file)
+					const duplicateFile = documentFiles?.find(
+						(documentFile) => documentFile.name === currentFile.name
+					)
+					if (duplicateFile) return // add a Toast when file is duplicated
+
 					return currentFile
 				}
 			})
 			.filter((file) => file !== undefined) as DocumentPreview[]
 
-		setDocumentFile(documentFile ? [...documentFile, ...currentFiles] : [...currentFiles])
+		setDocumentFiles(documentFiles ? [...documentFiles, ...currentFiles] : [...currentFiles])
 	}
 
-	useEffect(
-		() => () => {
+	useEffect(() => {
+		inputRef.current?.onChange(documentFiles)
+
+		return () => {
 			// Make sure to revoke the data uris to avoid memory leaks
-			documentFile?.map((document) => {
+			documentFiles?.map((document) => {
 				if (document.preview) URL.revokeObjectURL(document.preview)
 			})
-		},
-		[documentFile]
-	)
+		}
+	}, [documentFiles])
 
 	return (
 		<div className={cn(className)} data-testid={testId}>
 			<Field name={name}>
 				{({ input, meta }) => {
+					inputRef.current = input
 					const isError = (meta.error && meta.touched) || dropzoneErrors.length > 0
 					const handleChangeInner = (files: File[]) => {
 						setDropzoneErrors([])
 
-						input.onChange?.(files)
 						handleChange(files)
 					}
 
@@ -80,8 +89,8 @@ export const DocumentsInput = ({
 								onError={(error) => setDropzoneErrors([t(error.message, '5mb')])}
 								className='w-full bg-gray-100 h-44 border border-solid  border-gray-400 border-dashed cursor-pointer overflow-y-auto p-4'
 							>
-								{documentFile ? (
-									<DocumentGrid documents={documentFile} />
+								{documentFiles ? (
+									<DocumentGrid documents={documentFiles} />
 								) : (
 									<div className='w-full h-full flex flex-col justify-center items-center cursor-pointer'>
 										<Image src={'/icons/folder.svg'} width='40' height='30' alt={t('alt')} />
