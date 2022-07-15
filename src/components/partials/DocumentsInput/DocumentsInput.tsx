@@ -3,9 +3,9 @@ import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import { Field, FieldInputProps } from 'react-final-form'
 import { useText } from 'hooks/useText'
-import { DocumentGrid } from 'common/DocumentGrid'
 import { Dropzone } from 'common/Dropzone'
 import { InputError } from 'common/InputError'
+import { DocumentGrid } from './DocumentGrid'
 import { DocumentPreview, DocumentsInputProps } from './DocumentsInput.types'
 
 const MAX_FILE_SIZE = 5 * 1000000 // 5 mb
