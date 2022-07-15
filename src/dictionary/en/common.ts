@@ -13,6 +13,17 @@ const common = {
 			message: 'Sign in'
 		}
 	},
+	pages: {
+		home: {
+			message: 'Home'
+		},
+		studies: {
+			message: 'Studies'
+		},
+		settings: {
+			message: 'Settings'
+		}
+	},
 	sidebar: {
 		nav: {
 			home: {

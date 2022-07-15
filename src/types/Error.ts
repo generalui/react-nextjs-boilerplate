@@ -1,4 +1,4 @@
-export interface SigninError {
+export interface SignInError {
 	id: string
 	message: string
 }

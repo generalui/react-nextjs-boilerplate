@@ -1,6 +1,7 @@
 import { StylesConfig } from 'react-select'
 import { selectOptionsType } from 'types/index'
 
+// TODO: restyle this component using scss
 export const dataTypesStyles: StylesConfig<selectOptionsType, boolean> = {
 	option: (base, { isFocused, isSelected }) => ({
 		...base,
