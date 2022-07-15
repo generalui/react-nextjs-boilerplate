@@ -1,4 +1,5 @@
-import { selectOptionsType } from 'types/index'
+import { StudySchema, selectOptionsType } from 'types/index'
+import { handleValidate } from 'utils/client/handleValidate'
 import { useText } from 'hooks/useText'
 import { DataTypesSelect } from 'partials/DataTypesSelect'
 import { DocumentsInput } from 'partials/DocumentsInput'
@@ -33,6 +34,7 @@ export const StudyForm = ({
 			data-testid={testId}
 			onSubmit={onSubmit}
 			initialValues={initialValues}
+			validate={(values) => handleValidate(values, StudySchema)}
 			render={({ handleSubmit }) => (
 				<form onSubmit={handleSubmit}>
 					<div className='grid grid-cols-3 gap-4 pb-6 lg:gap-6'>

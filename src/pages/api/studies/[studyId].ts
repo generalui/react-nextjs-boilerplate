@@ -72,26 +72,30 @@ apiRoute.patch(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 		dataTypes: string
 	}
 
-	const dataTypes: StudyDataTypes[] = JSON.parse(dt).map(
-		(dataType: selectOptionsType) => dataType.value as StudyDataTypes
-	)
+	// TODO: this should be handled on the front end before the request is made.
+	const dataTypes: StudyDataTypes[] = dt
+		? JSON.parse(dt).map((dataType: selectOptionsType) => dataType.value as StudyDataTypes)
+		: undefined
 
+	// TODO: this needs include an update to the study users, it should be possible to update the coordinators on a study
 	// Remove values that don't belong in the database
 	delete simpleBody.coordinator
 
 	const upsertImage = await handleAvatarJoin(req.file, session.userId)
+
+	const data = {
+		...simpleBody,
+		endDate: endDate ? new Date(endDate) : undefined,
+		dataTypes,
+		...upsertImage
+	}
 
 	const studyQuery = async () =>
 		prisma.study.update({
 			where: {
 				id: studyId
 			},
-			data: {
-				...simpleBody,
-				endDate: endDate ? new Date(endDate) : undefined,
-				dataTypes,
-				...upsertImage
-			},
+			data,
 			...includes
 		})
 

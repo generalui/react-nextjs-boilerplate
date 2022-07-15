@@ -29,7 +29,6 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 
 	useEffect(() => {
 		if (isFetched && !study?.id) {
-			// TODO: Show a toast or similar notification of redirection
 			router.push('/studies')
 		}
 	}, [isFetched, router, study, singleStudyId])

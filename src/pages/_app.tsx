@@ -4,6 +4,8 @@ import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
 import { useEffect } from 'react'
 import { QueryClientProvider } from 'react-query'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.min.css'
 import { reactQueryClient } from 'utils/client/react-query'
 import 'styles/globals.scss'
 import '../store'
@@ -20,6 +22,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 			<SessionProvider session={session}>
 				<QueryClientProvider client={reactQueryClient}>
 					<Component {...pageProps} />
+					<ToastContainer />
 				</QueryClientProvider>
 			</SessionProvider>
 		</Provider>

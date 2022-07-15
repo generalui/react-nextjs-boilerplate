@@ -4,7 +4,7 @@ import { Loader } from 'common/Loader'
 import { Spinner } from 'common/Spinner'
 import { ListProps } from './List.types'
 
-const sharedClasses = 'grid grid-cols-6 lg:grid-cols-12 gap-10'
+const sharedClasses = 'grid grid-cols-6 lg:grid-cols-12'
 
 export const List = <DataType extends object>({
 	columns,
@@ -13,16 +13,21 @@ export const List = <DataType extends object>({
 	listItemClassName,
 	sharedClassName,
 	isLoading = false,
-	testId = 'List'
+	testId = 'List',
+	concise
 }: ListProps<DataType>) => {
 	let colWidthAccumulator = 0
 
 	return (
-		<div className={cn('flex flex-col px-6 lg:px-0', className)} data-testid={testId}>
+		<div
+			className={cn('flex flex-col px-6 lg:px-0', concise && 'px-0', className)}
+			data-testid={testId}
+		>
 			<div
 				className={cn(
 					sharedClasses,
-					'mb-4 px-6 font-semibold text-black text-xs hidden lg:grid',
+					'pb-4 px-6 font-semibold text-black text-xs hidden lg:grid gap-10',
+					concise && 'px-0 pb-2',
 					sharedClassName
 				)}
 			>
@@ -36,9 +41,18 @@ export const List = <DataType extends object>({
 					colWidthAccumulator = 0
 
 					return (
-						<div className={cn('truncate', `col-span-${columnWidth}`)} key={column.title}>
-							{column.title}
-						</div>
+						<>
+							<div
+								className={cn(
+									'truncate',
+									columnWidth && `col-span-${columnWidth}`,
+									concise && 'text-gray-500'
+								)}
+								key={column.key}
+							>
+								{column.title}
+							</div>
+						</>
 					)
 				})}
 			</div>
@@ -50,14 +64,21 @@ export const List = <DataType extends object>({
 					</div>
 				}
 			>
-				<div className='flex flex-col space-y-4'>
+				<div className={cn('flex flex-col space-y-4', concise && 'space-y-0')}>
 					{data.map((item, index) => (
 						<ListItem
-							className={cn(sharedClasses, sharedClassName, listItemClassName)}
+							className={cn(
+								sharedClasses,
+								!concise && 'gap-10',
+								concise && 'gap-2 lg:gap-10',
+								sharedClassName,
+								listItemClassName
+							)}
 							columns={columns}
 							itemData={item}
 							// @ts-expect-error We don't know any key info except the index for this item
 							key={index}
+							concise={concise}
 						/>
 					))}
 				</div>

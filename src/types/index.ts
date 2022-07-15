@@ -1,4 +1,5 @@
 // Automated exports
+export * from './AggregatedStudyData'
 export * from './Study'
 export * from './Sizes'
 export * from './ReqStatus'

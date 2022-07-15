@@ -1,12 +1,8 @@
-import { QueryClient } from 'react-query'
+import { QueryCache, QueryClient } from 'react-query'
+import { dispatchErrorToast } from 'utils/client/toast'
 
 export const reactQueryClient = new QueryClient({
-	defaultOptions: {
-		queries: {
-			onError: (error) => console.error({ error })
-		},
-		mutations: {
-			onError: (error) => console.error({ error })
-		}
-	}
+	queryCache: new QueryCache({
+		onError: dispatchErrorToast
+	})
 })

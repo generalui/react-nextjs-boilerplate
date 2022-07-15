@@ -21,6 +21,7 @@ export const handleValidate: HandleValidate = (values, schema) => {
 			const returnErrors = errors.issues.reduce(
 				(e: Record<string, unknown> | undefined, error: z.ZodIssue) => {
 					const ret = { ...(e || {}) }
+
 					error?.path?.forEach((p) => {
 						ret[p] = error.message
 					})

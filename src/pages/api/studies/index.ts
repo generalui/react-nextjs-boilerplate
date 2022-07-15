@@ -54,6 +54,13 @@ const includes = {
 apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	const studiesQuery = async () =>
 		await prisma.study.findMany({
+			where: {
+				status: req.query.new
+					? {
+							equals: 'new'
+					  }
+					: undefined
+			},
 			orderBy: [
 				{
 					submissionDate: 'desc'
@@ -83,9 +90,9 @@ apiRoute.post(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 			dataTypes: dt
 		} = req.body as Omit<StudyInput, 'dataTypes'> & { dataTypes: string }
 
-		const dataTypes: StudyDataTypes[] = JSON.parse(dt).map(
-			(dataType: selectOptionsType) => dataType.value as StudyDataTypes
-		)
+		const dataTypes: StudyDataTypes[] | undefined = dt
+			? JSON.parse(dt).map((dataType: selectOptionsType) => dataType.value as StudyDataTypes)
+			: undefined
 
 		const upsertImage = await handleAvatarJoin(req.files?.file[0], session.userId)
 		const upsertDocumentation = await handleDocumentationJoin(

@@ -9,12 +9,18 @@ import { SidebarProps } from './Sidebar.types'
 /**
  * Side bar top and height are derived from the height of the NavBar
  */
-export const Sidebar = ({ testId = 'Sidebar' }: SidebarProps) => {
+export const Sidebar = ({ sidebarLinkOnClick, className, testId = 'Sidebar' }: SidebarProps) => {
 	const { t } = useText()
 	const router = useRouter()
 	const selectedRoute = '/' + router.route.split('/')[1]
 	const links = Object.values(routeMap).map(({ labelKey, href, ...rest }) => (
-		<SidebarLink href={href} isSelected={href === selectedRoute} key={labelKey} {...rest}>
+		<SidebarLink
+			onClick={sidebarLinkOnClick}
+			href={href}
+			isSelected={href === selectedRoute}
+			key={labelKey}
+			{...rest}
+		>
 			{t(labelKey)}
 		</SidebarLink>
 	))
@@ -22,7 +28,7 @@ export const Sidebar = ({ testId = 'Sidebar' }: SidebarProps) => {
 
 	return (
 		<div
-			className={cn('hidden lg:block fixed left-0 bg-white z-10 h-full', styles.sideBar)}
+			className={cn('block fixed left-0 bg-white z-10 h-full', styles.sideBar, className)}
 			data-testid={testId}
 		>
 			<ul className='px-2 sm:px-4 py-6 flex flex-col gap-6'>{links}</ul>

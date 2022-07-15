@@ -1,6 +1,9 @@
 import cn from 'classnames'
+import { headerLogo } from 'client.config'
+import Link from 'next/link'
 import { useText } from 'hooks/useText'
 import { ProfileDropDown } from 'partials/ProfileDropDown'
+import { Icon } from 'common/Icon'
 import styles from './NavBar.module.scss'
 import { NavBarProps } from './NavBar.types'
 
@@ -8,7 +11,12 @@ import { NavBarProps } from './NavBar.types'
  * Side bar top and height are derived from the height of the NavBar
  */
 
-export const NavBar = ({ hideAuth, testId = 'NavBar' }: NavBarProps) => {
+export const NavBar = ({
+	hideAuth,
+	isMenuOpen,
+	handleMenuToggle,
+	testId = 'NavBar'
+}: NavBarProps) => {
 	const { t } = useText('common.client')
 
 	return (
@@ -19,9 +27,22 @@ export const NavBar = ({ hideAuth, testId = 'NavBar' }: NavBarProps) => {
 			)}
 			data-testid={testId}
 		>
-			<div className='grid grid-cols-2 w-full items-center'>
-				<div>
-					<img className='h-12' src='/images/NBDC_logo_full.svg' alt={t('logoAlt')} />
+			<div className='flex justify-between w-full items-center'>
+				<div className='flex items-center'>
+					{hideAuth ? (
+						<img className='h-12' src={headerLogo} alt={t('logoAlt')} />
+					) : (
+						<>
+							<button className='block lg:hidden h-8 w-8 cursor-pointer' onClick={handleMenuToggle}>
+								<Icon icon={isMenuOpen ? 'XIcon' : 'MenuIcon'} />
+							</button>
+							<Link href='/' passHref>
+								<a>
+									<img className='h-12 cursor-pointer' src={headerLogo} alt={t('logoAlt')} />
+								</a>
+							</Link>
+						</>
+					)}
 				</div>
 
 				<div>

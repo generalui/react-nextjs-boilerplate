@@ -31,6 +31,7 @@
 			"types/*": ["src/types/*"],
 			"utils/*": ["src/utils/*"],
 			"dictionary/*": ["src/dictionary/*"],
+			"client.config": ["client.config.js"],
 			"__tests__/*": ["__tests__/*"],
 			"__mocks__/*": ["__tests__/__mocks__/*"]
 		}
@@ -41,7 +42,9 @@
 		"__tests__/**/**.ts",
 		"__tests__/**/**.tsx",
 		"playwright.config.ts",
-		"prisma/seed.ts"
+		"prisma/seed.ts",
+		"client.config.js",
+		"tailwind.config.js"
 	],
 	"exclude": ["node_modules", "public"]
 }

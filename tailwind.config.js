@@ -1,3 +1,8 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const client = require('./client.config.js')
+
+// TODO: remove daisy ui
+// TODO: copy daisy ui toggles
 module.exports = {
 	content: [
 		'./src/components/**/*.tsx',
@@ -14,26 +19,7 @@ module.exports = {
 			pattern: /max-w/
 		}
 	],
-	theme: {
-		extend: {
-			fontFamily: {
-				inter: ['Inter', 'sans-serif']
-			},
-			typography: {
-				DEFAULT: {
-					css: {
-						color: '#474747'
-					}
-				}
-			},
-			colors: {
-				'blue-100': '#D5F2FF',
-				'blue-200': '#C7E9FF',
-				'blue-600': '#0093D8',
-				'blue-700': '#0773b0'
-			}
-		}
-	},
+	theme: client.tailwindTheme,
 	plugins: [require('@tailwindcss/line-clamp'), require('daisyui'), require('flowbite/plugin')],
 	daisyui: {
 		themes: ['light']

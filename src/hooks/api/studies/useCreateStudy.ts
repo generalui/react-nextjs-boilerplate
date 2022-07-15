@@ -2,11 +2,14 @@ import { useSession } from 'next-auth/react'
 import { useMutation } from 'react-query'
 import { Study } from 'types/index'
 import { reactQueryClient } from 'utils/client/react-query'
+import { toast } from 'utils/client/toast'
 import { createOptimisticStudyFromFormData } from 'utils/models/studies'
 import { createStudy } from 'utils/requests/studies'
+import { useText } from 'hooks/useText'
 
 export function useCreateStudy() {
 	const { data: session } = useSession()
+	const { t } = useText('studies.success')
 
 	const { mutate, ...mutation } = useMutation('create-study', createStudy, {
 		onMutate: async (newStudy) => {
@@ -28,6 +31,7 @@ export function useCreateStudy() {
 		onSuccess: (data, _variables, context?: { optimisticStudy: Study }) => {
 			// Replace optimistic study in the studies list with the result
 			reactQueryClient.setQueryData('studies', (old: Study[] | undefined) => {
+				toast(t('created'))
 				const nextCache = (old || []).map((study: any) =>
 					study.id === context?.optimisticStudy?.id ? data : study
 				)
