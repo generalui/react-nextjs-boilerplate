@@ -6,6 +6,8 @@ export interface DocumentsInputProps extends CommonProps {
 	onChange?: (file: File | Error) => void
 }
 
-export type DocumentPreview = File & {
+export type DocumentPreview = {
+	type: string
+	name: string
 	preview?: string
 }

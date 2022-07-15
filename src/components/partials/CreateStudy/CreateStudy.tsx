@@ -17,7 +17,7 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 		console.log('values: ', values)
 		if (isLoading) return
 
-		// await createStudy({ ...StudySchema.parse(values), image: values.image })
+		await createStudy({ ...StudySchema.parse(values), image: values.image })
 	}
 
 	useEffect(() => {

@@ -8,6 +8,7 @@ import { Study, selectOptionsType } from 'types/index'
 import { connect } from 'utils/api/connect'
 import { getSessionFromReq } from 'utils/api/getSessionFromReq'
 import { handleAvatarJoin } from 'utils/api/handleAvatarJoin'
+import { handleDocumentationJoin } from 'utils/api/handleDocumentationJoin'
 import { handleQuery } from 'utils/api/handleQuery'
 import { prisma } from 'utils/api/prisma'
 
@@ -25,7 +26,12 @@ const uploadMiddleware = multer({
 })
 
 // Middleware processing FormData to file
-apiRoute.use(uploadMiddleware.single('file'))
+apiRoute.use(
+	uploadMiddleware.fields([
+		{ name: 'file', maxCount: 1 },
+		{ name: 'documentation', maxCount: 20 }
+	])
+)
 
 // Included on all studies
 const includes = {
@@ -81,7 +87,11 @@ apiRoute.post(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 			(dataType: selectOptionsType) => dataType.value as StudyDataTypes
 		)
 
-		const upsertImage = await handleAvatarJoin(req.file, session.userId)
+		const upsertImage = await handleAvatarJoin(req.files?.file[0], session.userId)
+		const upsertDocumentation = await handleDocumentationJoin(
+			req.files?.documentation,
+			session.userId
+		)
 
 		return await prisma.study.create({
 			data: {
@@ -100,6 +110,7 @@ apiRoute.post(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 						}
 					}
 				},
+				...upsertDocumentation,
 				...upsertImage
 			},
 			...includes

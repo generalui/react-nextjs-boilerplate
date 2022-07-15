@@ -16,7 +16,8 @@ export const DocumentsInput = ({
 	onChange,
 	testId = 'DocumentsInput'
 }: DocumentsInputProps) => {
-	const [documentFiles, setDocumentFiles] = useState<DocumentPreview[] | undefined>()
+	const [previewDocumentFiles, setPreviewDocumentFiles] = useState<DocumentPreview[] | undefined>()
+	const [documentFiles, setDocumentFiles] = useState<File[] | undefined>()
 	const [dropzoneErrors, setDropzoneErrors] = useState<string[]>([])
 	const inputRef = useRef<FieldInputProps<File, HTMLElement>>()
 	const { t } = useText('createStudy.fields.documentation')
@@ -24,47 +25,53 @@ export const DocumentsInput = ({
 	const handleChange = (acceptedFiles: File[]) => {
 		if (!acceptedFiles || !acceptedFiles.length) return
 
-		const files = acceptedFiles
+		const files = acceptedFiles.filter((file) => {
+			return (
+				file !== undefined &&
+				!documentFiles?.find((documentFile) => documentFile.name === file.name)
+			)
+			// add a Toast when file is duplicated
+		})
 
-		const currentFiles = files
-			.map((file) => {
-				if (file.size > MAX_FILE_SIZE) {
-					onChange?.(new Error('maxFileSizeExceeded'))
-					return undefined
-				} else {
-					const currentFile: DocumentPreview = {
-						...file,
-						lastModified: file.lastModified,
-						name: file.name,
-						size: file.size,
-						type: file.type,
-						webkitRelativePath: file.webkitRelativePath,
-						preview: file.type.includes('image') ? URL.createObjectURL(file) : undefined
-					}
-					onChange?.(file)
-					const duplicateFile = documentFiles?.find(
-						(documentFile) => documentFile.name === currentFile.name
-					)
-					if (duplicateFile) return // add a Toast when file is duplicated
+		const currentFilePreviews = files.map((file) => {
+			const currentFile: DocumentPreview = {
+				type: file.type,
+				name: file.name,
+				preview: file.type.includes('image') ? URL.createObjectURL(file) : undefined
+			}
 
-					return currentFile
-				}
-			})
-			.filter((file) => file !== undefined) as DocumentPreview[]
+			return currentFile
+		})
 
-		setDocumentFiles(documentFiles ? [...documentFiles, ...currentFiles] : [...currentFiles])
+		setPreviewDocumentFiles(
+			previewDocumentFiles
+				? [...previewDocumentFiles, ...currentFilePreviews]
+				: [...currentFilePreviews]
+		)
+
+		setDocumentFiles(documentFiles ? [...documentFiles, ...files] : [...files])
 	}
 
 	useEffect(() => {
-		inputRef.current?.onChange(documentFiles)
-
 		return () => {
 			// Make sure to revoke the data uris to avoid memory leaks
-			documentFiles?.map((document) => {
+			previewDocumentFiles?.map((document) => {
 				if (document.preview) URL.revokeObjectURL(document.preview)
 			})
 		}
-	}, [documentFiles])
+	}, [previewDocumentFiles])
+
+	useEffect(() => {
+		const totalFileSize = documentFiles?.reduce((totalSize, currentFile) => {
+			return totalSize + currentFile.size
+		}, 0)
+
+		if (totalFileSize && totalFileSize > MAX_FILE_SIZE) {
+			onChange?.(new Error('maxFileSizeExceeded'))
+		}
+
+		inputRef.current?.onChange(documentFiles)
+	}, [documentFiles, onChange])
 
 	return (
 		<div className={cn(className)} data-testid={testId}>
@@ -86,8 +93,8 @@ export const DocumentsInput = ({
 								onError={(error) => setDropzoneErrors([t(error.message, '5mb')])}
 								className='w-full bg-gray-100 h-44 border border-solid  border-gray-400 border-dashed cursor-pointer overflow-y-auto p-4'
 							>
-								{documentFiles ? (
-									<DocumentGrid documents={documentFiles} />
+								{previewDocumentFiles ? (
+									<DocumentGrid documents={previewDocumentFiles} />
 								) : (
 									<div className='w-full h-full flex flex-col justify-center items-center cursor-pointer'>
 										<Image src={'/icons/folder.svg'} width='40' height='30' alt={t('alt')} />

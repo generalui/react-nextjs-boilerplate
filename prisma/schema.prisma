@@ -85,6 +85,7 @@ model Study {
   title          String
   dataTypes      StudyDataTypes[]        @map("data_types")
   users          CoordinatorsOnStudies[]
+  documentation  Document[]
 }
 
 model Avatar {
@@ -110,13 +111,15 @@ model CoordinatorsOnStudies {
 }
 
 model Document {
-  id           String       @id @default(cuid())
+  id           String  @id @default(cuid())
   uploadedById String?
   name         String
   url          String
   fileType     String
-  uploadedBy   User?        @relation(fields: [uploadedById], references: [id], onDelete: Cascade)
+  uploadedBy   User?   @relation(fields: [uploadedById], references: [id], onDelete: Cascade)
   avatar       Avatar?
+  Study        Study?  @relation(fields: [studyId], references: [id])
+  studyId      String?
 }
 
 model NotificationEvent {

@@ -9,9 +9,16 @@ type WithFile = <T>(
 	url: string,
 	body: AxiosRequestConfig['data'],
 	selectedFile: File,
+	documentation: File[],
 	method?: string
 ) => Promise<AxiosResponse<T>>
-export const withFile: WithFile = async (url, body, selectedFile, method = 'post') => {
+export const withFile: WithFile = async (
+	url,
+	body,
+	selectedFile,
+	documentation,
+	method = 'post'
+) => {
 	// Create a form data object
 	const formData = new FormData()
 
@@ -26,6 +33,8 @@ export const withFile: WithFile = async (url, body, selectedFile, method = 'post
 		// Append the file to the form data object
 		formData.append('file', selectedFile)
 	}
+
+	documentation?.map((document) => formData.append('documentation', document))
 
 	// Call axios passing formData where the body would normally go
 	return await axios({

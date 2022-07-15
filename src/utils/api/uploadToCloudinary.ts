@@ -2,7 +2,7 @@
 import { upload } from './media'
 import { parseFile } from './parseFile'
 
-type UploadToCloudinaryReturn = { name: string; url: string; fileType: string }
+export type UploadToCloudinaryReturn = { name: string; url: string; fileType: string }
 
 type UploadToCloudinary = (
 	file?: Express.Multer.File
@@ -11,7 +11,7 @@ type UploadToCloudinary = (
 /**
  * UploadToCloudinary
  *
- * Takes a file from mutler and a user id from the request session.
+ * Takes a file from mutler.
  * Attempts to upload to cloudinary and return prisma formated object.
  *
  * @returns object to pass to prisma to create a connected document model

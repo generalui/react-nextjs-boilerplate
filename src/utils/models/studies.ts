@@ -60,7 +60,8 @@ const optimisticStudyKeyHandlers: {
 	image: createStudyImage,
 	status: (value) => value as StudyStatus,
 	title: (value) => value,
-	dataTypes: (dataTypes) => dataTypes.map((dataType) => dataType.value as StudyDataTypes)
+	dataTypes: (dataTypes) => dataTypes.map((dataType) => dataType.value as StudyDataTypes),
+	documentation: () => []
 }
 
 // TODO: coordinator should be an object from a react select component

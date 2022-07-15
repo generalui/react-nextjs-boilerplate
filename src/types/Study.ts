@@ -1,4 +1,4 @@
-import { Document, Prisma, StudyStatus, User } from '@prisma/client'
+import { Prisma, StudyStatus, User } from '@prisma/client'
 import { z } from 'zod'
 
 export const StudySchema = z.object({
@@ -9,7 +9,7 @@ export const StudySchema = z.object({
 	status: z.nativeEnum(StudyStatus).optional().default('new'),
 	image: z.any().optional(),
 	dataTypes: z.object({ label: z.string(), value: z.string() }).array(),
-	documentation: z.any().optional()
+	documentation: z.any().array().optional()
 })
 
 // The shape of data in outgoing axios requests
@@ -28,6 +28,7 @@ export type Study = Prisma.StudyGetPayload<{
 				image: true
 			}
 		}
+		documentation: true
 	}
 }>
 
@@ -48,6 +49,7 @@ export interface StudyInputMap extends StudyInputToStudyMap {
 	status: 'status'
 	title: 'title'
 	dataTypes: 'dataTypes'
+	documentation: 'documentation'
 }
 
 export type selectOptionsType = {
