@@ -18,7 +18,13 @@ export const getStudy = async (studyId: string): Promise<Study> => {
 }
 
 export const createStudy = async ({ image, documentation, ...newStudy }: StudyInput) => {
-	const response = await withFile<ApiStudy>('/studies', newStudy, image, documentation as File[])
+	const response = await withFile<ApiStudy>(
+		'/studies',
+		newStudy,
+		image,
+		'post',
+		documentation as File[]
+	)
 	return standardizeApiStudy(response.data)
 }
 
@@ -30,8 +36,8 @@ export const updateStudy = async (
 		`/studies/${studyId}`,
 		updatedStudy,
 		image,
-		documentation as File[],
-		'patch'
+		'patch',
+		documentation as File[]
 	)
 
 	return standardizeApiStudy(response.data)
