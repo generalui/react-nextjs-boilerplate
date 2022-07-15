@@ -44,6 +44,12 @@ const studies = {
 	},
 	error: {
 		doesNotExist: { message: 'Study does not exist' }
+	},
+	documentation: {
+		title: { message: 'Documentation' },
+		buttonLabel: { message: 'Add Public Files' },
+		name: { message: 'Name' },
+		modified: { message: 'Modified' }
 	}
 }
 
