@@ -1,12 +1,13 @@
 /*!
  * SignIn
  */
+import { signInImage } from 'client.config'
 import { SignInResponse, signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useMemo } from 'react'
 import { SignInInput, SignInSchema } from 'types/Auth'
-import { SigninError } from 'types/Error'
+import { SignInError } from 'types/Error'
 import { handleValidate } from 'utils/client/handleValidate'
 import { useText } from 'hooks/useText'
 import { Form } from 'partials/Form'
@@ -18,8 +19,9 @@ import { SignInFormProps } from './SignInForm.types'
 
 export const SignInForm = ({ className, testId = 'SignInForm' }: SignInFormProps) => {
 	const { t } = useText('signIn.form')
+	const { t: common } = useText('common')
 	const { status } = useSession()
-	const [loginErrors, setLoginErrors] = useState<SigninError[]>([])
+	const [loginErrors, setLoginErrors] = useState<SignInError[]>([])
 	const router = useRouter()
 	const { callbackUrl, error } = router.query
 	const isLoading = status === 'loading'
@@ -103,7 +105,7 @@ export const SignInForm = ({ className, testId = 'SignInForm' }: SignInFormProps
 			validate={(values) => handleValidate(values, SignInSchema)}
 			render={({ handleSubmit, values }) => (
 				<form onSubmit={handleSubmit}>
-					<img className='h-36 mx-auto mb-10' src='/images/NBDC_logo_full.svg' alt='NBDC Logo' />
+					<img className='h-36 mx-auto mb-10' src={signInImage} alt={common('pages.home')} />
 					<div className='flex flex-col gap-2 mb-12 xl:mb-16'>
 						<div>
 							<label className='text-xs text-gray-500' htmlFor='coordinator'>
