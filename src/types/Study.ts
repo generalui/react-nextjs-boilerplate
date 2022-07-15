@@ -1,14 +1,15 @@
 import { Document, Prisma, StudyStatus, User } from '@prisma/client'
 import { z } from 'zod'
 
+// TODO: date schema should a date after the current data?
 export const StudySchema = z.object({
 	title: z.string(),
-	coordinator: z.string(),
+	coordinator: z.string().email(),
 	endDate: z.string(),
 	description: z.string(),
 	status: z.nativeEnum(StudyStatus).optional().default('new'),
 	image: z.any().optional(),
-	dataTypes: z.object({ label: z.string(), value: z.string() }).array()
+	dataTypes: z.object({ label: z.string(), value: z.string() }).array().optional()
 })
 
 // The shape of data in outgoing axios requests

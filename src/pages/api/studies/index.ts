@@ -84,9 +84,9 @@ apiRoute.post(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 			dataTypes: dt
 		} = req.body as Omit<StudyInput, 'dataTypes'> & { dataTypes: string }
 
-		const dataTypes: StudyDataTypes[] = JSON.parse(dt).map(
-			(dataType: selectOptionsType) => dataType.value as StudyDataTypes
-		)
+		const dataTypes: StudyDataTypes[] | undefined = dt
+			? JSON.parse(dt).map((dataType: selectOptionsType) => dataType.value as StudyDataTypes)
+			: undefined
 
 		const upsertImage = await handleAvatarJoin(req.file, session.userId)
 
