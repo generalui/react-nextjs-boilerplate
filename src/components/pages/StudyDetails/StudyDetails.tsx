@@ -29,6 +29,7 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 	const { t: documentation } = useText('studies.documentation')
 	const singleStudyId = getCombinedString(studyId)
 	const { data: study, isLoading, isFetched, update } = useStudy(singleStudyId)
+	console.log('study: ', study)
 
 	useEffect(() => {
 		if (isFetched && !study?.id) {
@@ -48,7 +49,7 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 			</PageHeader>
 			<Loader isLoading={isLoading || !study?.id}>
 				{!study ? null : (
-					<div>
+					<div className='pb-8'>
 						<Card className='flex flex-col gap-6 m-4'>
 							<div className='flex justify-between items-center'>
 								<div className='flex gap-2 items-center'>
@@ -96,7 +97,7 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 								/>
 							</Detail>
 						</Card>
-						<Card className='flex flex-col gap-6 m-4'>
+						<Card className='flex flex-col gap-6 m-4 '>
 							<div className='flex justify-between items-center'>
 								<div className='flex gap-2 items-center'>
 									<div className='bg-green-300 p-1 flex justify-center items-center rounded w-6 h-6'>

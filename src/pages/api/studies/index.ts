@@ -47,6 +47,11 @@ const includes = {
 			include: {
 				image: true
 			}
+		},
+		documents: {
+			include: {
+				documentation: true
+			}
 		}
 	}
 }
