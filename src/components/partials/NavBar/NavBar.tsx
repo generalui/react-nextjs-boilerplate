@@ -1,5 +1,6 @@
 import cn from 'classnames'
 import { headerLogo } from 'client.config'
+import Link from 'next/link'
 import { useText } from 'hooks/useText'
 import { ProfileDropDown } from 'partials/ProfileDropDown'
 import { Icon } from 'common/Icon'
@@ -27,11 +28,21 @@ export const NavBar = ({
 			data-testid={testId}
 		>
 			<div className='flex justify-between w-full items-center'>
-				<div className='cursor-pointer flex items-center'>
-					<button className='block lg:hidden h-8 w-8' onClick={handleMenuToggle}>
-						<Icon icon={isMenuOpen ? 'XIcon' : 'MenuIcon'} />
-					</button>
-					<img className='h-12' src={headerLogo} alt={t('logoAlt')} />
+				<div className='flex items-center'>
+					{hideAuth ? (
+						<img className='h-12' src={headerLogo} alt={t('logoAlt')} />
+					) : (
+						<>
+							<button className='block lg:hidden h-8 w-8 cursor-pointer' onClick={handleMenuToggle}>
+								<Icon icon={isMenuOpen ? 'XIcon' : 'MenuIcon'} />
+							</button>
+							<Link href='/' passHref>
+								<a>
+									<img className='h-12 cursor-pointer' src={headerLogo} alt={t('logoAlt')} />
+								</a>
+							</Link>
+						</>
+					)}
 				</div>
 
 				<div>
