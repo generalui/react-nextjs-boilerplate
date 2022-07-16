@@ -99,7 +99,7 @@ apiRoute.post(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 			? JSON.parse(dt).map((dataType: selectOptionsType) => dataType.value as StudyDataTypes)
 			: undefined
 
-		const upsertImage = await handleAvatarJoin(req.files?.file[0], session.userId)
+		const upsertImage = await handleAvatarJoin(req.files?.file?.[0], session.userId)
 		const upsertDocumentation = await handleDocumentationJoin(
 			req.files?.documentation,
 			session.userId

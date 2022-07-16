@@ -17,6 +17,7 @@ export const StudyForm = ({
 	onCancel,
 	onSubmit,
 	testId = 'CreateStudy',
+	create,
 	submitText
 }: StudyFormProps) => {
 	const { t } = useText('createStudy')
@@ -90,12 +91,14 @@ export const StudyForm = ({
 							</label>
 							<DataTypesSelect options={studyDataTypes} />
 						</div>
-						<div className='col-span-3'>
-							<label className='text-xs text-gray-500' htmlFor='description'>
-								{t('fields.documentation.label')}
-							</label>
-							<DocumentsInput name='documentation' />
-						</div>
+						{create && (
+							<div className='col-span-3'>
+								<label className='text-xs text-gray-500' htmlFor='description'>
+									{t('fields.documentation.label')}
+								</label>
+								<DocumentsInput name='documentation' />
+							</div>
+						)}
 					</div>
 					<ModalFooter>
 						<SubmitButton
