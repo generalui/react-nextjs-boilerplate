@@ -49,7 +49,8 @@ const studies = {
 		title: { message: 'Documentation' },
 		buttonLabel: { message: 'Add Public Files' },
 		name: { message: 'Name' },
-		modified: { message: 'Modified' }
+		modified: { message: 'Modified' },
+		pdfIconAlt: { message: 'PDF Icon' }
 	}
 }
 
