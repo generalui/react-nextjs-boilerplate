@@ -5,6 +5,14 @@ import { Column } from 'partials/List/List.types'
 import { Icon } from 'common/Icon'
 import { DocumentationListProps } from './DocumentationList.types'
 
+const getDocumentIcon = (fileType: string) => {
+	if (fileType.includes('image')) {
+		return <Icon icon='PhotographIcon' className='text-green-400' />
+	} else if (fileType.includes('pdf')) {
+		return <Icon icon='PhotographIcon' className='text-green-400' />
+	}
+}
+
 export const DocumentationList = ({
 	className,
 	testId = 'DocumentationList'
