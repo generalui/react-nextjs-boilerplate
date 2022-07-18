@@ -48,7 +48,6 @@ export const handleQuery: HandleQuery = async ({
 			})
 		}
 
-		console.log('queryResult: ', queryResult)
 		await res.status(200).json(queryResult)
 	} catch (error) {
 		console.error({ error })
