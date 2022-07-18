@@ -29,11 +29,7 @@ export type Study = Prisma.StudyGetPayload<{
 				image: true
 			}
 		}
-		documents: {
-			include: {
-				documentation: true
-			}
-		}
+		documentation: true
 	}
 }>
 
@@ -54,7 +50,7 @@ export interface StudyInputMap extends StudyInputToStudyMap {
 	status: 'status'
 	title: 'title'
 	dataTypes: 'dataTypes'
-	documents: 'documentation'
+	documentation: 'documentation'
 }
 
 export type selectOptionsType = {

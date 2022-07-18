@@ -2,12 +2,12 @@ import { useText } from 'hooks/useText'
 import { List } from 'partials/List'
 import { Column } from 'partials/List/List.types'
 import { Icon } from 'common/Icon'
-import { StudyDocumentationProps } from './StudyDocumentation.types'
+import { DocumentationListProps } from './DocumentationList.types'
 
-export const StudyDocumentation = ({
+export const DocumentationList = ({
 	className,
-	testId = 'StudyDocumentation'
-}: StudyDocumentationProps) => {
+	testId = 'DocumentationList'
+}: DocumentationListProps) => {
 	const { t } = useText('studies.documentation')
 	const columns: Column[] = [
 		{

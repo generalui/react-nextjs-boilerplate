@@ -12,11 +12,11 @@ import { PageWrapper } from 'partials/PageWrapper'
 import { Breadcrumbs } from 'common/Breadcrumbs'
 import { Button } from 'common/Button'
 import { Card } from 'common/Card'
+import { DocumentationList } from 'common/DocumentationList'
 import { StudyStatusDropdown } from 'common/DropDown/StudyStatusDropdown'
 import { Icon } from 'common/Icon'
 import { Loader } from 'common/Loader'
 import { PageHeader } from 'common/PageHeader'
-import { StudyDocumentation } from 'common/StudyDocumentation'
 import { Text } from 'common/Text'
 import { Detail } from './Detail'
 import { StudyDetailsProps } from './StudyDetails.types'
@@ -110,7 +110,7 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 									{documentation('buttonLabel')}
 								</Button>
 							</div>
-							<StudyDocumentation />
+							<DocumentationList />
 						</Card>
 					</div>
 				)}

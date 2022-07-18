@@ -48,11 +48,7 @@ const includes = {
 				image: true
 			}
 		},
-		documents: {
-			include: {
-				documentation: true
-			}
-		}
+		documentation: true
 	}
 }
 // Get a list of studies
