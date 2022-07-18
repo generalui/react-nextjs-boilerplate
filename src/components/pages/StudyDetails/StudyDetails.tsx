@@ -29,7 +29,6 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 	const { t: documentation } = useText('studies.documentation')
 	const singleStudyId = getCombinedString(studyId)
 	const { data: study, isLoading, isFetched, update } = useStudy(singleStudyId)
-	console.log('study: ', study)
 
 	useEffect(() => {
 		if (isFetched && !study?.id) {

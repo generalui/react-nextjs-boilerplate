@@ -1,3 +1,4 @@
+import { Document } from '@prisma/client'
 import { useText } from 'hooks/useText'
 import { List } from 'partials/List'
 import { Column } from 'partials/List/List.types'
@@ -26,7 +27,7 @@ export const DocumentationList = ({
 		{
 			name: (
 				<div className='flex gap-2'>
-					<Icon icon='ArchiveIcon' />
+					<Icon icon='FolderIcon' />
 					{'document 1'}
 				</div>
 			),
@@ -35,13 +36,27 @@ export const DocumentationList = ({
 		{
 			name: (
 				<div className='flex gap-2'>
-					<Icon icon='ArchiveIcon' />
+					<Icon icon='DocumentTextIcon' className='text-blue-600' />
 					{'document 2'}
 				</div>
 			),
 			date: '2/11/2021'
 		}
 	]
+
+	const getData = (documents: Document[]) => {
+		documents.map((document: Document) => {
+			const data = {
+				name: (
+					<div className='flex gap-2'>
+						<Icon icon='DocumentTextIcon' className='text-blue-600' />
+						{document.name}
+					</div>
+				),
+				date: document.insertedAt
+			}
+		})
+	}
 
 	return (
 		<div className={className} data-testid={testId}>
