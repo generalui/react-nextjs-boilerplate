@@ -63,7 +63,7 @@ export const DataTypesSelect = ({
 	testId = 'DataTypesSelect'
 }: DataTypesSelectProps<selectOptionsType>) => {
 	return (
-		<div data-testid={testId} className={cn('pb-6', className)}>
+		<div data-testid={testId} className={className}>
 			<SelectInput<selectOptionsType>
 				data-testid={testId}
 				isMulti={true}

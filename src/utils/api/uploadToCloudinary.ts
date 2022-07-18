@@ -2,7 +2,7 @@
 import { upload } from './media'
 import { parseFile } from './parseFile'
 
-type UploadToCloudinaryReturn = { name: string; url: string; fileType: string }
+export type UploadToCloudinaryReturn = { name: string; url: string; fileType: string }
 
 type UploadToCloudinary = (
 	file?: Express.Multer.File
@@ -11,7 +11,7 @@ type UploadToCloudinary = (
 /**
  * UploadToCloudinary
  *
- * Takes a file from mutler and a user id from the request session.
+ * Takes a file from mutler.
  * Attempts to upload to cloudinary and return prisma formated object.
  *
  * @returns object to pass to prisma to create a connected document model
@@ -20,7 +20,7 @@ export const uploadToCloudinary: UploadToCloudinary = async (file) => {
 	if (!file) return undefined
 
 	// Add data type to base64 string
-	const { base64, publicId, originalName, mimeType } = parseFile(file as Express.Multer.File)
+	const { base64, publicId, originalName, mimeType } = await parseFile(file as Express.Multer.File)
 
 	// Upload (to cloudinary)
 	const { secure_url } = await upload({ file: base64, publicId })

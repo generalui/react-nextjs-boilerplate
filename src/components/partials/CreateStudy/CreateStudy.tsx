@@ -15,8 +15,12 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 
 	const onSubmit = async (values: StudyInput) => {
 		if (isLoading) return
-
-		await createStudy({ ...StudySchema.parse(values), image: values.image })
+		const newStudy = {
+			...StudySchema.parse(values),
+			image: values.image,
+			documentation: values.documentation
+		}
+		await createStudy(newStudy)
 	}
 
 	useEffect(() => {
@@ -38,7 +42,7 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 						</>
 					}
 				>
-					<StudyForm isLoading={isLoading} onCancel={close} onSubmit={onSubmit} />
+					<StudyForm create isLoading={isLoading} onCancel={close} onSubmit={onSubmit} />
 				</ModalButton>
 			</div>
 		</>

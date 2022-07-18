@@ -27,7 +27,7 @@ export const Modal = memo(function Modal({
 				{/* Modal Container */}
 				<div
 					className={cn(
-						'relative bg-white sm:bg-transparent sm:p-4 w-full h-full md:h-auto',
+						'relative bg-white sm:bg-transparent sm:p-4 w-full h-full ',
 						`max-w-${size}`
 					)}
 				>

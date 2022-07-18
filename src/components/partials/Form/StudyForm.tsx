@@ -1,13 +1,14 @@
 import { StudySchema, selectOptionsType } from 'types/index'
 import { handleValidate } from 'utils/client/handleValidate'
 import { useText } from 'hooks/useText'
+import { DataTypesSelect } from 'partials/DataTypesSelect'
+import { DocumentsInput } from 'partials/DocumentsInput'
 import { Form } from 'partials/Form'
 import { Button } from 'common/Button'
 import { ImageInput } from 'common/ImageInput'
 import { Input } from 'common/Input'
 import { ModalFooter } from 'common/ModalFooter'
 import { SubmitButton } from 'common/SubmitButton'
-import { DataTypesSelect } from '../DataTypesSelect'
 import { StudyFormProps } from './Form.types'
 
 export const StudyForm = ({
@@ -16,6 +17,7 @@ export const StudyForm = ({
 	onCancel,
 	onSubmit,
 	testId = 'CreateStudy',
+	create,
 	submitText
 }: StudyFormProps) => {
 	const { t } = useText('createStudy')
@@ -36,7 +38,7 @@ export const StudyForm = ({
 			validate={(values) => handleValidate(values, StudySchema)}
 			render={({ handleSubmit }) => (
 				<form onSubmit={handleSubmit}>
-					<div className='grid grid-cols-3 gap-4 lg:gap-6'>
+					<div className='grid grid-cols-3 gap-4 pb-6 lg:gap-6'>
 						<div className='col-span-3 lg:col-span-1'>
 							<ImageInput name='image' className='h-auto max-h-48 w-full' />
 						</div>
@@ -89,6 +91,14 @@ export const StudyForm = ({
 							</label>
 							<DataTypesSelect options={studyDataTypes} />
 						</div>
+						{create && (
+							<div className='col-span-3'>
+								<label className='text-xs text-gray-500' htmlFor='description'>
+									{t('fields.documentation.label')}
+								</label>
+								<DocumentsInput name='documentation' />
+							</div>
+						)}
 					</div>
 					<ModalFooter>
 						<SubmitButton

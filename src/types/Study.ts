@@ -1,4 +1,4 @@
-import { Document, Prisma, StudyStatus, User } from '@prisma/client'
+import { Prisma, StudyStatus, User } from '@prisma/client'
 import { z } from 'zod'
 
 // TODO: date schema should a date after the current data?
@@ -9,7 +9,8 @@ export const StudySchema = z.object({
 	description: z.string(),
 	status: z.nativeEnum(StudyStatus).optional().default('new'),
 	image: z.any().optional(),
-	dataTypes: z.object({ label: z.string(), value: z.string() }).array().optional()
+	dataTypes: z.object({ label: z.string(), value: z.string() }).array().optional(),
+	documentation: z.any().array().optional()
 })
 
 // The shape of data in outgoing axios requests
@@ -28,6 +29,7 @@ export type Study = Prisma.StudyGetPayload<{
 				image: true
 			}
 		}
+		documentation: true
 	}
 }>
 
@@ -48,6 +50,7 @@ export interface StudyInputMap extends StudyInputToStudyMap {
 	status: 'status'
 	title: 'title'
 	dataTypes: 'dataTypes'
+	documentation: 'documentation'
 }
 
 export type selectOptionsType = {
