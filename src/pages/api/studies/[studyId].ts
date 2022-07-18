@@ -33,7 +33,8 @@ const includes = {
 			include: {
 				image: true
 			}
-		}
+		},
+		documentation: true
 	}
 }
 

@@ -35,7 +35,7 @@ apiRoute.post(async (req: ApiRequestWithFile, res) => {
 			if (!req.file) throw Error('File required')
 
 			// Add data type to base64 string
-			const { base64, publicId, originalName } = parseFile(req.file)
+			const { base64, publicId, originalName } = await parseFile(req.file)
 
 			// Upload (to cloudinary)
 			const { secure_url } = await upload({ file: base64, publicId })

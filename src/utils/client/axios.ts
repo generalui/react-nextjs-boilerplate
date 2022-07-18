@@ -34,7 +34,11 @@ export const withFile: WithFile = async (
 		formData.append('file', selectedFile)
 	}
 
-	if (documentation) documentation.map((document) => formData.append('documentation', document))
+	documentation?.forEach((document) => {
+		if (document && document instanceof File) {
+			formData.append('documentation', document)
+		}
+	})
 
 	// Call axios passing formData where the body would normally go
 	return await axios({
