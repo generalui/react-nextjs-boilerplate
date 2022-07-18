@@ -109,7 +109,7 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 									{documentation('buttonLabel')}
 								</Button>
 							</div>
-							<DocumentationList />
+							<DocumentationList documents={study.documentation} />
 						</Card>
 					</div>
 				)}

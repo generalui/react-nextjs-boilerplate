@@ -8,6 +8,25 @@ import { InputError } from 'common/InputError'
 import { DocumentGrid } from './DocumentGrid'
 import { DocumentPreview, DocumentsInputProps } from './DocumentsInput.types'
 
+const maxFiles = 15
+const acceptedFiles = {
+	// TODO: Add correct support for file types
+	'*': [
+		'.pdf',
+		'.txt',
+		'.csv',
+		'.jpg',
+		'.jpeg',
+		'.png',
+		'.gif',
+		'.svg',
+		'.doc',
+		'.docx',
+		'.xls',
+		'.xlsx'
+	]
+}
+
 export const DocumentsInput = ({
 	className,
 	name,
@@ -65,11 +84,8 @@ export const DocumentsInput = ({
 						<>
 							<Dropzone
 								multi
-								maxFiles={10}
-								accept={{
-									// TODO: Add correct support for file types
-									'*': ['.pdf', '.txt', '.csv', '.jpg', '.jpeg', '.png', '.gif', '.svg']
-								}}
+								maxFiles={maxFiles}
+								accept={acceptedFiles}
 								onChange={(files) => {
 									setDropzoneErrors([])
 									handleChange(files)
