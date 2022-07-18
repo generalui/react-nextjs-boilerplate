@@ -1,8 +1,13 @@
 import cn from 'classnames'
+import { useState } from 'react'
 import { useDropzone } from 'react-dropzone'
+import { toast } from 'utils/client/toast'
+import { useText } from 'hooks/useText'
 import { DropzoneProps } from './Dropzone.types'
 
 const MAX_FILE_SIZE = 5 * 1000000 // 5 mb
+const getTotalFileSize = (files?: File[]) =>
+	!files ? 0 : files.reduce((totalSize, currentFile) => totalSize + currentFile.size, 0)
 
 export const Dropzone = ({
 	onChange,
@@ -13,17 +18,42 @@ export const Dropzone = ({
 	accept,
 	testId = 'Dropzone'
 }: DropzoneProps) => {
+	const [cachedFiles, setFiles] = useState<File[]>()
+	const { t: error } = useText('common.errors')
+
 	const { getRootProps, getInputProps } = useDropzone({
 		maxFiles,
 		accept,
 		onDrop: async (acceptedFiles: File[]) => {
 			if (!acceptedFiles || !acceptedFiles.length) return
 
-			const fileSize = acceptedFiles.reduce((size, f) => size + f.size, 0)
-			if (fileSize > MAX_FILE_SIZE) {
+			// Prevent duplicates
+			const files = acceptedFiles.filter((file) => {
+				const isUnique =
+					file !== undefined && !cachedFiles?.find((cachedFile) => cachedFile.name === file.name)
+
+				// Notify user of error
+				if (!isUnique)
+					toast(
+						<>
+							<div>{error('duplicateFileOmitted', file.name)}</div>
+							<div className='text-red-500'>{file.name}</div>
+						</>,
+						'error'
+					)
+
+				return isUnique
+			})
+
+			// Calculate total file size of dropped files
+			const filesAfterDrop = cachedFiles ? [...cachedFiles, ...files] : [...files]
+			const totalFileSize = getTotalFileSize(filesAfterDrop)
+			if (totalFileSize > MAX_FILE_SIZE) {
 				onError?.(new Error('maxFileSizeExceeded'))
 			} else {
-				onChange?.(acceptedFiles)
+				// If file size not exceeded set the files
+				setFiles(filesAfterDrop)
+				onChange?.(filesAfterDrop)
 			}
 		}
 	})

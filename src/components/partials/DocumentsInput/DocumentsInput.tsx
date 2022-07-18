@@ -8,8 +8,6 @@ import { InputError } from 'common/InputError'
 import { DocumentGrid } from './DocumentGrid'
 import { DocumentPreview, DocumentsInputProps } from './DocumentsInput.types'
 
-const MAX_FILE_SIZE = 5 * 1000000 // 5 mb
-
 export const DocumentsInput = ({
 	className,
 	name,
@@ -17,7 +15,6 @@ export const DocumentsInput = ({
 	testId = 'DocumentsInput'
 }: DocumentsInputProps) => {
 	const [previewDocumentFiles, setPreviewDocumentFiles] = useState<DocumentPreview[] | undefined>()
-	const [documentFiles, setDocumentFiles] = useState<File[] | undefined>()
 	const [dropzoneErrors, setDropzoneErrors] = useState<string[]>([])
 	const inputRef = useRef<FieldInputProps<File, HTMLElement>>()
 	const { t } = useText('createStudy.fields.documentation')
@@ -25,15 +22,17 @@ export const DocumentsInput = ({
 	const handleChange = (acceptedFiles: File[]) => {
 		if (!acceptedFiles || !acceptedFiles.length) return
 
-		const files = acceptedFiles.filter((file) => {
-			return (
-				file !== undefined &&
-				!documentFiles?.find((documentFile) => documentFile.name === file.name)
-			)
-			// add a Toast when file is duplicated
-		})
+		// Handle accepted files
+		onChange?.(acceptedFiles)
+		inputRef.current?.onChange(acceptedFiles)
 
-		const currentFilePreviews = files.map((file) => {
+		// Generate preview sprites
+		const filePreviews = acceptedFiles.map((file) => {
+			const existingPreview = previewDocumentFiles?.find((preview) => preview.name === file.name)
+			if (existingPreview) {
+				return existingPreview
+			}
+
 			const currentFile: DocumentPreview = {
 				type: file.type,
 				name: file.name,
@@ -43,13 +42,7 @@ export const DocumentsInput = ({
 			return currentFile
 		})
 
-		setPreviewDocumentFiles(
-			previewDocumentFiles
-				? [...previewDocumentFiles, ...currentFilePreviews]
-				: [...currentFilePreviews]
-		)
-
-		setDocumentFiles(documentFiles ? [...documentFiles, ...files] : [...files])
+		setPreviewDocumentFiles(filePreviews)
 	}
 
 	useEffect(() => {
@@ -61,35 +54,26 @@ export const DocumentsInput = ({
 		}
 	}, [previewDocumentFiles])
 
-	useEffect(() => {
-		const totalFileSize = documentFiles?.reduce((totalSize, currentFile) => {
-			return totalSize + currentFile.size
-		}, 0)
-
-		if (totalFileSize && totalFileSize > MAX_FILE_SIZE) {
-			onChange?.(new Error('maxFileSizeExceeded'))
-		}
-
-		inputRef.current?.onChange(documentFiles)
-	}, [documentFiles, onChange])
-
 	return (
 		<div className={cn(className)} data-testid={testId}>
 			<Field name={name}>
 				{({ input, meta }) => {
 					inputRef.current = input
 					const isError = (meta.error && meta.touched) || dropzoneErrors.length > 0
-					const handleChangeInner = (files: File[]) => {
-						setDropzoneErrors([])
-
-						handleChange(files)
-					}
 
 					return (
 						<>
 							<Dropzone
 								multi
-								onChange={handleChangeInner}
+								maxFiles={10}
+								accept={{
+									// TODO: Add correct support for file types
+									'*': ['.pdf', '.txt', '.csv', '.jpg', '.jpeg', '.png', '.gif', '.svg']
+								}}
+								onChange={(files) => {
+									setDropzoneErrors([])
+									handleChange(files)
+								}}
 								onError={(error) => setDropzoneErrors([t(error.message, '5mb')])}
 								className='w-full bg-gray-100 h-44 border border-solid  border-gray-400 border-dashed cursor-pointer overflow-y-auto p-4'
 							>
