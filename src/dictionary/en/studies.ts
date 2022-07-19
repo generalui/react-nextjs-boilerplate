@@ -47,10 +47,13 @@ const studies = {
 	},
 	documentation: {
 		title: { message: 'Documentation' },
-		buttonLabel: { message: 'Add Public Files' },
 		name: { message: 'Name' },
 		modified: { message: 'Modified' },
 		pdfIconAlt: { message: 'PDF Icon' }
+	},
+	addFiles: {
+		title: { message: 'Upload Files' },
+		buttonLabel: { message: 'Add Public Files' }
 	}
 }
 
