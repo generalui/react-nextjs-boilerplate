@@ -3,6 +3,7 @@ import cn from 'classnames'
 import { LegacyRef, forwardRef } from 'react'
 import { Field } from 'react-final-form'
 import { OnChange } from 'react-final-form-listeners'
+import { InputLabel } from 'common/InputLabel'
 import { TextArea } from 'common/TextArea'
 import { InputProps } from './Input.types'
 
@@ -25,11 +26,7 @@ export const Input = forwardRef(
 	) => {
 		return (
 			<>
-				{label && (
-					<label className={cn('text-xs text-gray-500', labelClassName)} htmlFor={name}>
-						{label}
-					</label>
-				)}
+				<InputLabel className={labelClassName} name={name} label={label} />
 				<Field name={name}>
 					{({ input, meta }) => {
 						const isError = meta.error && meta.touched

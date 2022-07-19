@@ -5,14 +5,20 @@ import { Field, FieldInputProps } from 'react-final-form'
 import { useText } from 'hooks/useText'
 import { Dropzone } from 'common/Dropzone'
 import { InputError } from 'common/InputError'
+import { InputLabel } from 'common/InputLabel'
 import { DocumentGrid } from './DocumentGrid'
 import { DocumentPreview, DocumentsInputProps } from './DocumentsInput.types'
+
+const acceptedFileTypes = ['.pdf', '.txt', '.csv', '.jpg', '.jpeg', '.png', '.gif', '.svg', '.xml']
 
 export const DocumentsInput = ({
 	className,
 	name,
 	onChange,
-	testId = 'DocumentsInput'
+	testId = 'DocumentsInput',
+	label,
+	labelClassName,
+	showAcceptedFileTypes = true
 }: DocumentsInputProps) => {
 	const [previewDocumentFiles, setPreviewDocumentFiles] = useState<DocumentPreview[] | undefined>()
 	const [dropzoneErrors, setDropzoneErrors] = useState<string[]>([])
@@ -56,6 +62,8 @@ export const DocumentsInput = ({
 
 	return (
 		<div className={cn(className)} data-testid={testId}>
+			<InputLabel className={labelClassName} name={name} label={label} />
+
 			<Field name={name}>
 				{({ input, meta }) => {
 					inputRef.current = input
@@ -63,12 +71,13 @@ export const DocumentsInput = ({
 
 					return (
 						<>
+							{/* Drag and drop area */}
 							<Dropzone
 								multi
 								maxFiles={10}
 								accept={{
 									// TODO: Add correct support for file types
-									'*': ['.pdf', '.txt', '.csv', '.jpg', '.jpeg', '.png', '.gif', '.svg']
+									'*': acceptedFileTypes
 								}}
 								onChange={(files) => {
 									setDropzoneErrors([])
@@ -81,13 +90,27 @@ export const DocumentsInput = ({
 									<DocumentGrid documents={previewDocumentFiles} />
 								) : (
 									<div className='w-full h-full flex flex-col justify-center items-center cursor-pointer'>
-										<Image src={'/icons/folder.svg'} width='40' height='30' alt={t('alt')} />
+										<Image src={'/icon	s/folder.svg'} width='40' height='30' alt={t('alt')} />
 										<label className='font-bold text-blue-600'>{t('filesSelect')}</label>
 										<label className='font-light text-gray-500'>{t('filesDrag')}</label>
 									</div>
 								)}
 							</Dropzone>
 
+							{/* Accept file type notice */}
+							{showAcceptedFileTypes && (
+								<div className='text-xs text-gray-500 mt-2'>
+									{t('subText')}{' '}
+									{acceptedFileTypes.map((type, i) => (
+										<span key={type}>
+											{type}
+											{i < acceptedFileTypes.length - 1 ? ', ' : ''}
+										</span>
+									))}
+								</div>
+							)}
+
+							{/* Show errors if any */}
 							{isError && <InputError errors={[...dropzoneErrors, meta.error]} />}
 						</>
 					)
