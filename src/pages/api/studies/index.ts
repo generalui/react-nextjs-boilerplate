@@ -51,23 +51,21 @@ const includes = {
 		documentation: true
 	}
 }
+
 // Get a list of studies
 apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
+	// If new flag passed only get the top ten
+	const getNewStudiesOnly = req?.query?.new ? { skip: 0, take: 5 } : undefined
+
 	const studiesQuery = async () =>
 		await prisma.study.findMany({
-			where: {
-				status: req.query.new
-					? {
-							equals: 'new'
-					  }
-					: undefined
-			},
 			orderBy: [
 				{
 					submissionDate: 'desc'
 				}
 			],
-			...includes
+			...includes,
+			...getNewStudiesOnly
 		})
 
 	handleQuery<Study[]>({
