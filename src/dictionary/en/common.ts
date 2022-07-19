@@ -1,6 +1,8 @@
+import { name } from 'client.config'
+
 const common = {
 	client: {
-		logoAlt: 'Native BioData Consortium'
+		logoAlt: { message: name }
 	},
 	userDropdown: {
 		profile: {
