@@ -9,18 +9,22 @@ const apiRoute = connect()
 // Get a aggregated study data
 apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	const studyQuery = async () => {
-		const totalStudies = await prisma.study.count()
+		const [totalStudies, totalDocuments] = await prisma.$transaction([
+			prisma.study.count(),
+			prisma.document.aggregate({
+				_count: {
+					studyId: true
+				}
+			})
+		])
 
 		// TODO: get data vault elements
 		const totalDataVaultElements = 0
 
-		// TODO: get document elements
-		const totalDocuments = 0
-
 		return {
 			totalStudies,
 			totalDataVaultElements,
-			totalDocuments
+			totalDocuments: totalDocuments._count.studyId
 		}
 	}
 
