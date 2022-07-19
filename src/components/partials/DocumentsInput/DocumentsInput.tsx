@@ -90,7 +90,7 @@ export const DocumentsInput = ({
 									<DocumentGrid documents={previewDocumentFiles} />
 								) : (
 									<div className='w-full h-full flex flex-col justify-center items-center cursor-pointer'>
-										<Image src={'/icon	s/folder.svg'} width='40' height='30' alt={t('alt')} />
+										<Image src={'/icons/folder.svg'} width='40' height='30' alt={t('alt')} />
 										<label className='font-bold text-blue-600'>{t('filesSelect')}</label>
 										<label className='font-light text-gray-500'>{t('filesDrag')}</label>
 									</div>
