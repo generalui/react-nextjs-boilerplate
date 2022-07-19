@@ -15,7 +15,6 @@ export const ModalFooterButtons = ({
 	const { t } = useText('common.modal')
 	const { close } = useModal(modalName)
 
-	console.log('isLoading: ', isLoading)
 	return (
 		<div className={className} data-testid={testId}>
 			<ModalFooter className='mt-4'>
