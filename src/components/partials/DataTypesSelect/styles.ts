@@ -31,7 +31,10 @@ export const dataTypesStyles: StylesConfig<selectOptionsType, boolean> = {
 		':hover': {
 			cursor: 'pointer',
 			backgroundColor: '#0772b0'
-		}
+		},
+		padding: 0,
+		display: 'flex',
+		justifyContent: 'center'
 	}),
 	input: (base) => ({
 		...base,

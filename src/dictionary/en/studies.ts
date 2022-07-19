@@ -49,7 +49,8 @@ const studies = {
 		title: { message: 'Documentation' },
 		name: { message: 'Name' },
 		modified: { message: 'Modified' },
-		pdfIconAlt: { message: 'PDF Icon' }
+		pdfIconAlt: { message: 'PDF Icon' },
+		noDocuments: { message: 'No files have been uploaded' }
 	},
 	addFiles: {
 		title: { message: 'Upload Files' },
