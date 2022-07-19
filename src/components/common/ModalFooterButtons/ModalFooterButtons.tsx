@@ -9,15 +9,17 @@ export const ModalFooterButtons = ({
 	actionButtonLabel = 'Save',
 	className,
 	modalName,
+	isLoading,
 	testId = 'ModalFooterButtons'
 }: ModalFooterButtonsProps) => {
 	const { t } = useText('common.modal')
 	const { close } = useModal(modalName)
 
+	console.log('isLoading: ', isLoading)
 	return (
 		<div className={className} data-testid={testId}>
 			<ModalFooter className='mt-4'>
-				<SubmitButton>{actionButtonLabel}</SubmitButton>
+				<SubmitButton isLoading={isLoading}>{actionButtonLabel}</SubmitButton>
 				<Button v='secondary' onClick={close}>
 					{t('cancel')}
 				</Button>
