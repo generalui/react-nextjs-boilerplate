@@ -104,7 +104,7 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 									</div>
 									<Text className='font-semibold text-xl'>{documentation('title')}</Text>
 								</div>
-								<AddStudyFiles />
+								<AddStudyFiles studyId={singleStudyId} />
 							</div>
 							<DocumentationList documents={study.documentation} />
 						</Card>

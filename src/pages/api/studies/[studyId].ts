@@ -7,6 +7,7 @@ import { StudyInput, selectOptionsType } from 'types/index'
 import { connect } from 'utils/api/connect'
 import { getSessionFromReq } from 'utils/api/getSessionFromReq'
 import { handleAvatarJoin } from 'utils/api/handleAvatarJoin'
+import { handleDocumentationJoin } from 'utils/api/handleDocumentationJoin'
 import { handleQuery } from 'utils/api/handleQuery'
 import { prisma } from 'utils/api/prisma'
 import { getCombinedString } from 'utils/client/text'
@@ -19,7 +20,12 @@ const uploadMiddleware = multer({
 })
 
 // Middleware processing FormData to file
-apiRoute.use(uploadMiddleware.single('file'))
+apiRoute.use(
+	uploadMiddleware.fields([
+		{ name: 'file', maxCount: 1 },
+		{ name: 'documentation', maxCount: 20 }
+	])
+)
 
 // Included on all studies
 const includes = {
@@ -62,6 +68,7 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 apiRoute.patch(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 	const studyId = getCombinedString(req.query.studyId)
 	const session = await getSessionFromReq(req)
+	const { userId } = session
 
 	// Extract body values that need transformation
 	const {
@@ -82,13 +89,15 @@ apiRoute.patch(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 	// Remove values that don't belong in the database
 	delete simpleBody.coordinator
 
-	const upsertImage = await handleAvatarJoin(req.file, session.userId)
+	const upsertImage = await handleAvatarJoin(req.file, userId)
+	const upsertDocumentation = await handleDocumentationJoin(req.files?.documentation, userId)
 
 	const data = {
 		...simpleBody,
 		endDate: endDate ? new Date(endDate) : undefined,
 		dataTypes,
-		...upsertImage
+		...upsertImage,
+		...upsertDocumentation
 	}
 
 	const studyQuery = async () =>

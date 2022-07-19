@@ -2,10 +2,10 @@ import { useModal } from 'hooks/useModal'
 import { useText } from 'hooks/useText'
 import { Button } from 'common/Button'
 import { ModalFooter } from 'common/ModalFooter/ModalFooter'
+import { SubmitButton } from '../SubmitButton'
 import { ModalFooterButtonsProps } from './ModalFooterButtons.types'
 
 export const ModalFooterButtons = ({
-	actionButtonHandler,
 	actionButtonLabel = 'Save',
 	className,
 	modalName,
@@ -17,7 +17,7 @@ export const ModalFooterButtons = ({
 	return (
 		<div className={className} data-testid={testId}>
 			<ModalFooter className='mt-4'>
-				<Button onClick={actionButtonHandler}>{actionButtonLabel}</Button>
+				<SubmitButton>{actionButtonLabel}</SubmitButton>
 				<Button v='secondary' onClick={close}>
 					{t('cancel')}
 				</Button>
