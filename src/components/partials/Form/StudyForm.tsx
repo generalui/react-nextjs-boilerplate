@@ -86,17 +86,15 @@ export const StudyForm = ({
 							/>
 						</div>
 						<div className='col-span-3'>
-							<label className='text-xs text-gray-500' htmlFor='description'>
-								{t('fields.dataTypes')}
-							</label>
-							<DataTypesSelect options={studyDataTypes} />
+							<DataTypesSelect
+								label={t('fields.dataTypes')}
+								options={studyDataTypes}
+								name='dataTypes'
+							/>
 						</div>
 						{create && (
 							<div className='col-span-3'>
-								<label className='text-xs text-gray-500' htmlFor='description'>
-									{t('fields.documentation.label')}
-								</label>
-								<DocumentsInput name='documentation' />
+								<DocumentsInput name='documentation' label={t('fields.documentation.label')} />
 							</div>
 						)}
 					</div>
