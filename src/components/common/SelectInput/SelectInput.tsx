@@ -1,4 +1,5 @@
 import { Field } from 'react-final-form'
+import { InputLabel } from 'common/InputLabel'
 import { Select } from '../Select/Select'
 import { SelectInputProps } from './SelectInput.types'
 
@@ -10,10 +11,14 @@ export const SelectInput = <T extends unknown>({
 	isMulti,
 	options,
 	components,
-	styles
+	styles,
+	labelClassName,
+	label
 }: SelectInputProps<T>) => {
 	return (
 		<div data-testid={testId}>
+			<InputLabel className={labelClassName} name={name} label={label} />
+
 			<Field name={name} className={className}>
 				{(props) => (
 					<Select

@@ -60,7 +60,7 @@ export const PageWrapper = ({
 
 			<div className={cn(hideSidebar ? 'w-full' : styles.withSideBar, styles.withNavBar)}>
 				{!fullWidth && (
-					<Container className='md:mt-[4.5rem] max-w-screen-lg pb-20'>{children}</Container>
+					<Container className='md:mt-[4.5rem] max-w-screen-lg mb-40'>{children}</Container>
 				)}
 				{fullWidth && { children }}
 			</div>

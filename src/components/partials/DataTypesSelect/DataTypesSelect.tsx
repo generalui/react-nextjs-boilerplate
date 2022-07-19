@@ -60,14 +60,19 @@ const Option = (props: OptionProps<selectOptionsType>) => {
 export const DataTypesSelect = ({
 	options,
 	className,
-	testId = 'DataTypesSelect'
+	testId = 'DataTypesSelect',
+	labelClassName,
+	label,
+	name
 }: DataTypesSelectProps<selectOptionsType>) => {
 	return (
 		<div data-testid={testId} className={className}>
 			<SelectInput<selectOptionsType>
+				labelClassName={labelClassName}
+				label={label}
 				data-testid={testId}
 				isMulti={true}
-				name='dataTypes'
+				name={name}
 				options={options}
 				components={{ MultiValueLabel, Option }}
 				styles={dataTypesStyles}

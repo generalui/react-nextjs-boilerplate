@@ -37,6 +37,7 @@ yarn-error.log*
 
 # Local seed scripts
 *.local.ts
+*.local.js
 
 # Docs
 # TODO: add this folder to the github project once jsdoc kinks are worked out

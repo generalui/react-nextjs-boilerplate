@@ -37,7 +37,7 @@ export const NavBar = ({
 								<Icon icon={isMenuOpen ? 'XIcon' : 'MenuIcon'} />
 							</button>
 							<Link href='/' passHref>
-								<a>
+								<a title={t('logoAlt')}>
 									<img className='h-12 cursor-pointer' src={headerLogo} alt={t('logoAlt')} />
 								</a>
 							</Link>
