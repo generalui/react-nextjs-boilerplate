@@ -15,6 +15,7 @@ export const mockUseQueryBaseReturn = {
 const mockUseQueryDataMap: Record<string, Record<string, unknown>> = {
 	studies: {
 		id: new Date().toISOString(),
+		image: {},
 		title: 'Test Study',
 		description: 'Test',
 		endDate: new Date(),
@@ -24,10 +25,14 @@ const mockUseQueryDataMap: Record<string, Record<string, unknown>> = {
 		users: [
 			{
 				user: {
-					name: 'Test User'
+					name: 'Test User',
+					studyId: '',
+					userId: ''
 				}
 			}
-		]
+		],
+		dataTypes: [],
+		documentation: []
 	} as Study
 }
 

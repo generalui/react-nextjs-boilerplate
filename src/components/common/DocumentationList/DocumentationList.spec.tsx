@@ -8,7 +8,7 @@ import { DocumentationList } from './index'
 
 describe('DocumentationList Component', () => {
 	it('renders on the page', () => {
-		render(<DocumentationList />)
+		render(<DocumentationList documents={[]} />)
 
 		const component = screen.getByTestId('DocumentationList')
 
