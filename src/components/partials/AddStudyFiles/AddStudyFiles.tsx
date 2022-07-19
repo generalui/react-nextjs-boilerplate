@@ -1,9 +1,12 @@
 import { Form } from 'react-final-form'
 import { useText } from 'hooks/useText'
 import { Icon } from 'common/Icon'
+import { ModalFooterButtons } from 'common/ModalFooterButtons'
 import { DocumentsInput } from '../DocumentsInput'
 import { ModalButton } from '../ModalButton'
 import { AddStudyFilesProps } from './AddStudyFiles.types'
+
+const modalName = 'add-files'
 
 export const AddStudyFiles = ({ className, testId = 'AddStudyFiles' }: AddStudyFilesProps) => {
 	const { t } = useText('studies.addFiles')
@@ -11,7 +14,7 @@ export const AddStudyFiles = ({ className, testId = 'AddStudyFiles' }: AddStudyF
 	return (
 		<div className={className} data-testid={testId}>
 			<ModalButton
-				name='add-files'
+				name={modalName}
 				modalTitle={t('title')}
 				v='small'
 				buttonChildren={
@@ -26,6 +29,11 @@ export const AddStudyFiles = ({ className, testId = 'AddStudyFiles' }: AddStudyF
 						return
 					}}
 					render={() => <DocumentsInput name='documentation' />}
+				/>
+				<ModalFooterButtons
+					modalName={modalName}
+					actionButtonHandler={() => console.log('hi')}
+					actionButtonLabel='Upload'
 				/>
 			</ModalButton>
 		</div>
