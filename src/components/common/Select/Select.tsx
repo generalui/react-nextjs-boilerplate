@@ -10,6 +10,8 @@ export const Select: SelectComponent = ({
 	styles,
 	name,
 	value,
+	isClearable,
+	placeholder,
 	onChange
 }) => {
 	return (
@@ -23,6 +25,8 @@ export const Select: SelectComponent = ({
 				classNamePrefix='react-select'
 				components={components}
 				styles={styles}
+				isClearable={isClearable}
+				placeholder={placeholder}
 			/>
 		</div>
 	)

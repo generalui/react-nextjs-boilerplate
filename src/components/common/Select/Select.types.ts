@@ -16,6 +16,8 @@ export interface SelectProps<T> extends CommonProps {
 	styles?: StylesConfig<T, boolean, GroupBase<T>>
 	name?: string
 	value?: PropsValue<T>
+	isClearable?: true
+	placeholder?: string
 	onChange?: (newValue: OnChangeValue<T, boolean>, actionMeta: ActionMeta<T>) => void
 }
 

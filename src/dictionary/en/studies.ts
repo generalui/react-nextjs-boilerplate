@@ -60,9 +60,7 @@ const studies = {
 		dataType: { message: 'Data Type' },
 		files: { message: 'Files' },
 		modified: { message: 'Modified' },
-		noDocuments: { message: 'No private data has been uploaded' },
-		buttonLabel: { message: 'Add Private Data' },
-		modalTitle: { message: 'Add Data' }
+		noDocuments: { message: 'No private data has been uploaded' }
 	},
 	addFiles: {
 		title: { message: 'Upload Files' },
@@ -75,6 +73,14 @@ const studies = {
 		geneticData: { message: 'Genetic Data' },
 		healthRecords: { message: 'Health Records' },
 		specimens: { message: 'Specimens' }
+	},
+	addPrivateData: {
+		buttonLabel: { message: 'Add Private Data' },
+		submitLabel: { message: 'Upload' },
+		modalTitle: { message: 'Add Data' },
+		placeholder: { message: 'Select Data Type' },
+		dataType: { message: 'Data Type' },
+		filesOrFolders: { message: 'Files or Folders' }
 	}
 }
 
