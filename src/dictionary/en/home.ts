@@ -14,7 +14,7 @@ const home = {
 		},
 		description: {
 			message:
-				'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.'
+				'Current research studies include those that have not yet been approved by NBDC. Any data associated with those studies is still protected.'
 		}
 	},
 	dataVault: {
@@ -29,7 +29,7 @@ const home = {
 		},
 		description: {
 			message:
-				'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.'
+				'The data vault can store a variety of file types and  participant data. It’s held separately and not viewable through this platform by anyone.'
 		}
 	},
 	documentation: {
@@ -44,7 +44,7 @@ const home = {
 		},
 		description: {
 			message:
-				'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.'
+				'Documentation associated with the study is viewable by anyone on the platform, and can include study requirements, meeting notes, etc.'
 		}
 	},
 	recentlyAddedStudies: {
