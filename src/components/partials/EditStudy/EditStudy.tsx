@@ -11,7 +11,8 @@ import { EditStudyProps } from './EditStudy.types'
 
 export const EditStudy = memo(function EditStudy({
 	studyId,
-	testId = 'EditStudy'
+	testId = 'EditStudy',
+	disabled
 }: EditStudyProps) {
 	const { t } = useText('studies.edit')
 	const { t: common } = useText('common.dataTypes')
@@ -29,15 +30,11 @@ export const EditStudy = memo(function EditStudy({
 		}
 	}
 
-	if (!study) {
-		// TODO: Handle case where study doesn't exist
-		return null
-	}
-
 	return (
 		<>
 			<div data-testid={testId}>
 				<ModalButton
+					disabled={!study || disabled}
 					name='edit-study'
 					modalTitle={t('title')}
 					buttonChildren={
@@ -48,25 +45,29 @@ export const EditStudy = memo(function EditStudy({
 					}
 					v='sm'
 				>
-					<StudyForm
-						initialValues={{
-							coordinator: study.users[0].user.email || '',
-							description: study.description,
-							endDate: formatFormDate(study.endDate),
-							image: study.image?.image?.url || '',
-							status: study.status,
-							title: study.title,
-							// TODO: refactor to use formatDataTypes
-							dataTypes: study.dataTypes?.map((dataType) => ({
-								label: common(`${dataType}.label`),
-								value: dataType
-							}))
-						}}
-						isLoading={update.isLoading}
-						onCancel={close}
-						onSubmit={onSubmit}
-						submitText={t('submit')}
-					/>
+					<>
+						{study && (
+							<StudyForm
+								initialValues={{
+									coordinator: study.users[0].user.email || '',
+									description: study.description,
+									endDate: formatFormDate(study.endDate),
+									image: study.image?.image?.url || '',
+									status: study.status,
+									title: study.title,
+									// TODO: refactor to use formatDataTypes
+									dataTypes: study.dataTypes?.map((dataType) => ({
+										label: common(`${dataType}.label`),
+										value: dataType
+									}))
+								}}
+								isLoading={update.isLoading}
+								onCancel={close}
+								onSubmit={onSubmit}
+								submitText={t('submit')}
+							/>
+						)}
+					</>
 				</ModalButton>
 			</div>
 		</>

@@ -11,6 +11,7 @@ import { DocumentationListProps } from './DocumentationList.types'
 export const DocumentationList = ({
 	className,
 	documents,
+	isLoading,
 	testId = 'DocumentationList'
 }: DocumentationListProps) => {
 	const { t } = useText('studies.documentation')
@@ -69,7 +70,13 @@ export const DocumentationList = ({
 
 	return (
 		<div className={cn('max-h-64 overflow-y-auto', className)} data-testid={testId}>
-			<List columns={columns} data={documentComponents} sharedClassName='text-gray-500' concise />
+			<List
+				columns={columns}
+				data={documentComponents}
+				sharedClassName='text-gray-500'
+				isLoading={isLoading}
+				concise
+			/>
 		</div>
 	)
 }

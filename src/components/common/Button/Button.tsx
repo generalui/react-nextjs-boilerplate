@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import { buttonVariants } from 'common/Button/variants'
+import { buttonVariants, disabledVariants } from 'common/Button/variants'
 import { ButtonProps } from './Button.types'
 
 /**
@@ -22,7 +22,12 @@ export const Button = ({
 		data-testid={testId}
 		type={type}
 		disabled={disabled}
-		className={cn(className, buttonVariants[v], center && 'flex justify-center items-center')}
+		className={cn(
+			className,
+			buttonVariants[v],
+			disabled && disabledVariants[`${v}Disabled`],
+			center && 'flex justify-center items-center'
+		)}
 		onClick={onClick}
 	>
 		{children}

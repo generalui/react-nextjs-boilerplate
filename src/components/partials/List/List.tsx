@@ -30,8 +30,8 @@ export const List = <DataType extends object>({
 			<div
 				className={cn(
 					sharedClasses,
-					'pb-4 px-6 font-semibold text-black text-xs hidden lg:grid gap-10 border-b',
-					concise && 'px-0 pb-2 sticky top-0 bg-white w-full',
+					'pb-4 px-6 font-semibold text-black text-xs hidden lg:grid gap-10 ',
+					concise && 'px-0 pb-2 sticky top-0 bg-white w-full border-b',
 					sharedClassName
 				)}
 			>
@@ -60,14 +60,7 @@ export const List = <DataType extends object>({
 					)
 				})}
 			</div>
-			<Loader
-				isLoading={isLoading}
-				fallback={
-					<div className={cn('flex items-center justify-center p-12', loadingClassName)}>
-						<Spinner />
-					</div>
-				}
-			>
+			<Loader isLoading={isLoading} fallbackClassName={cn('p-12', loadingClassName)}>
 				<div className={cn('flex flex-col space-y-4', concise && 'space-y-0')}>
 					{!data.length ? (
 						<div className='flex flex-col justify-center items-center p-8 text-gray-400'>
