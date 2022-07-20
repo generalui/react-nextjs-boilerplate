@@ -15,6 +15,7 @@ import { Card } from 'common/Card'
 import { DocumentationList } from 'common/DocumentationList'
 import { StudyStatusDropdown } from 'common/DropDown/StudyStatusDropdown'
 import { Icon } from 'common/Icon'
+import { ImageWithPlaceholder } from 'common/ImageWithPlaceholder'
 import { Loader } from 'common/Loader'
 import { PageHeader } from 'common/PageHeader'
 import { Text } from 'common/Text'
@@ -48,8 +49,8 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 			</PageHeader>
 			<Loader isLoading={isLoading || !study?.id}>
 				{!study ? null : (
-					<div className='pb-8'>
-						<Card className='flex flex-col gap-6 m-4'>
+					<div className='flex flex-col gap-6 pb-8'>
+						<Card className='flex flex-col gap-6'>
 							<div className='flex justify-between items-center'>
 								<div className='flex gap-2 items-center'>
 									<div className='bg-blue-600 p-1 flex justify-center items-center rounded w-6 h-6'>
@@ -59,19 +60,11 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 								</div>
 								<EditStudy studyId={singleStudyId} />
 							</div>
-							<div className='flex items-center gap-6'>
-								<div
-									style={{
-										backgroundImage: `url(${
-											study.image?.image?.url || '/images/image_placeholder_centered.jpg'
-										})`
-									}}
-									className='block h-52 w-52 bg-center bg-cover rounded-lg flex-shrink-0'
-									role='img'
-								/>
-								<div className='flex flex-col gap-3 justify-between lg:h-52 flex-grow'>
+							<div className='flex flex-col lg:flex-row items-start lg:items-center gap-6'>
+								<ImageWithPlaceholder src={study.image?.image?.url} />
+								<div className='flex flex-col gap-3 justify-between lg:h-52 flex-grow w-full'>
 									<div className='bg-gray-50 rounded px-4 py-2 flex-grow'>
-										<Text className='text-lg font-bold line-clamp-4 md:line-clamp-none'>
+										<Text className='text-lg font-bold line-clamp-4 lg:line-clamp-none'>
 											{study.title}
 										</Text>
 									</div>
@@ -96,7 +89,7 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 								/>
 							</Detail>
 						</Card>
-						<Card className='flex flex-col gap-6 m-4 '>
+						<Card className='flex flex-col gap-6'>
 							<div className='flex justify-between items-center'>
 								<div className='flex gap-2 items-center'>
 									<div className='bg-green-300 p-1 flex justify-center items-center rounded w-6 h-6'>
