@@ -25,33 +25,40 @@ const prismaSafeTestUsers = users.map(
 	}
 )
 
+// Format seed studies for prisma insertion
+const prismaSafeStudies = studies.map(({ imageUrl, ...study }) => {
+	return {
+		data: {
+			...study,
+			image: imageUrl
+				? {
+						create: {
+							image: {
+								create: {
+									name: imageUrl,
+									url: imageUrl,
+									fileType: 'mimetype'
+								}
+							}
+						}
+				  }
+				: undefined
+		}
+	}
+})
+
+// Seed the database
 async function main() {
 	await Promise.all(prismaSafeTestUsers.map((user) => prisma.user.upsert(user)))
 	console.log('Created users:\n', createdUsers)
 
-	const createdStudies = await Promise.all(
-		studies.map(({ imageUrl, ...study }) =>
-			prisma.study.create({
-				data: {
-					...study,
-					image: imageUrl
-						? {
-								create: {
-									image: {
-										create: {
-											name: imageUrl,
-											url: imageUrl,
-											fileType: 'mimetype'
-										}
-									}
-								}
-						  }
-						: undefined
-				}
-			})
+	const studiesCount = await prisma.study.count({})
+	if (studiesCount === 0) {
+		const createdStudies = await Promise.all(
+			prismaSafeStudies.map((study) => prisma.study.create(study))
 		)
-	)
-	console.log('Created studies:\n', createdStudies.length)
+		console.log('Created studies:\n', createdStudies?.length)
+	}
 }
 
 main()
