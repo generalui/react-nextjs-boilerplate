@@ -5,6 +5,7 @@ export type Column = { key: string; className?: string; title?: string; width: n
 export interface ListProps<DataType extends object> extends Omit<CommonProps, 'children'> {
 	columns: Column[]
 	data: DataType[]
+	emptyMessage?: string
 	isLoading?: boolean
 	listItemClassName?: string
 	loadingClassName?: string

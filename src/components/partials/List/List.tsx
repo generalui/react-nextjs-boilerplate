@@ -16,11 +16,13 @@ export const List = <DataType extends object>({
 	loadingClassName,
 	sharedClassName,
 	isLoading = false,
+	emptyMessage = '',
 	testId = 'List',
 	concise
 }: ListProps<DataType>) => {
 	const { t } = useText('studies.documentation')
 	let colWidthAccumulator = 0
+	const noDataMessage = emptyMessage || t('noData')
 
 	return (
 		<div
@@ -65,7 +67,7 @@ export const List = <DataType extends object>({
 					{!data.length ? (
 						<div className='flex flex-col justify-center items-center p-8 text-gray-400'>
 							<Icon icon='DocumentTextIcon' size='xl' />
-							{t('noDocuments')}
+							{noDataMessage}
 						</div>
 					) : (
 						data.map((item, index) => (

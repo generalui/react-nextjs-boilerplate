@@ -69,14 +69,15 @@ export const DocumentationList = ({
 	)
 
 	return (
-		<div className={cn('max-h-64 overflow-y-auto', className)} data-testid={testId}>
-			<List
-				columns={columns}
-				data={documentComponents}
-				sharedClassName='text-gray-500'
-				isLoading={isLoading}
-				concise
-			/>
-		</div>
+		<List
+			className={cn('max-h-64 overflow-y-auto', className)}
+			columns={columns}
+			concise
+			data={documentComponents}
+			emptyMessage={t('noDocuments')}
+			isLoading={isLoading}
+			sharedClassName='text-gray-500'
+			testId={testId}
+		/>
 	)
 }
