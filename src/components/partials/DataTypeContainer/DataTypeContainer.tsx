@@ -7,8 +7,9 @@ export const DataTypeContainer = ({
 	tags,
 	testId = 'DataTypeContainer'
 }: DataTypeContainerProps) => (
+	// Min hight added to compensate for empty state without tags
 	<div
-		className={cn('border border-gray-300 p-4 rounded flex gap-4', className)}
+		className={cn('border border-gray-300 p-4 rounded flex gap-4 min-h-[68px]', className)}
 		data-testid={testId}
 	>
 		{tags?.map(({ icon, label, dataType }) => (

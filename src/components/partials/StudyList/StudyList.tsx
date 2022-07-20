@@ -114,6 +114,7 @@ export const StudyList = ({
 			data={listData}
 			isLoading={isLoading}
 			concise={concise}
+			loadingClassName={concise ? 'p-12' : 'p-24'}
 		/>
 	)
 }

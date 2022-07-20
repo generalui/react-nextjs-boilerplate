@@ -4,9 +4,10 @@ import { Modal } from 'common/Modal'
 import { ModalButtonProps } from './ModalButton.types'
 
 export const ModalButton = ({
+	buttonChildren: buttonText,
 	children,
 	className,
-	buttonChildren: buttonText,
+	disabled,
 	modalTitle,
 	name,
 	testId = 'ModalButton',
@@ -16,7 +17,7 @@ export const ModalButton = ({
 
 	return (
 		<div className={className} data-testid={testId}>
-			<Button onClick={open} center v={v}>
+			<Button onClick={open} center v={v} disabled={disabled}>
 				{buttonText}
 			</Button>
 			<Modal show={isOpen} onClose={close} title={modalTitle} bodyClassName='pt-6'>

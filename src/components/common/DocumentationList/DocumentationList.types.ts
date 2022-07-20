@@ -3,4 +3,5 @@ import { CommonProps } from 'types/CommonProps'
 
 export interface DocumentationListProps extends CommonProps {
 	documents: Document[]
+	isLoading?: boolean
 }
