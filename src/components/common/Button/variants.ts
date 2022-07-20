@@ -4,6 +4,6 @@ const defaultStyles =
 export const buttonVariants = {
 	default: `${defaultStyles} border border-blue-600`,
 	secondary: `${defaultStyles} border border-blue-600 text-blue-600 bg-blue-200 hover:bg-blue-100`,
-	small: `${defaultStyles} text-sm px-4 py-2`,
+	sm: `${defaultStyles} text-sm px-4 py-2`,
 	transparent: `${defaultStyles} bg-transparent hover:bg-gray-100 text-black font-normal py-2`
 }

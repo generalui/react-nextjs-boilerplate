@@ -81,6 +81,9 @@ const common = {
 		duplicateFileOmitted: {
 			message: 'Duplicate file omitted'
 		}
+	},
+	modal: {
+		cancel: { message: 'Cancel' }
 	}
 }
 

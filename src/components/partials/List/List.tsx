@@ -1,5 +1,7 @@
 import cn from 'classnames'
+import { useText } from 'hooks/useText'
 import { ListItem } from 'partials/List/ListItem'
+import { Icon } from 'common/Icon'
 import { Loader } from 'common/Loader'
 import { Spinner } from 'common/Spinner'
 import { ListProps } from './List.types'
@@ -11,23 +13,25 @@ export const List = <DataType extends object>({
 	data,
 	className,
 	listItemClassName,
+	loadingClassName,
 	sharedClassName,
 	isLoading = false,
 	testId = 'List',
 	concise
 }: ListProps<DataType>) => {
+	const { t } = useText('studies.documentation')
 	let colWidthAccumulator = 0
 
 	return (
 		<div
-			className={cn('flex flex-col px-6 lg:px-0', concise && 'px-0', className)}
+			className={cn('flex flex-col px-6 lg:px-0', concise && 'px-0 relative', className)}
 			data-testid={testId}
 		>
 			<div
 				className={cn(
 					sharedClasses,
-					'pb-4 px-6 font-semibold text-black text-xs hidden lg:grid gap-10',
-					concise && 'px-0 pb-2',
+					'pb-4 px-6 font-semibold text-black text-xs hidden lg:grid gap-10 border-b',
+					concise && 'px-0 pb-2 sticky top-0 bg-white w-full',
 					sharedClassName
 				)}
 			>
@@ -59,28 +63,35 @@ export const List = <DataType extends object>({
 			<Loader
 				isLoading={isLoading}
 				fallback={
-					<div className='flex items-center justify-center p-12'>
+					<div className={cn('flex items-center justify-center p-12', loadingClassName)}>
 						<Spinner />
 					</div>
 				}
 			>
 				<div className={cn('flex flex-col space-y-4', concise && 'space-y-0')}>
-					{data.map((item, index) => (
-						<ListItem
-							className={cn(
-								sharedClasses,
-								!concise && 'gap-10',
-								concise && 'gap-2 lg:gap-10',
-								sharedClassName,
-								listItemClassName
-							)}
-							columns={columns}
-							itemData={item}
-							// @ts-expect-error We don't know any key info except the index for this item
-							key={index}
-							concise={concise}
-						/>
-					))}
+					{!data.length ? (
+						<div className='flex flex-col justify-center items-center p-8 text-gray-400'>
+							<Icon icon='DocumentTextIcon' size='xl' />
+							{t('noDocuments')}
+						</div>
+					) : (
+						data.map((item, index) => (
+							<ListItem
+								className={cn(
+									sharedClasses,
+									concise ? 'gap-2 lg:gap-10' : 'gap-10',
+									sharedClassName,
+									listItemClassName
+								)}
+								columns={columns}
+								itemData={item}
+								// TODO: refactor list to accept items that have an id, to be used as a key
+								// @ts-expect-error We don't know any key info except the index for this item
+								key={index}
+								concise={concise}
+							/>
+						))
+					)}
 				</div>
 			</Loader>
 		</div>

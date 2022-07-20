@@ -6,11 +6,11 @@ import { useEffect } from 'react'
 import { getCombinedString } from 'utils/client/text'
 import { useStudy } from 'hooks/api/studies/useStudy'
 import { useText } from 'hooks/useText'
+import { AddStudyFiles } from 'partials/AddStudyFiles'
 import { DataTypeContainer } from 'partials/DataTypeContainer'
 import { EditStudy } from 'partials/EditStudy'
 import { PageWrapper } from 'partials/PageWrapper'
 import { Breadcrumbs } from 'common/Breadcrumbs'
-import { Button } from 'common/Button'
 import { Card } from 'common/Card'
 import { DocumentationList } from 'common/DocumentationList'
 import { StudyStatusDropdown } from 'common/DropDown/StudyStatusDropdown'
@@ -38,7 +38,7 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 	}, [isFetched, router, study, singleStudyId])
 
 	return (
-		<PageWrapper title='Studies' testId={testId}>
+		<PageWrapper title={t('title')} testId={testId}>
 			<PageHeader className='grid grid-cols-12 items-center'>
 				<Breadcrumbs className='col-span-8' />
 				<StudyStatusDropdown
@@ -97,12 +97,9 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 									</div>
 									<Text className='font-semibold text-xl'>{documentation('title')}</Text>
 								</div>
-								<Button onClick={open} center v='small'>
-									<Icon icon='PlusIcon' className='text-white' size='sm' />
-									{documentation('buttonLabel')}
-								</Button>
+								<AddStudyFiles studyId={singleStudyId} />
 							</div>
-							<DocumentationList />
+							<DocumentationList documents={study.documentation} />
 						</Card>
 					</div>
 				)}

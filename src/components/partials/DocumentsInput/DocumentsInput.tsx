@@ -9,7 +9,24 @@ import { InputLabel } from 'common/InputLabel'
 import { DocumentGrid } from './DocumentGrid'
 import { DocumentPreview, DocumentsInputProps } from './DocumentsInput.types'
 
-const acceptedFileTypes = ['.pdf', '.txt', '.csv', '.jpg', '.jpeg', '.png', '.gif', '.svg', '.xml']
+const maxFiles = 15
+const acceptedFiles = {
+	// TODO: Add correct support for file types
+	'*': [
+		'.pdf',
+		'.txt',
+		'.csv',
+		'.jpg',
+		'.jpeg',
+		'.png',
+		'.gif',
+		'.svg',
+		'.doc',
+		'.docx',
+		'.xls',
+		'.xlsx'
+	]
+}
 
 export const DocumentsInput = ({
 	className,
@@ -74,11 +91,8 @@ export const DocumentsInput = ({
 							{/* Drag and drop area */}
 							<Dropzone
 								multi
-								maxFiles={10}
-								accept={{
-									// TODO: Add correct support for file types
-									'*': acceptedFileTypes
-								}}
+								maxFiles={maxFiles}
+								accept={acceptedFiles}
 								onChange={(files) => {
 									setDropzoneErrors([])
 									handleChange(files)
@@ -101,10 +115,10 @@ export const DocumentsInput = ({
 							{showAcceptedFileTypes && (
 								<div className='text-xs text-gray-500 mt-2'>
 									{t('subText')}{' '}
-									{acceptedFileTypes.map((type, i) => (
+									{acceptedFiles['*'].map((type, i) => (
 										<span key={type}>
 											{type}
-											{i < acceptedFileTypes.length - 1 ? ', ' : ''}
+											{i < acceptedFiles['*'].length - 1 ? ', ' : ''}
 										</span>
 									))}
 								</div>

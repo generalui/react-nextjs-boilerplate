@@ -30,7 +30,8 @@ const createStudyImage: StudyKeyHandler<'image'> = (imageUrl: StudyInput['image'
 					fileType: 'image',
 					uploadedById: null,
 					studyId: null,
-					url: imageUrl
+					url: imageUrl,
+					insertedAt: new Date()
 				}
 		  }
 		: null
@@ -51,6 +52,23 @@ const createStudyUser: StudyKeyHandler<'coordinator'> = (_value, session) => [
 	}
 ]
 
+const createDocumentation: StudyKeyHandler<'documentation'> = (documentation, session) => {
+	if (!documentation) return []
+	else {
+		return documentation.map((document) => {
+			return {
+				id: new Date().toISOString(),
+				uploadedById: session?.user?.email || '',
+				name: document.name,
+				url: '',
+				fileType: document.type,
+				studyId: null,
+				insertedAt: new Date(document.lastModified)
+			}
+		})
+	}
+}
+
 const optimisticStudyKeyHandlers: {
 	[key in keyof Required<StudyInput>]: StudyKeyHandler<key>
 } = {
@@ -60,8 +78,8 @@ const optimisticStudyKeyHandlers: {
 	image: createStudyImage,
 	status: (value) => value as StudyStatus,
 	title: (value) => value,
-	dataTypes: (dataTypes) => dataTypes.map((dataType) => dataType.value as StudyDataTypes),
-	documentation: () => []
+	dataTypes: (dataTypes) => dataTypes?.map((dataType) => dataType.value as StudyDataTypes) || [],
+	documentation: createDocumentation
 }
 
 // TODO: coordinator should be an object from a react select component
@@ -80,7 +98,7 @@ export const createOptimisticStudyFromFormData = (
 export const createPartialStudyFromFormData = (
 	data: Partial<StudyInput>,
 	session: Session | null
-) =>
+): Partial<Study> =>
 	(Object.keys(data) as (keyof StudyInput)[]).reduce((accumulator, key) => {
 		const value = data[key] as StudyInput[typeof key]
 		return {

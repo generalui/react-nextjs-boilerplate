@@ -34,9 +34,12 @@ export const useStudy = (
 					return
 				}
 
+				const partialStudy = createPartialStudyFromFormData(studyUpdate, session)
+
 				const optimisticStudy: Study = {
 					...previousStudy,
-					...createPartialStudyFromFormData(studyUpdate, session)
+					...partialStudy,
+					documentation: [...previousStudy.documentation, ...(partialStudy?.documentation || [])]
 				}
 
 				// Optimistically update to the new value

@@ -7,6 +7,7 @@ export interface ListProps<DataType extends object> extends Omit<CommonProps, 'c
 	data: DataType[]
 	isLoading?: boolean
 	listItemClassName?: string
+	loadingClassName?: string
 	sharedClassName?: string
 	headerClassName?: string
 	concise?: boolean
