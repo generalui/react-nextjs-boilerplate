@@ -54,7 +54,7 @@ export const AddStudyFiles = ({
 							<ModalFooterButtons
 								isLoading={isLoading}
 								modalName={modalName}
-								actionButtonLabel='Upload'
+								actionButtonLabel={t('submitLabel')}
 							/>
 						</form>
 					)}

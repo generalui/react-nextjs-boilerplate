@@ -37,7 +37,7 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 	}, [isFetched, router, study, singleStudyId])
 
 	return (
-		<PageWrapper title='Studies' testId={testId}>
+		<PageWrapper title={t('title')} testId={testId}>
 			<PageHeader className='grid grid-cols-12 items-center'>
 				<Breadcrumbs className='col-span-8' />
 				<StudyStatusDropdown

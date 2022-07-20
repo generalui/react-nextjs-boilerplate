@@ -54,7 +54,8 @@ const studies = {
 	},
 	addFiles: {
 		title: { message: 'Upload Files' },
-		buttonLabel: { message: 'Add Public Files' }
+		buttonLabel: { message: 'Add Public Files' },
+		submitLabel: { message: 'Upload' }
 	}
 }
 
