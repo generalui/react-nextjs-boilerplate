@@ -1,15 +1,16 @@
 import { useSession } from 'next-auth/react'
 import { UseMutationResult, UseQueryResult, useMutation, useQuery } from 'react-query'
-import { Study, StudyInput } from 'types/Study'
+import { DataVault, Study, StudyInput } from 'types/Study'
 import { reactQueryClient } from 'utils/client/react-query'
 import { toast } from 'utils/client/toast'
 import { createPartialStudyFromFormData } from 'utils/models/studies'
-import { getStudy, updateStudy } from 'utils/requests/studies'
+import { getStudy, getStudyDataVault, updateStudy } from 'utils/requests/studies'
 import { useText } from 'hooks/useText'
 
 export const useStudy = (
 	studyId: string
 ): UseQueryResult<Study> & {
+	dataVault: UseQueryResult<DataVault>
 	update: UseMutationResult<Study, unknown, Partial<StudyInput>>
 } => {
 	const { data: session } = useSession()
@@ -17,6 +18,11 @@ export const useStudy = (
 	const { t: success } = useText('studies.success')
 
 	const query = useQuery(['studies', studyId], () => getStudy(studyId), {
+		enabled: !!studyId,
+		retry: false
+	})
+
+	const dataVault = useQuery(['studies', studyId, 'dataVault'], () => getStudyDataVault(studyId), {
 		enabled: !!studyId,
 		retry: false
 	})
@@ -62,5 +68,5 @@ export const useStudy = (
 		}
 	)
 
-	return { ...query, update: updateMutation }
+	return { ...query, update: updateMutation, dataVault }
 }

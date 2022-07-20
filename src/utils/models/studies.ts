@@ -91,7 +91,7 @@ export const createOptimisticStudyFromFormData = (
 		const value = data[key] as StudyInput[typeof key]
 		return {
 			...accumulator,
-			[key]: value ? optimisticStudyKeyHandlers[key](value as any, session) : undefined
+			[key]: value ? optimisticStudyKeyHandlers[key](value, session) : undefined
 		}
 	}, {} as OptimisticStudy)
 
@@ -103,6 +103,6 @@ export const createPartialStudyFromFormData = (
 		const value = data[key] as StudyInput[typeof key]
 		return {
 			...accumulator,
-			[key]: value ? optimisticStudyKeyHandlers[key](value as any, session) : undefined
+			[key]: value ? optimisticStudyKeyHandlers[key](value, session) : undefined
 		}
 	}, {})

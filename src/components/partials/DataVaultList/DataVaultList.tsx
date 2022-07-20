@@ -1,4 +1,5 @@
 import cn from 'classnames'
+import { useStudy } from 'hooks/api/studies/useStudy'
 import { useText } from 'hooks/useText'
 import { List } from 'partials/List'
 import { Column } from 'partials/List/List.types'
@@ -6,11 +7,14 @@ import { DataVaultListProps } from './DataVaultList.types'
 
 export const DataVaultList = ({
 	className,
-	data,
 	isLoading,
+	studyId,
 	testId = 'DataVaultList'
 }: DataVaultListProps) => {
 	const { t } = useText('studies.dataVault')
+
+	const { dataVault } = useStudy(studyId)
+
 	const columns: Column[] = [
 		{
 			key: 'dataType',
@@ -35,7 +39,7 @@ export const DataVaultList = ({
 			className={cn('max-h-64 overflow-y-auto', className)}
 			columns={columns}
 			concise
-			data={data}
+			data={dataVault}
 			emptyMessage={t('noDocuments')}
 			isLoading={isLoading}
 			sharedClassName='text-gray-500'
