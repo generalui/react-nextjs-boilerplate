@@ -1,5 +1,6 @@
 import { Prisma, StudyDataTypes, StudyStatus, User } from '@prisma/client'
 import { z } from 'zod'
+import { ListData } from 'partials/List/List.types'
 
 // TODO: date schema should a date after the current data?
 export const StudySchema = z.object({
@@ -42,7 +43,7 @@ export type OptimisticStudy = Study & { users: { user: User }[] }
 
 type StudyInputToStudyMap = { [key in keyof StudyInput]: keyof Study }
 
-export interface DataVault {
+export interface DataVault extends ListData {
 	_count: number
 	dataType: StudyDataTypes
 	_max: { inserted_at: Date }

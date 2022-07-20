@@ -1,5 +1,6 @@
 import { StudyDataTypes } from '@prisma/client'
 import cn from 'classnames'
+import { DataVault } from 'types/Study'
 import { useStudy } from 'hooks/api/studies/useStudy'
 import { useText } from 'hooks/useText'
 import { List } from 'partials/List'
@@ -17,7 +18,7 @@ export const DataVaultList = ({
 
 	const { dataVault } = useStudy(studyId)
 
-	const columns: Column[] = [
+	const columns: Column<DataVault>[] = [
 		{
 			key: 'dataType',
 			title: t('dataType'),
@@ -53,6 +54,7 @@ export const DataVaultList = ({
 			concise
 			data={dataVault.data || []}
 			emptyMessage={t('noDocuments')}
+			indexKey='dataType'
 			isLoading={dataVault.isLoading}
 			sharedClassName='text-gray-500'
 			testId={testId}
