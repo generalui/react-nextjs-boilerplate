@@ -10,7 +10,7 @@ import { useText } from 'hooks/useText'
 export const useStudy = (
 	studyId: string
 ): UseQueryResult<Study> & {
-	dataVault: UseQueryResult<DataVault>
+	dataVault: UseQueryResult<DataVault[]>
 	update: UseMutationResult<Study, unknown, Partial<StudyInput>>
 } => {
 	const { data: session } = useSession()

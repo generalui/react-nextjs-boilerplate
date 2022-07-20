@@ -3,7 +3,6 @@ import { useText } from 'hooks/useText'
 import { ListItem } from 'partials/List/ListItem'
 import { Icon } from 'common/Icon'
 import { Loader } from 'common/Loader'
-import { Spinner } from 'common/Spinner'
 import { ListProps } from './List.types'
 
 const sharedClasses = 'grid grid-cols-6 lg:grid-cols-12'
@@ -47,18 +46,16 @@ export const List = <DataType extends object>({
 					colWidthAccumulator = 0
 
 					return (
-						<>
-							<div
-								className={cn(
-									'truncate',
-									columnWidth && `col-span-${columnWidth}`,
-									concise && 'text-gray-500'
-								)}
-								key={column.key}
-							>
-								{column.title}
-							</div>
-						</>
+						<div
+							className={cn(
+								'truncate',
+								columnWidth && `col-span-${columnWidth}`,
+								concise && 'text-gray-500'
+							)}
+							key={column.key}
+						>
+							{column.title}
+						</div>
 					)
 				})}
 			</div>

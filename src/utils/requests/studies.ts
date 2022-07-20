@@ -1,6 +1,13 @@
-import { AggregatedStudyData, ApiStudy, DataVault, Study, StudyInput } from 'types/index'
+import {
+	AggregatedStudyData,
+	ApiDataVault,
+	ApiStudy,
+	DataVault,
+	Study,
+	StudyInput
+} from 'types/index'
 import { axios, withFile } from 'utils/client/axios'
-import { standardizeApiStudy } from 'utils/models/studies'
+import { standardizeApiStudy, standardizeDataVault } from 'utils/models/studies'
 
 export const getStudies = async (query?: string): Promise<Study[]> => {
 	const response = await axios.get<ApiStudy[]>(`/studies${query || ''}`)
@@ -17,16 +24,14 @@ export const getStudy = async (studyId: string): Promise<Study> => {
 	return standardizeApiStudy(response.data)
 }
 
-export const getStudyDataVault = async (studyId: string): Promise<DataVault> => {
-	const response = await axios.get<DataVault>(`/studies/${studyId}/dataVault`)
+export const getStudyDataVault = async (studyId: string): Promise<DataVault[]> => {
+	const response = await axios.get<ApiDataVault[]>(`/studies/${studyId}/dataVault`)
 
 	if (!response.data) {
 		throw new Error('Study not found')
 	}
 
-	console.log(response.data)
-
-	return response.data
+	return response.data.map(standardizeDataVault)
 }
 
 export const createStudy = async ({ image, documentation, ...newStudy }: StudyInput) => {

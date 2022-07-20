@@ -7,7 +7,6 @@ import { DataVaultListProps } from './DataVaultList.types'
 
 export const DataVaultList = ({
 	className,
-	isLoading,
 	studyId,
 	testId = 'DataVaultList'
 }: DataVaultListProps) => {
@@ -22,15 +21,16 @@ export const DataVaultList = ({
 			width: 8
 		},
 		{
-			key: 'files',
+			key: '_count',
 			title: t('files'),
-			className: 'background-gray-100',
+			className: 'bg-gray-50 w-min px-4',
 			width: 2
 		},
 		{
-			key: 'modified',
+			key: '_max.inserted_at',
 			title: t('modified'),
-			width: 2
+			width: 2,
+			transformFunction: (value) => (value as Date).toLocaleDateString()
 		}
 	]
 
@@ -39,9 +39,9 @@ export const DataVaultList = ({
 			className={cn('max-h-64 overflow-y-auto', className)}
 			columns={columns}
 			concise
-			data={dataVault}
+			data={dataVault.data || []}
 			emptyMessage={t('noDocuments')}
-			isLoading={isLoading}
+			isLoading={dataVault.isLoading}
 			sharedClassName='text-gray-500'
 			testId={testId}
 		/>

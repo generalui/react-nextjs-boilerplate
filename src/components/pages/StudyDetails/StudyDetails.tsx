@@ -117,9 +117,8 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 							</div>
 							<Text className='font-semibold text-xl'>{dataVault('title')}</Text>
 						</div>
-						<AddStudyFiles studyId={singleStudyId} />
 					</div>
-					<DataVaultList data={[]} isLoading={loading} />
+					<DataVaultList studyId={singleStudyId} />
 				</Card>
 			</div>
 		</PageWrapper>
