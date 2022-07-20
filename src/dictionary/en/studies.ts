@@ -67,6 +67,12 @@ const studies = {
 		buttonLabel: { message: 'Add Public Files' },
 		privateDataButtonLabel: { message: 'Add Private Data' },
 		submitLabel: { message: 'Upload' }
+	},
+	dataTypes: {
+		consents: { message: 'Consent' },
+		geneticData: { message: 'Genetic Data' },
+		healthRecords: { message: 'Health Records' },
+		specimens: { message: 'Specimens' }
 	}
 }
 

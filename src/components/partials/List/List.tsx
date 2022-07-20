@@ -71,7 +71,7 @@ export const List = <DataType extends object>({
 							<ListItem
 								className={cn(
 									sharedClasses,
-									concise ? 'gap-2 lg:gap-10' : 'gap-10',
+									concise ? 'gap-2 lg:gap-10 text-sm' : 'gap-10',
 									sharedClassName,
 									listItemClassName
 								)}

@@ -1,8 +1,10 @@
+import { StudyDataTypes } from '@prisma/client'
 import cn from 'classnames'
 import { useStudy } from 'hooks/api/studies/useStudy'
 import { useText } from 'hooks/useText'
 import { List } from 'partials/List'
 import { Column } from 'partials/List/List.types'
+import { DataTypeLabel } from 'common/DataTypeLabel'
 import { DataVaultListProps } from './DataVaultList.types'
 
 export const DataVaultList = ({
@@ -11,6 +13,7 @@ export const DataVaultList = ({
 	testId = 'DataVaultList'
 }: DataVaultListProps) => {
 	const { t } = useText('studies.dataVault')
+	const { t: dataTypes } = useText('studies.dataTypes')
 
 	const { dataVault } = useStudy(studyId)
 
@@ -18,7 +21,16 @@ export const DataVaultList = ({
 		{
 			key: 'dataType',
 			title: t('dataType'),
-			width: 8
+			width: 8,
+			transformFunction: (value) => (
+				<DataTypeLabel
+					dataType={value as string}
+					img={`/icons/gray_${value}.svg`}
+					className='gap-2 capitalize flex items-center'
+				>
+					{dataTypes(value as StudyDataTypes)}
+				</DataTypeLabel>
+			)
 		},
 		{
 			key: '_count',

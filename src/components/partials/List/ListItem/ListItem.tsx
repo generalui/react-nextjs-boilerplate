@@ -15,7 +15,7 @@ export const ListItem = <DataType extends object>({
 				const value = get(itemData, column.key.split('.'))
 				const transformedValue = column.transformFunction ? column.transformFunction(value) : value
 				return (
-					<div className={`col-span-${column.width} ${column.className}`} key={`${column.title}`}>
+					<div className={cn(`col-span-${column.width}`, column.className)} key={`${column.title}`}>
 						{transformedValue}
 					</div>
 				)
