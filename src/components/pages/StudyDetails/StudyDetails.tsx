@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { getCombinedString } from 'utils/client/text'
 import { useStudy } from 'hooks/api/studies/useStudy'
 import { useText } from 'hooks/useText'
+import { AddPrivateData } from 'partials/AddPrivateData'
 import { AddStudyFiles } from 'partials/AddStudyFiles'
 import { DataTypeContainer } from 'partials/DataTypeContainer'
 import { DataVaultList } from 'partials/DataVaultList'
@@ -117,6 +118,7 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 							</div>
 							<Text className='font-semibold text-xl'>{dataVault('title')}</Text>
 						</div>
+						<AddPrivateData modalName='add-private-data' />
 					</div>
 					<DataVaultList studyId={singleStudyId} />
 				</Card>

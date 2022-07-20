@@ -60,7 +60,9 @@ const studies = {
 		dataType: { message: 'Data Type' },
 		files: { message: 'Files' },
 		modified: { message: 'Modified' },
-		noDocuments: { message: 'No private data has been uploaded' }
+		noDocuments: { message: 'No private data has been uploaded' },
+		buttonLabel: { message: 'Add Private Data' },
+		modalTitle: { message: 'Add Data' }
 	},
 	addFiles: {
 		title: { message: 'Upload Files' },

@@ -36,7 +36,7 @@ export const Modal = memo(function Modal({
 						{/* Modal Header */}
 						{title &&
 							(typeof title === 'string' ? (
-								<ModalHeader title={title} onClose={onClose} />
+								<ModalHeader title={title} onClose={onClose} className='font-bold' />
 							) : (
 								{ title }
 							))}
