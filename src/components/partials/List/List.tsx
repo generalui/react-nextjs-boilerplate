@@ -20,7 +20,7 @@ export const List = <DataType extends object>({
 	testId = 'List',
 	concise
 }: ListProps<DataType>) => {
-	const { t } = useText('studies.documentation')
+	const { t } = useText('studies.list')
 	let colWidthAccumulator = 0
 	const noDataMessage = emptyMessage || t('noData')
 
