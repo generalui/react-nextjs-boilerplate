@@ -46,7 +46,7 @@ export const EditStudy = memo(function EditStudy({
 							{t('buttonLabel')}
 						</>
 					}
-					v='small'
+					v='sm'
 				>
 					<StudyForm
 						initialValues={{

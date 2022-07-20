@@ -13,6 +13,7 @@ export const List = <DataType extends object>({
 	data,
 	className,
 	listItemClassName,
+	loadingClassName,
 	sharedClassName,
 	isLoading = false,
 	testId = 'List',
@@ -62,7 +63,7 @@ export const List = <DataType extends object>({
 			<Loader
 				isLoading={isLoading}
 				fallback={
-					<div className={cn('flex items-center justify-center p-12', concise)}>
+					<div className={cn('flex items-center justify-center p-12', loadingClassName)}>
 						<Spinner />
 					</div>
 				}
@@ -84,6 +85,7 @@ export const List = <DataType extends object>({
 								)}
 								columns={columns}
 								itemData={item}
+								// TODO: refactor list to accept items that have an id, to be used as a key
 								// @ts-expect-error We don't know any key info except the index for this item
 								key={index}
 								concise={concise}

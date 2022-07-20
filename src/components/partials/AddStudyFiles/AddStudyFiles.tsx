@@ -38,7 +38,7 @@ export const AddStudyFiles = ({
 			<ModalButton
 				name={modalName}
 				modalTitle={t('title')}
-				v='small'
+				v='sm'
 				buttonChildren={
 					<>
 						<Icon icon='PlusIcon' className='text-white' size='xs' />
