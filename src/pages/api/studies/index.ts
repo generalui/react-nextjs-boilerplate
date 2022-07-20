@@ -11,6 +11,7 @@ import { handleAvatarJoin } from 'utils/api/handleAvatarJoin'
 import { handleDocumentationJoin } from 'utils/api/handleDocumentationJoin'
 import { handleQuery } from 'utils/api/handleQuery'
 import { prisma } from 'utils/api/prisma'
+import { studyIncludes } from './utils'
 
 /**
  * Api setup for uploading documents
@@ -33,25 +34,6 @@ apiRoute.use(
 	])
 )
 
-// Included on all studies
-const includes = {
-	include: {
-		// Include all users in the returned object,
-		users: {
-			include: {
-				user: true
-			}
-		},
-		// Include image as join to documents table
-		image: {
-			include: {
-				image: true
-			}
-		},
-		documentation: true
-	}
-}
-
 // Get a list of studies
 apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	// If new flag passed only get the top ten
@@ -64,7 +46,7 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 					submissionDate: 'desc'
 				}
 			],
-			...includes,
+			...studyIncludes,
 			...getNewStudiesOnly
 		})
 
@@ -119,7 +101,7 @@ apiRoute.post(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 				...upsertDocumentation,
 				...upsertImage
 			},
-			...includes
+			...studyIncludes
 		})
 	}
 

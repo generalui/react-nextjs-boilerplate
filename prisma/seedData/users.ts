@@ -2,6 +2,7 @@ export const users = [
 	{
 		email: 'test@email.com',
 		name: 'Test 👷',
-		password: 'testPassw0rd!'
+		password: 'testPassw0rd!',
+		id: 'testId'
 	}
 ]

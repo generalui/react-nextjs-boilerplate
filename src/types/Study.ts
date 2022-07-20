@@ -1,4 +1,4 @@
-import { Prisma, StudyStatus, User } from '@prisma/client'
+import { Prisma, StudyDataTypes, StudyStatus, User } from '@prisma/client'
 import { z } from 'zod'
 
 // TODO: date schema should a date after the current data?
@@ -41,6 +41,14 @@ export type ApiStudy = Omit<Study, 'endDate' | 'submissionDate'> & {
 export type OptimisticStudy = Study & { users: { user: User }[] }
 
 type StudyInputToStudyMap = { [key in keyof StudyInput]: keyof Study }
+
+export interface DataVault {
+	_count: number
+	dataType: StudyDataTypes
+	_max: { inserted_at: Date }
+}
+
+export type ApiDataVault = Omit<DataVault, '_max'> & { _max: { inserted_at: string } }
 
 export interface StudyInputMap extends StudyInputToStudyMap {
 	coordinator: 'users'

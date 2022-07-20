@@ -8,6 +8,7 @@ import { useStudy } from 'hooks/api/studies/useStudy'
 import { useText } from 'hooks/useText'
 import { AddStudyFiles } from 'partials/AddStudyFiles'
 import { DataTypeContainer } from 'partials/DataTypeContainer'
+import { DataVaultList } from 'partials/DataVaultList'
 import { EditStudy } from 'partials/EditStudy'
 import { PageWrapper } from 'partials/PageWrapper'
 import { Breadcrumbs } from 'common/Breadcrumbs'
@@ -28,6 +29,7 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 	const { t } = useText('studies.details')
 	const { t: common } = useText('common.dataTypes')
 	const { t: documentation } = useText('studies.documentation')
+	const { t: dataVault } = useText('studies.dataVault')
 	const singleStudyId = getCombinedString(studyId)
 	const { data: study, isLoading, isFetched, update } = useStudy(singleStudyId)
 	const loading = !isFetched || isLoading
@@ -106,6 +108,17 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 					</div>
 
 					<DocumentationList documents={study?.documentation || []} isLoading={loading} />
+				</Card>
+				<Card className='flex flex-col gap-6'>
+					<div className='flex justify-between items-center'>
+						<div className='flex gap-2 items-center'>
+							<div className='bg-red-400 p-1 flex justify-center items-center rounded w-6 h-6'>
+								<Icon icon='LockClosedIcon' className='text-white' size='sm' />
+							</div>
+							<Text className='font-semibold text-xl'>{dataVault('title')}</Text>
+						</div>
+					</div>
+					<DataVaultList studyId={singleStudyId} />
 				</Card>
 			</div>
 		</PageWrapper>

@@ -8,6 +8,7 @@ type CreatedUser = {
 	email: string
 	name: string
 	password: string
+	id: string
 }
 // Keep track of created users without hashed password
 const createdUsers: CreatedUser[] = []
@@ -15,12 +16,12 @@ const createdUsers: CreatedUser[] = []
 // Format seed users for prisma insertion
 const prismaSafeTestUsers = users.map(
 	// 'P1.' as a prefix was the easiest way to add a number and special character  to the generated password
-	({ email, name, password = faker.internet.password(8, false, /[A-z 0-9]/, 'P1.') }) => {
-		createdUsers.push({ email, name, password })
+	({ email, name, password = faker.internet.password(8, false, /[A-z 0-9]/, 'P1.'), id }) => {
+		createdUsers.push({ email, name, password, id })
 		return {
 			where: { email },
 			update: {},
-			create: { email, name, password: bcrypt.hashSync(password, 8) }
+			create: { email, name, password: bcrypt.hashSync(password, 8), id }
 		}
 	}
 )

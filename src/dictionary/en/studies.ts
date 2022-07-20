@@ -17,6 +17,9 @@ const studies = {
 		},
 		status: {
 			message: 'Status'
+		},
+		noData: {
+			message: 'No data'
 		}
 	},
 	details: {
@@ -52,10 +55,24 @@ const studies = {
 		pdfIconAlt: { message: 'PDF Icon' },
 		noDocuments: { message: 'No files have been uploaded' }
 	},
+	dataVault: {
+		title: { message: 'Data Vault' },
+		dataType: { message: 'Data Type' },
+		files: { message: 'Files' },
+		modified: { message: 'Modified' },
+		noDocuments: { message: 'No private data has been uploaded' }
+	},
 	addFiles: {
 		title: { message: 'Upload Files' },
 		buttonLabel: { message: 'Add Public Files' },
+		privateDataButtonLabel: { message: 'Add Private Data' },
 		submitLabel: { message: 'Upload' }
+	},
+	dataTypes: {
+		consents: { message: 'Consent' },
+		geneticData: { message: 'Genetic Data' },
+		healthRecords: { message: 'Health Records' },
+		specimens: { message: 'Specimens' }
 	}
 }
 

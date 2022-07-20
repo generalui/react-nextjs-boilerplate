@@ -3,7 +3,6 @@ import { useText } from 'hooks/useText'
 import { ListItem } from 'partials/List/ListItem'
 import { Icon } from 'common/Icon'
 import { Loader } from 'common/Loader'
-import { Spinner } from 'common/Spinner'
 import { ListProps } from './List.types'
 
 const sharedClasses = 'grid grid-cols-6 lg:grid-cols-12'
@@ -16,11 +15,13 @@ export const List = <DataType extends object>({
 	loadingClassName,
 	sharedClassName,
 	isLoading = false,
+	emptyMessage = '',
 	testId = 'List',
 	concise
 }: ListProps<DataType>) => {
-	const { t } = useText('studies.documentation')
+	const { t } = useText('studies.list')
 	let colWidthAccumulator = 0
+	const noDataMessage = emptyMessage || t('noData')
 
 	return (
 		<div
@@ -45,18 +46,16 @@ export const List = <DataType extends object>({
 					colWidthAccumulator = 0
 
 					return (
-						<>
-							<div
-								className={cn(
-									'truncate',
-									columnWidth && `col-span-${columnWidth}`,
-									concise && 'text-gray-500'
-								)}
-								key={column.key}
-							>
-								{column.title}
-							</div>
-						</>
+						<div
+							className={cn(
+								'truncate',
+								columnWidth && `col-span-${columnWidth}`,
+								concise && 'text-gray-500'
+							)}
+							key={column.key}
+						>
+							{column.title}
+						</div>
 					)
 				})}
 			</div>
@@ -65,14 +64,14 @@ export const List = <DataType extends object>({
 					{!data.length ? (
 						<div className='flex flex-col justify-center items-center p-8 text-gray-400'>
 							<Icon icon='DocumentTextIcon' size='xl' />
-							{t('noDocuments')}
+							{noDataMessage}
 						</div>
 					) : (
 						data.map((item, index) => (
 							<ListItem
 								className={cn(
 									sharedClasses,
-									concise ? 'gap-2 lg:gap-10' : 'gap-10',
+									concise ? 'gap-2 lg:gap-10 text-sm' : 'gap-10',
 									sharedClassName,
 									listItemClassName
 								)}

@@ -1,6 +1,14 @@
 import { StudyDataTypes, StudyStatus } from '@prisma/client'
 import { Session } from 'next-auth'
-import { ApiStudy, OptimisticStudy, Study, StudyInput, StudyInputMap } from 'types/Study'
+import {
+	ApiDataVault,
+	ApiStudy,
+	DataVault,
+	OptimisticStudy,
+	Study,
+	StudyInput,
+	StudyInputMap
+} from 'types/Study'
 
 // TODO: The types in here are gnarly, it'd be valuable to simplify this
 
@@ -8,6 +16,11 @@ export const standardizeApiStudy = (apiStudy: ApiStudy): Study => ({
 	...apiStudy,
 	endDate: new Date(apiStudy.endDate),
 	submissionDate: new Date(apiStudy.submissionDate)
+})
+
+export const standardizeDataVault = (dataVault: ApiDataVault): DataVault => ({
+	...dataVault,
+	_max: { inserted_at: new Date(dataVault._max.inserted_at) }
 })
 
 // TODO: Study Input should only be used for form outgoing methods
@@ -91,7 +104,7 @@ export const createOptimisticStudyFromFormData = (
 		const value = data[key] as StudyInput[typeof key]
 		return {
 			...accumulator,
-			[key]: value ? optimisticStudyKeyHandlers[key](value as any, session) : undefined
+			[key]: value ? optimisticStudyKeyHandlers[key](value, session) : undefined
 		}
 	}, {} as OptimisticStudy)
 
@@ -103,6 +116,6 @@ export const createPartialStudyFromFormData = (
 		const value = data[key] as StudyInput[typeof key]
 		return {
 			...accumulator,
-			[key]: value ? optimisticStudyKeyHandlers[key](value as any, session) : undefined
+			[key]: value ? optimisticStudyKeyHandlers[key](value, session) : undefined
 		}
 	}, {})

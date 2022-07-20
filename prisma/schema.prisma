@@ -86,6 +86,7 @@ model Study {
   dataTypes      StudyDataTypes[]        @map("data_types")
   users          CoordinatorsOnStudies[]
   documentation  Document[]
+  dataVault      DataVault[]
 }
 
 model Avatar {
@@ -100,6 +101,17 @@ model Avatar {
   @@id([imageId])
 }
 
+model DataVault {
+  study       Study          @relation(fields: [studyId], references: [id])
+  studyId     String
+  document    Document       @relation(fields: [documentId], references: [id])
+  documentId  String
+  inserted_at DateTime       @default(now())
+  dataType    StudyDataTypes
+
+  @@id([documentId])
+}
+
 model CoordinatorsOnStudies {
   study       Study    @relation(fields: [studyId], references: [id])
   studyId     String
@@ -111,16 +123,17 @@ model CoordinatorsOnStudies {
 }
 
 model Document {
-  id           String   @id @default(cuid())
+  id           String     @id @default(cuid())
   uploadedById String?
   name         String
   url          String
   fileType     String
-  uploadedBy   User?    @relation(fields: [uploadedById], references: [id], onDelete: Cascade)
+  uploadedBy   User?      @relation(fields: [uploadedById], references: [id], onDelete: Cascade)
   avatar       Avatar?
-  Study        Study?   @relation(fields: [studyId], references: [id])
+  Study        Study?     @relation(fields: [studyId], references: [id])
   studyId      String?
-  insertedAt   DateTime @default(now()) @map("inserted_at")
+  insertedAt   DateTime   @default(now()) @map("inserted_at")
+  dataVault    DataVault?
 }
 
 model NotificationEvent {

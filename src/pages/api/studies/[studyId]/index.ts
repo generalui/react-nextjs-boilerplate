@@ -2,6 +2,7 @@
 import { StudyDataTypes } from '@prisma/client'
 import multer from 'multer'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { studyIncludes } from 'src/pages/api/studies/utils'
 import { ApiRequestWithFile } from 'types/ApiRequestWithFile'
 import { StudyInput, selectOptionsType } from 'types/index'
 import { connect } from 'utils/api/connect'
@@ -27,23 +28,6 @@ apiRoute.use(
 	])
 )
 
-// Included on all studies
-const includes = {
-	include: {
-		users: {
-			include: {
-				user: true
-			}
-		},
-		image: {
-			include: {
-				image: true
-			}
-		},
-		documentation: true
-	}
-}
-
 // Get a study by ID
 apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	const { studyId } = req.query
@@ -53,7 +37,7 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 			where: {
 				id: studyId as string
 			},
-			...includes
+			...studyIncludes
 		})
 
 	handleQuery({
@@ -106,7 +90,7 @@ apiRoute.patch(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 				id: studyId
 			},
 			data,
-			...includes
+			...studyIncludes
 		})
 
 	handleQuery({
