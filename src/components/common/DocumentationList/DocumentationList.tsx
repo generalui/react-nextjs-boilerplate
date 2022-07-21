@@ -15,19 +15,6 @@ export const DocumentationList = ({
 	testId = 'DocumentationList'
 }: DocumentationListProps) => {
 	const { t } = useText('studies.documentation')
-	const columns: Column[] = [
-		{
-			key: 'name',
-			title: t('name'),
-			className: 'break-all',
-			width: 10
-		},
-		{
-			key: 'date',
-			title: t('modified'),
-			width: 2
-		}
-	]
 
 	const renderDocumentIcon = useCallback(
 		(fileType: string) => {
@@ -68,6 +55,20 @@ export const DocumentationList = ({
 		[documents, renderDocumentIcon]
 	)
 
+	const columns: Column<typeof documentComponents[0]>[] = [
+		{
+			key: 'name',
+			title: t('name'),
+			className: 'break-all',
+			width: 10
+		},
+		{
+			key: 'date',
+			title: t('modified'),
+			width: 2
+		}
+	]
+
 	return (
 		<List
 			className={cn('max-h-64 overflow-y-auto', className)}
@@ -75,6 +76,7 @@ export const DocumentationList = ({
 			concise
 			data={documentComponents}
 			emptyMessage={t('noDocuments')}
+			indexKey='name'
 			isLoading={isLoading}
 			sharedClassName='text-gray-500'
 			testId={testId}

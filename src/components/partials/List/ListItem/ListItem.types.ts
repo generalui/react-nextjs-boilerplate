@@ -1,7 +1,7 @@
 import { CommonProps } from 'types/CommonProps'
-import { ListProps } from 'partials/List/List.types'
+import { ListData, ListProps } from 'partials/List/List.types'
 
-export interface ListItemProps<DataType extends object> extends CommonProps {
+export interface ListItemProps<DataType extends ListData> extends CommonProps {
 	columns: ListProps<DataType>['columns']
 	itemData: DataType
 	concise?: boolean

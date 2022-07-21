@@ -3,14 +3,15 @@ import { useText } from 'hooks/useText'
 import { ListItem } from 'partials/List/ListItem'
 import { Icon } from 'common/Icon'
 import { Loader } from 'common/Loader'
-import { ListProps } from './List.types'
+import { ListData, ListProps } from './List.types'
 
 const sharedClasses = 'grid grid-cols-6 lg:grid-cols-12'
 
-export const List = <DataType extends object>({
+export const List = <DataType extends ListData>({
 	columns,
 	data,
 	className,
+	indexKey,
 	listItemClassName,
 	loadingClassName,
 	sharedClassName,
@@ -25,7 +26,7 @@ export const List = <DataType extends object>({
 
 	return (
 		<div
-			className={cn('flex flex-col px-6 lg:px-0', concise && 'px-0 relative', className)}
+			className={cn('flex flex-col', concise && 'px-0 relative', className)}
 			data-testid={testId}
 		>
 			<div
@@ -67,7 +68,7 @@ export const List = <DataType extends object>({
 							{noDataMessage}
 						</div>
 					) : (
-						data.map((item, index) => (
+						data.map((item) => (
 							<ListItem
 								className={cn(
 									sharedClasses,
@@ -77,9 +78,7 @@ export const List = <DataType extends object>({
 								)}
 								columns={columns}
 								itemData={item}
-								// TODO: refactor list to accept items that have an id, to be used as a key
-								// @ts-expect-error We don't know any key info except the index for this item
-								key={index}
+								key={item[indexKey] as string}
 								concise={concise}
 							/>
 						))

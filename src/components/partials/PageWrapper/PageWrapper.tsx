@@ -32,7 +32,7 @@ export const PageWrapper = ({
 			<Head>
 				{title && <title>{title}</title>}
 				{/* TODO: Handle common meta data here */}
-				<meta name='viewport' content='initixal-scale=1.0, width=device-width' />
+				<meta name='viewport' content='initial-scale=1.0, width=device-width' />
 				{/*
 				 	Style added here to set the background color based on the client config within tailwind's configuration settings.
 					Due to this projects choice to use module.scss there isn't anywhere in the style sheets to import a js module. 
