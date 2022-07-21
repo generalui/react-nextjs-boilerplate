@@ -7,9 +7,11 @@ export const Form = <T extends Record<string, unknown>>({
 	onSubmit,
 	render,
 	testId = 'Form',
-	validate
+	validate,
+	keepDirtyOnReinitialize
 }: FormProps<T>) => (
 	<FinalForm
+		keepDirtyOnReinitialize={keepDirtyOnReinitialize}
 		className={className}
 		testId={testId}
 		initialValues={initialValues}
