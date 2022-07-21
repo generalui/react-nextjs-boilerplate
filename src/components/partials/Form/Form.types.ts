@@ -8,6 +8,7 @@ export interface FormProps<T extends Record<string, unknown>> extends CommonProp
 	render: Required<FinalFormProps<T>>['render']
 	submitText?: string
 	validate?: FinalFormProps<T>['validate']
+	keepDirtyOnReinitialize?: FinalFormProps<T>['keepDirtyOnReinitialize']
 }
 
 export interface StudyFormProps extends Omit<FormProps<StudyInput>, 'render'> {

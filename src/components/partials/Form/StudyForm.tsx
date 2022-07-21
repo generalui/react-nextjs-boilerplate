@@ -32,6 +32,7 @@ export const StudyForm = ({
 
 	return (
 		<Form
+			keepDirtyOnReinitialize
 			data-testid={testId}
 			onSubmit={onSubmit}
 			initialValues={initialValues}

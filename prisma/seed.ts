@@ -8,7 +8,7 @@ type CreatedUser = {
 	email: string
 	name: string
 	password: string
-	id: string
+	id?: string
 }
 // Keep track of created users without hashed password
 const createdUsers: CreatedUser[] = []
