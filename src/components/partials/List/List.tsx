@@ -26,7 +26,7 @@ export const List = <DataType extends ListData>({
 
 	return (
 		<div
-			className={cn('flex flex-col px-6 lg:px-0', concise && 'px-0 relative', className)}
+			className={cn('flex flex-col', concise && 'px-0 relative', className)}
 			data-testid={testId}
 		>
 			<div
