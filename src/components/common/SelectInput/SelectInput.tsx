@@ -1,6 +1,6 @@
 import { Field } from 'react-final-form'
 import { InputLabel } from 'common/InputLabel'
-import { Select } from '../Select/Select'
+import { Select } from 'common/Select'
 import { SelectInputProps } from './SelectInput.types'
 
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint

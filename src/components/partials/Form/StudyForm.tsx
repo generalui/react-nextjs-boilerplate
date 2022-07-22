@@ -1,6 +1,6 @@
 import { StudySchema } from 'types/index'
-import { getDataTypes } from 'utils/client/dataTypes'
 import { handleValidate } from 'utils/client/handleValidate'
+import { useStudyDataTypes } from 'hooks/useStudyDataTypes'
 import { useText } from 'hooks/useText'
 import { DataTypesSelect } from 'partials/DataTypesSelect'
 import { DocumentsInput } from 'partials/DocumentsInput'
@@ -22,9 +22,7 @@ export const StudyForm = ({
 	submitText
 }: StudyFormProps) => {
 	const { t } = useText('createStudy')
-	const { t: common } = useText('common.dataTypes')
-
-	const studyDataTypes = getDataTypes(common)
+	const studyDataTypes = useStudyDataTypes()
 
 	return (
 		<Form

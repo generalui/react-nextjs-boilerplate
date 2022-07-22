@@ -1,5 +1,5 @@
 import { Form } from 'react-final-form'
-import { getDataTypes } from 'utils/client/dataTypes'
+import { useStudyDataTypes } from 'hooks/useStudyDataTypes'
 import { useText } from 'hooks/useText'
 import { DocumentsInput } from 'partials/DocumentsInput'
 import { ModalButton } from 'partials/ModalButton'
@@ -12,11 +12,11 @@ import { AddPrivateDataProps } from './AddPrivateData.types'
 export const AddPrivateData = ({
 	modalName,
 	className,
+	dataTypes,
 	testId = 'AddPrivateData'
 }: AddPrivateDataProps) => {
 	const { t } = useText('studies.addPrivateData')
-	const { t: common } = useText('common.dataTypes')
-	const studyDataTypes = getDataTypes(common)
+	const studyDataTypes = useStudyDataTypes(dataTypes)
 
 	return (
 		<div className={className} data-testid={testId}>
