@@ -1,4 +1,5 @@
-import { StudySchema, selectOptionsType } from 'types/index'
+import { StudySchema } from 'types/index'
+import { getDataTypes } from 'utils/client/dataTypes'
 import { handleValidate } from 'utils/client/handleValidate'
 import { useText } from 'hooks/useText'
 import { DataTypesSelect } from 'partials/DataTypesSelect'
@@ -23,12 +24,7 @@ export const StudyForm = ({
 	const { t } = useText('createStudy')
 	const { t: common } = useText('common.dataTypes')
 
-	const studyDataTypes: selectOptionsType[] = [
-		{ label: common('consents.label'), value: 'consents' },
-		{ label: common('geneticData.label'), value: 'geneticData' },
-		{ label: common('healthRecords.label'), value: 'healthRecords' },
-		{ label: common('specimens.label'), value: 'specimens' }
-	]
+	const studyDataTypes = getDataTypes(common)
 
 	return (
 		<Form
@@ -91,6 +87,7 @@ export const StudyForm = ({
 								label={t('fields.dataTypes')}
 								options={studyDataTypes}
 								name='dataTypes'
+								isMulti
 							/>
 						</div>
 						{create && (

@@ -1,11 +1,12 @@
 import { Form } from 'react-final-form'
+import { getDataTypes } from 'utils/client/dataTypes'
 import { useText } from 'hooks/useText'
 import { DocumentsInput } from 'partials/DocumentsInput'
 import { ModalButton } from 'partials/ModalButton'
 import { Icon } from 'common/Icon'
 import { ModalFooterButtons } from 'common/ModalFooterButtons'
-import { Select } from 'common/Select'
 import { Text } from 'common/Text'
+import { DataTypesSelect } from '../DataTypesSelect'
 import { AddPrivateDataProps } from './AddPrivateData.types'
 
 export const AddPrivateData = ({
@@ -14,8 +15,8 @@ export const AddPrivateData = ({
 	testId = 'AddPrivateData'
 }: AddPrivateDataProps) => {
 	const { t } = useText('studies.addPrivateData')
-
-	const options = [{ value: 'consents', label: 'Consents' }]
+	const { t: common } = useText('common.dataTypes')
+	const studyDataTypes = getDataTypes(common)
 
 	return (
 		<div className={className} data-testid={testId}>
@@ -40,12 +41,7 @@ export const AddPrivateData = ({
 								<Text v='subtitle' className='font-semibold'>
 									{t('dataType')}
 								</Text>
-								<Select
-									placeholder={t('placeholder')}
-									name='dataTypes'
-									options={options}
-									isClearable
-								/>
+								<DataTypesSelect options={studyDataTypes} name='dataTypes' isClearable />
 							</div>
 							<div className='flex flex-col gap-2 p-2'>
 								<Text v='subtitle' className='font-semibold'>

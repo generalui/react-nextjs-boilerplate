@@ -13,6 +13,7 @@ export const SelectInput = <T extends unknown>({
 	components,
 	styles,
 	labelClassName,
+	isClearable,
 	label
 }: SelectInputProps<T>) => {
 	return (
@@ -29,6 +30,7 @@ export const SelectInput = <T extends unknown>({
 						options={options}
 						components={components}
 						styles={styles}
+						isClearable={isClearable}
 					/>
 				)}
 			</Field>
