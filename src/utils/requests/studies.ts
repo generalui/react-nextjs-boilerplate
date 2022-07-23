@@ -6,7 +6,8 @@ import {
 	Study,
 	StudyInput
 } from 'types/index'
-import { axios, withFile } from 'utils/client/axios'
+import { axios } from 'utils/client/axios'
+import { axiosWithFile } from 'utils/client/axiosWithFile'
 import { standardizeApiStudy, standardizeDataVault } from 'utils/models/studies'
 
 export const getStudies = async (query?: string): Promise<Study[]> => {
@@ -35,26 +36,24 @@ export const getStudyDataVault = async (studyId: string): Promise<DataVault[]> =
 }
 
 export const createStudy = async ({ image, documentation, ...newStudy }: StudyInput) => {
-	const response = await withFile<ApiStudy>(
+	const response = await axiosWithFile<ApiStudy>(
 		'/studies',
 		newStudy,
-		image,
-		'post',
-		documentation as File[]
+		{ image, documentation: documentation as File[] },
+		'post'
 	)
 	return standardizeApiStudy(response.data)
 }
 
 export const updateStudy = async (
 	studyId: string,
-	{ image, documentation, ...updatedStudy }: Partial<StudyInput>
+	{ image, documentation, dataVault, ...updatedStudy }: Partial<StudyInput>
 ): Promise<Study> => {
-	const response = await withFile<ApiStudy>(
+	const response = await axiosWithFile<ApiStudy>(
 		`/studies/${studyId}`,
 		updatedStudy,
-		image,
-		'patch',
-		documentation as File[]
+		{ image, documentation: documentation as File[], dataVault: dataVault as File[] },
+		'patch'
 	)
 
 	return standardizeApiStudy(response.data)

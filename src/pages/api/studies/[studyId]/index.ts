@@ -8,6 +8,7 @@ import { StudyInput, selectOptionsType } from 'types/index'
 import { connect } from 'utils/api/connect'
 import { getSessionFromReq } from 'utils/api/getSessionFromReq'
 import { handleAvatarJoin } from 'utils/api/handleAvatarJoin'
+import { handleDataVaultJoin } from 'utils/api/handleDataVaultJoin'
 import { handleDocumentationJoin } from 'utils/api/handleDocumentationJoin'
 import { handleQuery } from 'utils/api/handleQuery'
 import { prisma } from 'utils/api/prisma'
@@ -23,13 +24,15 @@ const uploadMiddleware = multer({
 // Middleware processing FormData to file
 apiRoute.use(
 	uploadMiddleware.fields([
-		{ name: 'file', maxCount: 1 },
-		{ name: 'documentation', maxCount: 20 }
+		{ name: 'image', maxCount: 1 },
+		{ name: 'documentation', maxCount: 20 },
+		{ name: 'dataVault', maxCount: 20 }
 	])
 )
 
 // Get a study by ID
 apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
+	// TODO: validate that the user is authorized to view this study
 	const { studyId } = req.query
 
 	const studyQuery = async () =>
@@ -50,6 +53,7 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 
 // Update study by ID
 apiRoute.patch(async (req: ApiRequestWithFile, res: NextApiResponse) => {
+	// TODO: validate that the user is authorized to update this study
 	const studyId = getCombinedString(req.query.studyId)
 	const session = await getSessionFromReq(req)
 	const { userId } = session
@@ -73,15 +77,17 @@ apiRoute.patch(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 	// Remove values that don't belong in the database
 	delete simpleBody.coordinator
 
-	const upsertImage = await handleAvatarJoin(req.file, userId)
+	const upsertImage = await handleAvatarJoin(req.files?.image?.[0], userId)
 	const upsertDocumentation = await handleDocumentationJoin(req.files?.documentation, userId)
+	const upsertDataVault = await handleDataVaultJoin(req.files?.dataVault, userId)
 
 	const data = {
 		...simpleBody,
 		endDate: endDate ? new Date(endDate) : undefined,
 		dataTypes,
 		...upsertImage,
-		...upsertDocumentation
+		...upsertDocumentation,
+		...upsertDataVault
 	}
 
 	const studyQuery = async () =>

@@ -48,6 +48,7 @@ export const EditStudy = memo(function EditStudy({
 					<>
 						{study && (
 							<StudyForm
+								keepDirtyOnReinitialize
 								initialValues={{
 									coordinator: study.users[0].user.email || '',
 									description: study.description,

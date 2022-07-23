@@ -11,7 +11,8 @@ export const StudySchema = z.object({
 	status: z.nativeEnum(StudyStatus).optional().default('new'),
 	image: z.any().optional(),
 	dataTypes: z.object({ label: z.string(), value: z.string() }).array().optional(),
-	documentation: z.any().array().optional()
+	documentation: z.any().array().optional(),
+	dataVault: z.any().array().optional()
 })
 
 // The shape of data in outgoing axios requests
@@ -31,6 +32,7 @@ export type Study = Prisma.StudyGetPayload<{
 			}
 		}
 		documentation: true
+		dataVault: true
 	}
 }>
 

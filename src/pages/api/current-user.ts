@@ -22,7 +22,7 @@ const uploadMiddleware = multer({
 })
 
 // Middleware processing FormData to file
-apiRoute.use(uploadMiddleware.single('file'))
+apiRoute.use(uploadMiddleware.single('image'))
 
 const includes = {
 	include: {

@@ -33,8 +33,8 @@ type HandleAvatarJoin = (
 /**
  * HandleAvatarJoin
  *
- * Takes a file from mutler and a record (either)
- * Attempts to upload to cloudinary and return prisma formated object.
+ * Takes a file from multer and a record (either)
+ * Attempts to upload to cloudinary and return prisma formatted object.
  * Creates an object to append to a query that upserts the element in the join table from
  * User or Study to documents
  *
