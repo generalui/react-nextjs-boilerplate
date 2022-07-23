@@ -1,6 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { StudyDataTypes, StudyStatus } from '@prisma/client'
-import multer from 'multer'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { ApiRequestWithFile } from 'types/ApiRequestWithFile'
 import { StudyInput } from 'types/Study'
@@ -10,8 +9,11 @@ import { getSessionFromReq } from 'utils/api/getSessionFromReq'
 import { handleAvatarJoin } from 'utils/api/handleAvatarJoin'
 import { handleDocumentationJoin } from 'utils/api/handleDocumentationJoin'
 import { handleQuery } from 'utils/api/handleQuery'
+import { multer } from 'utils/api/multer'
 import { prisma } from 'utils/api/prisma'
 import { studyIncludes } from './utils'
+
+export { config } from 'utils/api/multer'
 
 /**
  * Api setup for uploading documents
@@ -21,14 +23,9 @@ import { studyIncludes } from './utils'
  */
 const apiRoute = connect()
 
-// Config multer to process files in memory
-const uploadMiddleware = multer({
-	storage: multer.memoryStorage()
-})
-
 // Middleware processing FormData to file
 apiRoute.use(
-	uploadMiddleware.fields([
+	multer.fields([
 		{ name: 'image', maxCount: 1 },
 		{ name: 'documentation', maxCount: 20 }
 	])
@@ -115,10 +112,3 @@ apiRoute.post(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 })
 
 export default apiRoute
-
-// Disallow body parsing, consume as stream, for file upload
-export const config = {
-	api: {
-		bodyParser: false
-	}
-}

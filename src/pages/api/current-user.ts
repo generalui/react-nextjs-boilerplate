@@ -1,4 +1,3 @@
-import multer from 'multer'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { ApiRequestWithFile } from 'types/ApiRequestWithFile'
 import { User } from 'types/User'
@@ -6,7 +5,10 @@ import { connect } from 'utils/api/connect'
 import { getSessionFromReq } from 'utils/api/getSessionFromReq'
 import { handleAvatarJoin } from 'utils/api/handleAvatarJoin'
 import { handleQuery } from 'utils/api/handleQuery'
+import { multer } from 'utils/api/multer'
 import { prisma } from 'utils/api/prisma'
+
+export { config } from 'utils/api/multer'
 
 /**
  * Api setup for uploading documents
@@ -16,13 +18,8 @@ import { prisma } from 'utils/api/prisma'
  */
 const apiRoute = connect()
 
-// Config multer to process files in memory
-const uploadMiddleware = multer({
-	storage: multer.memoryStorage()
-})
-
 // Middleware processing FormData to file
-apiRoute.use(uploadMiddleware.single('image'))
+apiRoute.use(multer.single('image'))
 
 const includes = {
 	include: {
@@ -89,10 +86,3 @@ apiRoute.patch(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 })
 
 export default apiRoute
-
-// Disallow body parsing, consume as stream, for file upload
-export const config = {
-	api: {
-		bodyParser: false
-	}
-}
