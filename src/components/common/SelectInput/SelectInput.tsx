@@ -22,16 +22,19 @@ export const SelectInput = <T extends unknown>({
 
 			<Field name={name} className={className}>
 				{(props) => (
-					<Select
-						name={props.input.name}
-						value={props.input.value}
-						onChange={props.input.onChange}
-						isMulti={isMulti}
-						options={options}
-						components={components}
-						styles={styles}
-						isClearable={isClearable}
-					/>
+					<>
+						<Select
+							name={props.input.name}
+							value={props.input.value}
+							onChange={props.input.onChange}
+							isMulti={isMulti}
+							options={options}
+							components={components}
+							styles={styles}
+							isClearable={isClearable}
+						/>
+						{/* TODO: render errors here */}
+					</>
 				)}
 			</Field>
 		</div>
