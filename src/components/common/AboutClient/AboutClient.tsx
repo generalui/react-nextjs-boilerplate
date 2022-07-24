@@ -21,7 +21,7 @@ export const AboutClient = ({ className, testId = 'AboutClient' }: AboutClientPr
 	return (
 		<div data-testid={testId} className={cn('block w-full xl:w-9/12', className)}>
 			<div className='flex flex-col lg:flex-row gap-4 lg:gap-5 justify-between'>
-				<figure className='relative w-48 xl:w-52 h-48 xl:h-52 flex-shrink-0'>
+				<figure className='relative w-36 md:w-40 lg:w-48 xl:w-52 h-36 md:h-40 lg:h-48 xl:h-52 flex-shrink-0'>
 					<Image className='rounded-xl' layout='fill' src={image} alt={t('imageAlt')} />
 				</figure>
 
