@@ -10,4 +10,7 @@ export interface ButtonProps extends CommonProps {
 	type?: 'button' | 'submit' | 'reset' | undefined
 	disabled?: boolean
 	v?: keyof typeof buttonVariants
+	link?: boolean
+	href?: string
+	target?: string
 }

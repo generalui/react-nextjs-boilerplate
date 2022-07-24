@@ -7,7 +7,7 @@ export const Container = ({ children, className, testId = 'Container', fluid }: 
 			data-testid={testId}
 			className={cn(
 				'container mx-auto',
-				!fluid && 'p-3 md:p-0 max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-5xl xxl:max-w-7xl',
+				!fluid && 'p-3 lg:p-0 max-w-md md:max-w-3xl xl:max-w-5xl xxl:max-w-7xl',
 				className
 			)}
 		>

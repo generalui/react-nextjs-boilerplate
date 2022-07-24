@@ -1,3 +1,4 @@
+import client from './client'
 import common from './common'
 import createStudy from './createStudy'
 import home from './home'
@@ -7,6 +8,7 @@ import studies from './studies'
 
 export const en = {
 	common,
+	client,
 	home,
 	signIn,
 	createStudy,
