@@ -1,4 +1,3 @@
-import { Study, StudyUpdateInput } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { ApiRequestWithFile } from 'types/ApiRequestWithFile'
 import { DataVaultInput } from 'types/Study'

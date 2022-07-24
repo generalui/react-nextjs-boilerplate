@@ -41,6 +41,10 @@ const studies = {
 		new: { message: 'New' },
 		archived: { message: 'Archived' }
 	},
+	create: {
+		success: { message: 'Study was successfully created' },
+		error: { message: 'Failed to create study' }
+	},
 	success: {
 		created: { message: 'Study was successfully created' },
 		updated: { message: 'Study has been updated' }

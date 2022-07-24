@@ -18,9 +18,10 @@ export const standardizeApiStudy = (apiStudy: ApiStudy): Study => ({
 	submissionDate: new Date(apiStudy.submissionDate)
 })
 
-export const standardizeDataVault = (dataVault: ApiDataVault): DataVault => ({
-	...dataVault,
-	_max: { inserted_at: new Date(dataVault._max.inserted_at) }
+export const standardizeDataVault = ({ _count, dataType, _max }: ApiDataVault): DataVault => ({
+	_count,
+	dataType,
+	_max: { inserted_at: new Date(_max.inserted_at) }
 })
 
 // TODO: Study Input should only be used for form outgoing methods

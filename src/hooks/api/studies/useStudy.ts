@@ -17,7 +17,7 @@ export const useStudy = (
 ): UseQueryResult<Study> & {
 	dataVault: UseQueryResult<DataVault[]>
 	update: UseMutationResult<Study, unknown, Partial<StudyInput>>
-	uploadToDataVault: UseMutationResult<DataVault, unknown, DataVaultInput>
+	uploadToDataVault: UseMutationResult<Study, unknown, DataVaultInput>
 } => {
 	const { data: session } = useSession()
 	const { t: error } = useText('studies.error')

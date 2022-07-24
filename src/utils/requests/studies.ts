@@ -62,12 +62,12 @@ export const createStudy = async ({ image, documentation, ...newStudy }: StudyIn
 
 export const updateStudy = async (
 	studyId: string,
-	{ image, documentation, dataVault, ...updatedStudy }: Partial<StudyInput>
+	{ image, documentation, ...updatedStudy }: Partial<StudyInput>
 ): Promise<Study> => {
 	const response = await axiosWithFiles<ApiStudy>(
 		`/studies/${studyId}`,
 		updatedStudy,
-		{ image, documentation: documentation as File[], dataVault: dataVault as File[] },
+		{ image, documentation: documentation as File[] },
 		'patch'
 	)
 

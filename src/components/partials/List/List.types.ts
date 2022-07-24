@@ -3,9 +3,9 @@ import { CommonProps } from 'types/CommonProps'
 
 export type ListData = Record<string, ReactNode>
 
-type StringKeys<DataType extends ListData> = Extract<keyof DataType, string>
+type StringKeys<DataType = ListData> = Extract<keyof DataType, string>
 
-export interface Column<DataType extends ListData> {
+export interface Column<DataType = ListData> {
 	key: StringKeys<DataType>
 	className?: string
 	title?: string
