@@ -1,6 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { StudyDataTypes } from '@prisma/client'
-import multer from 'multer'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { studyIncludes } from 'src/pages/api/studies/utils'
 import { ApiRequestWithFile } from 'types/ApiRequestWithFile'
@@ -8,22 +7,19 @@ import { StudyInput, selectOptionsType } from 'types/index'
 import { connect } from 'utils/api/connect'
 import { getSessionFromReq } from 'utils/api/getSessionFromReq'
 import { handleAvatarJoin } from 'utils/api/handleAvatarJoin'
-import { handleDataVaultJoin } from 'utils/api/handleDataVaultJoin'
 import { handleDocumentationJoin } from 'utils/api/handleDocumentationJoin'
 import { handleQuery } from 'utils/api/handleQuery'
+import { multer } from 'utils/api/multer'
 import { prisma } from 'utils/api/prisma'
 import { getCombinedString } from 'utils/client/text'
 
-const apiRoute = connect()
+export { config } from 'utils/api/multer'
 
-// Config multer to process files in memory
-const uploadMiddleware = multer({
-	storage: multer.memoryStorage()
-})
+const apiRoute = connect()
 
 // Middleware processing FormData to file
 apiRoute.use(
-	uploadMiddleware.fields([
+	multer.fields([
 		{ name: 'image', maxCount: 1 },
 		{ name: 'documentation', maxCount: 20 },
 		{ name: 'dataVault', maxCount: 20 }
@@ -79,15 +75,13 @@ apiRoute.patch(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 
 	const upsertImage = await handleAvatarJoin(req.files?.image?.[0], userId)
 	const upsertDocumentation = await handleDocumentationJoin(req.files?.documentation, userId)
-	const upsertDataVault = await handleDataVaultJoin(req.files?.dataVault, userId)
 
 	const data = {
 		...simpleBody,
 		endDate: endDate ? new Date(endDate) : undefined,
 		dataTypes,
 		...upsertImage,
-		...upsertDocumentation,
-		...upsertDataVault
+		...upsertDocumentation
 	}
 
 	const studyQuery = async () =>
@@ -108,10 +102,3 @@ apiRoute.patch(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 })
 
 export default apiRoute
-
-// Disallow body parsing, consume as stream, for file upload
-export const config = {
-	api: {
-		bodyParser: false
-	}
-}

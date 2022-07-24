@@ -2,22 +2,6 @@ import { Prisma, StudyDataTypes, StudyStatus, User } from '@prisma/client'
 import { z } from 'zod'
 import { ListData } from 'partials/List/List.types'
 
-// TODO: date schema should a date after the current data?
-export const StudySchema = z.object({
-	title: z.string(),
-	coordinator: z.string().email(),
-	endDate: z.string(),
-	description: z.string(),
-	status: z.nativeEnum(StudyStatus).optional().default('new'),
-	image: z.any().optional(),
-	dataTypes: z.object({ label: z.string(), value: z.string() }).array().optional(),
-	documentation: z.any().array().optional(),
-	dataVault: z.any().array().optional()
-})
-
-// The shape of data in outgoing axios requests
-export type StudyInput = z.infer<typeof StudySchema>
-
 export type Study = Prisma.StudyGetPayload<{
 	include: {
 		users: {
@@ -68,3 +52,35 @@ export type selectOptionsType = {
 	value: string
 	label: string
 }
+
+// TODO: date schema should a date after the current data?
+export const StudySchema = z.object({
+	title: z.string(),
+	coordinator: z.string().email(),
+	endDate: z.string(),
+	description: z.string(),
+	status: z.nativeEnum(StudyStatus).optional().default('new'),
+	image: z.any().optional(),
+	// TODO: dataTypes should be an array only containing values
+	dataTypes: z
+		.object({ label: z.string(), value: z.string() })
+		.array()
+		.refine((data) => data.length > 0, {
+			message: 'At least one data type required',
+			path: ['dataTypes'] // path of error
+		}),
+	documentation: z.any().array().optional()
+})
+
+// The shape of data in outgoing axios requests
+export type StudyInput = z.infer<typeof StudySchema>
+
+export const DataVaultSchema = z.object({
+	dataType: z
+		.object({ label: z.string(), value: z.nativeEnum(StudyDataTypes) })
+		.transform(({ value }) => value),
+	dataVault: z.any().array()
+})
+
+// The shape of data in outgoing axios requests
+export type DataVaultInput = z.infer<typeof DataVaultSchema>

@@ -1,3 +1,4 @@
+// TODO: Rename this component to AddStudyDocumentation
 import { useEffect } from 'react'
 import { Form } from 'react-final-form'
 import { StudyInput } from 'types/index'

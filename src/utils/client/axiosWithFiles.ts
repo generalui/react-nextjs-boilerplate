@@ -8,7 +8,7 @@ type WithFiles = <T>(
 	method?: string
 ) => Promise<AxiosResponse<T>>
 
-export const axiosWithFile: WithFiles = async (url, body, files, method = 'post') => {
+export const axiosWithFiles: WithFiles = async (url, body, files, method = 'post') => {
 	// Create a form data object
 	const formData = new FormData()
 
@@ -22,9 +22,6 @@ export const axiosWithFile: WithFiles = async (url, body, files, method = 'post'
 	Object.keys(files)?.forEach((fileUploadKey) => {
 		if (!files) return
 		const toUpload = files[fileUploadKey]
-		console.log('~ fileUploadKey', fileUploadKey)
-		console.log('~ files', files)
-		console.log('~ toUpload', toUpload)
 
 		// Only attach files
 		// Strings (previews or url loaded values) are omitted from the form data object
@@ -32,7 +29,7 @@ export const axiosWithFile: WithFiles = async (url, body, files, method = 'post'
 			formData.append(fileUploadKey, toUpload)
 		} else if (Array.isArray(toUpload)) {
 			toUpload?.forEach((file) => {
-				if (toUpload instanceof File) {
+				if (file instanceof File) {
 					formData.append(fileUploadKey, file)
 				}
 			})

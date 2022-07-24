@@ -1,14 +1,14 @@
 import { User } from '@prisma/client'
 import { useMutation } from 'react-query'
 import { UserInput } from 'types/index'
-import { axiosWithFile } from 'utils/client/axiosWithFile'
+import { axiosWithFiles } from 'utils/client/axiosWithFiles'
 import { reactQueryClient } from 'utils/client/react-query'
 import { toast } from 'utils/client/toast'
 import { useText } from 'hooks/useText'
 import { useCurrentUser } from './useCurrentUser'
 
 function updateCurrentUser({ image, ...currentUserUpdate }: UserInput) {
-	return axiosWithFile<User>('/current-user', currentUserUpdate, { image }, 'patch')
+	return axiosWithFiles<User>('/current-user', currentUserUpdate, { image }, 'patch')
 }
 
 export function useUpdateCurrentUser() {

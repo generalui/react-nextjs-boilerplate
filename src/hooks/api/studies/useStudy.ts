@@ -1,10 +1,15 @@
 import { useSession } from 'next-auth/react'
 import { UseMutationResult, UseQueryResult, useMutation, useQuery } from 'react-query'
-import { DataVault, Study, StudyInput } from 'types/Study'
+import { DataVault, DataVaultInput, Study, StudyInput } from 'types/Study'
 import { reactQueryClient } from 'utils/client/react-query'
 import { toast } from 'utils/client/toast'
 import { createPartialStudyFromFormData } from 'utils/models/studies'
-import { getStudy, getStudyDataVault, updateStudy } from 'utils/requests/studies'
+import {
+	getStudy,
+	getStudyDataVault,
+	postStudyDataVault,
+	updateStudy
+} from 'utils/requests/studies'
 import { useText } from 'hooks/useText'
 
 export const useStudy = (
@@ -12,6 +17,7 @@ export const useStudy = (
 ): UseQueryResult<Study> & {
 	dataVault: UseQueryResult<DataVault[]>
 	update: UseMutationResult<Study, unknown, Partial<StudyInput>>
+	uploadToDataVault: UseMutationResult<DataVault, unknown, DataVaultInput>
 } => {
 	const { data: session } = useSession()
 	const { t: error } = useText('studies.error')
@@ -22,7 +28,7 @@ export const useStudy = (
 		retry: false
 	})
 
-	const dataVault = useQuery(['studies', studyId, 'dataVault'], () => getStudyDataVault(studyId), {
+	const dataVault = useQuery(['studies', studyId, 'data-vault'], () => getStudyDataVault(studyId), {
 		enabled: !!studyId,
 		retry: false
 	})
@@ -68,5 +74,24 @@ export const useStudy = (
 		}
 	)
 
-	return { ...query, update: updateMutation, dataVault }
+	const uploadToDataVault = useMutation(
+		`study-${studyId}-upload-to-data-vault`,
+		(dataVaultValues: DataVaultInput) => {
+			return postStudyDataVault(studyId, dataVaultValues)
+		},
+		{
+			onSuccess: () => {
+				toast(success('updated'))
+			},
+			onError: (_err, _newStudy, context?: { previousStudy: Study }) => {
+				reactQueryClient.setQueryData(['studies', studyId], context?.previousStudy)
+				toast(error('failedToUpload'), 'error')
+			},
+			onSettled: () => {
+				reactQueryClient.invalidateQueries(['studies', studyId])
+			}
+		}
+	)
+
+	return { ...query, update: updateMutation, dataVault, uploadToDataVault }
 }

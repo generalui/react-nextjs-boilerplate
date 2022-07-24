@@ -118,7 +118,11 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 							</div>
 							<Text className='font-semibold text-xl'>{dataVault('title')}</Text>
 						</div>
-						<AddPrivateData dataTypes={study?.dataTypes} modalName='add-private-data' />
+						<AddPrivateData
+							studyId={singleStudyId}
+							dataTypes={study?.dataTypes}
+							modalName='add-private-data'
+						/>
 					</div>
 					<DataVaultList studyId={singleStudyId} />
 				</Card>

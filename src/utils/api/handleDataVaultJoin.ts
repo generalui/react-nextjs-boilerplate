@@ -1,23 +1,30 @@
+import { StudyDataTypes } from '@prisma/client'
 import { UploadToCloudinaryReturn, uploadToCloudinary } from './uploadToCloudinary'
 
 // TODO: merge this logic with handleAvatarJoin and handleDocumentationJoin
 type DataVaultQuery = {
-	dataValue: {
+	dataVault: {
 		create: {
-			name: string
-			url: string
-			fileType: string
-			uploadedBy: {
-				connect: {
-					id: string
+			document: {
+				create: {
+					name: string
+					url: string
+					fileType: string
+					uploadedBy: {
+						connect: {
+							id: string
+						}
+					}
 				}
 			}
+			dataType: StudyDataTypes
 		}[]
 	}
 }
 // TODO: this is very similar to handleAvatarJoin and handleDataVaultJoin so we should probably merge them
 type HandleDataVaultJoin = (
-	dataValue: Express.Multer.File[] | undefined,
+	dataVault: Express.Multer.File[] | undefined,
+	dataType: StudyDataTypes,
 	userId: string
 ) => Promise<DataVaultQuery | undefined>
 
@@ -31,7 +38,7 @@ type HandleDataVaultJoin = (
  *
  * @returns object to pass to prisma to create a connected document model
  */
-export const handleDataVaultJoin: HandleDataVaultJoin = async (files, userId) => {
+export const handleDataVaultJoin: HandleDataVaultJoin = async (files, dataType, userId) => {
 	// Attempt upload file to cloudinary
 	if (!files?.length) return undefined
 
@@ -45,18 +52,23 @@ export const handleDataVaultJoin: HandleDataVaultJoin = async (files, userId) =>
 
 	// The update / create on the image
 	// cloudinaryDataVaultValues
-	const dataValue: DataVaultQuery = {
-		dataValue: {
+	const dataVault: DataVaultQuery = {
+		dataVault: {
 			create: cloudinaryDataVaultValues.map((doc) => ({
-				...doc,
-				uploadedBy: {
-					connect: {
-						id: userId
+				document: {
+					create: {
+						...doc,
+						uploadedBy: {
+							connect: {
+								id: userId
+							}
+						}
 					}
-				}
+				},
+				dataType
 			}))
 		}
 	}
 
-	return dataValue
+	return dataVault
 }
