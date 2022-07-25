@@ -16,20 +16,27 @@ export const Button = ({
 	onClick,
 	type = 'button',
 	disabled,
-	v = 'default'
-}: ButtonProps) => (
-	<button
-		data-testid={testId}
-		type={type}
-		disabled={disabled}
-		className={cn(
-			className,
-			buttonVariants[v],
-			disabled && disabledVariants[`${v}Disabled`],
-			center && 'flex justify-center items-center'
-		)}
-		onClick={onClick}
-	>
-		{children}
-	</button>
-)
+	v = 'default',
+	link,
+	target,
+	href
+}: ButtonProps) => {
+	className = cn(
+		buttonVariants[v],
+		disabled && disabledVariants[`${v}Disabled`],
+		center && 'flex justify-center items-center',
+		className
+	)
+
+	const props = {
+		['data-testid']: testId,
+		type: link ? undefined : type,
+		disabled,
+		className,
+		onClick,
+		target: link ? target || '_blank' : undefined,
+		href: link ? href : undefined
+	}
+
+	return link ? <a {...props}>{children}</a> : <button {...props}>{children}</button>
+}

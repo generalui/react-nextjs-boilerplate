@@ -22,7 +22,7 @@ export const TextArea = ({
 			value={value}
 			onChange={onChange}
 			className={cn(
-				'block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none',
+				'block p-2.5 w-full text-sm text-gray-900 rounded-lg border focus:ring-blue-500 focus:border-blue-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none',
 				error ? 'border-red-500' : 'border-gray-300  dark:border-gray-600',
 				className
 			)}

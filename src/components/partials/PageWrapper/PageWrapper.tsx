@@ -15,7 +15,8 @@ export const PageWrapper = ({
 	hideAuth,
 	hideSidebar,
 	fullWidth,
-	testId = 'PageWrapper'
+	testId = 'PageWrapper',
+	className
 }: PageWrapperProps) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -31,6 +32,7 @@ export const PageWrapper = ({
 		<div data-testid={testId} className='font-inter'>
 			<Head>
 				{title && <title>{title}</title>}
+
 				{/* TODO: Handle common meta data here */}
 				<meta name='viewport' content='initial-scale=1.0, width=device-width' />
 				{/*
@@ -60,7 +62,9 @@ export const PageWrapper = ({
 
 			<div className={cn(hideSidebar ? 'w-full' : styles.withSideBar, styles.withNavBar)}>
 				{!fullWidth && (
-					<Container className='md:mt-[4.5rem] max-w-screen-lg mb-40'>{children}</Container>
+					<Container className={cn('md:mt-[4.5rem] max-w-screen-lg mb-40', className)}>
+						{children}
+					</Container>
 				)}
 				{fullWidth && { children }}
 			</div>
