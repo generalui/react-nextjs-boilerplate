@@ -4,6 +4,7 @@ import { useText } from 'hooks/useText'
 import { AggregatedDataCard } from 'partials/AggregatedDataCard'
 import { PageWrapper } from 'partials/PageWrapper'
 import { StudyList } from 'partials/StudyList'
+import { AboutClient } from 'common/AboutClient'
 import { Card } from 'common/Card'
 
 export const Home = () => {
@@ -30,8 +31,11 @@ export const Home = () => {
 
 	return (
 		<PageWrapper title={t('title')}>
-			<div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
-				{/* Aggregated study data */}
+			{/* Client about info */}
+			<AboutClient className='mb-12' />
+
+			{/* Aggregated study data */}
+			<div className='flex flex-col lg:flex-row gap-6'>
 				{AggregatedData.map(({ dataType, dataClassName, value }) => (
 					<AggregatedDataCard
 						key={dataType}
@@ -43,13 +47,15 @@ export const Home = () => {
 						description={t(`${dataType}.description`)}
 					/>
 				))}
-
-				{/* Divider */}
-				<div className='border-b col-span-1 col-span-3 my-2 border-color-black-400' />
-				<Card title={t('recentlyAddedStudies.title')} className='col-span-3'>
-					<StudyList studies={studies} isLoading={isLoading} className='w-full' concise />
-				</Card>
 			</div>
+
+			{/* Divider */}
+			<div className='border-b col-span-1 col-span-3 border-color-black-400 my-9' />
+
+			{/* Recently added studies */}
+			<Card title={t('recentlyAddedStudies.title')} className='col-span-3'>
+				<StudyList studies={studies} isLoading={isLoading} className='w-full' concise />
+			</Card>
 		</PageWrapper>
 	)
 }
