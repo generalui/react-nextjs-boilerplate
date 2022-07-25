@@ -1,16 +1,9 @@
-/* eslint-disable react/jsx-no-literals */
-
-/** @jsxRuntime classic */
-
-/** @jsx jsx */
-import { jsx } from '@emotion/react'
 import cn from 'classnames'
 import { MultiValueGenericProps, OptionProps, SingleValueProps, components } from 'react-select'
 import { selectOptionsType } from 'types/index'
 import { DataTypeLabel } from 'common/DataTypeLabel'
 import { SelectInput } from 'common/SelectInput'
 import { DataTypesSelectProps } from './DataTypesSelect.types'
-import { dataTypesStyles } from './styles'
 
 const MultiValueLabel = (props: MultiValueGenericProps<selectOptionsType>) => {
 	const { value } = props.data
@@ -31,23 +24,12 @@ const SingleValue = (props: SingleValueProps<selectOptionsType>) => {
 }
 
 const Option = (props: OptionProps<selectOptionsType>) => {
-	const {
-		children,
-		className,
-		cx,
-		getStyles,
-		isDisabled,
-		isFocused,
-		isSelected,
-		innerRef,
-		innerProps,
-		data
-	} = props
+	const { children, className, cx, isDisabled, isFocused, isSelected, innerRef, innerProps, data } =
+		props
 	const { value } = data
 	return (
 		<div
 			ref={innerRef}
-			css={getStyles('option', props)}
 			className={cx(
 				{
 					option: true,
@@ -86,7 +68,6 @@ export const DataTypesSelect = ({
 				name={name}
 				options={options}
 				components={{ MultiValueLabel, Option, SingleValue }}
-				styles={dataTypesStyles}
 				isClearable={isClearable}
 			/>
 		</div>

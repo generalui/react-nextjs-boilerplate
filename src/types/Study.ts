@@ -1,4 +1,5 @@
 import { Prisma, StudyDataTypes, StudyStatus, User } from '@prisma/client'
+import { ReactNode } from 'react'
 import { z } from 'zod'
 import { ListData } from 'partials/List/List.types'
 
@@ -49,23 +50,24 @@ export interface StudyInputMap extends StudyInputToStudyMap {
 	documentation: 'documentation'
 }
 
-export type selectOptionsType = {
+export type selectOptionsType<T = unknown> = {
 	value: string
-	label: string
+	label: ReactNode
+	meta?: T
 }
 
 // TODO: date schema should a date after the current data?
 export const StudySchema = z.object({
 	title: z.string(),
-	coordinator: z.string().email(),
+	coordinator: z.object({ label: z.string(), value: z.string() }).transform((val) => val.value),
 	endDate: z.string(),
 	description: z.string(),
 	status: z.nativeEnum(StudyStatus).optional().default('new'),
 	image: z.any().optional(),
-	// TODO: dataTypes should be an array only containing values
 	dataTypes: z
 		.object({ label: z.string(), value: z.string() })
 		.array()
+		.transform((val) => val.map((v) => v.value))
 		.refine((data) => data.length > 0, {
 			message: 'At least one data type required',
 			path: ['dataTypes'] // path of error
@@ -75,6 +77,11 @@ export const StudySchema = z.object({
 
 // The shape of data in outgoing axios requests
 export type StudyInput = z.infer<typeof StudySchema>
+
+export type StudyInputPreTransform = Omit<StudyInput, 'coordinator' | 'dataTypes'> & {
+	coordinator?: selectOptionsType
+	dataTypes?: selectOptionsType[]
+}
 
 export const DataVaultSchema = z.object({
 	dataType: z

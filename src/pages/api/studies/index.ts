@@ -1,9 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { StudyDataTypes, StudyStatus } from '@prisma/client'
+import { StudyStatus } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { ApiRequestWithFile } from 'types/ApiRequestWithFile'
 import { StudyInput } from 'types/Study'
-import { Study, selectOptionsType } from 'types/index'
+import { Study } from 'types/index'
 import { connect } from 'utils/api/connect'
 import { getSessionFromReq } from 'utils/api/getSessionFromReq'
 import { handleAvatarJoin } from 'utils/api/handleAvatarJoin'
@@ -60,17 +60,12 @@ apiRoute.post(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 	const session = await getSessionFromReq(req)
 
 	const studyQuery = async () => {
-		const {
-			title,
-			coordinator,
-			endDate,
-			description,
-			dataTypes: dt
-		} = req.body as Omit<StudyInput, 'dataTypes'> & { dataTypes: string }
+		const { title, coordinator, endDate, description, dataTypes } = req.body as Omit<
+			StudyInput,
+			'dataTypes'
+		> & { dataTypes: string }
 
-		const dataTypes: StudyDataTypes[] | undefined = dt
-			? JSON.parse(dt).map((dataType: selectOptionsType) => dataType.value as StudyDataTypes)
-			: undefined
+		const insertDataTypes = dataTypes ? { dataTypes: JSON.parse(dataTypes) } : undefined
 
 		const upsertImage = await handleAvatarJoin(req.files?.image?.[0], session.userId)
 		const upsertDocumentation = await handleDocumentationJoin(
@@ -85,16 +80,16 @@ apiRoute.post(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 				description,
 				status: StudyStatus.new,
 				submissionDate: new Date(),
-				dataTypes,
 				users: {
 					create: {
 						user: {
 							connect: {
-								email: coordinator
+								id: coordinator
 							}
 						}
 					}
 				},
+				...insertDataTypes,
 				...upsertDocumentation,
 				...upsertImage
 			},

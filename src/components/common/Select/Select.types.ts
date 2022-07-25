@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import {
 	ActionMeta,
 	GroupBase,
@@ -9,15 +10,15 @@ import {
 import { SelectComponents } from 'react-select/dist/declarations/src/components'
 import { CommonProps } from 'types/CommonProps'
 
-export interface SelectProps<T> extends CommonProps {
-	isMulti?: true
+export interface SelectProps<T = unknown> extends CommonProps {
+	isMulti?: boolean
+	isClearable?: boolean
 	options?: OptionsOrGroups<T, GroupBase<T>>
 	components?: Partial<SelectComponents<T, boolean, GroupBase<T>>>
 	styles?: StylesConfig<T, boolean, GroupBase<T>>
 	name?: string
 	value?: PropsValue<T>
-	isClearable?: true
-	placeholder?: string
+	placeholder?: ReactNode
 	onChange?: (newValue: OnChangeValue<T, boolean>, actionMeta: ActionMeta<T>) => void
 }
 

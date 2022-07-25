@@ -11,31 +11,48 @@ export const SelectInput = <T extends unknown>({
 	isMulti,
 	options,
 	components,
-	styles,
 	labelClassName,
-	isClearable,
-	label
+	placeholder,
+	label,
+	isClearable
 }: SelectInputProps<T>) => {
 	return (
 		<div data-testid={testId}>
 			<InputLabel className={labelClassName} name={name} label={label} />
 
 			<Field name={name} className={className}>
-				{(props) => (
-					<>
-						<Select
-							name={props.input.name}
-							value={props.input.value}
-							onChange={props.input.onChange}
-							isMulti={isMulti}
-							options={options}
-							components={components}
-							styles={styles}
-							isClearable={isClearable}
-						/>
-						{/* TODO: render errors here */}
-					</>
-				)}
+				{({ input, meta }) => {
+					const isError = meta.error && meta.touched
+
+					return (
+						<>
+							<Select
+								isClearable={isClearable}
+								placeholder={placeholder}
+								name={input.name}
+								value={input.value}
+								onChange={input.onChange}
+								isMulti={isMulti}
+								options={options}
+								components={components}
+								styles={{
+									control: (base) => ({
+										...base,
+										borderColor: isError ? 'red' : '#ced4da'
+									})
+								}}
+							/>
+
+							{isError && (
+								<>
+									<span className='text-xs text-red-500 mt-5'>
+										{'*'} {meta.error}
+									</span>
+								</>
+							)}
+						</>
+					)
+				}}
 			</Field>
 		</div>
 	)

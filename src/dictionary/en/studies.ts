@@ -51,7 +51,8 @@ const studies = {
 	},
 	error: {
 		doesNotExist: { message: 'Study does not exist' },
-		failedToUpload: { message: 'Failed to upload' }
+		failedToUpload: { message: 'Failed to upload' },
+		failedToUpdate: { message: 'Failed to update' }
 	},
 	documentation: {
 		title: { message: 'Documentation' },

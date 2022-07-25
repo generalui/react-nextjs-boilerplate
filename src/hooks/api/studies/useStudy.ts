@@ -37,36 +37,39 @@ export const useStudy = (
 		`study-${studyId}`,
 		(studyUpdate: Partial<StudyInput>) => updateStudy(studyId, studyUpdate),
 		{
-			onMutate: async (studyUpdate) => {
-				await reactQueryClient.cancelQueries(['studies', studyId])
-				const previousStudy = reactQueryClient.getQueryData<Study>(['studies', studyId])
+			// TODO: re-implement optimistic loading
+			// onMutate: async (studyUpdate) => {
+			// 	await reactQueryClient.cancelQueries(['studies', studyId])
+			// 	const previousStudy = reactQueryClient.getQueryData<Study>(['studies', studyId])
 
-				if (!previousStudy) {
-					toast(error('doesNotExist'), 'error')
-					return
-				}
+			// 	if (!previousStudy) {
+			// 		toast(error('doesNotExist'), 'error')
+			// 		return
+			// 	}
 
-				const partialStudy = createPartialStudyFromFormData(studyUpdate, session)
+			// 	const partialStudy = createPartialStudyFromFormData(studyUpdate, session)
 
-				const optimisticStudy: Study = {
-					...previousStudy,
-					...partialStudy,
-					documentation: [...previousStudy.documentation, ...(partialStudy?.documentation || [])]
-				}
+			// 	const optimisticStudy: Study = {
+			// 		...previousStudy,
+			// 		...partialStudy,
+			// 		documentation: [...previousStudy.documentation, ...(partialStudy?.documentation || [])]
+			// 	}
+			// 	console.log('~ optimisticStudy', optimisticStudy)
 
-				// Optimistically update to the new value
-				reactQueryClient.setQueryData(['studies', studyId], {
-					...previousStudy,
-					...optimisticStudy
-				})
+			// 	// Optimistically update to the new value
+			// 	reactQueryClient.setQueryData(['studies', studyId], {
+			// 		...previousStudy,
+			// 		...optimisticStudy
+			// 	})
 
-				return { previousStudy }
-			},
+			// 	return { previousStudy }
+			// },
 			onSuccess: () => {
 				toast(success('updated'))
 			},
 			onError: (_err, _newStudy, context?: { previousStudy: Study }) => {
 				reactQueryClient.setQueryData(['studies', studyId], context?.previousStudy)
+				toast(error('failedToUpdate'), 'error')
 			},
 			onSettled: () => {
 				reactQueryClient.invalidateQueries(['studies', studyId])

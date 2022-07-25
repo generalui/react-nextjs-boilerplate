@@ -4,7 +4,7 @@ const nextConfig = {
 	reactStrictMode: true,
 	compiler: {},
 	images: {
-		domains: ['unsplash.com']
+		domains: ['unsplash.com', 'res.cloudinary.com']
 	},
 	experimental: {
 		outputStandalone: true

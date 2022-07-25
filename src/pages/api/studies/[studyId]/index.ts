@@ -1,9 +1,7 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { StudyDataTypes } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { studyIncludes } from 'src/pages/api/studies/utils'
 import { ApiRequestWithFile } from 'types/ApiRequestWithFile'
-import { StudyInput, selectOptionsType } from 'types/index'
+import { StudyInput } from 'types/index'
 import { connect } from 'utils/api/connect'
 import { getSessionFromReq } from 'utils/api/getSessionFromReq'
 import { handleAvatarJoin } from 'utils/api/handleAvatarJoin'
@@ -55,43 +53,54 @@ apiRoute.patch(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 	const { userId } = session
 
 	// Extract body values that need transformation
-	const {
-		endDate,
-		dataTypes: dt,
-		...simpleBody
-	} = req.body as Omit<StudyInput, 'coordinator' | 'dataTypes'> & {
+	const { endDate, coordinator, dataTypes, ...simpleBody } = req.body as Omit<
+		StudyInput,
+		'coordinator' | 'dataTypes'
+	> & {
 		coordinator?: string
 		dataTypes: string
 	}
 
-	// TODO: this should be handled on the front end before the request is made.
-	const dataTypes: StudyDataTypes[] = dt
-		? JSON.parse(dt).map((dataType: selectOptionsType) => dataType.value as StudyDataTypes)
-		: undefined
-
 	// TODO: this needs include an update to the study users, it should be possible to update the coordinators on a study
 	// Remove values that don't belong in the database
-	delete simpleBody.coordinator
+	const coordinatorJoin = coordinator
+		? { users: { create: { user: { connect: { id: coordinator } } } } }
+		: undefined
 
 	const upsertImage = await handleAvatarJoin(req.files?.image?.[0], userId)
 	const upsertDocumentation = await handleDocumentationJoin(req.files?.documentation, userId)
 
+	// TODO: there should be a better way to manage arrays of strings coming from the client
+	const insertDataTypes = dataTypes ? { dataTypes: JSON.parse(dataTypes) } : undefined
+
 	const data = {
 		...simpleBody,
 		endDate: endDate ? new Date(endDate) : undefined,
-		dataTypes,
+		...insertDataTypes,
 		...upsertImage,
-		...upsertDocumentation
+		...upsertDocumentation,
+		...coordinatorJoin
 	}
 
-	const studyQuery = async () =>
-		prisma.study.update({
+	const studyQuery = async () => {
+		if (coordinatorJoin) {
+			// The current functionality of the app is that there is only one coordinator per study.
+			// So we must remove the others before updating the study.
+			await prisma.coordinatorsOnStudies.deleteMany({
+				where: {
+					studyId: studyId
+				}
+			})
+		}
+
+		return await prisma.study.update({
 			where: {
 				id: studyId
 			},
 			data,
 			...studyIncludes
 		})
+	}
 
 	handleQuery({
 		req,

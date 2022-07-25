@@ -29,7 +29,7 @@ export const Input = forwardRef(
 				<InputLabel className={labelClassName} name={name} label={label} />
 				<Field name={name}>
 					{({ input, meta }) => {
-						const isError = meta.error && meta.touched
+						const hasError = meta.error && meta.touched
 
 						return (
 							<>
@@ -41,7 +41,8 @@ export const Input = forwardRef(
 										value={input.value}
 										onChange={input.onChange}
 										disabled={disabled}
-										className={cn(isError && 'border-red-500', className)}
+										error={hasError}
+										className={cn(className)}
 									/>
 								) : (
 									<input
@@ -50,7 +51,7 @@ export const Input = forwardRef(
 										id={id || name}
 										className={cn(
 											'input input-bordered block w-full',
-											isError && 'border-red-500',
+											hasError && 'border-red-500',
 											className
 										)}
 										placeholder={placeholder}
@@ -61,7 +62,7 @@ export const Input = forwardRef(
 										disabled={disabled}
 									/>
 								)}
-								{isError && (
+								{hasError && (
 									<>
 										<span className='text-xs text-red-500 mt-5'>
 											{'*'} {meta.error}

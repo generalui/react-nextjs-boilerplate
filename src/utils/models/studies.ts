@@ -92,7 +92,7 @@ const optimisticStudyKeyHandlers: {
 	image: createStudyImage,
 	status: (value) => value as StudyStatus,
 	title: (value) => value,
-	dataTypes: (dataTypes) => dataTypes?.map((dataType) => dataType.value as StudyDataTypes) || [],
+	dataTypes: (value) => value as StudyDataTypes[],
 	documentation: createDocumentation
 }
 
