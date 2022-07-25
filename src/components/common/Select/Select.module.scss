@@ -1,0 +1,81 @@
+.reactSelect {
+	:global {
+		.react-select {
+			&__input {
+				box-shadow: none;
+			}
+
+			&__control {
+				padding: 0.25rem 0rem;
+				min-height: 3rem;
+				border-radius: 8px;
+				cursor: pointer;
+				font-size: 0.875rem;
+			}
+
+			&__menu {
+				border-radius: 0.625rem;
+			}
+			&__menu-list {
+				font-size: 0.875rem;
+
+				padding: 0.5rem;
+				display: flex;
+				flex-direction: column;
+				gap: 0.25rem;
+			}
+
+			&__option {
+				border-radius: 0.75rem;
+				cursor: pointer;
+				padding: 0.25rem 0.5rem;
+
+				&--is-selected {
+					border: 1px solid #0093d8;
+					color: inherit;
+					background-color: inherit;
+				}
+
+				&--is-focused,
+				&:active {
+					color: inherit;
+					background-color: #f3f4f6;
+				}
+			}
+
+			&__value-container--has-value {
+				display: flex !important;
+			}
+
+			&__multi-value {
+				background-color: #d5f2ff;
+				border: 1px solid #0093d8;
+				padding: 0px 8px;
+				border-radius: 4px;
+				align-items: center;
+
+				&__label {
+					color: #0093d8;
+				}
+
+				&__remove {
+					background-color: #0093d8;
+					border-radius: 50%;
+					height: 18px;
+					width: 18px;
+					color: #d5f2ff;
+					padding: 0;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+
+					&:hover {
+						cursor: pointer;
+						background-color: #0772b0;
+						color: #d5f2ff;
+					}
+				}
+			}
+		}
+	}
+}

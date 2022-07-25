@@ -6,5 +6,6 @@ export interface TextAreaProps extends CommonProps {
 	placeholder?: string
 	name?: string
 	value?: string | number | readonly string[] | undefined
+	error?: boolean
 	onChange?: ChangeEventHandler<HTMLTextAreaElement> | undefined
 }

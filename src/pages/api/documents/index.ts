@@ -1,12 +1,14 @@
 import { User } from '@prisma/client'
-import multer from 'multer'
 import { ApiRequestWithFile } from 'types/ApiRequestWithFile'
 import { connect } from 'utils/api/connect'
 import { getSessionFromReq } from 'utils/api/getSessionFromReq'
 import { handleQuery } from 'utils/api/handleQuery'
 import { upload } from 'utils/api/media'
+import { multer } from 'utils/api/multer'
 import { parseFile } from 'utils/api/parseFile'
 import { prisma } from 'utils/api/prisma'
+
+export { config } from 'utils/api/multer'
 
 /**
  * Api setup for uploading documents
@@ -17,13 +19,8 @@ import { prisma } from 'utils/api/prisma'
 
 const apiRoute = connect()
 
-// Config multer to process files in memory
-const uploadMiddleware = multer({
-	storage: multer.memoryStorage()
-})
-
 // Middleware processing FormData to file
-apiRoute.use(uploadMiddleware.single('file'))
+apiRoute.use(multer.single('file'))
 
 // Handle post request
 apiRoute.post(async (req: ApiRequestWithFile, res) => {
@@ -71,10 +68,3 @@ apiRoute.post(async (req: ApiRequestWithFile, res) => {
 })
 
 export default apiRoute
-
-// Disallow body parsing, consume as stream, for file upload
-export const config = {
-	api: {
-		bodyParser: false
-	}
-}

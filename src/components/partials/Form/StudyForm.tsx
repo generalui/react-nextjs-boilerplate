@@ -1,9 +1,11 @@
-import { StudySchema, selectOptionsType } from 'types/index'
+import { StudySchema } from 'types/index'
 import { handleValidate } from 'utils/client/handleValidate'
+import { useStudyDataTypes } from 'hooks/useStudyDataTypes'
 import { useText } from 'hooks/useText'
 import { DataTypesSelect } from 'partials/DataTypesSelect'
 import { DocumentsInput } from 'partials/DocumentsInput'
 import { Form } from 'partials/Form'
+import { UserSelect } from 'partials/UserSelect'
 import { Button } from 'common/Button'
 import { ImageInput } from 'common/ImageInput'
 import { Input } from 'common/Input'
@@ -21,14 +23,7 @@ export const StudyForm = ({
 	submitText
 }: StudyFormProps) => {
 	const { t } = useText('createStudy')
-	const { t: common } = useText('common.dataTypes')
-
-	const studyDataTypes: selectOptionsType[] = [
-		{ label: common('consents.label'), value: 'consents' },
-		{ label: common('geneticData.label'), value: 'geneticData' },
-		{ label: common('healthRecords.label'), value: 'healthRecords' },
-		{ label: common('specimens.label'), value: 'specimens' }
-	]
+	const studyDataTypes = useStudyDataTypes()
 
 	return (
 		<Form
@@ -58,10 +53,9 @@ export const StudyForm = ({
 								<div>
 									<div className='grid grid-cols-2 gap-4 lg:gap-6'>
 										<div className='col-span-2 md:col-span-1'>
-											<Input
+											<UserSelect
 												label={t('fields.coordinator')}
 												name='coordinator'
-												type='text'
 												placeholder={t('placeholders.coordinator')}
 											/>
 										</div>
@@ -91,6 +85,7 @@ export const StudyForm = ({
 								label={t('fields.dataTypes')}
 								options={studyDataTypes}
 								name='dataTypes'
+								isMulti
 							/>
 						</div>
 						{create && (

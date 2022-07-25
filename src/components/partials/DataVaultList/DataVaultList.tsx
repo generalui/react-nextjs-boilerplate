@@ -1,6 +1,6 @@
 import { StudyDataTypes } from '@prisma/client'
 import cn from 'classnames'
-import { DataVault } from 'types/Study'
+import { DataVaultListData } from 'types/Study'
 import { useStudy } from 'hooks/api/studies/useStudy'
 import { useText } from 'hooks/useText'
 import { List } from 'partials/List'
@@ -18,7 +18,7 @@ export const DataVaultList = ({
 
 	const { dataVault } = useStudy(studyId)
 
-	const columns: Column<DataVault>[] = [
+	const columns: Column<DataVaultListData>[] = [
 		{
 			key: 'dataType',
 			title: t('dataType'),
@@ -52,7 +52,7 @@ export const DataVaultList = ({
 			className={cn('max-h-64 overflow-y-auto', className)}
 			columns={columns}
 			concise
-			data={dataVault.data || []}
+			data={(dataVault.data as DataVaultListData[]) || []}
 			emptyMessage={t('noDocuments')}
 			indexKey='dataType'
 			isLoading={dataVault.isLoading}

@@ -1,6 +1,6 @@
 import { FormProps as FinalFormProps } from 'react-final-form'
 import { CommonProps } from 'types/CommonProps'
-import { StudyInput } from 'types/Study'
+import { StudyInputPreTransform } from 'types/Study'
 
 export interface FormProps<T extends Record<string, unknown>> extends CommonProps {
 	initialValues?: T
@@ -11,7 +11,7 @@ export interface FormProps<T extends Record<string, unknown>> extends CommonProp
 	keepDirtyOnReinitialize?: FinalFormProps<T>['keepDirtyOnReinitialize']
 }
 
-export interface StudyFormProps extends Omit<FormProps<StudyInput>, 'render'> {
+export interface StudyFormProps extends Omit<FormProps<StudyInputPreTransform>, 'render'> {
 	create?: boolean
 	isLoading: boolean
 	onCancel: () => void

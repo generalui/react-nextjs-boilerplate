@@ -12,7 +12,7 @@ export const DataTypeLabel = ({
 }: DataTypeLabelProps) => {
 	const { t } = useText('common.dataType')
 	return (
-		<div className={cn('flex items-center pr-2', className)} data-testid={testId}>
+		<div className={cn('flex items-center gap-1', className)} data-testid={testId}>
 			<Image src={img} width='20' height='20' alt={t(`${dataType}.alt`)} />
 
 			{children}

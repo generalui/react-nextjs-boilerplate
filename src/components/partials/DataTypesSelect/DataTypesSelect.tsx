@@ -1,16 +1,9 @@
-/* eslint-disable react/jsx-no-literals */
-
-/** @jsxRuntime classic */
-
-/** @jsx jsx */
-import { jsx } from '@emotion/react'
 import cn from 'classnames'
-import { MultiValueGenericProps, OptionProps, components } from 'react-select'
+import { MultiValueGenericProps, OptionProps, SingleValueProps, components } from 'react-select'
 import { selectOptionsType } from 'types/index'
 import { DataTypeLabel } from 'common/DataTypeLabel'
 import { SelectInput } from 'common/SelectInput'
 import { DataTypesSelectProps } from './DataTypesSelect.types'
-import { dataTypesStyles } from './styles'
 
 const MultiValueLabel = (props: MultiValueGenericProps<selectOptionsType>) => {
 	const { value } = props.data
@@ -21,24 +14,22 @@ const MultiValueLabel = (props: MultiValueGenericProps<selectOptionsType>) => {
 	)
 }
 
+const SingleValue = (props: SingleValueProps<selectOptionsType>) => {
+	const { value } = props.data
+	return (
+		<DataTypeLabel img={`/icons/${value}.svg`} dataType={value}>
+			<components.SingleValue {...props} />
+		</DataTypeLabel>
+	)
+}
+
 const Option = (props: OptionProps<selectOptionsType>) => {
-	const {
-		children,
-		className,
-		cx,
-		getStyles,
-		isDisabled,
-		isFocused,
-		isSelected,
-		innerRef,
-		innerProps,
-		data
-	} = props
+	const { children, className, cx, isDisabled, isFocused, isSelected, innerRef, innerProps, data } =
+		props
 	const { value } = data
 	return (
 		<div
 			ref={innerRef}
-			css={getStyles('option', props)}
 			className={cx(
 				{
 					option: true,
@@ -63,6 +54,8 @@ export const DataTypesSelect = ({
 	testId = 'DataTypesSelect',
 	labelClassName,
 	label,
+	isMulti,
+	isClearable,
 	name
 }: DataTypesSelectProps<selectOptionsType>) => {
 	return (
@@ -71,11 +64,11 @@ export const DataTypesSelect = ({
 				labelClassName={labelClassName}
 				label={label}
 				data-testid={testId}
-				isMulti={true}
+				isMulti={isMulti}
 				name={name}
 				options={options}
-				components={{ MultiValueLabel, Option }}
-				styles={dataTypesStyles}
+				components={{ MultiValueLabel, Option, SingleValue }}
+				isClearable={isClearable}
 			/>
 		</div>
 	)

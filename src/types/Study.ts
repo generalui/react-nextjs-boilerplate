@@ -1,21 +1,7 @@
 import { Prisma, StudyDataTypes, StudyStatus, User } from '@prisma/client'
+import { ReactNode } from 'react'
 import { z } from 'zod'
 import { ListData } from 'partials/List/List.types'
-
-// TODO: date schema should a date after the current data?
-export const StudySchema = z.object({
-	title: z.string(),
-	coordinator: z.string().email(),
-	endDate: z.string(),
-	description: z.string(),
-	status: z.nativeEnum(StudyStatus).optional().default('new'),
-	image: z.any().optional(),
-	dataTypes: z.object({ label: z.string(), value: z.string() }).array().optional(),
-	documentation: z.any().array().optional()
-})
-
-// The shape of data in outgoing axios requests
-export type StudyInput = z.infer<typeof StudySchema>
 
 export type Study = Prisma.StudyGetPayload<{
 	include: {
@@ -43,11 +29,13 @@ export type OptimisticStudy = Study & { users: { user: User }[] }
 
 type StudyInputToStudyMap = { [key in keyof StudyInput]: keyof Study }
 
-export interface DataVault extends ListData {
+export interface DataVault {
 	_count: number
 	dataType: StudyDataTypes
 	_max: { inserted_at: Date }
 }
+
+export interface DataVaultListData extends DataVault, ListData {}
 
 export type ApiDataVault = Omit<DataVault, '_max'> & { _max: { inserted_at: string } }
 
@@ -62,7 +50,45 @@ export interface StudyInputMap extends StudyInputToStudyMap {
 	documentation: 'documentation'
 }
 
-export type selectOptionsType = {
+export type selectOptionsType<T = unknown> = {
 	value: string
-	label: string
+	label: ReactNode
+	meta?: T
 }
+
+// TODO: date schema should a date after the current data?
+export const StudySchema = z.object({
+	title: z.string(),
+	coordinator: z.object({ label: z.string(), value: z.string() }).transform((val) => val.value),
+	endDate: z.string(),
+	description: z.string(),
+	status: z.nativeEnum(StudyStatus).optional().default('new'),
+	image: z.any().optional(),
+	dataTypes: z
+		.object({ label: z.string(), value: z.string() })
+		.array()
+		.transform((val) => val.map((v) => v.value))
+		.refine((data) => data.length > 0, {
+			message: 'At least one data type required',
+			path: ['dataTypes'] // path of error
+		}),
+	documentation: z.any().array().optional()
+})
+
+// The shape of data in outgoing axios requests
+export type StudyInput = z.infer<typeof StudySchema>
+
+export type StudyInputPreTransform = Omit<StudyInput, 'coordinator' | 'dataTypes'> & {
+	coordinator?: selectOptionsType
+	dataTypes?: selectOptionsType[]
+}
+
+export const DataVaultSchema = z.object({
+	dataType: z
+		.object({ label: z.string(), value: z.nativeEnum(StudyDataTypes) })
+		.transform(({ value }) => value),
+	dataVault: z.any().array()
+})
+
+// The shape of data in outgoing axios requests
+export type DataVaultInput = z.infer<typeof DataVaultSchema>

@@ -1,20 +1,26 @@
+import cn from 'classnames'
 import S from 'react-select'
+import moduleStyles from './Select.module.scss'
 import { SelectComponent } from './Select.types'
 
 export const Select: SelectComponent = ({
 	className,
-	testId = 'Select',
-	isMulti,
-	options,
 	components,
-	styles,
+	isMulti,
+	isClearable,
 	name,
-	value,
-	onChange
+	onChange,
+	options,
+	placeholder,
+	styles,
+	testId = 'Select',
+	value
 }) => {
 	return (
-		<div className={className} data-testid={testId}>
+		<div className={cn(moduleStyles.reactSelect, className)} data-testid={testId}>
 			<S
+				isClearable={isClearable}
+				placeholder={placeholder}
 				name={name}
 				value={value}
 				onChange={onChange}

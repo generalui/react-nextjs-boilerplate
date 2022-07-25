@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { getCombinedString } from 'utils/client/text'
 import { useStudy } from 'hooks/api/studies/useStudy'
 import { useText } from 'hooks/useText'
+import { AddPrivateData } from 'partials/AddPrivateData'
 import { AddStudyFiles } from 'partials/AddStudyFiles'
 import { DataTypeContainer } from 'partials/DataTypeContainer'
 import { DataVaultList } from 'partials/DataVaultList'
@@ -62,7 +63,7 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 						<EditStudy studyId={singleStudyId} disabled={loading} />
 					</div>
 					<div className='flex flex-col lg:flex-row items-start lg:items-center gap-6'>
-						<ImageWithPlaceholder src={study?.image?.image?.url} />
+						<ImageWithPlaceholder src={study?.image?.image?.url} className='h-52 w-52' />
 						<div className='flex flex-col gap-3 justify-between lg:h-52 flex-grow w-full'>
 							<div className='bg-gray-50 rounded px-4 py-2 flex-grow'>
 								<Loader isLoading={loading}>
@@ -72,7 +73,7 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 								</Loader>
 							</div>
 							<div className='flex flex-col lg:flex-row gap-4 justify-between'>
-								<Detail label={t('coordinator')}>{study?.users[0].user.name}</Detail>
+								<Detail label={t('coordinator')}>{study?.users?.[0]?.user?.name}</Detail>
 								<Detail label={t('submissionDate')}>
 									{study?.submissionDate
 										? new Date(study.submissionDate).toLocaleDateString()
@@ -117,6 +118,11 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 							</div>
 							<Text className='font-semibold text-xl'>{dataVault('title')}</Text>
 						</div>
+						<AddPrivateData
+							studyId={singleStudyId}
+							dataTypes={study?.dataTypes}
+							modalName='add-private-data'
+						/>
 					</div>
 					<DataVaultList studyId={singleStudyId} />
 				</Card>

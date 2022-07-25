@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { StudyInput } from 'types/index'
+import { StudyInputPreTransform, StudySchema } from 'types/index'
 import { formatFormDate } from 'utils/client/date'
 import { useStudy } from 'hooks/api/studies/useStudy'
 import { useModal } from 'hooks/useModal'
@@ -18,14 +18,16 @@ export const EditStudy = memo(function EditStudy({
 	const { t: common } = useText('common.dataTypes')
 	const { close } = useModal('edit-study')
 	const { data: study, update } = useStudy(studyId)
+	const coordinator = study?.users?.[0]?.user
 
-	const onSubmit = async (values: StudyInput) => {
+	const onSubmit = async (values: StudyInputPreTransform) => {
 		if (update.isLoading) return
 
 		try {
-			await update.mutateAsync(values)
+			await update.mutateAsync(StudySchema.parse(values))
 			close()
 		} catch (error) {
+			console.log('~ error', error)
 			// TODO: Add proper error handling
 		}
 	}
@@ -48,8 +50,11 @@ export const EditStudy = memo(function EditStudy({
 					<>
 						{study && (
 							<StudyForm
+								keepDirtyOnReinitialize
 								initialValues={{
-									coordinator: study.users[0].user.email || '',
+									coordinator: coordinator
+										? { value: coordinator.id, label: coordinator.email }
+										: undefined,
 									description: study.description,
 									endDate: formatFormDate(study.endDate),
 									image: study.image?.image?.url || '',

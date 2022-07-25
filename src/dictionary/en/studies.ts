@@ -41,12 +41,18 @@ const studies = {
 		new: { message: 'New' },
 		archived: { message: 'Archived' }
 	},
+	create: {
+		success: { message: 'Study was successfully created' },
+		error: { message: 'Failed to create study' }
+	},
 	success: {
 		created: { message: 'Study was successfully created' },
 		updated: { message: 'Study has been updated' }
 	},
 	error: {
-		doesNotExist: { message: 'Study does not exist' }
+		doesNotExist: { message: 'Study does not exist' },
+		failedToUpload: { message: 'Failed to upload' },
+		failedToUpdate: { message: 'Failed to update' }
 	},
 	documentation: {
 		title: { message: 'Documentation' },
@@ -73,6 +79,14 @@ const studies = {
 		geneticData: { message: 'Genetic Data' },
 		healthRecords: { message: 'Health Records' },
 		specimens: { message: 'Specimens' }
+	},
+	addPrivateData: {
+		buttonLabel: { message: 'Add Private Data' },
+		submitLabel: { message: 'Upload' },
+		modalTitle: { message: 'Add Data' },
+		placeholder: { message: 'Select Data Type' },
+		dataType: { message: 'Data Type' },
+		filesOrFolders: { message: 'Files or Folders' }
 	}
 }
 

@@ -8,6 +8,12 @@ const profile = {
 		},
 		submitButton: {
 			message: 'Update'
+		},
+		success: {
+			message: 'Your profile has been updated'
+		},
+		error: {
+			message: 'Something went wrong'
 		}
 	}
 }

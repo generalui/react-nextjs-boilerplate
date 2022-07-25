@@ -11,8 +11,8 @@ type UploadToCloudinary = (
 /**
  * UploadToCloudinary
  *
- * Takes a file from mutler.
- * Attempts to upload to cloudinary and return prisma formated object.
+ * Takes a file from multer.
+ * Attempts to upload to cloudinary and return prisma formatted object.
  *
  * @returns object to pass to prisma to create a connected document model
  */

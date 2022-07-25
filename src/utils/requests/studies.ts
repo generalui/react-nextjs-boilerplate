@@ -3,10 +3,12 @@ import {
 	ApiDataVault,
 	ApiStudy,
 	DataVault,
+	DataVaultInput,
 	Study,
 	StudyInput
 } from 'types/index'
-import { axios, withFile } from 'utils/client/axios'
+import { axios } from 'utils/client/axios'
+import { axiosWithFiles } from 'utils/client/axiosWithFiles'
 import { standardizeApiStudy, standardizeDataVault } from 'utils/models/studies'
 
 export const getStudies = async (query?: string): Promise<Study[]> => {
@@ -25,7 +27,7 @@ export const getStudy = async (studyId: string): Promise<Study> => {
 }
 
 export const getStudyDataVault = async (studyId: string): Promise<DataVault[]> => {
-	const response = await axios.get<ApiDataVault[]>(`/studies/${studyId}/dataVault`)
+	const response = await axios.get<ApiDataVault[]>(`/studies/${studyId}/data-vault`)
 
 	if (!response.data) {
 		throw new Error('Study not found')
@@ -34,13 +36,26 @@ export const getStudyDataVault = async (studyId: string): Promise<DataVault[]> =
 	return response.data.map(standardizeDataVault)
 }
 
+export const postStudyDataVault = async (
+	studyId: string,
+	{ dataVault, dataType }: DataVaultInput
+) => {
+	const response = await axiosWithFiles<ApiStudy>(
+		`/studies/${studyId}/data-vault`,
+		{ dataType },
+		{ dataVault: dataVault as File[] },
+		'post'
+	)
+
+	return standardizeApiStudy(response.data)
+}
+
 export const createStudy = async ({ image, documentation, ...newStudy }: StudyInput) => {
-	const response = await withFile<ApiStudy>(
+	const response = await axiosWithFiles<ApiStudy>(
 		'/studies',
 		newStudy,
-		image,
-		'post',
-		documentation as File[]
+		{ image, documentation: documentation as File[] },
+		'post'
 	)
 	return standardizeApiStudy(response.data)
 }
@@ -49,12 +64,11 @@ export const updateStudy = async (
 	studyId: string,
 	{ image, documentation, ...updatedStudy }: Partial<StudyInput>
 ): Promise<Study> => {
-	const response = await withFile<ApiStudy>(
+	const response = await axiosWithFiles<ApiStudy>(
 		`/studies/${studyId}`,
 		updatedStudy,
-		image,
-		'patch',
-		documentation as File[]
+		{ image, documentation: documentation as File[] },
+		'patch'
 	)
 
 	return standardizeApiStudy(response.data)

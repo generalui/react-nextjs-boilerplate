@@ -1,6 +1,6 @@
 import { Field } from 'react-final-form'
 import { InputLabel } from 'common/InputLabel'
-import { Select } from '../Select/Select'
+import { Select } from 'common/Select'
 import { SelectInputProps } from './SelectInput.types'
 
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
@@ -11,26 +11,48 @@ export const SelectInput = <T extends unknown>({
 	isMulti,
 	options,
 	components,
-	styles,
 	labelClassName,
-	label
+	placeholder,
+	label,
+	isClearable
 }: SelectInputProps<T>) => {
 	return (
 		<div data-testid={testId}>
 			<InputLabel className={labelClassName} name={name} label={label} />
 
 			<Field name={name} className={className}>
-				{(props) => (
-					<Select
-						name={props.input.name}
-						value={props.input.value}
-						onChange={props.input.onChange}
-						isMulti={isMulti}
-						options={options}
-						components={components}
-						styles={styles}
-					/>
-				)}
+				{({ input, meta }) => {
+					const isError = meta.error && meta.touched
+
+					return (
+						<>
+							<Select
+								isClearable={isClearable}
+								placeholder={placeholder}
+								name={input.name}
+								value={input.value}
+								onChange={input.onChange}
+								isMulti={isMulti}
+								options={options}
+								components={components}
+								styles={{
+									control: (base) => ({
+										...base,
+										borderColor: isError ? 'red' : '#ced4da'
+									})
+								}}
+							/>
+
+							{isError && (
+								<>
+									<span className='text-xs text-red-500 mt-5'>
+										{'*'} {meta.error}
+									</span>
+								</>
+							)}
+						</>
+					)
+				}}
 			</Field>
 		</div>
 	)

@@ -1,6 +1,6 @@
 import { PlusIcon } from '@heroicons/react/solid'
 import { memo, useEffect } from 'react'
-import { StudyInput, StudySchema } from 'types/index'
+import { StudyInputPreTransform, StudySchema } from 'types/index'
 import { useCreateStudy } from 'hooks/api/studies/useCreateStudy'
 import { useModal } from 'hooks/useModal'
 import { useText } from 'hooks/useText'
@@ -13,7 +13,7 @@ export const CreateStudy = memo(function CreateStudy({ testId = 'CreateStudy' }:
 	const { close } = useModal('create-study')
 	const { createStudy, isLoading, isSuccess, reset } = useCreateStudy()
 
-	const onSubmit = async (values: StudyInput) => {
+	const onSubmit = async (values: StudyInputPreTransform) => {
 		if (isLoading) return
 		const newStudy = {
 			...StudySchema.parse(values),
