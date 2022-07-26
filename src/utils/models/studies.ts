@@ -21,7 +21,7 @@ export const standardizeApiStudy = (apiStudy: ApiStudy): Study => ({
 export const standardizeDataVault = ({ _count, dataType, _max }: ApiDataVault): DataVault => ({
 	_count,
 	dataType,
-	_max: { inserted_at: new Date(_max.inserted_at) }
+	_max: { insertedAt: new Date(_max.insertedAt) }
 })
 
 // TODO: Study Input should only be used for form outgoing methods
@@ -37,7 +37,7 @@ const createStudyImage: StudyKeyHandler<'image'> = (imageUrl: StudyInput['image'
 				imageId: new Date().toISOString(),
 				studyId: '',
 				userId: '',
-				inserted_at: new Date(),
+				insertedAt: new Date(),
 				image: {
 					id: new Date().toISOString(),
 					name: '',
@@ -54,7 +54,7 @@ const createStudyUser: StudyKeyHandler<'coordinator'> = (_value, session) => [
 	{
 		studyId: new Date().toISOString(),
 		userId: new Date().toISOString(),
-		inserted_at: new Date(),
+		insertedAt: new Date(),
 		user: {
 			id: new Date().toISOString(),
 			email: session?.user?.email || '',

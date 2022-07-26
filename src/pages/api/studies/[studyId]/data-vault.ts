@@ -26,7 +26,7 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 				studyId: { equals: studyId as string }
 			},
 			_count: true,
-			_max: { inserted_at: true }
+			_max: { insertedAt: true }
 		})
 
 	handleQuery({

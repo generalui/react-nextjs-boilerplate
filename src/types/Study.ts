@@ -32,12 +32,12 @@ type StudyInputToStudyMap = { [key in keyof StudyInput]: keyof Study }
 export interface DataVault {
 	_count: number
 	dataType: StudyDataTypes
-	_max: { inserted_at: Date }
+	_max: { insertedAt: Date }
 }
 
 export interface DataVaultListData extends DataVault, ListData {}
 
-export type ApiDataVault = Omit<DataVault, '_max'> & { _max: { inserted_at: string } }
+export type ApiDataVault = Omit<DataVault, '_max'> & { _max: { insertedAt: string } }
 
 export interface StudyInputMap extends StudyInputToStudyMap {
 	coordinator: 'users'
