@@ -32,8 +32,8 @@ export const List = <DataType extends ListData>({
 			<div
 				className={cn(
 					sharedClasses,
-					'pb-4 px-6 font-semibold text-black text-xs hidden lg:grid gap-10 ',
-					concise && 'px-0 pb-2 sticky top-0 bg-white w-full border-b',
+					'font-semibold text-black text-xs hidden lg:grid gap-10',
+					concise ? 'px-0 pb-2 sticky top-0 bg-white w-full border-b' : 'mb-4 px-6',
 					sharedClassName
 				)}
 			>
@@ -48,11 +48,7 @@ export const List = <DataType extends ListData>({
 
 					return (
 						<div
-							className={cn(
-								'truncate',
-								columnWidth && `col-span-${columnWidth}`,
-								concise && 'text-gray-500'
-							)}
+							className={cn(columnWidth && `col-span-${columnWidth}`, concise && 'text-gray-500')}
 							key={column.key}
 						>
 							{column.title}
