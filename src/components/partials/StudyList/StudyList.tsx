@@ -21,7 +21,7 @@ const getColumns = (concise: boolean, t?: ReturnType<UseText>['t']): Column<Stud
 						'/images/image_placeholder_centered.jpg'
 					})`
 				}}
-				className='block h-16 w-16 bg-center bg-cover rounded-lg'
+				className='block h-12 w-12 bg-center bg-cover rounded-lg'
 				role='img'
 			/>
 		)

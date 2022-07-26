@@ -36,7 +36,7 @@ export const DataVaultList = ({
 		{
 			key: '_count',
 			title: t('files'),
-			className: 'bg-gray-50 w-min px-4',
+			className: 'bg-gray-50 w-min px-4 rounded',
 			width: 2
 		},
 		{
