@@ -1,4 +1,5 @@
 // TODO: Rename this component to AddStudyDataVaultDocumentation - OR - refactor to share the same component as AddStudyDocumentation
+import { useEffect } from 'react'
 import { Form } from 'react-final-form'
 import { DataVaultInput, DataVaultSchema } from 'types/Study'
 import { handleValidate } from 'utils/client/handleValidate'
@@ -25,13 +26,17 @@ export const AddPrivateData = ({
 	const studyDataTypes = useStudyDataTypes(dataTypes)
 	const { close } = useModal(modalName)
 	const { uploadToDataVault } = useStudy(studyId)
-	const { reset } = uploadToDataVault
+	const { isLoading, isSuccess, reset } = uploadToDataVault
 
-	const onSubmit = async (values: DataVaultInput) => {
-		await uploadToDataVault.mutate(DataVaultSchema.parse(values))
+	useEffect(() => {
+		if (!isLoading && isSuccess) {
+			close()
+			reset()
+		}
+	}, [isLoading, isSuccess, close, reset])
 
-		close()
-		reset()
+	const onSubmit = (values: DataVaultInput) => {
+		uploadToDataVault.mutate(DataVaultSchema.parse(values))
 	}
 
 	return (
@@ -68,7 +73,7 @@ export const AddPrivateData = ({
 							<ModalFooterButtons
 								actionButtonLabel={t('submitLabel')}
 								modalName={modalName}
-								isLoading={false}
+								isLoading={isLoading}
 							/>
 						</form>
 					)}

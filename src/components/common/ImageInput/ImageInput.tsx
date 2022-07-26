@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Field } from 'react-final-form'
 import { OnChange } from 'react-final-form-listeners'
 import { useText } from 'hooks/useText'
+import { InputError } from 'common/InputError'
 import { Dropzone } from './Dropzone'
 import { ImageInputProps } from './ImageInput.types'
 
@@ -10,7 +11,6 @@ export const ImageInput = ({
 	className,
 	dropzoneClassName,
 	editIconClassName,
-	errorClassName,
 	onClick,
 	testId = 'ImageInput',
 	name,
@@ -46,24 +46,10 @@ export const ImageInput = ({
 								onChange={handleChange}
 							/>
 							{isError && (
-								<div
-									className={cn(
-										'flex flex-col gap-2 mt-5 absolute bottom-[-1.5rem] left-0',
-										errorClassName
-									)}
-								>
-									{dropzoneErrors.length > 0 &&
-										dropzoneErrors.map((error) => (
-											<span key={error} className='text-xs text-red-500'>
-												{'*'} {error}
-											</span>
-										))}
-									{meta.error && (
-										<span className='text-xs text-red-500'>
-											{'*'} {meta.error}
-										</span>
-									)}
-								</div>
+								<InputError
+									className='mt-5 absolute bottom-[-1.5rem] left-0'
+									errors={[...dropzoneErrors, meta.error]}
+								/>
 							)}
 						</div>
 					)
