@@ -16,17 +16,17 @@ generator client {
 
 model Account {
   id                String  @id @default(cuid())
-  userId            String
+  userId            String  @map("user_id")
   type              String
   provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
+  providerAccountId String  @map("provider_account_id")
+  refreshToken      String? @map("refresh_token") @db.Text
+  accessToken       String? @map("access_token") @db.Text
+  expiresAt         Int?    @map("expires_at")
+  tokenType         String? @map("token_type")
   scope             String?
-  id_token          String? @db.Text
-  session_state     String?
+  idToken           String? @map("id_token") @db.Text
+  sessionState      String? @map("session_state")
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -35,7 +35,7 @@ model Account {
 
 model Session {
   id           String   @id @default(cuid())
-  sessionToken String   @unique
+  sessionToken String   @unique @map("session_token")
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -45,7 +45,7 @@ model User {
   id            String                  @id @default(cuid())
   name          String?
   email         String?                 @unique
-  emailVerified DateTime?
+  emailVerified DateTime?               @map("email_verified")
   password      String?
   image         Avatar?
   accounts      Account[]
@@ -80,8 +80,8 @@ model Study {
   description    String
   image          Avatar?
   status         StudyStatus             @default(new)
-  submissionDate DateTime                @default(now())
-  endDate        DateTime
+  submissionDate DateTime                @default(now()) @map("submission_date")
+  endDate        DateTime                @map("end_date")
   title          String
   dataTypes      StudyDataTypes[]        @map("data_types")
   users          CoordinatorsOnStudies[]
@@ -90,57 +90,57 @@ model Study {
 }
 
 model Avatar {
-  study       Study?   @relation(fields: [studyId], references: [id])
-  studyId     String?  @unique
-  user        User?    @relation(fields: [userId], references: [id])
-  userId      String?  @unique
-  image       Document @relation(fields: [imageId], references: [id])
-  imageId     String
-  inserted_at DateTime @default(now())
+  study      Study?   @relation(fields: [studyId], references: [id])
+  studyId    String?  @unique @map("study_id")
+  user       User?    @relation(fields: [userId], references: [id])
+  userId     String?  @unique @map("user_id")
+  image      Document @relation(fields: [imageId], references: [id])
+  imageId    String   @map("image_id")
+  insertedAt DateTime @default(now()) @map("inserted_at")
 
   @@id([imageId])
 }
 
 model DataVault {
-  study       Study          @relation(fields: [studyId], references: [id])
-  studyId     String
-  document    Document       @relation(fields: [documentId], references: [id])
-  documentId  String
-  inserted_at DateTime       @default(now())
-  dataType    StudyDataTypes
+  study      Study          @relation(fields: [studyId], references: [id])
+  studyId    String         @map("study_id")
+  document   Document       @relation(fields: [documentId], references: [id])
+  documentId String         @map("document_id")
+  insertedAt DateTime       @default(now()) @map("inserted_at")
+  dataType   StudyDataTypes
 
   @@id([documentId])
 }
 
 model CoordinatorsOnStudies {
-  study       Study    @relation(fields: [studyId], references: [id])
-  studyId     String
-  user        User     @relation(fields: [userId], references: [id])
-  userId      String
-  inserted_at DateTime @default(now())
+  study      Study    @relation(fields: [studyId], references: [id])
+  studyId    String   @map("study_id")
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String   @map("user_id")
+  insertedAt DateTime @default(now()) @map("inserted_at")
 
   @@id([studyId, userId])
 }
 
 model Document {
   id           String     @id @default(cuid())
-  uploadedById String?
+  uploadedById String?    @map("uploaded_by_id")
   name         String
   url          String
-  fileType     String
+  fileType     String     @map("file_type")
   uploadedBy   User?      @relation(fields: [uploadedById], references: [id], onDelete: Cascade)
   avatar       Avatar?
   Study        Study?     @relation(fields: [studyId], references: [id])
-  studyId      String?
+  studyId      String?    @map("study_id")
   insertedAt   DateTime   @default(now()) @map("inserted_at")
   dataVault    DataVault?
 }
 
 model NotificationEvent {
-  id                String   @id @default(cuid())
-  inserted_at       DateTime @default(now())
-  notification_type String
-  body              Json
+  id               String   @id @default(cuid())
+  insertedAt       DateTime @default(now()) @map("inserted_at")
+  notificationType String   @map("notification_type")
+  body             Json
 }
 
 enum MethodType {

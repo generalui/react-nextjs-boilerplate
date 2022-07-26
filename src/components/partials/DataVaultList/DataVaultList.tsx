@@ -40,7 +40,7 @@ export const DataVaultList = ({
 			width: 2
 		},
 		{
-			key: '_max.inserted_at',
+			key: '_max.insertedAt',
 			title: t('modified'),
 			width: 2,
 			transformFunction: (value) => (value as Date).toLocaleDateString()
