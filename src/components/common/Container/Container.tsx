@@ -5,11 +5,7 @@ export const Container = ({ children, className, testId = 'Container', fluid }: 
 	return (
 		<div
 			data-testid={testId}
-			className={cn(
-				'container mx-auto',
-				!fluid && 'p-3 lg:p-0 max-w-md md:max-w-3xl xl:max-w-5xl xxl:max-w-7xl',
-				className
-			)}
+			className={cn('container mx-auto', !fluid && 'p-3 md:px-12 md:py-0', className)}
 		>
 			{children}
 		</div>
