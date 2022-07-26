@@ -22,8 +22,7 @@ export const Button = ({
 	href
 }: ButtonProps) => {
 	className = cn(
-		buttonVariants[v],
-		disabled && disabledVariants[`${v}Disabled`],
+		disabled ? disabledVariants[`${v}Disabled`] : buttonVariants[v],
 		center && 'flex justify-center items-center',
 		className
 	)

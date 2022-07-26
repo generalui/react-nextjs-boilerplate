@@ -83,6 +83,10 @@ export type StudyInputPreTransform = Omit<StudyInput, 'coordinator' | 'dataTypes
 	dataTypes?: selectOptionsType[]
 }
 
+export const publicFilesSchema = z.object({
+	documentation: z.any().array()
+})
+
 export const DataVaultSchema = z.object({
 	dataType: z
 		.object({ label: z.string(), value: z.nativeEnum(StudyDataTypes) })

@@ -1,7 +1,8 @@
 // TODO: Rename this component to AddStudyDocumentation
 import { useEffect } from 'react'
 import { Form } from 'react-final-form'
-import { StudyInput } from 'types/index'
+import { StudyInput, publicFilesSchema } from 'types/index'
+import { handleValidate } from 'utils/client/handleValidate'
 import { useStudy } from 'hooks/api/studies/useStudy'
 import { useModal } from 'hooks/useModal'
 import { useText } from 'hooks/useText'
@@ -49,6 +50,7 @@ export const AddStudyFiles = ({
 			>
 				<Form
 					onSubmit={onSubmit}
+					validate={(values) => handleValidate(values, publicFilesSchema)}
 					render={({ handleSubmit }) => (
 						<form onSubmit={handleSubmit}>
 							<DocumentsInput name='documentation' />
