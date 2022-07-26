@@ -10,7 +10,11 @@ const apiRoute = connect()
 apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	const studyQuery = async () => {
 		const [totalStudies, totalDataVaultElements, totalDocuments] = await prisma.$transaction([
-			prisma.study.count(),
+			prisma.study.count({
+				where: {
+					NOT: { status: 'archived' }
+				}
+			}),
 			prisma.document.aggregate({
 				_count: {
 					_all: true
