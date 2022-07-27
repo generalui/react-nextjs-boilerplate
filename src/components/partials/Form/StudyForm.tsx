@@ -39,7 +39,7 @@ export const StudyForm = ({
 							<ImageInput name='image' className='h-auto max-h-48 w-full' />
 						</div>
 
-						<div className='col-span-3 lg:col-span-2'>
+						<div className='col-span-3 lg:col-span-2 hidden'>
 							<div className='flex flex-col justify-between gap-4 lg:gap-6 h-full'>
 								<div className=''>
 									<Input
@@ -71,7 +71,7 @@ export const StudyForm = ({
 								</div>
 							</div>
 						</div>
-						<div className='col-span-3'>
+						<div className='col-span-3 hidden'>
 							<Input
 								label={t('fields.description')}
 								name='description'

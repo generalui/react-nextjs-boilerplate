@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { toast } from 'utils/client/toast'
 import { useText } from 'hooks/useText'
+import { ImagePreview } from 'common/ImageInput/ImageInput.types'
 import { DropzoneProps } from './Dropzone.types'
 
 const MAX_FILE_SIZE = 5 * 1000000 // 5 mb
@@ -16,17 +17,34 @@ export const Dropzone = ({
 	children,
 	maxFiles,
 	accept,
+	imageDropzone,
 	testId = 'Dropzone'
 }: DropzoneProps) => {
-	const [cachedFiles, setFiles] = useState<File[]>()
+	const [cachedFiles, setFiles] = useState<File[] | ImagePreview>()
 	const { t: error } = useText('common.errors')
 
-	const { getRootProps, getInputProps } = useDropzone({
-		maxFiles,
-		accept,
-		onDrop: async (acceptedFiles: File[]) => {
-			if (!acceptedFiles || !acceptedFiles.length) return
+	const onDropImg = async (acceptedFiles: File[]) => {
+		if (!acceptedFiles || !acceptedFiles.length) return
 
+		const file = acceptedFiles[0]
+
+		if (file.size > MAX_FILE_SIZE) {
+			onChange?.(new Error('maxFileSizeExceeded'))
+		} else {
+			const imageFile: ImagePreview = {
+				...file,
+				preview: URL.createObjectURL(file)
+			}
+
+			setFiles(imageFile)
+			onChange?.(file)
+		}
+	}
+
+	const onDropDocuments = async (acceptedFiles: File[]) => {
+		if (!acceptedFiles || !acceptedFiles.length) return
+
+		if (!cachedFiles || !('preview' in cachedFiles)) {
 			// Prevent duplicates
 			const files = acceptedFiles.filter((file) => {
 				const isUnique =
@@ -56,13 +74,25 @@ export const Dropzone = ({
 				onChange?.(filesAfterDrop)
 			}
 		}
+	}
+
+	const { getRootProps, getInputProps } = useDropzone({
+		maxFiles,
+		accept,
+		onDrop: async (acceptedFiles: File[]) => {
+			if (imageDropzone) {
+				onDropImg(acceptedFiles)
+			} else {
+				onDropDocuments(acceptedFiles)
+			}
+		}
 	})
 
 	return (
 		<div
 			{...getRootProps({
 				className: cn(
-					'dropzone relative rounded-lg border border-gray-400 focus:border-2 focus:border-blue-600 focus:outline-2  focus:outline-gray-400 overflow-hidden flex flex-col items-center grow-0 w-full h-full',
+					'dropzone relative rounded-lg overflow-hidden flex flex-col  grow-0 w-full h-full',
 					className
 				)
 			})}
@@ -71,7 +101,7 @@ export const Dropzone = ({
 			role='button'
 		>
 			<input className='hidden' {...getInputProps()} />
-			{children}
+			{typeof children === 'function' ? children(cachedFiles) : children}
 		</div>
 	)
 }

@@ -14,6 +14,7 @@ const getImagePreview = (imageFile: ImagePreview | string | undefined, placehold
 		: imageFile?.preview || placeholder
 
 export const Dropzone = ({
+	children,
 	onChange,
 	className,
 	editIconClassName,
@@ -69,12 +70,13 @@ export const Dropzone = ({
 			tabIndex={0}
 			role='button'
 		>
-			<div
+			<input {...getInputProps()} />
+			{children}
+			{/* <div
 				style={{ backgroundImage: `url(${imagePreview})` }}
 				className='block w-full h-full bg-cover bg-center'
 			/>
-			<input {...getInputProps()} />
-			<PencilAltIcon className={cn('h-5 w-5 absolute bottom-3.5 right-3.5', editIconClassName)} />
+			<PencilAltIcon className={cn('h-5 w-5 absolute bottom-3.5 right-3.5', editIconClassName)} /> */}
 		</div>
 	)
 }
