@@ -10,7 +10,7 @@ module.exports = {
 		description:
 			'The NBDC platform puts Tribes, and Participants of research studies, in control of their own data. The Consent Dashboard facilitates changes to consent on a study-by-study basis, and includes helpful information with each type of collected data.',
 		link: 'https://nativebio.org/',
-		linkLabel: 'Visit nativebiodata.org'
+		linkLabel: 'Visit nativebio.org'
 	},
 	tailwindTheme: {
 		extend: {

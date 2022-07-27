@@ -3,7 +3,6 @@ import cn from 'classnames'
 import { useEffect, useState } from 'react'
 import { Field } from 'react-final-form'
 import { OnChange } from 'react-final-form-listeners'
-import { useText } from 'hooks/useText'
 import { Dropzone } from 'common/Dropzone'
 import { InputError } from 'common/InputError'
 import { ImageInputProps, ImagePreview } from './ImageInput.types'
@@ -30,7 +29,6 @@ export const ImageInput = ({
 	const [dropzoneErrors, setDropzoneErrors] = useState<string[]>([])
 	const [imageFile, setImageFile] = useState<ImagePreview | string | undefined>(placeholder)
 	const [imagePreview, setImagePreview] = useState<string>(placeholder)
-	const { t } = useText('common.errors')
 
 	useEffect(() => {
 		setImagePreview(getImagePreview(imageFile, placeholder))
@@ -83,7 +81,6 @@ export const ImageInput = ({
 									/>
 								</div>
 							</Dropzone>
-							{isError && <InputError errors={[...dropzoneErrors, meta.error]} />}
 
 							{/* {isError && (
 								<div
@@ -105,6 +102,12 @@ export const ImageInput = ({
 									)}
 								</div>
 							)} */}
+							{isError && (
+								<InputError
+									className='mt-5 absolute bottom-[-1.5rem] left-0'
+									errors={[...dropzoneErrors, meta.error]}
+								/>
+							)}
 						</div>
 					)
 				}}

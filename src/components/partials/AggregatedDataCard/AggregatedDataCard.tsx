@@ -1,5 +1,6 @@
 import cn from 'classnames'
 import { Card } from 'common/Card'
+import { Text } from 'common/Text'
 import { AggregatedDataCardProps } from './AggregatedDataCard.types'
 
 export const AggregatedDataCard = ({
@@ -12,12 +13,12 @@ export const AggregatedDataCard = ({
 	dataValue
 }: AggregatedDataCardProps) => {
 	return (
-		<Card title={title} className={cn('flex flex-col justify-between', className)} testId={testId}>
-			<div>
-				<h1 className={cn('font-bold text-3xl block h-9', dataClassName)}>{dataValue}</h1>
-				<h4 className='mb-2'>{subTitle}</h4>
-				<p>{description}</p>
+		<Card title={title} className={cn('flex flex-col gap-3', className)} testId={testId}>
+			<div className='flex gap-3 items-center lg:items-start lg:flex-col'>
+				<h1 className={cn('font-bold text-5xl', dataClassName)}>{dataValue}</h1>
+				<Text className={'font-semibold text-gray-500 text-sm'}>{subTitle}</Text>
 			</div>
+			<Text v='subtitle'>{description}</Text>
 		</Card>
 	)
 }

@@ -17,8 +17,10 @@ export const ModalFooterButtons = ({
 
 	return (
 		<div className={className} data-testid={testId}>
-			<ModalFooter className='mt-4'>
-				<SubmitButton isLoading={isLoading}>{actionButtonLabel}</SubmitButton>
+			<ModalFooter>
+				<SubmitButton disableOnLoading isLoading={isLoading}>
+					{actionButtonLabel}
+				</SubmitButton>
 				<Button v='secondary' onClick={close}>
 					{t('cancel')}
 				</Button>

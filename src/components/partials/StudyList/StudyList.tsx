@@ -42,7 +42,7 @@ const getColumns = (concise: boolean, t?: ReturnType<UseText>['t']): Column<Stud
 		transformFunction: (status) => <StatusBadge v={(status as StudyStatus) || 'new'} />
 	}
 	const submissionDate: Column<Study> = {
-		key: 'endDate',
+		key: 'submissionDate',
 		title: t?.('list.submissionDate'),
 		width: 2,
 		transformFunction: (endDate) => (

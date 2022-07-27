@@ -1,7 +1,7 @@
 const defaultStyles =
 	'text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-md px-4 py-2.5 focus:outline-none flex items-center gap-1'
-const disabledBaseStyles = 'bg-gray-500 hover:bg-gray-500 focus:bg-gray-500'
-const disabledWithBorderStyles = 'border border-gray-500'
+const disabledBaseStyles = 'bg-gray-200 hover:bg-gray-200 focus:bg-gray-500'
+const disabledWithBorderStyles = 'border border-gray-200'
 
 export const buttonVariants = {
 	default: `${defaultStyles} border border-blue-600`,
@@ -12,7 +12,7 @@ export const buttonVariants = {
 
 export const disabledVariants = {
 	defaultDisabled: `${defaultStyles} ${disabledWithBorderStyles} ${disabledBaseStyles}`,
-	secondaryDisabled: `${defaultStyles} ${disabledWithBorderStyles} text-blue-600 'bg-gray-600 hover:bg-gray-600 focus:bg-gray-600`,
+	secondaryDisabled: `${defaultStyles} ${disabledWithBorderStyles} text-blue-600 border-gray-600 hover:bg-gray-600 focus:bg-gray-600`,
 	smDisabled: `${defaultStyles}  ${disabledBaseStyles}`,
 	transparentDisabled: `${defaultStyles}  bg-transparent hover: bg-transparent text-gray-500 font-normal py-2`
 }

@@ -80,7 +80,7 @@ export const DocumentsInput = ({
 	}, [previewDocumentFiles])
 
 	return (
-		<div className={cn(className)} data-testid={testId}>
+		<div className={cn('pb-2', className)} data-testid={testId}>
 			<InputLabel className={labelClassName} name={name} label={label} />
 
 			<Field name={name}>
@@ -129,7 +129,7 @@ export const DocumentsInput = ({
 							)}
 
 							{/* Show errors if any */}
-							{isError && <InputError errors={[...dropzoneErrors, meta.error]} />}
+							{isError && <InputError className='mt-2' errors={[...dropzoneErrors, meta.error]} />}
 						</>
 					)
 				}}
