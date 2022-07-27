@@ -1,26 +1,26 @@
 import { PencilAltIcon } from '@heroicons/react/solid'
 import cn from 'classnames'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Field } from 'react-final-form'
 import { OnChange } from 'react-final-form-listeners'
 import { useText } from 'hooks/useText'
 import { Dropzone } from 'common/Dropzone'
 import { InputError } from 'common/InputError'
-// import { Dropzone } from './Dropzone'
 import { ImageInputProps, ImagePreview } from './ImageInput.types'
 
-const getImagePreview = (imageFile: ImagePreview | string | undefined, placeholder: string) =>
-	typeof imageFile === 'string'
+const acceptedFiles = { 'image/png': ['.jpeg', '.jpg', '.png', '.gif'] }
+
+const getImagePreview = (imageFile: ImagePreview | string | undefined, placeholder: string) => {
+	return typeof imageFile === 'string'
 		? imageFile.length > 0
 			? imageFile
 			: placeholder
 		: imageFile?.preview || placeholder
-
+}
 export const ImageInput = ({
 	className,
 	dropzoneClassName,
 	editIconClassName,
-	errorClassName,
 	onClick,
 	testId = 'ImageInput',
 	name,
@@ -29,35 +29,49 @@ export const ImageInput = ({
 }: ImageInputProps) => {
 	const [dropzoneErrors, setDropzoneErrors] = useState<string[]>([])
 	const [imageFile, setImageFile] = useState<ImagePreview | string | undefined>(placeholder)
+	const [imagePreview, setImagePreview] = useState<string>(placeholder)
 	const { t } = useText('common.errors')
 
-	const imagePreview = getImagePreview(imageFile, placeholder)
+	useEffect(() => {
+		setImagePreview(getImagePreview(imageFile, placeholder))
+		console.log('useEffect')
+	}, [imageFile, placeholder])
+
+	const handleChange = (acceptedFile: ImagePreview | File[] | Error) => {
+		if ('preview' in acceptedFile) {
+			setImageFile(acceptedFile)
+		}
+	}
 
 	return (
 		<>
 			<Field name={name}>
 				{({ input, meta }) => {
 					const isError = (meta.error && meta.touched) || dropzoneErrors.length > 0
-					const handleChange = (file: File | File[] | Error) => {
-						if (file instanceof Error) {
-							setDropzoneErrors([t(file.message, '5mb')])
-						} else {
-							setDropzoneErrors([])
-							input.onChange?.(file)
-						}
-					}
+					// const handleChange = (file: File | File[] | Error) => {
+					// 	if (file instanceof Error) {
+					// 		setDropzoneErrors([t(file.message, '5mb')])
+					// 	} else {
+					// 		setDropzoneErrors([])
+					// 		input.onChange?.(file)
+					// 	}
+					// }
 
 					return (
 						<div className={cn('flex flex-col relative', className)}>
 							<Dropzone
 								className={cn(isError && 'border-red-500 border-none', dropzoneClassName)}
 								onClick={onClick}
+								accept={acceptedFiles}
 								testId={testId}
 								{...input}
 								placeholder={placeholder}
 								editIconClassName={editIconClassName}
-								onChange={handleChange}
-								// imageDropzone
+								onChange={(file: File[] | ImagePreview | Error) => {
+									setDropzoneErrors([])
+									if ('preview' in file) handleChange(file)
+								}}
+								imageDropzone
 							>
 								<div className='dropzone relative rounded-lg border border-gray-400 focus:border-2 focus:border-blue-600 focus:outline-2  focus:outline-gray-400 overflow-hidden flex flex-col items-center grow-0 w-full h-full h-40 w-40 lg:h-[198px] lg:w-[198px]'>
 									<div

@@ -37,7 +37,8 @@ export const Dropzone = ({
 			}
 
 			setFiles(imageFile)
-			onChange?.(file)
+			onChange?.(imageFile)
+			console.log('onChange: ', onChange)
 		}
 	}
 

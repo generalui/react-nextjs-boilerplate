@@ -2,15 +2,14 @@ import cn from 'classnames'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import { Field, FieldInputProps } from 'react-final-form'
-import { toast } from 'utils/client/toast'
 import { useText } from 'hooks/useText'
 import { Dropzone } from 'common/Dropzone'
+import { ImagePreview } from 'common/ImageInput/ImageInput.types'
 import { InputError } from 'common/InputError'
 import { InputLabel } from 'common/InputLabel'
 import { DocumentGrid } from './DocumentGrid'
 import { DocumentPreview, DocumentsInputProps } from './DocumentsInput.types'
 
-const MAX_FILE_SIZE = 5 * 1000000 // 5 mb
 const maxFiles = 15
 const acceptedFiles = {
 	// TODO: Add correct support for file types
@@ -71,9 +70,6 @@ export const DocumentsInput = ({
 		setPreviewDocumentFiles(filePreviews)
 	}
 
-	const getTotalFileSize = (files?: File[]) =>
-		!files ? 0 : files.reduce((totalSize, currentFile) => totalSize + currentFile.size, 0)
-
 	useEffect(() => {
 		return () => {
 			// Make sure to revoke the data uris to avoid memory leaks
@@ -99,7 +95,7 @@ export const DocumentsInput = ({
 								multi
 								maxFiles={maxFiles}
 								accept={acceptedFiles}
-								onChange={(files: File[] | File | Error) => {
+								onChange={(files: File[] | ImagePreview | Error) => {
 									if (Array.isArray(files)) {
 										setDropzoneErrors([])
 										handleChange(files)
