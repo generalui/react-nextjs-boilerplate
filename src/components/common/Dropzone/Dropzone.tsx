@@ -37,8 +37,7 @@ export const Dropzone = ({
 			}
 
 			setFiles(imageFile)
-			onChange?.(imageFile)
-			console.log('onChange: ', onChange)
+			onChange?.(acceptedFiles, imageFile)
 		}
 	}
 
@@ -93,7 +92,7 @@ export const Dropzone = ({
 		<div
 			{...getRootProps({
 				className: cn(
-					'dropzone relative rounded-lg overflow-hidden flex flex-col  grow-0 w-full h-full',
+					'dropzone relative rounded-lg overflow-hidden flex flex-col grow-0 w-full h-full',
 					className
 				)
 			})}

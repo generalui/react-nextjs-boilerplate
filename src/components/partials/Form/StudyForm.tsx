@@ -36,15 +36,15 @@ export const StudyForm = ({
 				<form onSubmit={handleSubmit}>
 					<div className='grid grid-cols-3 gap-4 pb-6 lg:gap-6'>
 						<div className='col-span-3 lg:col-span-1'>
-							<ImageInput name='image' className='h-auto max-h-48 w-full' />
+							<ImageInput name='image' className='h-full w-full' value={initialValues?.image} />
 						</div>
 
-						<div className='col-span-3 lg:col-span-2 hidden'>
+						<div className='col-span-3 lg:col-span-2'>
 							<div className='flex flex-col justify-between gap-4 lg:gap-6 h-full'>
 								<div className=''>
 									<Input
 										label={t('fields.title')}
-										labelClassName='flex lg:hidden'
+										labelClassName='flex lg'
 										name='title'
 										placeholder={t('placeholders.title')}
 										type='textarea'
@@ -71,7 +71,7 @@ export const StudyForm = ({
 								</div>
 							</div>
 						</div>
-						<div className='col-span-3 hidden'>
+						<div className='col-span-3'>
 							<Input
 								label={t('fields.description')}
 								name='description'

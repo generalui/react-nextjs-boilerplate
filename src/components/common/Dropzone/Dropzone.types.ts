@@ -4,7 +4,7 @@ import { CommonProps } from 'types/CommonProps'
 import { ImagePreview } from 'common/ImageInput/ImageInput.types'
 
 export interface DropzoneProps extends CommonProps {
-	onChange?: (file: File[] | ImagePreview | Error) => void
+	onChange?: (file: File[] | Error, imagePreview?: ImagePreview) => void
 	onError?: (error: Error) => void
 	value?: string
 	placeholder?: string
