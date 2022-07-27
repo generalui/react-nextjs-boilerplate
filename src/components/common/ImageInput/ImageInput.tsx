@@ -53,11 +53,7 @@ export const ImageInput = ({
 					return (
 						<div className={cn('flex flex-col relative', className)}>
 							<Dropzone
-								className={cn(
-									'w-full h-full h-40 w-40 lg:h-[198px] lg:w-[198px]',
-									isError && 'border-red-500 border-none',
-									dropzoneClassName
-								)}
+								className={cn(isError && 'border-red-500 border-none', dropzoneClassName)}
 								onClick={onClick}
 								accept={acceptedFileTypes}
 								testId={testId}
@@ -72,7 +68,7 @@ export const ImageInput = ({
 								}}
 								imageDropzone
 							>
-								<div className='relative rounded-lg border border-gray-400 focus:border-2 focus:border-blue-600 focus:outline-2  focus:outline-gray-400 overflow-hidden flex flex-col items-center grow-0 w-full h-full h-40 w-40 lg:h-[198px] lg:w-[198px]'>
+								<div className='relative rounded-lg border border-gray-400 focus:border-2 focus:border-blue-600 focus:outline-2  focus:outline-gray-400 overflow-hidden flex flex-col items-center grow-0 w-full h-full h-40 w-40 lg:h-[200px] lg:w-[200px]'>
 									<div
 										style={{ backgroundImage: `url(${imagePreview})` }}
 										className='block w-full h-full bg-cover bg-center'
