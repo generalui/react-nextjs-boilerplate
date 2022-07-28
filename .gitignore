@@ -42,4 +42,6 @@ yarn-error.log*
 # Docs
 # TODO: add this folder to the github project once jsdoc kinks are worked out
 /docs/
-
+/test-results/
+/playwright-report/
+/playwright/.cache/
