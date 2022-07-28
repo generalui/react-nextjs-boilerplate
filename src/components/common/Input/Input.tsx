@@ -50,8 +50,9 @@ export const Input = forwardRef(
 										name={input.name}
 										id={id || name}
 										className={cn(
-											'input input-bordered block w-full',
+											'input input-bordered block w-full border border-gray-300 text-gray-600 text-sm rounded-lg p-2.5 h-12 ',
 											hasError && 'border-red-500',
+											disabled && 'bg-gray-100 border border-gray-100',
 											className
 										)}
 										placeholder={placeholder}
