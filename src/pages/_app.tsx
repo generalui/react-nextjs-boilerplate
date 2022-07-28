@@ -2,6 +2,7 @@ import { Provider } from 'hooks-for-redux'
 import LogRocket from 'logrocket'
 import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
+import Head from 'next/head'
 import { useEffect } from 'react'
 import { QueryClientProvider } from 'react-query'
 import { ToastContainer } from 'react-toastify'
@@ -18,14 +19,19 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 	}, [])
 
 	return (
-		<Provider>
-			<SessionProvider session={session}>
-				<QueryClientProvider client={reactQueryClient}>
-					<Component {...pageProps} />
-					<ToastContainer />
-				</QueryClientProvider>
-			</SessionProvider>
-		</Provider>
+		<>
+			<Head>
+				<link rel='shortcut icon' href='/nbdc_favicon.svg' />
+			</Head>
+			<Provider>
+				<SessionProvider session={session}>
+					<QueryClientProvider client={reactQueryClient}>
+						<Component {...pageProps} />
+						<ToastContainer />
+					</QueryClientProvider>
+				</SessionProvider>
+			</Provider>
+		</>
 	)
 }
 
