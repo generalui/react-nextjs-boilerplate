@@ -84,6 +84,11 @@ const common = {
 	},
 	modal: {
 		cancel: { message: 'Cancel' }
+	},
+	pagination: {
+		ariaLabel: { message: 'Pagination' },
+		previous: { message: 'Previous' },
+		next: { message: 'Next' }
 	}
 }
 

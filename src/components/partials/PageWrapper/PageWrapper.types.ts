@@ -5,4 +5,5 @@ export interface PageWrapperProps extends CommonProps, NavBarProps {
 	title?: string
 	fullWidth?: boolean
 	hideSidebar?: boolean
+	withSpace?: boolean
 }

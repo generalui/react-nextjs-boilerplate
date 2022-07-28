@@ -30,7 +30,7 @@ export const Home = () => {
 	]
 
 	return (
-		<PageWrapper title={t('title')}>
+		<PageWrapper title={t('title')} withSpace={false}>
 			{/* Client about info */}
 			<AboutClient className='mb-12' />
 
