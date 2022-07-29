@@ -1,6 +1,7 @@
 import { StudyDataTypes } from '@prisma/client'
 import cn from 'classnames'
 import { DataVaultListData } from 'types/Study'
+import { formatDisplayDate } from 'utils/client/date'
 import { useStudy } from 'hooks/api/studies/useStudy'
 import { useText } from 'hooks/useText'
 import { List } from 'partials/List'
@@ -43,7 +44,7 @@ export const DataVaultList = ({
 			key: '_max.insertedAt',
 			title: t('modified'),
 			width: 2,
-			transformFunction: (value) => (value as Date).toLocaleDateString()
+			transformFunction: (value) => formatDisplayDate(value as Date)
 		}
 	]
 

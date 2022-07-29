@@ -2,6 +2,7 @@ import { StudyStatus } from '@prisma/client'
 import Link from 'next/link'
 import { Study } from 'types/Study'
 import { User } from 'types/User'
+import { formatDisplayDate } from 'utils/client/date'
 import { UseText, useText } from 'hooks/useText'
 import { List } from 'partials/List'
 import { Column } from 'partials/List/List.types'
@@ -45,9 +46,7 @@ const getColumns = (concise: boolean, t?: ReturnType<UseText>['t']): Column<Stud
 		key: 'submissionDate',
 		title: t?.('list.submissionDate'),
 		width: 2,
-		transformFunction: (endDate) => (
-			<Text v='subtitle'>{new Date((endDate as string) || '').toLocaleDateString()}</Text>
-		)
+		transformFunction: (endDate) => <Text v='subtitle'>{formatDisplayDate(endDate as string)}</Text>
 	}
 
 	return concise
@@ -91,7 +90,7 @@ export const StudyList = ({
 			columns={columns}
 			concise={concise}
 			data={studies}
-			indexKey='title'
+			indexKey='id'
 			isLoading={isLoading}
 			loadingClassName={concise ? 'p-12' : 'p-24'}
 			testId={testId}
