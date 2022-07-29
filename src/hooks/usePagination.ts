@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from 'react'
+import { getQueryNumber } from 'utils/getQueryNumber'
 import { PaginationProps } from 'partials/Pagination/Pagination.types'
 import { useRouterQuery } from './useRouterQuery'
 
-export type UsePaginationProps = PaginationProps & {
+export type UsePaginationPropsObjectType = PaginationProps & {
 	siblingCount?: number
 }
+export type UsePaginationProps = UsePaginationPropsObjectType | string | undefined
 
 export const DOTS = '...'
 
@@ -17,29 +19,51 @@ const range = (start: number, end: number) => {
 	return Array.from({ length }, (_, idx) => idx + start)
 }
 
-const getNumber = (value?: unknown) =>
-	typeof value === 'number'
-		? value
-		: typeof value === 'string' && !isNaN(parseInt(value))
-		? parseInt(value)
-		: undefined
+/**
+ * Hook to manage pagination
+ *
+ * This hook can be passed nothing, a string, or an object of props
+ *
+ * Please see the example below
+ *
+ * @example
+ * // URL query: ?page=1&documents-page=2
+ *
+ * const { page } = usePagination()
+ * // page = 1
+ *
+ * const { page } = usePagination('documents')
+ * // page = 2
+ *
+ * const { page } = usePagination('page')
+ * // page = 1
+ * // This is bad code and will add &page-page=1 to the url
+ *
+ * @param props
+ * @returns
+ */
+export const usePagination = (props: UsePaginationProps) => {
+	const {
+		pageSize = 20,
+		initialPage = 1,
+		totalCount = 100,
+		siblingCount = 1,
+		name
+	}: UsePaginationPropsObjectType = props
+		? typeof props === 'string'
+			? { name: props }
+			: props
+		: {}
 
-export const usePagination = ({
-	pageSize = 20,
-	initialPage = 1,
-	totalCount = 100,
-	siblingCount = 1,
-	name
-}: UsePaginationProps) => {
 	const [page, setPageState] = useState(initialPage)
 	const queryName = useMemo(() => `${name ? `${name}-` : ''}page`, [name])
-	const { query, update, remove } = useRouterQuery(queryName)
+	const { query, update } = useRouterQuery(queryName)
 	const totalPages = useMemo(() => Math.ceil(totalCount / pageSize), [totalCount, pageSize])
 
 	// Check if page has been passed via URL query on page load
 	useEffect(() => {
 		if (query) {
-			const queryValue = getNumber(query)
+			const queryValue = getQueryNumber(query)
 			if (queryValue) {
 				setPageState(queryValue)
 			}
@@ -110,16 +134,12 @@ export const usePagination = ({
 	 * @param nextPage
 	 */
 	const setPage = (nextPage: string | number) => {
+		// TODO: nextPage can probably just be number here
 		// Validate that the next page is a number (this value is passed as a string from query)
-		const nextPageNumber = getNumber(nextPage)
+		const nextPageNumber = getQueryNumber(nextPage)
 		if (typeof nextPageNumber !== 'undefined') {
 			// Update the router query
-			if (nextPageNumber === 1) {
-				// Hide query on first page
-				remove(queryName)
-			} else {
-				update({ [queryName]: nextPageNumber.toString() })
-			}
+			update({ [queryName]: nextPageNumber.toString() })
 
 			// Update the state
 			setPageState(nextPageNumber)
@@ -136,6 +156,10 @@ export const usePagination = ({
 		if (page > 1) {
 			setPage(page - 1)
 		}
+	}
+
+	if (typeof props === 'undefined' || typeof props === 'string') {
+		return { page }
 	}
 
 	return { page, setPage, pageRange, next, previous, totalPages }

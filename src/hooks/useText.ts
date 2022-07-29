@@ -32,7 +32,7 @@ const formatText = (text: string, args?: string | number | (string | number)[]) 
 	if (!args) return text
 	// If args is an array
 	else if (Array.isArray(args))
-		return args.length ? text.replace(/{(\d+)}/g, (_, index) => args[index].toString()) : text
+		return args.length ? text.replace(/{(\d+)}/g, (_, index) => args[index - 1]?.toString()) : text
 	// If args is singular
 	else return text.replace(/{(\d+)}/g, args.toString())
 }

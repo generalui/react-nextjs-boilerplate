@@ -6,4 +6,6 @@ export interface PaginationProps extends CommonProps {
 	totalCount?: number
 	name?: string
 	onChange?: (page: number) => void
+	showDetails?: boolean
+	visibleCount?: number
 }

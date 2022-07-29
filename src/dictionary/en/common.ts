@@ -88,6 +88,7 @@ const common = {
 	pagination: {
 		ariaLabel: { message: 'Pagination' },
 		previous: { message: 'Previous' },
+		details: { message: 'Showing {1} - {2} out of {3} total results' },
 		next: { message: 'Next' }
 	}
 }

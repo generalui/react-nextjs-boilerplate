@@ -13,6 +13,7 @@ export const PaginationItem = ({
 	const placeholderItem = children === DOTS
 	const isDisabled = disabled || placeholderItem || active
 
+	// TODO: this should use the Button component
 	return (
 		<li>
 			<button
