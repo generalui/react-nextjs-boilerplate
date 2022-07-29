@@ -36,6 +36,7 @@ export const handleQuery: HandleQuery = async ({
 		const queryResult = (await query()) as { id: string } | [] | null
 
 		if (!disableLog && queryResult) {
+			// TODO: logging does not currently support paginated requests
 			const recordIds: string[] =
 				'id' in queryResult ? [queryResult.id] : queryResult.map(({ id }) => id)
 

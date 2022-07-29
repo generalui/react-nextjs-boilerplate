@@ -15,6 +15,7 @@ export const PageWrapper = ({
 	hideAuth,
 	hideSidebar,
 	fullWidth,
+	withSpace = true,
 	testId = 'PageWrapper',
 	className
 }: PageWrapperProps) => {
@@ -62,7 +63,13 @@ export const PageWrapper = ({
 
 			<div className={cn(hideSidebar ? 'w-full' : styles.withSideBar, styles.withNavBar)}>
 				{!fullWidth && (
-					<Container className={cn('md:mt-[4.5rem] max-w-screen-lg mb-40', className)}>
+					<Container
+						className={cn(
+							'md:mt-[4.5rem] max-w-screen-lg mb-40',
+							withSpace && 'flex flex-col space-y-12',
+							className
+						)}
+					>
 						{children}
 					</Container>
 				)}

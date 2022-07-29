@@ -2,9 +2,10 @@
 import { StudyStatus } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { ApiRequestWithFile } from 'types/ApiRequestWithFile'
-import { StudyInput } from 'types/Study'
+import { ApiStudiesServerResponse, StudyInput } from 'types/Study'
 import { Study } from 'types/index'
 import { connect } from 'utils/api/connect'
+import { getPaginationFromReq } from 'utils/api/getPaginationFromReq'
 import { getSessionFromReq } from 'utils/api/getSessionFromReq'
 import { handleAvatarJoin } from 'utils/api/handleAvatarJoin'
 import { handleDocumentationJoin } from 'utils/api/handleDocumentationJoin'
@@ -33,25 +34,30 @@ apiRoute.use(
 
 // Get a list of studies
 apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
-	// If new flag passed only get the top ten
-	const getNewStudiesOnly = req?.query?.new ? { skip: 0, take: 5 } : undefined
+	const page = getPaginationFromReq(req)
 
-	const studiesQuery = async () =>
-		await prisma.study.findMany({
-			orderBy: [
-				{
-					submissionDate: 'desc'
-				}
-			],
-			...studyIncludes,
-			...getNewStudiesOnly
-		})
+	const studiesQuery = async () => {
+		const [count, studies] = await prisma.$transaction([
+			prisma.study.count({}),
+			prisma.study.findMany({
+				orderBy: [
+					{
+						submissionDate: 'desc'
+					}
+				],
+				...studyIncludes,
+				...page
+			})
+		])
 
-	handleQuery<Study[]>({
+		return { count, hasMore: page.skip + page.take < count, studies }
+	}
+	handleQuery<ApiStudiesServerResponse>({
 		req,
 		res,
 		model: 'study',
-		query: studiesQuery
+		query: studiesQuery,
+		disableLog: true
 	})
 })
 

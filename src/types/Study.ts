@@ -1,5 +1,6 @@
 import { Prisma, StudyDataTypes, StudyStatus, User } from '@prisma/client'
 import { ReactNode } from 'react'
+import { PaginatedResponse } from 'types/PaginatedResponse'
 import { z } from 'zod'
 import { ListData } from 'partials/List/List.types'
 
@@ -19,6 +20,14 @@ export type Study = Prisma.StudyGetPayload<{
 		documentation: true
 	}
 }>
+
+export type ApiStudiesResponse = PaginatedResponse & {
+	studies: ApiStudy[]
+}
+
+export type ApiStudiesServerResponse = PaginatedResponse & {
+	studies: Study[]
+}
 
 export type ApiStudy = Omit<Study, 'endDate' | 'submissionDate'> & {
 	endDate: string

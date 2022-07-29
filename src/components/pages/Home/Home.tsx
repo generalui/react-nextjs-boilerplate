@@ -9,7 +9,8 @@ import { Card } from 'common/Card'
 
 export const Home = () => {
 	const { t } = useText('home')
-	const { studies = [], isLoading } = useStudies('new')
+	const { studies = [], isLoading } = useStudies({ page: 0, pageSize: 5 })
+
 	const { data } = useAggregatedStudyData()
 	const AggregatedData = [
 		{
@@ -30,7 +31,7 @@ export const Home = () => {
 	]
 
 	return (
-		<PageWrapper title={t('title')}>
+		<PageWrapper title={t('title')} withSpace={false}>
 			{/* Client about info */}
 			<AboutClient className='mb-12' />
 

@@ -20,7 +20,7 @@ apiRoute.post(async (req: NextApiRequest, res: NextApiResponse) => {
 		if ('statusCode' in response) {
 			await prisma.notificationEvent.create({
 				data: {
-					notification_type: 'Reset password',
+					notificationType: 'Reset password',
 					body: msg as unknown as Prisma.InputJsonObject
 				}
 			})

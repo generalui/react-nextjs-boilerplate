@@ -1,4 +1,6 @@
 // Automated exports
+export * from './QueryOptions'
+export * from './PaginatedResponse'
 export * from './AggregatedStudyData'
 export * from './Study'
 export * from './Sizes'

@@ -51,7 +51,8 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 					value={study?.status || 'new'}
 				/>
 			</PageHeader>
-			<div className='flex flex-col gap-6 pb-8'>
+
+			<div className='flex flex-col gap-6'>
 				<Card className='flex flex-col gap-6'>
 					<div className='flex justify-between items-center'>
 						<div className='flex gap-2 items-center'>
