@@ -38,6 +38,19 @@ export type OptimisticStudy = Study & { users: { user: User }[] }
 
 type StudyInputToStudyMap = { [key in keyof StudyInput]: keyof Study }
 
+export const studyInputMap: StudyInputToStudyMap = {
+	coordinator: 'users',
+	description: 'description',
+	endDate: 'endDate',
+	image: 'image',
+	status: 'status',
+	title: 'title',
+	dataTypes: 'dataTypes',
+	documentation: 'documentation'
+}
+
+export type StudyInputMap = typeof studyInputMap
+
 export interface DataVault {
 	_count: number
 	dataType: StudyDataTypes
@@ -48,28 +61,18 @@ export interface DataVaultListData extends DataVault, ListData {}
 
 export type ApiDataVault = Omit<DataVault, '_max'> & { _max: { insertedAt: string } }
 
-export interface StudyInputMap extends StudyInputToStudyMap {
-	coordinator: 'users'
-	description: 'description'
-	endDate: 'endDate'
-	image: 'image'
-	status: 'status'
-	title: 'title'
-	dataTypes: 'dataTypes'
-	documentation: 'documentation'
-}
-
 export type selectOptionsType<T = unknown> = {
 	value: string
 	label: ReactNode
 	meta?: T
 }
 
-// TODO: date schema should a date after the current data?
 export const StudySchema = z.object({
 	title: z.string(),
 	coordinator: z.object({ label: z.string(), value: z.string() }).transform((val) => val.value),
-	endDate: z.string(),
+	endDate: z.string().refine((date) => {
+		return new Date(date) > new Date()
+	}, 'The end date must be after today'),
 	description: z.string(),
 	status: z.nativeEnum(StudyStatus).optional().default('new'),
 	image: z.any().optional(),

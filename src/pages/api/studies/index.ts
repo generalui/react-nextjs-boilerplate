@@ -79,10 +79,12 @@ apiRoute.post(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 			session.userId
 		)
 
+		const [year, month, day] = endDate.split('-').map((datePart) => parseInt(datePart, 10))
+
 		return await prisma.study.create({
 			data: {
 				title,
-				endDate: new Date(endDate),
+				endDate: new Date(year, month - 1, day),
 				description,
 				status: StudyStatus.new,
 				submissionDate: new Date(),

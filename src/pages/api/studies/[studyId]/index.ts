@@ -70,12 +70,14 @@ apiRoute.patch(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 	const upsertImage = await handleAvatarJoin(req.files?.image?.[0], userId)
 	const upsertDocumentation = await handleDocumentationJoin(req.files?.documentation, userId)
 
+	const [year, month, day] = endDate.split('-').map((datePart) => parseInt(datePart, 10))
+
 	// TODO: there should be a better way to manage arrays of strings coming from the client
 	const insertDataTypes = dataTypes ? { dataTypes: JSON.parse(dataTypes) } : undefined
 
 	const data = {
 		...simpleBody,
-		endDate: endDate ? new Date(endDate) : undefined,
+		endDate: endDate ? new Date(year, month - 1, day) : undefined,
 		...insertDataTypes,
 		...upsertImage,
 		...upsertDocumentation,

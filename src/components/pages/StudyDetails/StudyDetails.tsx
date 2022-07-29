@@ -3,6 +3,7 @@
  */
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+import { formatDisplayDate } from 'utils/client/date'
 import { getCombinedString } from 'utils/client/text'
 import { useStudy } from 'hooks/api/studies/useStudy'
 import { useText } from 'hooks/useText'
@@ -76,12 +77,10 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 							<div className='flex flex-col lg:flex-row gap-4 justify-between'>
 								<Detail label={t('coordinator')}>{study?.users?.[0]?.user?.name}</Detail>
 								<Detail label={t('submissionDate')}>
-									{study?.submissionDate
-										? new Date(study.submissionDate).toLocaleDateString()
-										: null}
+									{study?.submissionDate ? formatDisplayDate(study.submissionDate) : null}
 								</Detail>
 								<Detail label={t('endDate')}>
-									{study?.endDate ? new Date(study.endDate).toLocaleDateString() : null}
+									{study?.endDate ? formatDisplayDate(study.endDate) : null}
 								</Detail>
 							</div>
 						</div>

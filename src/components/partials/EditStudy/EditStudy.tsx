@@ -23,13 +23,8 @@ export const EditStudy = memo(function EditStudy({
 	const onSubmit = async (values: StudyInputPreTransform) => {
 		if (update.isLoading) return
 
-		try {
-			await update.mutateAsync(StudySchema.parse(values))
-			close()
-		} catch (error) {
-			console.log('~ error', error)
-			// TODO: Add proper error handling
-		}
+		await update.mutateAsync(StudySchema.parse(values))
+		close()
 	}
 
 	return (

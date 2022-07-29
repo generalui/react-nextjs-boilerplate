@@ -1,4 +1,5 @@
 import { StudyDataTypes, StudyStatus } from '@prisma/client'
+import { uniqueId } from 'lodash'
 import { Session } from 'next-auth'
 import {
 	ApiDataVault,
@@ -7,7 +8,8 @@ import {
 	OptimisticStudy,
 	Study,
 	StudyInput,
-	StudyInputMap
+	StudyInputMap,
+	studyInputMap
 } from 'types/Study'
 
 // TODO: The types in here are gnarly, it'd be valuable to simplify this
@@ -24,14 +26,13 @@ export const standardizeDataVault = ({ _count, dataType, _max }: ApiDataVault): 
 	_max: { insertedAt: new Date(_max.insertedAt) }
 })
 
-// TODO: Study Input should only be used for form outgoing methods
 type StudyKeyHandler<T extends keyof StudyInput> = (
 	value: StudyInput[T],
 	session: Session | null
 ) => Study[StudyInputMap[T]]
 
-const createStudyImage: StudyKeyHandler<'image'> = (imageUrl: StudyInput['image']) =>
-	imageUrl
+const createStudyImage: StudyKeyHandler<'image'> = (image: StudyInput['image']) =>
+	image
 		? {
 				id: new Date().toISOString(),
 				imageId: new Date().toISOString(),
@@ -44,7 +45,7 @@ const createStudyImage: StudyKeyHandler<'image'> = (imageUrl: StudyInput['image'
 					fileType: 'image',
 					uploadedById: null,
 					studyId: null,
-					url: imageUrl,
+					url: typeof image === 'string' ? image : URL.createObjectURL(image),
 					insertedAt: new Date()
 				}
 		  }
@@ -96,18 +97,29 @@ const optimisticStudyKeyHandlers: {
 	documentation: createDocumentation
 }
 
-// TODO: coordinator should be an object from a react select component
 export const createOptimisticStudyFromFormData = (
 	data: StudyInput,
 	session: Session | null
 ): OptimisticStudy =>
-	(Object.keys(data) as (keyof StudyInput)[]).reduce((accumulator, key) => {
-		const value = data[key] as StudyInput[typeof key]
-		return {
-			...accumulator,
-			[key]: value ? optimisticStudyKeyHandlers[key](value, session) : undefined
-		}
-	}, {} as OptimisticStudy)
+	(Object.keys(data) as (keyof StudyInput)[]).reduce(
+		(accumulator, key) => {
+			const value = data[key]
+			const studyKey = studyInputMap[key]
+
+			if (!studyKey) {
+				return accumulator
+			}
+
+			return {
+				...accumulator,
+				[studyKey]: value ? optimisticStudyKeyHandlers[key](value, session) : undefined
+			}
+		},
+		{
+			submissionDate: new Date(),
+			id: uniqueId()
+		} as OptimisticStudy
+	)
 
 export const createPartialStudyFromFormData = (
 	data: Partial<StudyInput>,
