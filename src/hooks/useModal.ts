@@ -1,13 +1,12 @@
-import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { setRouterQuery } from 'utils/client/setRouterQuery'
+import { useRouterQuery } from 'hooks/useRouterQuery'
 
 export const useModal = (name: string) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false)
-	const { query } = useRouter()
+	const { query, update, remove } = useRouterQuery(`modal-${name}`)
 
 	useEffect(() => {
-		if (query && query[`modal-${name}`] === 'true') {
+		if (query === 'true') {
 			setIsOpen(true)
 		} else {
 			setIsOpen(false)
@@ -15,14 +14,12 @@ export const useModal = (name: string) => {
 	}, [query, name, setIsOpen])
 
 	const handleOpen = () => {
-		setRouterQuery({ ...query, [`modal-${name}`]: 'true' })
+		update({ [`modal-${name}`]: 'true' })
 		setIsOpen(true)
 	}
 
 	const handleClose = () => {
-		const nextQuery = query
-		delete nextQuery[`modal-${name}`]
-		setRouterQuery(nextQuery)
+		remove(`modal-${name}`)
 		setIsOpen(false)
 	}
 

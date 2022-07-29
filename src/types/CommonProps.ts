@@ -10,4 +10,5 @@ export interface CommonProps {
 	['data-testid']?: string
 	testId?: string
 	disabled?: boolean
+	active?: boolean
 }

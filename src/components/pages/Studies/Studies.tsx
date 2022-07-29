@@ -9,12 +9,15 @@ import { StudiesProps } from './Studies.types'
 
 export const Studies = function Studies({ testId = 'Studies' }: StudiesProps) {
 	const { studies = [], isLoading } = useStudies()
+	const handlePageChange = (page: number) => {
+		console.log('~ page', page)
+	}
 
 	return (
 		<PageWrapper title='Studies' testId={testId}>
 			<CreateStudy />
 			<StudyList studies={studies} isLoading={isLoading} />
-			<Pagination />
+			<Pagination onChange={handlePageChange} />
 		</PageWrapper>
 	)
 }

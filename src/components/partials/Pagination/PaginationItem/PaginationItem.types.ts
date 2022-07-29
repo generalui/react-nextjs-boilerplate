@@ -1,5 +1,3 @@
 import { CommonProps } from 'types/CommonProps'
 
-export interface PaginationItemProps extends CommonProps {
-	href?: string
-}
+export interface PaginationItemProps extends CommonProps {}
