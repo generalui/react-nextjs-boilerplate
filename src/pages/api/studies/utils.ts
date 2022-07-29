@@ -1,7 +1,10 @@
 // TODO: move this logic code should not have nested utils
+import { Prisma } from '@prisma/client'
+
+type StudyIncludes = { include: Prisma.StudyInclude }
 
 // Included on all studies
-export const studyIncludes = {
+export const studyIncludes: StudyIncludes = {
 	include: {
 		// Include all users in the returned object,
 		users: {
@@ -15,6 +18,10 @@ export const studyIncludes = {
 				image: true
 			}
 		},
-		documentation: true
+		documentation: {
+			orderBy: {
+				insertedAt: 'desc'
+			}
+		}
 	}
 }
