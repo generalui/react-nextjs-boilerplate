@@ -1,26 +1,31 @@
 import cn from 'classnames'
+import { forwardRef } from 'react'
 import { buttonVariants, disabledVariants } from 'common/Button/variants'
 import { ButtonProps } from './Button.types'
 
 /**
  * Common button component
  *
- * @returns
+ * Forward ref needed to work with next/Link component
+ *
+ * @returns ReactNode
  */
-
-export const Button = ({
-	testId = 'Button',
-	children,
-	className,
-	center,
-	onClick,
-	type = 'button',
-	disabled,
-	v = 'default',
-	link,
-	target,
-	href
-}: ButtonProps) => {
+export const Button = forwardRef<HTMLAnchorElement, ButtonProps>(function Button(
+	{
+		testId = 'Button',
+		children,
+		className,
+		center,
+		onClick,
+		type = 'button',
+		disabled,
+		v = 'default',
+		link,
+		target,
+		href
+	}: ButtonProps,
+	ref
+) {
 	className = cn(
 		disabled ? disabledVariants[`${v}Disabled`] : buttonVariants[v],
 		center && 'flex justify-center items-center',
@@ -37,5 +42,11 @@ export const Button = ({
 		href: link ? href : undefined
 	}
 
-	return link ? <a {...props}>{children}</a> : <button {...props}>{children}</button>
-}
+	return link ? (
+		<a {...props} ref={ref}>
+			{children}
+		</a>
+	) : (
+		<button {...props}>{children}</button>
+	)
+})
