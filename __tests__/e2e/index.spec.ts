@@ -1,6 +1,5 @@
 // tests/index.spec.ts
 import { expect } from '@playwright/test'
-import { users } from 'prisma/seedData'
 import test from './next-fixture'
 
 test('The sign in page loads', async ({ page }) => {
@@ -11,7 +10,10 @@ test('The sign in page loads', async ({ page }) => {
 test('Test user can sign in', async ({ page }) => {
 	await page.goto('/')
 
-	const testUser = users[0]
+	const testUser = {
+		email: 'test@email.com',
+		password: 'testPassw0rd!'
+	}
 
 	await page.locator('[placeholder="Email"]').click()
 	await page.locator('[placeholder="Email"]').fill(testUser.email)

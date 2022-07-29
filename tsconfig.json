@@ -40,6 +40,7 @@
 		"src",
 		"node_modules/@types",
 		"__tests__/**/**.ts",
+		"__tests__/**/*.ts",
 		"__tests__/**/**.tsx",
 		"playwright.config.ts",
 		"prisma/seed.ts",

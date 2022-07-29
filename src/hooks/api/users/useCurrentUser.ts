@@ -12,6 +12,7 @@ export const useCurrentUser: UseCurrentUser = () => {
 	const { data: currentUser, ...query } = useQuery('current-user', getCurrentUser)
 
 	useEffect(() => {
+		console.log(currentUser)
 		if (process.env.NEXT_PUBLIC_ENV === 'staging' && currentUser)
 			LogRocket.identify(currentUser.id, {
 				name: currentUser.name || '',
