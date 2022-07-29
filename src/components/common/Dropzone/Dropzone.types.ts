@@ -1,8 +1,10 @@
+import { ReactNode } from 'react'
 import { Accept, DropEvent, FileRejection } from 'react-dropzone'
 import { CommonProps } from 'types/CommonProps'
+import { ImagePreview } from 'common/ImageInput/ImageInput.types'
 
 export interface DropzoneProps extends CommonProps {
-	onChange?: (file: File[]) => void
+	onChange?: (file: File[] | Error, imagePreview?: ImagePreview) => void
 	onError?: (error: Error) => void
 	value?: string
 	placeholder?: string
@@ -15,4 +17,6 @@ export interface DropzoneProps extends CommonProps {
 		fileRejections: FileRejection[],
 		event: DropEvent
 	) => void
+	imageDropzone?: true
+	children: ReactNode | ((cachedFiles: File[] | ImagePreview | undefined) => void)
 }

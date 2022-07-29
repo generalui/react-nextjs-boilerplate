@@ -35,8 +35,8 @@ export const StudyForm = ({
 			render={({ handleSubmit }) => (
 				<form onSubmit={handleSubmit}>
 					<div className='grid grid-cols-3 gap-4 pb-6 lg:gap-6'>
-						<div className='col-span-3 lg:col-span-1'>
-							<ImageInput name='image' className='h-auto max-h-48 w-full' />
+						<div className='col-span-3 lg:col-span-1 h-full'>
+							<ImageInput name='image' className='h-full w-full' value={initialValues?.image} />
 						</div>
 
 						<div className='col-span-3 lg:col-span-2'>
@@ -44,7 +44,7 @@ export const StudyForm = ({
 								<div className=''>
 									<Input
 										label={t('fields.title')}
-										labelClassName='flex lg:hidden'
+										labelClassName='flex lg'
 										name='title'
 										placeholder={t('placeholders.title')}
 										type='textarea'

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Field, FieldInputProps } from 'react-final-form'
 import { useText } from 'hooks/useText'
 import { Dropzone } from 'common/Dropzone'
+import { ImagePreview } from 'common/ImageInput/ImageInput.types'
 import { InputError } from 'common/InputError'
 import { InputLabel } from 'common/InputLabel'
 import { DocumentGrid } from './DocumentGrid'
@@ -94,9 +95,11 @@ export const DocumentsInput = ({
 								multi
 								maxFiles={maxFiles}
 								accept={acceptedFiles}
-								onChange={(files) => {
-									setDropzoneErrors([])
-									handleChange(files)
+								onChange={(files: File[] | ImagePreview | Error) => {
+									if (Array.isArray(files)) {
+										setDropzoneErrors([])
+										handleChange(files)
+									}
 								}}
 								onError={(err) => setDropzoneErrors([error(err.message, '5mb')])}
 								className='w-full bg-gray-100 h-44 border border-solid  border-gray-400 border-dashed cursor-pointer overflow-y-auto p-4'
