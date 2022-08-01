@@ -2,7 +2,7 @@ import { CommonProps } from 'types/CommonProps'
 import { InputProps } from 'common/Input/Input.types'
 
 export interface ImageInputProps extends InputProps {
-	value?: string
+	initialValue?: string
 	dropzoneClassName?: string
 	editIconClassName?: string
 	errorClassName?: string

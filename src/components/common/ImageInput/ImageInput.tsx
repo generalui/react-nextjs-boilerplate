@@ -24,11 +24,11 @@ export const ImageInput = ({
 	testId = 'ImageInput',
 	name,
 	onChange,
-	value,
+	initialValue,
 	placeholder = '/images/image_placeholder.jpg'
 }: ImageInputProps) => {
 	const [dropzoneErrors, setDropzoneErrors] = useState<string[]>([])
-	const [imageFile, setImageFile] = useState<ImagePreview | string | undefined>(value)
+	const [imageFile, setImageFile] = useState<ImagePreview | string | undefined>(initialValue)
 	const [imagePreview, setImagePreview] = useState<string>(placeholder)
 	const inputRef = useRef<FieldInputProps<File, HTMLElement>>()
 
