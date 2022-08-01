@@ -6,6 +6,7 @@ import { OnChange } from 'react-final-form-listeners'
 import { Dropzone } from 'common/Dropzone'
 import { InputError } from 'common/InputError'
 import { ImageInputProps, ImagePreview } from './ImageInput.types'
+import { disabledVariants, imageInputVariants } from './variants'
 
 const acceptedFileTypes = { 'image/png': ['.jpeg', '.jpg', '.png', '.gif'] }
 
@@ -25,6 +26,8 @@ export const ImageInput = ({
 	name,
 	onChange,
 	value,
+	disabled,
+	v = 'default',
 	placeholder = '/images/image_placeholder.jpg'
 }: ImageInputProps) => {
 	const [dropzoneErrors, setDropzoneErrors] = useState<string[]>([])
@@ -68,10 +71,16 @@ export const ImageInput = ({
 								}}
 								imageDropzone
 							>
-								<div className='relative rounded-lg border border-gray-400 focus:border-2 focus:border-blue-600 focus:outline-2  focus:outline-gray-400 overflow-hidden flex flex-col items-center grow-0 w-full h-full h-40 w-40 lg:h-[200px] lg:w-[200px]'>
+								<div
+									className={cn(
+										disabled ? disabledVariants[`${v}Disabled`] : imageInputVariants[v].container
+									)}
+								>
 									<div
 										style={{ backgroundImage: `url(${imagePreview})` }}
-										className='block w-full h-full bg-cover bg-center'
+										className={cn(
+											disabled ? disabledVariants[`${v}Disabled`] : imageInputVariants[v].preview
+										)}
 									/>
 									<PencilAltIcon
 										className={cn('h-5 w-5 absolute bottom-3.5 right-3.5', editIconClassName)}

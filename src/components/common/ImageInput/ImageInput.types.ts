@@ -1,11 +1,13 @@
 import { CommonProps } from 'types/CommonProps'
 import { InputProps } from 'common/Input/Input.types'
+import { imageInputVariants } from './variants'
 
 export interface ImageInputProps extends InputProps {
 	value?: string
 	dropzoneClassName?: string
 	editIconClassName?: string
 	errorClassName?: string
+	v?: keyof typeof imageInputVariants
 }
 
 export type ImagePreview = File & {
