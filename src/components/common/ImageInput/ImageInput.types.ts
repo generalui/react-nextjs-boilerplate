@@ -3,7 +3,7 @@ import { InputProps } from 'common/Input/Input.types'
 import { imageInputVariants } from './variants'
 
 export interface ImageInputProps extends InputProps {
-	value?: string
+	initialValue?: string
 	dropzoneClassName?: string
 	editIconClassName?: string
 	errorClassName?: string

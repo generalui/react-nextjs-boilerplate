@@ -48,6 +48,7 @@ export const Profile = function Profile({ testId = 'Profile' }: ProfileProps) {
 											// dropzoneClassName='w-36 h-36 rounded-full lg:w-40 lg:h-40'
 											editIconClassName='right-8'
 											errorClassName='mb-[-1rem]'
+											initialValue={currentUser.image?.image?.url}
 											placeholder='/images/profile-image-placeholder.jpg'
 											v='rounded'
 										/>

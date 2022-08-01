@@ -36,7 +36,11 @@ export const StudyForm = ({
 				<form onSubmit={handleSubmit}>
 					<div className='grid grid-cols-3 gap-4 pb-6 lg:gap-6'>
 						<div className='col-span-3 lg:col-span-1 h-full'>
-							<ImageInput name='image' className='h-full w-full' value={initialValues?.image} />
+							<ImageInput
+								name='image'
+								className='h-full w-full'
+								initialValue={initialValues?.image}
+							/>
 						</div>
 
 						<div className='col-span-3 lg:col-span-2'>
