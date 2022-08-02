@@ -8,8 +8,9 @@ import { useModal } from 'hooks/useModal'
 import { useStudyDataTypes } from 'hooks/useStudyDataTypes'
 import { useText } from 'hooks/useText'
 import { DocumentsInput } from 'partials/DocumentsInput'
-import { ModalButton } from 'partials/ModalButton'
+import { DropDown } from 'common/DropDown'
 import { Icon } from 'common/Icon'
+import { Modal } from 'common/Modal'
 import { ModalFooterButtons } from 'common/ModalFooterButtons'
 import { Text } from 'common/Text'
 import { DataTypesSelect } from '../DataTypesSelect'
@@ -22,9 +23,9 @@ export const AddPrivateData = ({
 	studyId,
 	testId = 'AddPrivateData'
 }: AddPrivateDataProps) => {
-	const { t } = useText('studies.addPrivateData')
+	const { t } = useText('studies.privateData')
 	const studyDataTypes = useStudyDataTypes(dataTypes)
-	const { close } = useModal(modalName)
+	const { isOpen, open, close } = useModal(modalName)
 	const { uploadToDataVault } = useStudy(studyId)
 	const { isLoading, isSuccess, reset } = uploadToDataVault
 
@@ -41,17 +42,28 @@ export const AddPrivateData = ({
 
 	return (
 		<div className={className} data-testid={testId}>
-			<ModalButton
-				name={modalName}
-				modalTitle={t('modalTitle')}
-				v='sm'
-				buttonChildren={
-					<>
-						<Icon icon='PlusIcon' className='text-white' size='xs' />
-						{t('buttonLabel')}
-					</>
-				}
+			<DropDown
+				v='button'
+				items={[
+					{
+						label: t('dropDownItems.redcap'),
+						onClick: () => {
+							console.log('item 1')
+						},
+						value: 'profile'
+					},
+					{
+						label: t('dropDownItems.files'),
+
+						onClick: open,
+						value: 'logout'
+					}
+				]}
 			>
+				<Icon icon='PlusIcon' className='text-white' size='xs' />
+				{t('buttonLabel')}
+			</DropDown>
+			<Modal show={isOpen} onClose={close} title={'modalTitle'} bodyClassName='pt-6'>
 				<Form
 					onSubmit={onSubmit}
 					validate={(values) => handleValidate(values, DataVaultSchema)}
@@ -78,7 +90,7 @@ export const AddPrivateData = ({
 						</form>
 					)}
 				/>
-			</ModalButton>
+			</Modal>
 		</div>
 	)
 }

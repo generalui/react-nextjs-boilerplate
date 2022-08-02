@@ -7,4 +7,5 @@ export interface ModalButtonProps extends CommonProps {
 	modalTitle: string | ReactNode
 	name: string
 	v?: ButtonProps['v']
+	isDropdown?: true
 }

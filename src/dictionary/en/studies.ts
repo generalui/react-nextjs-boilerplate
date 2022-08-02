@@ -68,7 +68,7 @@ const studies = {
 		modified: { message: 'Modified' },
 		noDocuments: { message: 'No private data has been uploaded' }
 	},
-	addFiles: {
+	files: {
 		title: { message: 'Upload Files' },
 		buttonLabel: { message: 'Add Public Files' },
 		privateDataButtonLabel: { message: 'Add Private Data' },
@@ -80,13 +80,17 @@ const studies = {
 		healthRecords: { message: 'Health Records' },
 		specimens: { message: 'Specimens' }
 	},
-	addPrivateData: {
+	privateData: {
 		buttonLabel: { message: 'Add Private Data' },
 		submitLabel: { message: 'Upload' },
 		modalTitle: { message: 'Add Data' },
 		placeholder: { message: 'Select Data Type' },
 		dataType: { message: 'Data Type' },
-		filesOrFolders: { message: 'Files or Folders' }
+		filesOrFolders: { message: 'Files or Folders' },
+		dropDownItems: {
+			redcap: { message: 'Upload REDCap XML' },
+			files: { message: 'Upload Files' }
+		}
 	}
 }
 
