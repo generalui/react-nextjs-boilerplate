@@ -44,8 +44,6 @@ export const Profile = function Profile({ testId = 'Profile' }: ProfileProps) {
 									<div className='flex justify-center lg:justify-start '>
 										<ImageInput
 											name='image'
-											// className='w-36 h-36 rounded-full lg:w-40 lg:h-40'
-											// dropzoneClassName='w-36 h-36 rounded-full lg:w-40 lg:h-40'
 											editIconClassName='right-8'
 											errorClassName='mb-[-1rem]'
 											initialValue={currentUser.image?.image?.url}

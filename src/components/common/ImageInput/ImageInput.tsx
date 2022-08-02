@@ -73,13 +73,17 @@ export const ImageInput = ({
 							>
 								<div
 									className={cn(
-										disabled ? disabledVariants[`${v}Disabled`] : imageInputVariants[v].container
+										disabled
+											? disabledVariants[`${v}Disabled`].container
+											: imageInputVariants[v].container
 									)}
 								>
 									<div
 										style={{ backgroundImage: `url(${imagePreview})` }}
 										className={cn(
-											disabled ? disabledVariants[`${v}Disabled`] : imageInputVariants[v].preview
+											disabled
+												? disabledVariants[`${v}Disabled`].preview
+												: imageInputVariants[v].preview
 										)}
 									/>
 									<PencilAltIcon
