@@ -47,7 +47,7 @@ export const DropDown = ({
 					'w-full h-full flex items-center justify-between text-sm font-medium focus:ring-4 focus:outline-none focus:ring-blue-300'
 				)}
 				onClick={toggleOpen}
-				type={'button'}
+				type='button'
 			>
 				<div className='truncate flex items-center gap-3'>{children}</div>
 				{v !== 'button' && <Icon icon='ChevronDownIcon' className='text-blue-600' />}

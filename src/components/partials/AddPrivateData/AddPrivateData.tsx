@@ -1,4 +1,5 @@
 // TODO: Rename this component to AddStudyDataVaultDocumentation - OR - refactor to share the same component as AddStudyDocumentation
+import Image from 'next/image'
 import { useEffect } from 'react'
 import { Form } from 'react-final-form'
 import { DataVaultInput, DataVaultSchema } from 'types/Study'
@@ -46,15 +47,34 @@ export const AddPrivateData = ({
 				v='button'
 				items={[
 					{
-						label: t('dropDownItems.redcap'),
+						label: (
+							<div className='flex items-center gap-1'>
+								<Image
+									src='/icons/redcap.svg'
+									width={25}
+									height={25}
+									alt={t('dropDownItems.redcap.alt')}
+								/>
+								{t('dropDownItems.redcap.label')}
+							</div>
+						),
 						onClick: () => {
-							console.log('item 1')
+							console.log('Go to REDCap XML page :)')
 						},
 						value: 'profile'
 					},
 					{
-						label: t('dropDownItems.files'),
-
+						label: (
+							<div className='flex items-center gap-1'>
+								<Image
+									src='/icons/document-upload.svg'
+									width={25}
+									height={25}
+									alt={t('dropDownItems.files.alt')}
+								/>
+								{t('dropDownItems.files.label')}
+							</div>
+						),
 						onClick: open,
 						value: 'logout'
 					}

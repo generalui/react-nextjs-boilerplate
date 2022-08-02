@@ -88,8 +88,14 @@ const studies = {
 		dataType: { message: 'Data Type' },
 		filesOrFolders: { message: 'Files or Folders' },
 		dropDownItems: {
-			redcap: { message: 'Upload REDCap XML' },
-			files: { message: 'Upload Files' }
+			redcap: {
+				alt: { message: 'REDCap Logo' },
+				label: { message: 'Upload REDCap XML' }
+			},
+			files: {
+				alt: { message: 'Document Upload Icon' },
+				label: { message: 'Upload Files' }
+			}
 		}
 	}
 }
