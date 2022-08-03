@@ -1,5 +1,6 @@
 // TODO: Rename this component to AddStudyDataVaultDocumentation - OR - refactor to share the same component as AddStudyDocumentation
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { Form } from 'react-final-form'
 import { DataVaultInput, DataVaultSchema } from 'types/Study'
@@ -28,6 +29,7 @@ export const AddPrivateData = ({
 	const studyDataTypes = useStudyDataTypes(dataTypes)
 	const { isOpen, open, close } = useModal(modalName)
 	const { uploadToDataVault } = useStudy(studyId)
+	const { push } = useRouter()
 	const { isLoading, isSuccess, reset } = uploadToDataVault
 
 	useEffect(() => {
@@ -59,7 +61,7 @@ export const AddPrivateData = ({
 							</div>
 						),
 						onClick: () => {
-							console.log('Go to REDCap XML page :)')
+							push(`${studyId}/upload-redcap-xml`)
 						},
 						value: 'profile'
 					},
