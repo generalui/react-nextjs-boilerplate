@@ -16,7 +16,7 @@ export const passwordValidator = z
 	.regex(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_])\S{8,32}$/)
 
 export const SignInSchema = z.object({
-	email: z.string().email(),
+	email: z.string().trim().email(),
 	password: passwordValidator
 })
 
