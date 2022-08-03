@@ -54,24 +54,24 @@ export const StudyForm = ({
 										type='textarea'
 									/>
 								</div>
-								<div>
-									<div className='grid grid-cols-2 gap-4 lg:gap-6'>
-										<div className='col-span-2 md:col-span-1'>
-											<UserSelect
-												label={t('fields.coordinator')}
-												name='coordinator'
-												placeholder={t('placeholders.coordinator')}
-											/>
-										</div>
-										<div className='col-span-2 md:col-span-1'>
-											<Input
-												label={t('fields.endDate')}
-												name='endDate'
-												type='date'
-												placeholder={t('placeholders.endDate')}
-											/>
-										</div>
-									</div>
+							</div>
+						</div>
+						<div className='col-span-3'>
+							<div className='grid grid-cols-2 gap-4 lg:gap-6'>
+								<div className='col-span-2 md:col-span-1'>
+									<UserSelect
+										label={t('fields.coordinator')}
+										name='coordinator'
+										placeholder={t('placeholders.coordinator')}
+									/>
+								</div>
+								<div className='col-span-2 md:col-span-1'>
+									<Input
+										label={t('fields.endDate')}
+										name='endDate'
+										type='date'
+										placeholder={t('placeholders.endDate')}
+									/>
 								</div>
 							</div>
 						</div>
