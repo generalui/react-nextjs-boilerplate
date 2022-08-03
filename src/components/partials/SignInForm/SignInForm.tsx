@@ -11,6 +11,7 @@ import { SignInError } from 'types/Error'
 import { handleValidate } from 'utils/client/handleValidate'
 import { useText } from 'hooks/useText'
 import { Form } from 'partials/Form'
+import { StagingWarning } from 'partials/StagingWarning'
 import { AlertError } from 'common/AlertError'
 import { Button } from 'common/Button'
 import { Input } from 'common/Input'
@@ -104,9 +105,12 @@ export const SignInForm = ({ className, testId = 'SignInForm' }: SignInFormProps
 			className={className}
 			validate={(values) => handleValidate(values, SignInSchema)}
 			render={({ handleSubmit, values }) => (
-				<form onSubmit={handleSubmit}>
-					<img className='h-36 mx-auto mb-10' src={signInImage} alt={common('pages.home')} />
-					<div className='flex flex-col gap-2 mb-12 xl:mb-16'>
+				<form onSubmit={handleSubmit} className='flex flex-col space-y-10'>
+					<img className='h-36 mx-auto ' src={signInImage} alt={common('pages.home')} />
+
+					<StagingWarning className='' />
+
+					<div className='flex flex-col gap-2'>
 						<div>
 							<label className='text-xs text-gray-500' htmlFor='coordinator'>
 								{t('email.label')}
@@ -120,10 +124,15 @@ export const SignInForm = ({ className, testId = 'SignInForm' }: SignInFormProps
 							<Input name='password' type='password' placeholder={t('password.placeholder')} />
 						</div>
 					</div>
-					<div className='grid grid-cols-1 gap-4 mb-6'>
-						{loginErrors &&
-							loginErrors.map((err) => <AlertError key={err.id}>{err.message}</AlertError>)}
-					</div>
+
+					{loginErrors && loginErrors.length > 0 && (
+						<div className='grid grid-cols-1 gap-4'>
+							{loginErrors.map((err) => (
+								<AlertError key={err.id}>{err.message}</AlertError>
+							))}
+						</div>
+					)}
+
 					<div className='flex flex-col gap-2'>
 						<SubmitButton isLoading={isLoading} disableOnLoading>
 							{t('buttons.submit')}

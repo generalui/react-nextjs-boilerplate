@@ -45,6 +45,12 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	})
 })
 
+const getEndDate = (endDate: string) => {
+	const [year, month, day] = endDate.split('-').map((datePart) => parseInt(datePart, 10))
+
+	return new Date(year, month - 1, day)
+}
+
 // Update study by ID
 apiRoute.patch(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 	// TODO: validate that the user is authorized to update this study
@@ -63,29 +69,30 @@ apiRoute.patch(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 
 	// TODO: this needs include an update to the study users, it should be possible to update the coordinators on a study
 	// Remove values that don't belong in the database
-	const coordinatorJoin = coordinator
+	const withCoordinator = coordinator
 		? { users: { create: { user: { connect: { id: coordinator } } } } }
 		: undefined
 
-	const upsertImage = await handleAvatarJoin(req.files?.image?.[0], userId)
-	const upsertDocumentation = await handleDocumentationJoin(req.files?.documentation, userId)
+	const withImage = await handleAvatarJoin(req.files?.image?.[0], userId)
 
-	const [year, month, day] = endDate.split('-').map((datePart) => parseInt(datePart, 10))
+	const withDocumentation = await handleDocumentationJoin(req.files?.documentation, userId)
+
+	const withEndDate = endDate ? { endDate: getEndDate(endDate) } : undefined
 
 	// TODO: there should be a better way to manage arrays of strings coming from the client
-	const insertDataTypes = dataTypes ? { dataTypes: JSON.parse(dataTypes) } : undefined
+	const withDataTypes = dataTypes ? { dataTypes: JSON.parse(dataTypes) } : undefined
 
 	const data = {
 		...simpleBody,
-		endDate: endDate ? new Date(year, month - 1, day) : undefined,
-		...insertDataTypes,
-		...upsertImage,
-		...upsertDocumentation,
-		...coordinatorJoin
+		...withDataTypes,
+		...withEndDate,
+		...withDocumentation,
+		...withImage,
+		...withCoordinator
 	}
 
 	const studyQuery = async () => {
-		if (coordinatorJoin) {
+		if (withCoordinator) {
 			// The current functionality of the app is that there is only one coordinator per study.
 			// So we must remove the others before updating the study.
 			await prisma.coordinatorsOnStudies.deleteMany({
