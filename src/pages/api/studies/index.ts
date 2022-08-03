@@ -50,7 +50,7 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 			})
 		])
 
-		return { count, hasMore: page.skip + page.take < count, studies }
+		return { count, hasMore: page.skip + page.take < count, studies: studies as Study[] }
 	}
 	handleQuery<ApiStudiesServerResponse>({
 		req,
@@ -81,7 +81,7 @@ apiRoute.post(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 
 		const [year, month, day] = endDate.split('-').map((datePart) => parseInt(datePart, 10))
 
-		return await prisma.study.create({
+		return (await prisma.study.create({
 			data: {
 				title,
 				endDate: new Date(year, month - 1, day),
@@ -102,7 +102,7 @@ apiRoute.post(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 				...upsertImage
 			},
 			...studyIncludes
-		})
+		})) as Study
 	}
 
 	handleQuery<Study>({
