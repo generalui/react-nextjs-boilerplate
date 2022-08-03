@@ -65,7 +65,7 @@ export const PageWrapper = ({
 				{!fullWidth && (
 					<Container
 						className={cn(
-							'md:mt-[4.5rem] max-w-screen-lg mb-40',
+							'md:mt-12 max-w-screen-lg mb-40',
 							withSpace && 'flex flex-col space-y-12',
 							className
 						)}
