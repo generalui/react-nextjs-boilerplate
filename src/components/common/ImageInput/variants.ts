@@ -1,5 +1,4 @@
-const baseContainerStyles =
-	'relative rounded-lg overflow-hidden flex flex-col grow-0 w-full h-full items-center'
+const baseContainerStyles = 'relative rounded-lg overflow-hidden flex flex-col grow-0 items-center'
 const basePreviewStyles = 'block w-full h-full bg-cover bg-center'
 const baseDisabledStyles = 'cursor-default'
 
