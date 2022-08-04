@@ -3,6 +3,7 @@ import common from './common'
 import createStudy from './createStudy'
 import home from './home'
 import profile from './profile'
+import redcap from './redcap'
 import signIn from './signIn'
 import studies from './studies'
 
@@ -13,5 +14,6 @@ export const en = {
 	signIn,
 	createStudy,
 	studies,
-	profile
+	profile,
+	redcap
 }
