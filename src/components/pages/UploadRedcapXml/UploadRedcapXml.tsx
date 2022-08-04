@@ -7,17 +7,19 @@ import { Form } from 'react-final-form'
 import { useText } from 'hooks/useText'
 import { PageWrapper } from 'partials/PageWrapper'
 import { Breadcrumbs } from 'common/Breadcrumbs'
+import { Button } from 'common/Button'
 import { Card } from 'common/Card'
 import { Dropzone } from 'common/Dropzone'
 import { PageHeader } from 'common/PageHeader'
+import { SubmitButton } from 'common/SubmitButton'
 import { Text } from 'common/Text'
-import { Detail } from '../StudyDetails/Detail'
+// import { Detail } from '../StudyDetails/Detail'
 import { UploadRedcapXmlProps } from './UploadRedcapXml.types'
 
 const maxFiles = 1
 const acceptedFiles = {
 	// TODO: Add correct support for file types
-	xml: ['xml']
+	'application/xml': ['.xml'] // why are .svg accepted?
 }
 
 export const UploadRedcapXml = function UploadRedcapXml({
@@ -63,12 +65,15 @@ export const UploadRedcapXml = function UploadRedcapXml({
 							))}
 						</div>
 						<div>
-							<Detail label={t('detailsLabel')}>
-								<Form
-									onSubmit={() => {
-										return
-									}}
-									render={() => (
+							<Text v='subtitle' className='font-semibold mb-2'>
+								{t('detailsLabel')}
+							</Text>
+							<Form
+								onSubmit={() => {
+									return
+								}}
+								render={() => (
+									<>
 										<Dropzone
 											maxFiles={maxFiles}
 											accept={acceptedFiles}
@@ -80,9 +85,25 @@ export const UploadRedcapXml = function UploadRedcapXml({
 												<label className='font-light text-gray-500'>{t('filesDrag')}</label>
 											</div>
 										</Dropzone>
-									)}
-								/>
-							</Detail>
+										<div className='flex items-center pt-6 gap-4 rounded-b border-t border-gray-200 dark:border-gray-600'>
+											<SubmitButton
+												className='w-full justify-center md:justify-start md:w-auto'
+												// isLoading={isLoading}
+												disableOnLoading
+											>
+												{t('import')}
+											</SubmitButton>
+											<Button
+												// onClick={onCancel}
+												v='secondary'
+												className='w-full justify-center md:justify-start md:w-auto'
+											>
+												{t('cancel')}
+											</Button>
+										</div>
+									</>
+								)}
+							/>
 						</div>
 					</div>
 				</Card>
