@@ -1,19 +1,30 @@
 /*!
  * UploadRedcapXml Page
  */
+import cn from 'classnames'
 import Image from 'next/image'
+import { Form } from 'react-final-form'
 import { useText } from 'hooks/useText'
 import { PageWrapper } from 'partials/PageWrapper'
 import { Breadcrumbs } from 'common/Breadcrumbs'
 import { Card } from 'common/Card'
+import { Dropzone } from 'common/Dropzone'
 import { PageHeader } from 'common/PageHeader'
 import { Text } from 'common/Text'
+import { Detail } from '../StudyDetails/Detail'
 import { UploadRedcapXmlProps } from './UploadRedcapXml.types'
+
+const maxFiles = 1
+const acceptedFiles = {
+	// TODO: Add correct support for file types
+	xml: ['xml']
+}
 
 export const UploadRedcapXml = function UploadRedcapXml({
 	testId = 'UploadRedcapXml'
 }: UploadRedcapXmlProps) {
 	const { t } = useText('redcap.upload')
+	const steps = ['one', 'two', 'three', 'four', 'five', 'six']
 
 	return (
 		<PageWrapper title={t('title')} testId={testId}>
@@ -28,6 +39,51 @@ export const UploadRedcapXml = function UploadRedcapXml({
 							<Image src='/icons/redcap.svg' width={28} height={28} alt={t('imageAlt')} />
 						</div>
 						<Text className='font-semibold text-xl'>{t('title')}</Text>
+					</div>
+					<div>
+						<Text className='font-semibold text-lg text-gray-700 line-clamp-2'>
+							{t('subtitle')}
+						</Text>
+						<div className='mt-4 mb-6'>
+							{steps.map((step) => (
+								<div key={step} className='flex flex-row'>
+									<Text className='text-base text-gray-700 line-clamp-2'>
+										{t(`steps.${step}.number`)}
+									</Text>
+									&nbsp;
+									<Text
+										className={cn(
+											'text-base text-gray-700 line-clamp-2',
+											step === 'five' && 'text-red-800'
+										)}
+									>
+										{t(`steps.${step}.text`)}
+									</Text>
+								</div>
+							))}
+						</div>
+						<div>
+							<Detail label={t('detailsLabel')}>
+								<Form
+									onSubmit={() => {
+										return
+									}}
+									render={() => (
+										<Dropzone
+											maxFiles={maxFiles}
+											accept={acceptedFiles}
+											className='w-full bg-gray-100 h-44 border border-solid  border-gray-400 border-dashed cursor-pointer overflow-y-auto p-4'
+										>
+											<div className='w-full h-full flex flex-col justify-center items-center cursor-pointer'>
+												<Image src={'/icons/xmlFile.svg'} width='50' height='50' alt={t('alt')} />
+												<label className='font-bold text-blue-600'>{t('filesSelect')}</label>
+												<label className='font-light text-gray-500'>{t('filesDrag')}</label>
+											</div>
+										</Dropzone>
+									)}
+								/>
+							</Detail>
+						</div>
 					</div>
 				</Card>
 			</div>
