@@ -1,3 +1,4 @@
+import { favicon } from 'client.config'
 import { Provider } from 'hooks-for-redux'
 import LogRocket from 'logrocket'
 import { SessionProvider } from 'next-auth/react'
@@ -21,7 +22,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 	return (
 		<>
 			<Head>
-				<link rel='shortcut icon' href='/nbdc_favicon.svg' />
+				<link rel='shortcut icon' href={favicon} />
 			</Head>
 			<Provider>
 				<SessionProvider session={session}>

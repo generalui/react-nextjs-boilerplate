@@ -23,9 +23,9 @@ export const DocumentationList = ({
 			if (fileType.includes('pdf')) {
 				icon = <Image src={'/icons/pdf.svg'} alt={t('pdfIconAlt')} width={20} height={20} />
 			} else if (fileType.includes('image')) {
-				icon = <Icon icon='PhotographIcon' className='text-green-400' />
+				icon = <Icon icon='PhotographIcon' className='text-accent-1' />
 			} else if (fileType.includes('application')) {
-				icon = <Icon icon='DocumentTextIcon' className='text-blue-600' />
+				icon = <Icon icon='DocumentTextIcon' className='text-primary' />
 			} else {
 				icon = <Icon icon='PaperClipIcon' />
 			}

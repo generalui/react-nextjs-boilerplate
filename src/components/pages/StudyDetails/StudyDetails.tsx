@@ -57,7 +57,7 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 				<Card className='flex flex-col gap-6'>
 					<div className='flex justify-between items-center'>
 						<div className='flex gap-2 items-center'>
-							<div className='bg-blue-600 p-1 flex justify-center items-center rounded w-6 h-6'>
+							<div className='bg-primary p-1 flex justify-center items-center rounded w-6 h-6'>
 								<Icon icon='DocumentReportIcon' className='text-white' size='sm' />
 							</div>
 							<Text className='font-semibold text-xl'>{t('title')}</Text>
