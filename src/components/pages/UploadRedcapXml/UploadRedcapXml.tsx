@@ -4,7 +4,7 @@
 import cn from 'classnames'
 import Image from 'next/image'
 import { useRef, useState } from 'react'
-import { FieldInputProps, Form } from 'react-final-form'
+import { Field, FieldInputProps, Form } from 'react-final-form'
 import { useText } from 'hooks/useText'
 import { DocumentGrid } from 'partials/DocumentsInput/DocumentGrid'
 import { DocumentPreview } from 'partials/DocumentsInput/DocumentsInput.types'
@@ -17,13 +17,11 @@ import { ImagePreview } from 'common/ImageInput/ImageInput.types'
 import { PageHeader } from 'common/PageHeader'
 import { SubmitButton } from 'common/SubmitButton'
 import { Text } from 'common/Text'
-// import { Detail } from '../StudyDetails/Detail'
 import { UploadRedcapXmlProps } from './UploadRedcapXml.types'
 
 const maxFiles = 1
 const acceptedFiles = {
-	// TODO: Add correct support for file types
-	'application/xml': ['.xml'] // why are .svg accepted?
+	'application/xml': ['.xml']
 }
 
 export const UploadRedcapXml = function UploadRedcapXml({
@@ -34,14 +32,17 @@ export const UploadRedcapXml = function UploadRedcapXml({
 	const inputRef = useRef<FieldInputProps<File, HTMLElement>>()
 	const { t } = useText('redcap.upload')
 	const steps = ['one', 'two', 'three', 'four', 'five', 'six']
-	console.log('previewDocumentFiles: ', previewDocumentFiles)
+
+	const onSubmit = async (values: any) => {
+		console.log('values: ', values)
+	}
 
 	const handleChange = (acceptedFiles: File[]) => {
 		if (!acceptedFiles || !acceptedFiles.length) return
 
 		// Handle accepted files
 		onChange?.(acceptedFiles)
-		inputRef.current?.onChange(acceptedFiles)
+		inputRef.current?.onChange(acceptedFiles[0])
 
 		// Generate preview sprites
 		const filePreviews = acceptedFiles.map((file) => {
@@ -103,32 +104,53 @@ export const UploadRedcapXml = function UploadRedcapXml({
 								{t('detailsLabel')}
 							</Text>
 							<Form
-								onSubmit={() => {
-									return
-								}}
-								render={() => (
-									<>
-										<Dropzone
-											maxFiles={maxFiles}
-											accept={acceptedFiles}
-											className='w-full bg-gray-100 h-44 border border-solid  border-gray-400 border-dashed cursor-pointer overflow-y-auto p-4'
-											onChange={(files: File[] | ImagePreview | Error) => {
-												if (Array.isArray(files)) {
-													// setDropzoneErrors([])
-													handleChange(files)
-												}
+								onSubmit={onSubmit}
+								render={({ handleSubmit }) => (
+									<form onSubmit={handleSubmit}>
+										<Field name={'redcapXml'}>
+											{({ input }) => {
+												inputRef.current = input
+
+												return (
+													<>
+														{/* Drag and drop area */}
+														<Dropzone
+															maxFiles={maxFiles}
+															accept={acceptedFiles}
+															className='w-full bg-gray-100 h-44 border border-solid  border-gray-400 border-dashed cursor-pointer overflow-y-auto p-4'
+															onChange={(files: File[] | ImagePreview | Error) => {
+																if (Array.isArray(files)) {
+																	// setDropzoneErrors([])
+																	handleChange(files)
+																}
+															}}
+														>
+															{previewDocumentFiles ? (
+																<DocumentGrid
+																	className='justify-center'
+																	documents={previewDocumentFiles}
+																/>
+															) : (
+																<div className='w-full h-full flex flex-col justify-center items-center cursor-pointer'>
+																	<Image
+																		src={'/icons/xmlFile.svg'}
+																		width='50'
+																		height='50'
+																		alt={t('alt')}
+																	/>
+																	<label className='font-bold text-blue-600'>
+																		{t('filesSelect')}
+																	</label>
+																	<label className='font-light text-gray-500'>
+																		{t('filesDrag')}
+																	</label>
+																</div>
+															)}
+														</Dropzone>
+													</>
+												)
 											}}
-										>
-											{previewDocumentFiles ? (
-												<DocumentGrid className='justify-center' documents={previewDocumentFiles} />
-											) : (
-												<div className='w-full h-full flex flex-col justify-center items-center cursor-pointer'>
-													<Image src={'/icons/xmlFile.svg'} width='50' height='50' alt={t('alt')} />
-													<label className='font-bold text-blue-600'>{t('filesSelect')}</label>
-													<label className='font-light text-gray-500'>{t('filesDrag')}</label>
-												</div>
-											)}
-										</Dropzone>
+										</Field>
 										<div className='flex items-center pt-6 gap-4 rounded-b border-t border-gray-200 dark:border-gray-600'>
 											<SubmitButton
 												className='w-full justify-center md:justify-start md:w-auto'
@@ -145,7 +167,7 @@ export const UploadRedcapXml = function UploadRedcapXml({
 												{t('cancel')}
 											</Button>
 										</div>
-									</>
+									</form>
 								)}
 							/>
 						</div>
