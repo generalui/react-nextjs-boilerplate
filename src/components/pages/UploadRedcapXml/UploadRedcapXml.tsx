@@ -3,19 +3,15 @@
  */
 import cn from 'classnames'
 import Image from 'next/image'
-import { useRef, useState } from 'react'
-import { Field, FieldInputProps, Form } from 'react-final-form'
+import { Form } from 'react-final-form'
 import { useText } from 'hooks/useText'
-import { DocumentGrid } from 'partials/DocumentsInput/DocumentGrid'
-import { DocumentPreview } from 'partials/DocumentsInput/DocumentsInput.types'
+import { DocumentsInput } from 'partials/DocumentsInput'
 import { PageWrapper } from 'partials/PageWrapper'
+import { ActionButtons } from 'common/ActionButtons'
 import { Breadcrumbs } from 'common/Breadcrumbs'
-import { Button } from 'common/Button'
 import { Card } from 'common/Card'
-import { Dropzone } from 'common/Dropzone'
-import { ImagePreview } from 'common/ImageInput/ImageInput.types'
+import { Detail } from 'common/Detail'
 import { PageHeader } from 'common/PageHeader'
-import { SubmitButton } from 'common/SubmitButton'
 import { Text } from 'common/Text'
 import { UploadRedcapXmlProps } from './UploadRedcapXml.types'
 
@@ -25,42 +21,13 @@ const acceptedFiles = {
 }
 
 export const UploadRedcapXml = function UploadRedcapXml({
-	onChange,
 	testId = 'UploadRedcapXml'
 }: UploadRedcapXmlProps) {
-	const [previewDocumentFiles, setPreviewDocumentFiles] = useState<DocumentPreview | undefined>()
-	const inputRef = useRef<FieldInputProps<File, HTMLElement>>()
 	const { t } = useText('redcap.upload')
 	const steps = ['one', 'two', 'three', 'four', 'five', 'six']
 
 	const onSubmit = async (values: any) => {
 		console.log('values: ', values)
-	}
-
-	const handleChange = (acceptedFiles: File[]) => {
-		if (!acceptedFiles || !acceptedFiles.length) return
-
-		// Handle accepted files
-		onChange?.(acceptedFiles)
-		inputRef.current?.onChange(acceptedFiles[0])
-
-		// Generate preview sprites
-		const filePreviews = acceptedFiles.map((file) => {
-			const existingPreview = previewDocumentFiles
-			if (existingPreview) {
-				return existingPreview
-			}
-
-			const currentFile: DocumentPreview = {
-				type: file.type,
-				name: file.name,
-				preview: URL.createObjectURL(file)
-			}
-
-			return currentFile
-		})
-
-		setPreviewDocumentFiles(filePreviews[0])
 	}
 
 	return (
@@ -78,99 +45,46 @@ export const UploadRedcapXml = function UploadRedcapXml({
 						<Text className='font-semibold text-xl'>{t('title')}</Text>
 					</div>
 					<div>
-						<Text className='font-semibold text-lg text-gray-700 line-clamp-2'>
-							{t('subtitle')}
-						</Text>
-						<div className='mt-4 mb-6'>
-							{steps.map((step) => (
-								<div key={step} className='flex flex-row'>
-									<Text className='text-base text-gray-700 line-clamp-2'>
-										{t(`steps.${step}.number`)}
-									</Text>
-									&nbsp;
-									<Text
-										className={cn(
-											'text-base text-gray-700 line-clamp-2',
-											step === 'five' && 'text-red-800'
-										)}
-									>
-										{t(`steps.${step}.text`)}
-									</Text>
-								</div>
-							))}
-						</div>
-						<div>
-							<Text v='subtitle' className='font-semibold mb-2'>
-								{t('detailsLabel')}
-							</Text>
-							<Form
-								onSubmit={onSubmit}
-								render={({ handleSubmit }) => (
-									<form onSubmit={handleSubmit}>
-										<Field name={'redcapXml'}>
-											{({ input }) => {
-												inputRef.current = input
-
-												return (
-													<>
-														{/* Drag and drop area */}
-														<Dropzone
-															maxFiles={maxFiles}
-															accept={acceptedFiles}
-															className='w-full bg-gray-100 h-44 border border-solid  border-gray-400 border-dashed cursor-pointer overflow-y-auto p-4'
-															onChange={(files: File[] | ImagePreview | Error) => {
-																if (Array.isArray(files)) {
-																	// setDropzoneErrors([])
-																	handleChange(files)
-																}
-															}}
-														>
-															{previewDocumentFiles ? (
-																<DocumentGrid
-																	className='justify-center'
-																	documents={previewDocumentFiles}
-																/>
-															) : (
-																<div className='w-full h-full flex flex-col justify-center items-center cursor-pointer'>
-																	<Image
-																		src={'/icons/xmlFile.svg'}
-																		width='50'
-																		height='50'
-																		alt={t('alt')}
-																	/>
-																	<label className='font-bold text-blue-600'>
-																		{t('filesSelect')}
-																	</label>
-																	<label className='font-light text-gray-500'>
-																		{t('filesDrag')}
-																	</label>
-																</div>
-															)}
-														</Dropzone>
-													</>
-												)
-											}}
-										</Field>
-										<div className='flex items-center pt-6 gap-4 rounded-b border-t border-gray-200 dark:border-gray-600'>
-											<SubmitButton
-												className='w-full justify-center md:justify-start md:w-auto'
-												// isLoading={isLoading}
-												disableOnLoading
-											>
-												{t('import')}
-											</SubmitButton>
-											<Button
-												// onClick={onCancel}
-												v='secondary'
-												className='w-full justify-center md:justify-start md:w-auto'
-											>
-												{t('cancel')}
-											</Button>
-										</div>
-									</form>
-								)}
-							/>
-						</div>
+						<Detail label={t('subtitle')}>
+							<div className='mt-4 mb-6'>
+								{steps.map((step) => (
+									<div key={step} className='flex flex-row'>
+										<Text className='text-base text-gray-700 line-clamp-2'>
+											{t(`steps.${step}.number`)}
+										</Text>
+										&nbsp;
+										<Text
+											className={cn(
+												'text-base text-gray-700 line-clamp-2',
+												step === 'five' && 'text-red-800'
+											)}
+										>
+											{t(`steps.${step}.text`)}
+										</Text>
+									</div>
+								))}
+							</div>
+							<div>
+								<Text v='subtitle' className='font-semibold mb-2'>
+									{t('detailsLabel')}
+								</Text>
+								<Form
+									onSubmit={onSubmit}
+									render={({ handleSubmit }) => (
+										<form onSubmit={handleSubmit}>
+											<DocumentsInput
+												name='redcapXml'
+												maxFiles={maxFiles}
+												acceptedFiles={acceptedFiles}
+												baseText={'redcap.upload'}
+												image={{ src: '/icons/xmlFile.svg', width: '50', height: '50' }}
+											/>
+											<ActionButtons baseTextPath='redcap.upload' submitText='import' />
+										</form>
+									)}
+								/>
+							</div>
+						</Detail>
 					</div>
 				</Card>
 			</div>

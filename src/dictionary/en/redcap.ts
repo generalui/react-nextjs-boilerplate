@@ -34,6 +34,7 @@ const redcap = {
 		detailsLabel: { message: 'REDCap XML Files' },
 		filesSelect: { message: 'Select file to upload' },
 		filesDrag: { message: 'or drag and drop here' },
+		subText: { message: 'Accepts: ' },
 		import: { message: 'Import' },
 		cancel: { message: 'Cancel' }
 	}

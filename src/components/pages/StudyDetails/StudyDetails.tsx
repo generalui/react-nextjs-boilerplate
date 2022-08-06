@@ -22,7 +22,7 @@ import { ImageWithPlaceholder } from 'common/ImageWithPlaceholder'
 import { Loader } from 'common/Loader'
 import { PageHeader } from 'common/PageHeader'
 import { Text } from 'common/Text'
-import { Detail } from './Detail'
+import { Detail } from '../../common/Detail'
 import { StudyDetailsProps } from './StudyDetails.types'
 
 export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: StudyDetailsProps) {
