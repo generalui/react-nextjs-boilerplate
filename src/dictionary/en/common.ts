@@ -4,6 +4,11 @@ const common = {
 	client: {
 		logoAlt: { message: name }
 	},
+	loginMessage: {
+		message:
+			'Welcome to the GenUI React Starter Kit. Please login to view the live preview of the template.'
+	},
+	loginTestUserMessage: { message: 'Test user:' },
 	userDropdown: {
 		profile: {
 			message: 'Profile'

@@ -31,6 +31,7 @@
 				padding: 0.25rem 0.5rem;
 
 				&--is-selected {
+					// bg-primary
 					border: 1px solid #0093d8;
 					color: inherit;
 					background-color: inherit;
@@ -48,6 +49,8 @@
 			}
 
 			&__multi-value {
+				// bg-secondary
+				// borer-primary
 				background-color: #d5f2ff;
 				border: 1px solid #0093d8;
 				padding: 0px 8px;
@@ -59,6 +62,8 @@
 				}
 
 				&__remove {
+					// bg-primary
+					// text-button-text-primary
 					background-color: #0093d8;
 					border-radius: 50%;
 					height: 18px;
@@ -70,6 +75,8 @@
 					align-items: center;
 
 					&:hover {
+						// bg-primary-hover
+						// text-button-text-primary
 						cursor: pointer;
 						background-color: #0772b0;
 						color: #d5f2ff;

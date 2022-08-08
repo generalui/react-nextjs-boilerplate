@@ -23,7 +23,7 @@ export const PaginationItem = ({
 					'py-2 px-3 ml-0 leading-tight text-gray-500 border border-gray-300 dark:border-gray-700 dark:text-gray-400  ',
 					className,
 					active
-						? 'bg-blue-50 border-blue-600 text-blue-600 '
+						? 'bg-secondary border-primary text-button-text-secondary'
 						: isDisabled && !placeholderItem
 						? 'bg-gray-100'
 						: 'bg-white',

@@ -2,6 +2,7 @@ module.exports = {
 	name: 'Native BioData Consortium',
 	headerLogo: '/images/NBDC_logo_full.svg',
 	signInImage: '/images/NBDC_logo_full.svg',
+	favicon: '/images/nbdc_favicon.svg',
 	backgroundColor: '#f1ece9',
 	about: {
 		title: 'Stewardship of Native BioData',
@@ -25,9 +26,26 @@ module.exports = {
 				}
 			},
 			colors: {
-				'blue-100': '#D5F2FF',
-				'blue-200': '#C7E9FF',
-				'blue-600': '#0093D8',
+				primary: '#0093D8',
+				'primary-hover': '#0773b0',
+				'primary-light': '',
+				'primary-light-hover': '#27e48e',
+				'primary-dark': '#222222',
+				'primary-dark-hover': '#27e48e',
+				'button-text-primary': '#FFFFFF',
+				'button-text-secondary': '#0093D8',
+				secondary: '#D5F2FF',
+				'secondary-hover': '#C7E9FF',
+				'secondary-dark': '#111',
+				'secondary-text-dark': '#222222',
+				'accent-1': 'rgb(49, 196, 141)',
+				'accent-2': 'rgb(118, 169, 250)',
+				'accent-3': 'rgb(249, 128, 128)',
+				success: 'rgb(49, 196, 141)',
+				warning: 'rgb(253, 186, 140)',
+				danger: '#e74c3c',
+				info: 'rgb(49, 196, 141)',
+				muted: 'rgb(209, 213, 219)',
 				'blue-700': '#0773b0'
 			}
 		}
