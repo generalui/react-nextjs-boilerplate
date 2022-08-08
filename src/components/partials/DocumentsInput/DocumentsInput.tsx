@@ -127,7 +127,7 @@ export const DocumentsInput = ({
 											height={image.height}
 											alt={t('alt')}
 										/>
-										<label className='font-bold text-blue-600'>{t(filesSelect)}</label>
+										<label className='font-bold text-primary'>{t(filesSelect)}</label>
 										<label className='font-light text-gray-500'>{t(filesDrag)}</label>
 									</div>
 								)}

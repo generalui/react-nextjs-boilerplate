@@ -14,17 +14,17 @@ export const Home = () => {
 	const { data } = useAggregatedStudyData()
 	const AggregatedData = [
 		{
-			dataClassName: 'text-green-400',
+			dataClassName: 'text-accent-1',
 			value: data?.totalStudies,
 			dataType: 'currentStudies'
 		},
 		{
-			dataClassName: 'text-blue-400',
+			dataClassName: 'text-accent-2',
 			value: data?.totalDataVaultElements,
 			dataType: 'dataVault'
 		},
 		{
-			dataClassName: 'text-red-400',
+			dataClassName: 'text-accent-3',
 			value: data?.totalDocuments,
 			dataType: 'documentation'
 		}
