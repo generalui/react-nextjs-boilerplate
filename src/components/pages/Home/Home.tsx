@@ -4,8 +4,8 @@ import { useText } from 'hooks/useText'
 import { AggregatedDataCard } from 'partials/AggregatedDataCard'
 import { PageWrapper } from 'partials/PageWrapper'
 import { StudyList } from 'partials/StudyList'
-import { AboutClient } from 'common/AboutClient'
 import { Card } from 'common/Card'
+import { AdminWelcome } from 'common/WelcomeContent'
 
 export const Home = () => {
 	const { t } = useText('home')
@@ -33,7 +33,7 @@ export const Home = () => {
 	return (
 		<PageWrapper title={t('title')} withSpace={false}>
 			{/* Client about info */}
-			<AboutClient className='mb-12' />
+			<AdminWelcome className='mb-12' />
 
 			{/* Aggregated study data */}
 			<div className='flex flex-col lg:flex-row gap-6'>
@@ -54,9 +54,13 @@ export const Home = () => {
 			<div className='border-b col-span-1 col-span-3 border-color-black-400 my-9' />
 
 			{/* Recently added studies */}
-			<Card title={t('recentlyAddedStudies.title')} className='col-span-3'>
-				<StudyList studies={studies} isLoading={isLoading} className='w-full' concise />
-			</Card>
+			<StudyList
+				className='w-full'
+				concise
+				isLoading={isLoading}
+				studies={studies}
+				title={t('recentlyAddedStudies.title')}
+			/>
 		</PageWrapper>
 	)
 }

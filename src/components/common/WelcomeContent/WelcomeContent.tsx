@@ -4,17 +4,14 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useText } from 'hooks/useText'
 import { Button } from 'common/Button'
-import { AboutClientProps } from './AboutClient.types'
+import { WelcomeContentProps } from './WelcomeContent.types'
 
-/**
- * About client component
- *
- * This component requires client.config
- *
- * @param param0
- * @returns
- */
-export const AboutClient = ({ className, testId = 'AboutClient' }: AboutClientProps) => {
+export const WelcomeContent = ({
+	className,
+	description,
+	testId = 'WelcomeContent',
+	title
+}: WelcomeContentProps) => {
 	const { image, link } = about
 	const { t } = useText('client.about')
 
@@ -26,8 +23,8 @@ export const AboutClient = ({ className, testId = 'AboutClient' }: AboutClientPr
 				</figure>
 
 				<div className='flex flex-col gap-4 lg:gap-2 xl:gap-3 justify-space-between'>
-					<h2 className='font-bold text-3xl'>{t('title')}</h2>
-					<p>{t('description')}</p>
+					<h2 className='font-bold text-3xl'>{title}</h2>
+					<p>{description}</p>
 
 					<div className='block'>
 						<Link href={link} passHref>

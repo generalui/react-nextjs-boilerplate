@@ -54,16 +54,12 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 			</PageHeader>
 
 			<div className='flex flex-col gap-6'>
-				<Card className='flex flex-col gap-6'>
-					<div className='flex justify-between items-center'>
-						<div className='flex gap-2 items-center'>
-							<div className='bg-primary p-1 flex justify-center items-center rounded w-6 h-6'>
-								<Icon icon='DocumentReportIcon' className='text-white' size='sm' />
-							</div>
-							<Text className='font-semibold text-xl'>{t('title')}</Text>
-						</div>
-						<EditStudy studyId={singleStudyId} disabled={loading} />
-					</div>
+				<Card
+					action={<EditStudy studyId={singleStudyId} disabled={loading} />}
+					className='flex flex-col gap-6'
+					iconProps={{ icon: 'DocumentReportIcon' }}
+					title={t('title')}
+				>
 					<div className='flex flex-col lg:flex-row items-start lg:items-center gap-6'>
 						<ImageWithPlaceholder src={study?.image?.image?.url} className='h-52 w-52' />
 						<div className='flex flex-col gap-3 justify-between lg:h-52 flex-grow w-full'>
@@ -97,35 +93,26 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 						/>
 					</Detail>
 				</Card>
-				<Card className='flex flex-col gap-6'>
-					<div className='flex justify-between items-center'>
-						<div className='flex gap-2 items-center'>
-							<div className='bg-green-300 p-1 flex justify-center items-center rounded w-6 h-6'>
-								<Icon icon='DocumentTextIcon' className='text-white' size='sm' />
-							</div>
-							<Text className='font-semibold text-xl'>{documentation('title')}</Text>
-						</div>
-						<AddStudyFiles studyId={singleStudyId} />
-					</div>
-
-					<DocumentationList documents={study?.documentation || []} isLoading={loading} />
-				</Card>
-				<Card className='flex flex-col gap-6'>
-					<div className='flex justify-between items-center'>
-						<div className='flex gap-2 items-center'>
-							<div className='bg-red-400 p-1 flex justify-center items-center rounded w-6 h-6'>
-								<Icon icon='LockClosedIcon' className='text-white' size='sm' />
-							</div>
-							<Text className='font-semibold text-xl'>{dataVault('title')}</Text>
-						</div>
+				<DocumentationList
+					action={<AddStudyFiles studyId={singleStudyId} />}
+					className='flex flex-col gap-6'
+					iconProps={{ icon: 'DocumentTextIcon', wrapperClass: 'bg-green-300' }}
+					title={documentation('title')}
+					documents={study?.documentation || []}
+					isLoading={loading}
+				/>
+				<DataVaultList
+					action={
 						<AddPrivateData
 							studyId={singleStudyId}
 							dataTypes={study?.dataTypes}
 							modalName='add-private-data'
 						/>
-					</div>
-					<DataVaultList studyId={singleStudyId} />
-				</Card>
+					}
+					className='flex flex-col gap-6'
+					studyId={singleStudyId}
+					title={dataVault('title')}
+				/>
 			</div>
 		</PageWrapper>
 	)

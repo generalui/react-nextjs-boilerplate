@@ -1,6 +1,7 @@
 import cn from 'classnames'
 import { useText } from 'hooks/useText'
 import { ListItem } from 'partials/List/ListItem'
+import { Card } from 'common/Card'
 import { Icon } from 'common/Icon'
 import { Loader } from 'common/Loader'
 import { ListData, ListProps } from './List.types'
@@ -8,9 +9,11 @@ import { ListData, ListProps } from './List.types'
 const sharedClasses = 'grid grid-cols-6 lg:grid-cols-12'
 
 export const List = <DataType extends ListData>({
+	action,
 	columns,
 	data,
 	className,
+	iconProps,
 	indexKey,
 	listItemClassName,
 	loadingClassName,
@@ -18,13 +21,14 @@ export const List = <DataType extends ListData>({
 	isLoading = false,
 	emptyMessage = '',
 	testId = 'List',
+	title,
 	concise
 }: ListProps<DataType>) => {
 	const { t } = useText('studies.list')
 	let colWidthAccumulator = 0
 	const noDataMessage = emptyMessage || t('noData')
 
-	return (
+	const listContent = (
 		<div
 			className={cn('flex flex-col', concise && 'px-0 relative', className)}
 			data-testid={testId}
@@ -82,5 +86,13 @@ export const List = <DataType extends ListData>({
 				</div>
 			</Loader>
 		</div>
+	)
+
+	return concise ? (
+		<Card action={action} iconProps={iconProps} title={title}>
+			{listContent}
+		</Card>
+	) : (
+		listContent
 	)
 }

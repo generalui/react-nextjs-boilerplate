@@ -1,7 +1,6 @@
 import { Document } from '@prisma/client'
-import { CommonProps } from 'types/CommonProps'
+import { SharedListProps } from 'partials/List/List.types'
 
-export interface DocumentationListProps extends CommonProps {
+export interface DocumentationListProps extends SharedListProps {
 	documents: Document[]
-	isLoading?: boolean
 }

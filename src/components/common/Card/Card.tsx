@@ -1,25 +1,34 @@
 import cn from 'classnames'
 import Image from 'next/image'
 import { CardProps } from './Card.types'
+import { HeaderIcon } from './common/HeaderIcon'
 
 export const Card = ({
-	className,
-	titleClassName,
+	action,
 	children,
-	title,
+	className,
+	iconProps,
 	img,
 	imgAlt,
-	testId = 'Card'
-}: CardProps) => {
-	return (
-		<div data-testid={testId} className={cn('bg-white p-4 bg-base-100 rounded-lg', className)}>
-			{img && (
-				<figure className='w-full lg:w-1/4 relative h-60 lg:h-48'>
-					<Image layout='fill' src={img} alt={imgAlt} />
-				</figure>
-			)}
-			{title && <h2 className={cn('mb-4 font-bold text-3xl', titleClassName)}>{title}</h2>}
-			{children}
-		</div>
-	)
-}
+	testId = 'Card',
+	title,
+	titleClassName
+}: CardProps) => (
+	<div data-testid={testId} className={cn('bg-white p-4 rounded-lg', className)}>
+		{img && (
+			<figure className='w-full lg:w-1/4 relative h-60 lg:h-48'>
+				<Image layout='fill' src={img} alt={imgAlt} />
+			</figure>
+		)}
+		{(title || action || iconProps) && (
+			<div className='flex justify-between mb-4'>
+				<div className='flex items-center gap-3'>
+					{iconProps?.icon && <HeaderIcon {...iconProps} size='sm' />}
+					{title && <h2 className={cn('font-semibold text-2xl', titleClassName)}>{title}</h2>}
+				</div>
+				{action}
+			</div>
+		)}
+		{children}
+	</div>
+)

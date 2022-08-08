@@ -10,9 +10,15 @@ import { DataTypeLabel } from 'common/DataTypeLabel'
 import { DataVaultListProps } from './DataVaultList.types'
 
 export const DataVaultList = ({
+	action,
 	className,
+	iconProps = {
+		icon: 'LockClosedIcon',
+		wrapperClass: 'bg-red-400'
+	},
 	studyId,
-	testId = 'DataVaultList'
+	testId = 'DataVaultList',
+	title
 }: DataVaultListProps) => {
 	const { t } = useText('studies.dataVault')
 	const { t: dataTypes } = useText('studies.dataTypes')
@@ -50,15 +56,18 @@ export const DataVaultList = ({
 
 	return (
 		<List
+			action={action}
 			className={cn('max-h-64 overflow-y-auto', className)}
 			columns={columns}
 			concise
 			data={(dataVault.data as DataVaultListData[]) || []}
 			emptyMessage={t('noDocuments')}
+			iconProps={iconProps}
 			indexKey='dataType'
 			isLoading={dataVault.isLoading}
 			sharedClassName='text-gray-500'
 			testId={testId}
+			title={title}
 		/>
 	)
 }
