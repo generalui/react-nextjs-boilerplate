@@ -57,7 +57,7 @@ export const AddPrivateData = ({
 							/>
 						),
 						onClick: () => {
-							push(`${studyId}/upload-redcap-xml`)
+							push(`${studyId}/redcap-xml?step=1`)
 						},
 						value: 'profile'
 					},
