@@ -19,7 +19,7 @@ export const SidebarLink = ({
 				<Text
 					onClick={onClick}
 					className={cn(
-						isSelected ? 'text-blue-600 bg-gray-100' : 'text-gray-900',
+						isSelected ? 'text-primary bg-gray-100' : 'text-gray-900',
 						'w-full flex items-center py-1 px-2 gap-4 rounded-lg text-base font-bold dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
 					)}
 				>

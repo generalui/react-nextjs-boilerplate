@@ -17,7 +17,7 @@ export const DataTypeContainer = ({
 	>
 		{tags?.map(({ icon, label, dataType }) => (
 			<DataTypeLabel
-				className='bg-blue-100 text-blue-600 border border-blue-600 rounded p-1 pl-2 pr-2 flex gap-2 width-auto'
+				className='bg-secondary text-button-text-secondary border border-primary rounded p-1 pl-2 pr-2 flex gap-2 width-auto'
 				key={label}
 				img={icon as string}
 				dataType={dataType}

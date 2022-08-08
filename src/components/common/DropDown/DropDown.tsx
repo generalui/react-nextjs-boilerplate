@@ -43,14 +43,14 @@ export const DropDown = ({
 			<button
 				id='dropdownDefault'
 				className={cn(
-					variantClasses.button,
-					'w-full h-full flex items-center justify-between text-sm font-medium focus:ring-4 focus:outline-none focus:ring-blue-300'
+					'w-full h-full flex items-center justify-between text-sm font-medium focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg',
+					variantClasses.button
 				)}
 				onClick={toggleOpen}
 				type='button'
 			>
 				<div className='truncate flex items-center gap-3'>{children}</div>
-				<Icon icon='ChevronDownIcon' className='text-blue-600' />
+				<Icon icon='ChevronDownIcon' className={variantClasses.icon} />
 			</button>
 			<div
 				className={cn(
