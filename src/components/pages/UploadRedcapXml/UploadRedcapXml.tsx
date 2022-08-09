@@ -26,7 +26,6 @@ export const UploadRedcapXml = function UploadRedcapXml({
 	const { t } = useText('studies.redcap.upload')
 	const steps = Array.from({ length: 6 }, (_, i) => i + 1).map((step) => {
 		return {
-			step,
 			text: t(`steps.${step}`),
 			className: step === 5 ? 'text-red-800' : undefined
 		}
@@ -67,10 +66,13 @@ export const UploadRedcapXml = function UploadRedcapXml({
 												name='redcapXml'
 												maxFiles={maxFiles}
 												acceptedFiles={acceptedFiles}
-												baseText={'studies.redcap.upload'}
+												localizationScope={'studies.redcap.upload'}
 												image={{ src: '/icons/xmlFile.svg', width: '50', height: '50' }}
 											/>
-											<ActionButtons baseTextPath='studies.redcap.upload' submitText='import' />
+											<ActionButtons
+												localizationScope='studies.redcap.upload'
+												submitText={t('import')}
+											/>
 										</form>
 									)}
 								/>

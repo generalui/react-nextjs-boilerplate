@@ -11,9 +11,9 @@ export interface DocumentsInputProps extends CommonProps {
 	maxFiles?: number
 	onChange?: (files: File[] | Error) => void
 	image?: DocumentsInputImage
-	filesSelect?: string
-	filesDrag?: string
-	baseText?: string
+	filesSelectLabel?: string
+	filesDragLabel?: string
+	localizationScope?: string
 }
 
 export type DocumentPreview = {

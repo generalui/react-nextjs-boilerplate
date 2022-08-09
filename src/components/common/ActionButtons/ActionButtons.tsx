@@ -6,12 +6,12 @@ import { ActionButtonsProps } from './ActionButtons.types'
 
 export const ActionButtons = ({
 	className,
-	baseTextPath,
+	localizationScope,
 	submitText,
 	cancelText,
 	testId = 'ActionButtons'
 }: ActionButtonsProps) => {
-	const { t } = useText(baseTextPath)
+	const { t } = useText(localizationScope)
 
 	return (
 		<div
@@ -22,10 +22,10 @@ export const ActionButtons = ({
 			data-testid={testId}
 		>
 			<SubmitButton className='w-full justify-center md:justify-start md:w-auto' disableOnLoading>
-				{submitText ? t(submitText) : t('submit')}
+				{submitText ? submitText : t('submit')}
 			</SubmitButton>
 			<Button v='secondary' className='w-full justify-center md:justify-start md:w-auto'>
-				{cancelText ? t(cancelText) : t('cancel')}
+				{cancelText ? cancelText : t('cancel')}
 			</Button>
 		</div>
 	)

@@ -46,14 +46,14 @@ export const DocumentsInput = ({
 	acceptedFiles = defaultAcceptedFiles,
 	maxFiles = defaultMaxFiles,
 	image = defaultImage,
-	baseText = 'createStudy.fields.documentation',
-	filesSelect = 'filesSelect',
-	filesDrag = 'filesDrag'
+	localizationScope = 'createStudy.fields.documentation',
+	filesSelectLabel = 'filesSelect',
+	filesDragLabel = 'filesDrag'
 }: DocumentsInputProps) => {
 	const [previewDocumentFiles, setPreviewDocumentFiles] = useState<DocumentPreview[] | undefined>()
 	const [dropzoneErrors, setDropzoneErrors] = useState<string[]>([])
 	const inputRef = useRef<FieldInputProps<File, HTMLElement>>()
-	const { t } = useText(baseText)
+	const { t } = useText(localizationScope)
 	const { t: error } = useText('common.errors')
 
 	const handleChange = (acceptedFiles: File[]) => {
@@ -126,8 +126,8 @@ export const DocumentsInput = ({
 											height={image.height}
 											alt={t('alt')}
 										/>
-										<label className='font-bold text-primary'>{t(filesSelect)}</label>
-										<label className='font-light text-gray-500'>{t(filesDrag)}</label>
+										<label className='font-bold text-primary'>{t(filesSelectLabel)}</label>
+										<label className='font-light text-gray-500'>{t(filesDragLabel)}</label>
 									</div>
 								)}
 							</Dropzone>

@@ -5,9 +5,9 @@ export const OrderedList = ({ list, className, testId = 'OrderedList' }: Ordered
 	return (
 		<div className={className} data-testid={testId}>
 			<ol>
-				{list.map((item) => (
-					<li key={item.step} className='flex flex-row'>
-						{`${item.step}.`}
+				{list.map((item, i) => (
+					<li key={i} className='flex flex-row'>
+						{`${i + 1}.`}
 						&nbsp;
 						<Text className={item.className}>{item.text}</Text>
 					</li>
