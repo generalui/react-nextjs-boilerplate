@@ -27,7 +27,7 @@ export const UploadRedcapXml = function UploadRedcapXml({
 	const steps = Array.from({ length: 6 }, (_, i) => i + 1).map((step) => {
 		return {
 			text: t(`steps.${step}`),
-			className: step === 5 ? 'text-red-800' : undefined
+			className: step === 5 ? 'text-danger' : undefined
 		}
 	})
 
