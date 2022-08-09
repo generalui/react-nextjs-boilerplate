@@ -7,7 +7,7 @@ import { OrderedList } from './index'
 
 describe('OrderedList Component', () => {
 	it('renders on the page', () => {
-		const list = [{ step: 1, text: 'First step' }]
+		const list = [{ text: 'First step' }]
 		render(<OrderedList list={list} />)
 
 		const component = screen.getByTestId('OrderedList')
