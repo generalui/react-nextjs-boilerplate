@@ -1,7 +1,7 @@
 import * as OutlinedIcons from '@heroicons/react/outline'
 import * as SolidIcons from '@heroicons/react/solid'
 import cn from 'classnames'
-import * as InternalIcons from 'public/icons'
+import * as InternalIcons from 'icons'
 import { iconVariants } from 'common/Icon/variants'
 import { IconProps } from './Icon.types'
 

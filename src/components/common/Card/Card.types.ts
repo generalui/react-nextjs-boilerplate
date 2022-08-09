@@ -4,6 +4,7 @@ import { IconProps } from 'common/Icon/Icon.types'
 
 export interface CardProps extends CommonProps {
 	action?: ReactNode
+	headerClassName?: string
 	iconProps?: {
 		icon: IconProps['icon']
 		wrapperClass?: string

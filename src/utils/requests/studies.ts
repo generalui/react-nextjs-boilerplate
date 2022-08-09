@@ -28,7 +28,7 @@ export const getStudies = async (
 	}
 }
 
-export const getStudy = async (studyId: string): Promise<Study> => {
+export const getStudy = async (studyId?: string): Promise<Study> => {
 	const response = await axios.get<ApiStudy>(`/studies/${studyId}`)
 
 	if (!response.data) {
@@ -36,6 +36,25 @@ export const getStudy = async (studyId: string): Promise<Study> => {
 	}
 
 	return standardizeApiStudy(response.data)
+}
+
+export const getUserStudies = async (
+	userId: string,
+	query?: QueryOptions
+): Promise<PaginatedResponse & { studies: Study[] }> => {
+	const response = await axiosWithQuery<ApiStudiesResponse>(`/studies/user/${userId}`, query)
+
+	if (!response.data) {
+		return { count: 0, hasMore: false, studies: [] }
+	}
+
+	const { count, hasMore, studies } = response.data
+
+	return {
+		count,
+		hasMore,
+		studies: studies.map(standardizeApiStudy)
+	}
 }
 
 export const getStudyDataVault = async (studyId: string): Promise<DataVault[]> => {

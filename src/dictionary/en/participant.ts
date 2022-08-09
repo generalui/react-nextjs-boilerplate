@@ -1,10 +1,22 @@
 const participant = {
 	home: {
 		contactInfo: {
-			message: 'My Contact Info'
+			title: { message: 'My Contact Info' },
+			name: { message: 'Current Name' },
+			tribe: { message: 'Enrolled Tribe' },
+			email: { message: 'Email Address' },
+			homePhone: { message: 'Home Phone' },
+			workPhone: { message: 'Work Phone' },
+			address: { message: 'Physical Address' }
 		},
 		emergencyContact: {
-			message: 'My Emergency Contact'
+			title: { message: 'My Emergency Contact' },
+			name: { message: 'Contact Name' },
+			relationship: { message: 'Relationship' },
+			email: { message: 'Email Address' },
+			homePhone: { message: 'Home Phone' },
+			workPhone: { message: 'Work Phone' },
+			address: { message: 'Physical Address' }
 		},
 		edit: {
 			message: 'Edit'

@@ -30,6 +30,7 @@
 			"reducers/*": ["src/store/reducers/*"],
 			"types/*": ["src/types/*"],
 			"utils/*": ["src/utils/*"],
+			"icons": ["public/icons"],
 			"dictionary/*": ["src/dictionary/*"],
 			"client.config": ["client.config.js"],
 			"__tests__/*": ["__tests__/*"],
@@ -44,7 +45,8 @@
 		"playwright.config.ts",
 		"prisma/seed.ts",
 		"client.config.js",
-		"tailwind.config.js"
+		"tailwind.config.js",
+		"public/icons"
 	],
-	"exclude": ["node_modules", "public"]
+	"exclude": ["node_modules"]
 }

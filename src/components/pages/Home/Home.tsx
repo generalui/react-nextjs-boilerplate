@@ -1,10 +1,9 @@
 import { useAggregatedStudyData } from 'hooks/api/aggregatedData/useAggregatedStudyData'
-import { useStudies } from 'hooks/api/useStudies'
+import { useStudies } from 'hooks/api/studies/useStudies'
 import { useText } from 'hooks/useText'
 import { AggregatedDataCard } from 'partials/AggregatedDataCard'
 import { PageWrapper } from 'partials/PageWrapper'
 import { StudyList } from 'partials/StudyList'
-import { Card } from 'common/Card'
 import { AdminWelcome } from 'common/WelcomeContent'
 
 export const Home = () => {
