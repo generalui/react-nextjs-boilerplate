@@ -11,6 +11,7 @@ export const MultiStepForm: MultiStepFormType = ({
 	testId = 'MultiStepForm'
 }) => {
 	const [step, setStep] = useState<number | undefined>(undefined)
+	console.log('step: ', step)
 	const { query } = useRouter()
 
 	useEffect(() => {
@@ -20,7 +21,7 @@ export const MultiStepForm: MultiStepFormType = ({
 
 	return (
 		<div className={className} data-testid={testId}>
-			{step && stepComponents[step]}
+			{typeof step === 'number' && stepComponents[step]}
 		</div>
 	)
 }
