@@ -1,7 +1,7 @@
 import cn from 'classnames'
 import React from 'react'
 import { TextProps } from './Text.types'
-import { textVariants } from './Text.variants'
+import { textVariants } from './variants'
 
 /**
  * Text component.
@@ -13,11 +13,11 @@ export const Text = React.forwardRef<HTMLAnchorElement, TextProps>(function Text
 	ref
 ) {
 	const Component = href ? 'a' : 'div'
-	const { variantClassName, variantSize } = textVariants[v]
+	const { base, size: variantSize } = textVariants[v]
 
 	return (
 		<Component
-			className={cn(className, variantClassName, `text-${size || variantSize}`)}
+			className={cn(className, base, `text-${size || variantSize}`)}
 			data-testid={testId}
 			href={href}
 			// @ts-expect-error Not sure how to type this ref since the base component can change

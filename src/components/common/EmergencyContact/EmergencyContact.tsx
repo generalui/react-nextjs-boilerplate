@@ -6,7 +6,7 @@ import { Details } from 'common/Details'
 import { Icon } from 'common/Icon'
 import { EmergencyContactProps } from './EmergencyContact.types'
 
-const mockData = [
+const mockContactData = [
 	{ title: 'name', value: 'Bill Tsosie' },
 	{ title: 'relationship', value: 'Spouse' },
 	{ title: 'email', value: 'bill@awesome.com' },
@@ -19,12 +19,18 @@ export const EmergencyContact = ({
 	className,
 	testId = 'EmergencyContact'
 }: EmergencyContactProps) => {
-	const { t: home } = useText('participant.home')
-	const { t } = useText('participant.home.emergencyContact')
+	const { t } = useText('participant.home')
 
 	const handleEditClick = () => console.log('Implement editing')
 
-	const data = useMemo(() => mockData.map((detail) => ({ ...detail, title: t(detail.title) })), [t])
+	const emergencyContactDetails = useMemo(
+		() =>
+			mockContactData.map((detail) => ({
+				...detail,
+				title: t(`emergencyContact.${detail.title}`)
+			})),
+		[t]
+	)
 
 	return (
 		<Card
@@ -32,7 +38,7 @@ export const EmergencyContact = ({
 				<Button onClick={handleEditClick} v='xs'>
 					<>
 						<Icon icon='PencilAltIcon' size='sm' />
-						{home('edit')}
+						{t('edit')}
 					</>
 				</Button>
 			}
@@ -40,9 +46,9 @@ export const EmergencyContact = ({
 			headerClassName='pb-4 border-b border-gray-200'
 			iconProps={{ icon: 'Cross', wrapperClass: 'bg-red-500' }}
 			testId={testId}
-			title={t('title')}
+			title={t('emergencyContact.title')}
 		>
-			<Details details={data} />
+			<Details details={emergencyContactDetails} />
 		</Card>
 	)
 }

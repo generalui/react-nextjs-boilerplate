@@ -1,6 +1,6 @@
 import { Study } from 'types/Study'
-import { SharedListProps } from 'partials/List/List.types'
+import { BaseListProps } from 'partials/List/List.types'
 
-export interface StudyListProps extends SharedListProps {
+export interface StudyListProps extends BaseListProps {
 	studies: Study[]
 }

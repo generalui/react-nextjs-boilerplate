@@ -15,9 +15,7 @@ import { ParticipantHomeProps } from './ParticipantHome.types'
 export const ParticipantHome = ({ testId = 'ParticipantHome' }: ParticipantHomeProps) => {
 	const { t } = useText('participant.home')
 	const { currentUser } = useCurrentUser()
-	const { studies = [] } = useUserStudies(currentUser?.id || '', { page: 0, pageSize: 3 })
-
-	console.log(studies)
+	const { studies = [] } = useUserStudies(currentUser?.id, { page: 0, pageSize: 3 })
 
 	return (
 		<PageWrapper title='ParticipantHome' testId={testId}>

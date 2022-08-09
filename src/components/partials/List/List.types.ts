@@ -14,7 +14,7 @@ export interface Column<DataType = ListData> {
 	transformFunction?: (value: unknown, data: DataType) => ReactNode
 }
 
-export interface SharedListProps extends Omit<CommonProps, 'children'> {
+export interface BaseListProps extends Omit<CommonProps, 'children'> {
 	action?: CardProps['action']
 	concise?: boolean
 	iconProps?: CardProps['iconProps']
@@ -22,7 +22,7 @@ export interface SharedListProps extends Omit<CommonProps, 'children'> {
 	title?: string
 }
 
-export interface ListProps<DataType extends ListData> extends SharedListProps {
+export interface ListProps<DataType extends ListData> extends BaseListProps {
 	columns: Column<DataType>[]
 	data: DataType[]
 	emptyMessage?: string
