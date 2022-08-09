@@ -5,11 +5,16 @@ import { DocumentGridProps } from './DocumentGrid.types'
 export const DocumentGrid = ({
 	documents,
 	className,
+	maxFiles = 15,
 	testId = 'DocumentGrid'
 }: DocumentGridProps) => {
 	return (
 		<div
-			className={cn('gap-4 grid grid-cols-3 md:grid-cols-5 lg:grid-cols-6 w-full', className)}
+			className={cn(
+				'gap-4 grid grid-cols-1 w-full',
+				maxFiles !== 1 && 'md:grid-cols-5 lg:grid-cols-6',
+				className
+			)}
 			data-testid={testId}
 		>
 			{documents.map((document) => {

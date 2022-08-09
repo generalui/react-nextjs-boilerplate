@@ -19,7 +19,7 @@ export const AddStudyFiles = ({
 	className,
 	testId = 'AddStudyFiles'
 }: AddStudyFilesProps) => {
-	const { t } = useText('studies.addFiles')
+	const { t } = useText('studies.files')
 	const { close } = useModal(modalName)
 	const { update } = useStudy(studyId)
 	const { reset, isLoading, isSuccess } = update

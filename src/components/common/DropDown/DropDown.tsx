@@ -44,7 +44,8 @@ export const DropDown = ({
 				id='dropdownDefault'
 				className={cn(
 					'w-full h-full flex items-center justify-between text-sm font-medium focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg',
-					variantClasses.button
+					variantClasses.button,
+					isOpen && v === 'button' && 'ring-4 ring-blue-300'
 				)}
 				onClick={toggleOpen}
 				type='button'
@@ -54,10 +55,11 @@ export const DropDown = ({
 			</button>
 			<div
 				className={cn(
-					'z-10 min-w-full bg-white rounded-lg shadow absolute mt-2 p-2 text-sm text-gray-700 flex flex-col items-center text-center gap-1 -translate-x-1/2 left-1/2',
+					'z-10 min-w-full w-max bg-white rounded-lg shadow absolute mt-2 p-2 text-sm text-gray-700 flex flex-col items-center text-center gap-1 -translate-x-1/2',
 					{
 						hidden: !isOpen
-					}
+					},
+					variantClasses.menu
 				)}
 			>
 				{items.map(({ onClick, ...rest }) => (

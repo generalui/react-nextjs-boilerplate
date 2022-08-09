@@ -10,8 +10,8 @@ import { InputLabel } from 'common/InputLabel'
 import { DocumentGrid } from './DocumentGrid'
 import { DocumentPreview, DocumentsInputProps } from './DocumentsInput.types'
 
-const maxFiles = 15
-const acceptedFiles = {
+const defaultMaxFiles = 15
+const defaultAcceptedFiles = {
 	// TODO: Add correct support for file types
 	'*': [
 		'.pdf',
@@ -29,19 +29,31 @@ const acceptedFiles = {
 	]
 }
 
+const defaultImage = {
+	src: '/icons/folder.svg',
+	width: '40',
+	height: '30'
+}
+
 export const DocumentsInput = ({
 	className,
 	name,
 	onChange,
-	testId = 'DocumentsInput',
 	label,
 	labelClassName,
-	showAcceptedFileTypes = true
+	testId = 'DocumentsInput',
+	showAcceptedFileTypes = true,
+	acceptedFiles = defaultAcceptedFiles,
+	maxFiles = defaultMaxFiles,
+	image = defaultImage,
+	localizationScope = 'createStudy.fields.documentation',
+	filesSelectLabel = 'filesSelect',
+	filesDragLabel = 'filesDrag'
 }: DocumentsInputProps) => {
 	const [previewDocumentFiles, setPreviewDocumentFiles] = useState<DocumentPreview[] | undefined>()
 	const [dropzoneErrors, setDropzoneErrors] = useState<string[]>([])
 	const inputRef = useRef<FieldInputProps<File, HTMLElement>>()
-	const { t } = useText('createStudy.fields.documentation')
+	const { t } = useText(localizationScope)
 	const { t: error } = useText('common.errors')
 
 	const handleChange = (acceptedFiles: File[]) => {
@@ -105,12 +117,17 @@ export const DocumentsInput = ({
 								className='w-full bg-gray-100 h-44 border border-solid  border-gray-400 border-dashed cursor-pointer overflow-y-auto p-4'
 							>
 								{previewDocumentFiles ? (
-									<DocumentGrid documents={previewDocumentFiles} />
+									<DocumentGrid documents={previewDocumentFiles} maxFiles={maxFiles} />
 								) : (
 									<div className='w-full h-full flex flex-col justify-center items-center cursor-pointer'>
-										<Image src={'/icons/folder.svg'} width='40' height='30' alt={t('alt')} />
-										<label className='font-bold text-primary'>{t('filesSelect')}</label>
-										<label className='font-light text-gray-500'>{t('filesDrag')}</label>
+										<Image
+											src={image.src}
+											width={image.width}
+											height={image.height}
+											alt={t('alt')}
+										/>
+										<label className='font-bold text-primary'>{t(filesSelectLabel)}</label>
+										<label className='font-light text-gray-500'>{t(filesDragLabel)}</label>
 									</div>
 								)}
 							</Dropzone>
@@ -119,12 +136,14 @@ export const DocumentsInput = ({
 							{showAcceptedFileTypes && (
 								<div className='text-xs text-gray-500 mt-2'>
 									{t('subText')}{' '}
-									{acceptedFiles['*'].map((type, i) => (
-										<span key={type}>
-											{type}
-											{i < acceptedFiles['*'].length - 1 ? ', ' : ''}
-										</span>
-									))}
+									{Object.keys(acceptedFiles).map((key) =>
+										acceptedFiles[key].map((type, i) => (
+											<span key={type}>
+												{type}
+												{i < acceptedFiles[key].length - 1 ? ', ' : ''}
+											</span>
+										))
+									)}
 								</div>
 							)}
 
