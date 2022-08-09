@@ -1,7 +1,6 @@
 /*!
  * UploadRedcapXml Page
  */
-import cn from 'classnames'
 import Image from 'next/image'
 import { Form } from 'react-final-form'
 import { useText } from 'hooks/useText'
@@ -11,6 +10,7 @@ import { ActionButtons } from 'common/ActionButtons'
 import { Breadcrumbs } from 'common/Breadcrumbs'
 import { Card } from 'common/Card'
 import { Detail } from 'common/Detail'
+import { OrderedList } from 'common/OrderedList'
 import { PageHeader } from 'common/PageHeader'
 import { Text } from 'common/Text'
 import { UploadRedcapXmlProps } from './UploadRedcapXml.types'
@@ -23,8 +23,14 @@ const acceptedFiles = {
 export const UploadRedcapXml = function UploadRedcapXml({
 	testId = 'UploadRedcapXml'
 }: UploadRedcapXmlProps) {
-	const { t } = useText('redcap.upload')
-	const steps = ['one', 'two', 'three', 'four', 'five', 'six']
+	const { t } = useText('studies.redcap.upload')
+	const steps = Array.from({ length: 6 }, (_, i) => i + 1).map((step) => {
+		return {
+			step,
+			text: t(`steps.${step}`),
+			className: step === 5 ? 'text-red-800' : undefined
+		}
+	})
 
 	const onSubmit = async (values: any) => {
 		console.log('values: ', values)
@@ -47,22 +53,7 @@ export const UploadRedcapXml = function UploadRedcapXml({
 					<div>
 						<Detail label={t('subtitle')}>
 							<div className='mt-4 mb-6'>
-								{steps.map((step) => (
-									<div key={step} className='flex flex-row'>
-										<Text className='text-base text-gray-700 line-clamp-2'>
-											{t(`steps.${step}.number`)}
-										</Text>
-										&nbsp;
-										<Text
-											className={cn(
-												'text-base text-gray-700 line-clamp-2',
-												step === 'five' && 'text-red-800'
-											)}
-										>
-											{t(`steps.${step}.text`)}
-										</Text>
-									</div>
-								))}
+								<OrderedList list={steps} />
 							</div>
 							<div>
 								<Text v='subtitle' className='font-semibold mb-2'>
@@ -76,10 +67,10 @@ export const UploadRedcapXml = function UploadRedcapXml({
 												name='redcapXml'
 												maxFiles={maxFiles}
 												acceptedFiles={acceptedFiles}
-												baseText={'redcap.upload'}
+												baseText={'studies.redcap.upload'}
 												image={{ src: '/icons/xmlFile.svg', width: '50', height: '50' }}
 											/>
-											<ActionButtons baseTextPath='redcap.upload' submitText='import' />
+											<ActionButtons baseTextPath='studies.redcap.upload' submitText='import' />
 										</form>
 									)}
 								/>

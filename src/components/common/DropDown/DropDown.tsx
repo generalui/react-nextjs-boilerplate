@@ -51,7 +51,7 @@ export const DropDown = ({
 				type='button'
 			>
 				<div className='truncate flex items-center gap-3'>{children}</div>
-				{v !== 'button' && <Icon icon='ChevronDownIcon' className={variantClasses.icon} />}
+				<Icon icon='ChevronDownIcon' className={variantClasses.icon} />
 			</button>
 			<div
 				className={cn(
@@ -59,7 +59,7 @@ export const DropDown = ({
 					{
 						hidden: !isOpen
 					},
-					v === 'button' ? 'left-[69px]' : 'left-1/2'
+					variantClasses.menu
 				)}
 			>
 				{items.map(({ onClick, ...rest }) => (

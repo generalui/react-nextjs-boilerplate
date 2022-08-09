@@ -1,5 +1,4 @@
 // TODO: Rename this component to AddStudyDataVaultDocumentation - OR - refactor to share the same component as AddStudyDocumentation
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { Form } from 'react-final-form'
@@ -15,6 +14,7 @@ import { Icon } from 'common/Icon'
 import { Modal } from 'common/Modal'
 import { ModalFooterButtons } from 'common/ModalFooterButtons'
 import { Text } from 'common/Text'
+import { DropDownItemWithImage } from '../../common/DropDownItemWithImage'
 import { DataTypesSelect } from '../DataTypesSelect'
 import { AddPrivateDataProps } from './AddPrivateData.types'
 
@@ -50,15 +50,11 @@ export const AddPrivateData = ({
 				items={[
 					{
 						label: (
-							<div className='flex items-center gap-1'>
-								<Image
-									src='/icons/redcap.svg'
-									width={25}
-									height={25}
-									alt={t('dropDownItems.redcap.alt')}
-								/>
-								{t('dropDownItems.redcap.label')}
-							</div>
+							<DropDownItemWithImage
+								src='/icons/redcap.svg'
+								alt={t('dropDownItems.redcap.alt')}
+								label={t('dropDownItems.redcap.label')}
+							/>
 						),
 						onClick: () => {
 							push(`${studyId}/upload-redcap-xml`)
@@ -67,15 +63,11 @@ export const AddPrivateData = ({
 					},
 					{
 						label: (
-							<div className='flex items-center gap-1'>
-								<Image
-									src='/icons/document-upload.svg'
-									width={25}
-									height={25}
-									alt={t('dropDownItems.files.alt')}
-								/>
-								{t('dropDownItems.files.label')}
-							</div>
+							<DropDownItemWithImage
+								src='/icons/document-upload.svg'
+								alt={t('dropDownItems.files.alt')}
+								label={t('dropDownItems.files.label')}
+							/>
 						),
 						onClick: open,
 						value: 'logout'

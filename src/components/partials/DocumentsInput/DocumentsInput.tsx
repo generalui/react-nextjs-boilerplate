@@ -55,7 +55,6 @@ export const DocumentsInput = ({
 	const inputRef = useRef<FieldInputProps<File, HTMLElement>>()
 	const { t } = useText(baseText)
 	const { t: error } = useText('common.errors')
-	const acceptedFilesKeys = Object.keys(acceptedFiles)
 
 	const handleChange = (acceptedFiles: File[]) => {
 		if (!acceptedFiles || !acceptedFiles.length) return
@@ -137,7 +136,7 @@ export const DocumentsInput = ({
 							{showAcceptedFileTypes && (
 								<div className='text-xs text-gray-500 mt-2'>
 									{t('subText')}{' '}
-									{acceptedFilesKeys.map((key) =>
+									{Object.keys(acceptedFiles).map((key) =>
 										acceptedFiles[key].map((type, i) => (
 											<span key={type}>
 												{type}

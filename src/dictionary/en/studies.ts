@@ -97,6 +97,39 @@ const studies = {
 				label: { message: 'Upload Files' }
 			}
 		}
+	},
+	redcap: {
+		upload: {
+			title: { message: 'Upload REDCap XML' },
+			imageAlt: { message: 'REDCap Logo' },
+			subtitle: { message: 'How do I download a REDCap project as an XML file?' },
+			steps: {
+				1: {
+					message: 'Open your project from your “My Projects” list.'
+				},
+				2: {
+					message: 'Select “Data Exports, Reports, and Stats” in the left hand nav.'
+				},
+				3: {
+					message: 'Select the tab called “Other Export Options”.'
+				},
+				4: {
+					message: 'Click on the “RedCap XML” icon to export all data.'
+				},
+				5: {
+					message: 'REQUIRED: Click the checkbox to “Include all uploaded files and signatures.”'
+				},
+				6: {
+					message: 'Click on “Export Entire Project (metadata and data)”.'
+				}
+			},
+			detailsLabel: { message: 'REDCap XML Files' },
+			filesSelect: { message: 'Select file to upload' },
+			filesDrag: { message: 'or drag and drop here' },
+			subText: { message: 'Accepts: ' },
+			import: { message: 'Import' },
+			cancel: { message: 'Cancel' }
+		}
 	}
 }
 
