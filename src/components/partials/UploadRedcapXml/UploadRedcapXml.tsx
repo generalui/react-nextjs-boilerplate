@@ -4,6 +4,7 @@
 import cn from 'classnames'
 import Image from 'next/image'
 import { Form } from 'react-final-form'
+import { UploadXmlInput } from 'types/index'
 import { useText } from 'hooks/useText'
 import { DocumentsInput } from 'partials/DocumentsInput'
 import { ActionButtons } from 'common/ActionButtons'
@@ -18,13 +19,16 @@ const acceptedFiles = {
 }
 
 export const UploadRedcapXml = function UploadRedcapXml({
+	submitFile,
 	testId = 'UploadRedcapXml'
 }: UploadRedcapXmlProps) {
 	const { t } = useText('redcap.upload')
 	const steps = ['one', 'two', 'three', 'four', 'five', 'six']
 
-	const onSubmit = async (values: any) => {
-		console.log('values: ', values)
+	const onSubmit = async (values: UploadXmlInput) => {
+		if (values.xmlFile[0] && 'path' in values.xmlFile[0]) {
+			submitFile(values.xmlFile[0])
+		}
 	}
 
 	return (
@@ -65,7 +69,7 @@ export const UploadRedcapXml = function UploadRedcapXml({
 								render={({ handleSubmit }) => (
 									<form onSubmit={handleSubmit}>
 										<DocumentsInput
-											name='redcapXml'
+											name='xmlFile'
 											maxFiles={maxFiles}
 											acceptedFiles={acceptedFiles}
 											baseText={'redcap.upload'}
