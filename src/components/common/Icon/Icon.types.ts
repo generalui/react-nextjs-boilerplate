@@ -1,6 +1,6 @@
 import * as HIcons from '@heroicons/react/solid'
-import * as InternalIcons from 'public/icons'
 import { CommonProps } from 'types/CommonProps'
+import * as InternalIcons from 'common/Icon/iconMap'
 import { iconVariants } from 'common/Icon/variants'
 
 export interface IconProps extends CommonProps {

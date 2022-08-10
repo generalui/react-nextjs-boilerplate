@@ -1,9 +1,9 @@
 import * as OutlinedIcons from '@heroicons/react/outline'
 import * as SolidIcons from '@heroicons/react/solid'
 import cn from 'classnames'
-import * as InternalIcons from 'icons'
-import { iconVariants } from 'common/Icon/variants'
 import { IconProps } from './Icon.types'
+import * as InternalIcons from './iconMap'
+import { iconVariants } from './variants'
 
 const isHiIcon = (icon: string): icon is keyof typeof SolidIcons => {
 	return icon in SolidIcons
