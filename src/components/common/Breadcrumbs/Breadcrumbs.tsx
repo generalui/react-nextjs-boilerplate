@@ -29,9 +29,8 @@ export const Breadcrumbs = ({ className, testId = 'Breadcrumbs' }: BreadcrumbsPr
 		const isBasePath = index === 0
 		const labelKey = (isBasePath ? route : route.subRoutes?.[pathNameList[index]])?.labelKey
 
-		// Ensure a label key has been assigned
-		if (!labelKey || (index > 0 && !route.subRoutes))
-			throw Error('Routes using breadcrumbs should include subRoutes in the routeMap config')
+		const baseRoute = '/' + routeParts[1]
+		const endRoute = routeParts[routeParts.length - 1]
 
 		// Get href from current url
 		let href = ''

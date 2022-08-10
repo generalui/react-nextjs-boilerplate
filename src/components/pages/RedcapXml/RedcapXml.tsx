@@ -3,6 +3,7 @@
 /*!
  * UploadRedcapXml Page
  */
+import { useState } from 'react'
 import { useText } from 'hooks/useText'
 import { MultiStepForm } from 'partials/MultiStepForm'
 import { PageWrapper } from 'partials/PageWrapper'
@@ -12,9 +13,14 @@ import { PageHeader } from 'common/PageHeader'
 import { RedcapXmlProps } from './RedcapXml.types'
 
 export const RedcapXml = function RedcapXml({ testId = 'RedcapXml' }: RedcapXmlProps) {
+	const [xmlFile, setXmlFile] = useState<any>(undefined)
 	const { t } = useText('studies.redcap.upload')
 
-	const multiStepComponents = [<UploadRedcapXml />, <>{'container 2'}</>, <>{'container 3'}</>]
+	const multiStepComponents = [
+		{ component: <UploadRedcapXml /> },
+		{ component: <>{'Component 2'}</> },
+		{ component: <>{'Component 3'}</> }
+	]
 	return (
 		<PageWrapper title={t('title')} testId={testId}>
 			<PageHeader className='grid grid-cols-12 items-center'>
@@ -22,7 +28,7 @@ export const RedcapXml = function RedcapXml({ testId = 'RedcapXml' }: RedcapXmlP
 				<Breadcrumbs className='col-span-8' />
 			</PageHeader>
 			<div>
-				<MultiStepForm stepComponents={multiStepComponents} />
+				<MultiStepForm steps={multiStepComponents} />
 			</div>
 		</PageWrapper>
 	)
