@@ -2,16 +2,12 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { MultiStepFormProps } from './MultiStepForm.types'
 
-type MultiStepFormType = <T>(props: MultiStepFormProps<T>) => JSX.Element
-
-export const MultiStepForm: MultiStepFormType = ({
+export const MultiStepForm = ({
 	className,
 	stepComponents,
-	results,
 	testId = 'MultiStepForm'
-}) => {
+}: MultiStepFormProps) => {
 	const [step, setStep] = useState<number | undefined>(undefined)
-	console.log('step: ', step)
 	const { query } = useRouter()
 
 	useEffect(() => {

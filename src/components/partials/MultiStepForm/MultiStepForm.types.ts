@@ -1,6 +1,5 @@
 import { CommonProps } from 'types/CommonProps'
 
-export interface MultiStepFormProps<T> extends CommonProps {
+export interface MultiStepFormProps extends CommonProps {
 	stepComponents: JSX.Element[]
-	results: T
 }
