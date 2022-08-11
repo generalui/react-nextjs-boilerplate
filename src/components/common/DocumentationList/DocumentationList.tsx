@@ -68,6 +68,8 @@ export const DocumentationList = ({
 		{
 			key: 'date',
 			title: t('modified'),
+			headerClassName: 'text-right',
+			className: 'text-right',
 			width: 2
 		}
 	]

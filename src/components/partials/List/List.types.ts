@@ -12,6 +12,7 @@ export interface Column<DataType = ListData> {
 	title?: string
 	width: number
 	transformFunction?: (value: unknown, data: DataType) => ReactNode
+	headerClassName?: string
 }
 
 export interface BaseListProps extends Omit<CommonProps, 'children'> {
