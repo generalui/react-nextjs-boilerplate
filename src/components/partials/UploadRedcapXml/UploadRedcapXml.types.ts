@@ -1,3 +1,4 @@
-import { CommonProps } from 'types/CommonProps'
+import { UploadXmlInput } from 'types/index'
+import { BaseFormProps } from 'partials/Form/Form.types'
 
-export interface UploadRedcapXmlProps extends CommonProps {}
+export interface UploadRedcapXmlProps extends BaseFormProps<UploadXmlInput> {}

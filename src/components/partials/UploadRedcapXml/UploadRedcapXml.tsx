@@ -3,7 +3,8 @@
  */
 import cn from 'classnames'
 import Image from 'next/image'
-import { UploadXmlInput, UploadXmlSchema } from 'types/index'
+import { UploadXmlSchema } from 'types/index'
+import { handleValidate } from 'utils/client/handleValidate'
 import { useText } from 'hooks/useText'
 import { DocumentsInput } from 'partials/DocumentsInput'
 import { Form } from 'partials/Form'
@@ -11,7 +12,6 @@ import { ActionButtons } from 'common/ActionButtons'
 import { Card } from 'common/Card'
 import { Detail } from 'common/Detail'
 import { Text } from 'common/Text'
-import { handleValidate } from '../../../utils/client/handleValidate'
 import { UploadRedcapXmlProps } from './UploadRedcapXml.types'
 
 const maxFiles = 1
@@ -20,15 +20,11 @@ const acceptedFiles = {
 }
 
 export const UploadRedcapXml = function UploadRedcapXml({
-	submitFile,
+	onSubmit,
 	testId = 'UploadRedcapXml'
 }: UploadRedcapXmlProps) {
 	const { t } = useText('redcap.upload')
 	const steps = ['one', 'two', 'three', 'four', 'five', 'six']
-
-	const onSubmit = async (values: UploadXmlInput) => {
-		console.log('values: ', values)
-	}
 
 	return (
 		<div className='flex flex-col gap-6' data-testid={testId}>

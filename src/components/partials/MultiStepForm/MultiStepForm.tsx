@@ -1,18 +1,17 @@
 import { useMultiStepForm } from 'hooks/useMultiStepForm'
 import { MultiStepFormProps } from './MultiStepForm.types'
 
-type MultiStepFormComponent = <T>(props: MultiStepFormProps<T>) => JSX.Element
-
-export const MultiStepForm: MultiStepFormComponent = ({
+export const MultiStepForm = ({
+	name,
 	className,
 	steps,
 	testId = 'MultiStepForm'
-}) => {
-	const { currentStep } = useMultiStepForm()
+}: MultiStepFormProps) => {
+	const { currentStep } = useMultiStepForm(name)
 
 	return (
 		<div className={className} data-testid={testId}>
-			{typeof currentStep === 'number' && steps[currentStep].component}
+			{typeof currentStep === 'number' && steps[currentStep]}
 		</div>
 	)
 }

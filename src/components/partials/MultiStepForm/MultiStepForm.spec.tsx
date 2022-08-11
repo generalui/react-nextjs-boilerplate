@@ -8,7 +8,7 @@ import { MultiStepForm } from './index'
 
 describe('MultiStepForm Component', () => {
 	it('renders on the page', () => {
-		render(<MultiStepForm components={[]} />)
+		render(<MultiStepForm steps={[<>{'Form 1'}</>]} name='test' />)
 
 		const component = screen.getByTestId('MultiStepForm')
 

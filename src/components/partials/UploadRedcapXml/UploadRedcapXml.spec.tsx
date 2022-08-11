@@ -8,7 +8,8 @@ import { UploadRedcapXml } from './index'
 
 describe('UploadRedcapXml Component', () => {
 	it('renders on the page', () => {
-		render(<UploadRedcapXml />)
+		// eslint-disable-next-line @typescript-eslint/no-empty-function
+		render(<UploadRedcapXml onSubmit={() => {}} />)
 
 		const component = screen.getByTestId('UploadRedcapXml')
 
