@@ -1,5 +1,5 @@
 /**
- * This file is in `.js` because it is used in the jest conifg file.
+ * This file is in `.js` because it is used in the jest config file.
  *
  * According to the Next.JS documentation, some users might run into an error saying Failed to parse src "test-file-stub" on 'next/image'.
  *

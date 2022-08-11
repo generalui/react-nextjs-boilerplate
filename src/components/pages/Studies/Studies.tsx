@@ -1,5 +1,5 @@
 import { getQueryNumber } from 'utils/getQueryNumber'
-import { useStudies } from 'hooks/api/useStudies'
+import { useStudies } from 'hooks/api/studies/useStudies'
 import { useRouterQuery } from 'hooks/useRouterQuery'
 import { CreateStudy } from 'partials/CreateStudy'
 import { PageWrapper } from 'partials/PageWrapper'

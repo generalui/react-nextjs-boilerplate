@@ -9,10 +9,13 @@ import { Icon } from 'common/Icon'
 import { DocumentationListProps } from './DocumentationList.types'
 
 export const DocumentationList = ({
+	action,
 	className,
 	documents,
+	iconProps,
 	isLoading,
-	testId = 'DocumentationList'
+	testId = 'DocumentationList',
+	title
 }: DocumentationListProps) => {
 	const { t } = useText('studies.documentation')
 
@@ -71,15 +74,18 @@ export const DocumentationList = ({
 
 	return (
 		<List
+			action={action}
 			className={cn('max-h-64 overflow-y-auto', className)}
 			columns={columns}
 			concise
 			data={documentComponents}
 			emptyMessage={t('noDocuments')}
+			iconProps={iconProps}
 			indexKey='name'
 			isLoading={isLoading}
 			sharedClassName='text-gray-500'
 			testId={testId}
+			title={title}
 		/>
 	)
 }

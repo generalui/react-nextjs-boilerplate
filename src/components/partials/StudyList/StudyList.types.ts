@@ -1,8 +1,6 @@
-import { CommonProps } from 'types/CommonProps'
 import { Study } from 'types/Study'
+import { BaseListProps } from 'partials/List/List.types'
 
-export interface StudyListProps extends CommonProps {
+export interface StudyListProps extends BaseListProps {
 	studies: Study[]
-	isLoading?: boolean
-	concise?: boolean
 }

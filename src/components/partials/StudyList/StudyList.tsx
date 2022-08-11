@@ -75,25 +75,33 @@ const getColumns = (concise: boolean, t?: ReturnType<UseText>['t']): Column<Stud
 }
 
 export const StudyList = ({
+	action,
 	className,
-	testId = 'StudyList',
-	studies,
+	concise = false,
+	iconProps = {
+		icon: 'DocumentReportIcon'
+	},
 	isLoading,
-	concise = false
+	studies,
+	testId = 'StudyList',
+	title
 }: StudyListProps) => {
 	const { t } = useText('studies')
 	const columns = getColumns(concise, t)
 
 	return (
 		<List
+			action={action}
 			className={className}
 			columns={columns}
 			concise={concise}
 			data={studies}
+			iconProps={iconProps}
 			indexKey='id'
 			isLoading={isLoading}
 			loadingClassName={concise ? 'p-12' : 'p-24'}
 			testId={testId}
+			title={title}
 		/>
 	)
 }

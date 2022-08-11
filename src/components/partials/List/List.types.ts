@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import { CommonProps } from 'types/CommonProps'
+import { CardProps } from 'common/Card/Card.types'
 
 export type ListData = Record<string, ReactNode>
 
@@ -13,15 +14,21 @@ export interface Column<DataType = ListData> {
 	transformFunction?: (value: unknown, data: DataType) => ReactNode
 }
 
-export interface ListProps<DataType extends ListData> extends Omit<CommonProps, 'children'> {
+export interface BaseListProps extends Omit<CommonProps, 'children'> {
+	action?: CardProps['action']
+	concise?: boolean
+	iconProps?: CardProps['iconProps']
+	isLoading?: boolean
+	title?: string
+}
+
+export interface ListProps<DataType extends ListData> extends BaseListProps {
 	columns: Column<DataType>[]
 	data: DataType[]
 	emptyMessage?: string
 	indexKey: StringKeys<DataType>
-	isLoading?: boolean
 	listItemClassName?: string
 	loadingClassName?: string
 	sharedClassName?: string
 	headerClassName?: string
-	concise?: boolean
 }
