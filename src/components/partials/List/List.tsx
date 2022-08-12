@@ -52,7 +52,11 @@ export const List = <DataType extends ListData>({
 
 					return (
 						<div
-							className={cn(columnWidth && `col-span-${columnWidth}`, concise && 'text-gray-500')}
+							className={cn(
+								columnWidth && `col-span-${columnWidth}`,
+								concise && 'text-gray-500',
+								column.headerClassName
+							)}
 							key={column.key}
 						>
 							{column.title}
