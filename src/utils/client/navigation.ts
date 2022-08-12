@@ -16,7 +16,11 @@ export const routeMap: Record<
 		href: '/studies',
 		icon: 'DocumentReportIcon',
 		labelKey: 'common.sidebar.nav.studies',
-		subRoutes: { default: { labelKey: 'studies.details.title' } }
+		subRoutes: {
+			default: { labelKey: 'studies.details.title' },
+			'[studyId]': { labelKey: 'studies.details.title', route: '/studies/[studyId]/' },
+			'upload-redcap-xml': { labelKey: 'studies.redcap.upload.title' }
+		}
 	},
 	'/profile': {
 		href: '/profile',
