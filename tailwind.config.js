@@ -15,6 +15,12 @@ module.exports = {
 		},
 		{
 			pattern: /max-w/
+		},
+		{
+			pattern: /h/
+		},
+		{
+			pattern: /overflow/
 		}
 	],
 	theme: client.tailwindTheme,

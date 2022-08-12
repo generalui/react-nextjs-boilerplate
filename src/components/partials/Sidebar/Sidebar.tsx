@@ -1,6 +1,6 @@
 import cn from 'classnames'
 import { useRouter } from 'next/router'
-import { routeMap } from 'utils/client/navigation'
+import { routeMap } from 'utils/client/routeMap'
 import { useText } from 'hooks/useText'
 import { SidebarLink } from 'partials/Sidebar/SidebarLink'
 import styles from './Sidebar.module.scss'
