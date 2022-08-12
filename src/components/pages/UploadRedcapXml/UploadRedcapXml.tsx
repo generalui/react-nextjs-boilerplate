@@ -60,21 +60,26 @@ export const UploadRedcapXml = function UploadRedcapXml({
 								</Text>
 								<Form
 									onSubmit={onSubmit}
-									render={({ handleSubmit }) => (
-										<form onSubmit={handleSubmit}>
-											<DocumentsInput
-												name='redcapXml'
-												maxFiles={maxFiles}
-												acceptedFiles={acceptedFiles}
-												localizationScope={'studies.redcap.upload'}
-												image={{ src: '/icons/xmlFile.svg', width: '50', height: '50' }}
-											/>
-											<ActionButtons
-												localizationScope='studies.redcap.upload'
-												submitText={t('import')}
-											/>
-										</form>
-									)}
+									render={({ handleSubmit, values }) => {
+										const redcapXMLFile = values?.['redcapXml']?.[0]
+
+										return (
+											<form onSubmit={handleSubmit}>
+												<DocumentsInput
+													name='redcapXml'
+													maxFiles={maxFiles}
+													acceptedFiles={acceptedFiles}
+													localizationScope={'studies.redcap.upload'}
+													image={{ src: '/icons/xmlFile.svg', width: '50', height: '50' }}
+												/>
+
+												<ActionButtons
+													localizationScope='studies.redcap.upload'
+													submitText={t('import')}
+												/>
+											</form>
+										)
+									}}
 								/>
 							</div>
 						</Detail>

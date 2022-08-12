@@ -1,34 +1,65 @@
 import cn from 'classnames'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { routeMap } from 'utils/client/navigation'
+import { routeMap } from 'utils/client/routeMap'
 import { useText } from 'hooks/useText'
 import { Icon } from 'common/Icon'
 import { Text } from 'common/Text'
+import { BreadcrumbLink } from './BreadcrumbLink'
 import { BreadcrumbsProps } from './Breadcrumbs.types'
 
 export const Breadcrumbs = ({ className, testId = 'Breadcrumbs' }: BreadcrumbsProps) => {
 	const { t } = useText()
-	const router = useRouter()
-	const routeParts = router.route.split('/')
+	const { asPath, pathname } = useRouter()
 
-	if (routeParts.length <= 2) {
-		return null
+	if (!pathname)
+		return (
+			<div
+				className={cn(className, 'flex gap-2 lg:gap-6 xl:gap-7 items-center')}
+				data-testid={testId}
+			/>
+		)
+
+	const [, ...pathList] = asPath.split('/')
+	const [, ...pathNameList] = pathname.split('/')
+	const basePath = pathList[0]
+	const route = routeMap[basePath]
+
+	const getBreadCrumbDetails = (index: number) => {
+		// Get label key from routeMap
+		const isBasePath = index === 0
+		const labelKey = (isBasePath ? route : route.subRoutes?.[pathNameList[index]])?.labelKey
+
+		// Ensure a label key has been assigned
+		if (!labelKey || (index > 0 && !route.subRoutes))
+			throw Error('Routes using breadcrumbs should include subRoutes in the routeMap config')
+
+		// Get href from current url
+		let href = ''
+		for (let i = 0; i <= Math.min(index, pathList.length - 1); i++) {
+			href += `/${pathList[i]}`
+		}
+
+		return { href, labelKey }
 	}
 
-	const baseRoute = '/' + routeParts[1]
-	const endRoute = routeParts[-1]
-
-	const route = routeMap[baseRoute]
-	const childRoute = route.subRoutes[endRoute] || route.subRoutes.default
-
 	return (
-		<div className={cn(className, 'flex gap-8 items-center')} data-testid={testId}>
-			<Link href={baseRoute} passHref>
-				<Text className='font-bold'>{t(route.labelKey)}</Text>
-			</Link>
-			<Icon icon='ChevronRightIcon' className='text-gray-400' />
-			<Text className='font-bold text-gray-400'>{t(childRoute.labelKey)}</Text>
+		<div
+			className={cn(className, 'flex gap-2 lg:gap-6 xl:gap-7 items-center')}
+			data-testid={testId}
+		>
+			{pathList.map((_path, i) => {
+				const { href, labelKey } = getBreadCrumbDetails(i)
+
+				return (
+					<BreadcrumbLink
+						key={href}
+						href={href}
+						label={t(labelKey)}
+						includeChevron={!!i}
+						disabled={i === pathList.length - 1}
+					/>
+				)
+			})}
 		</div>
 	)
 }
