@@ -87,7 +87,10 @@ export const ImageInput = ({
 										)}
 									/>
 									<PencilAltIcon
-										className={cn('h-5 w-5 absolute bottom-3.5 right-3.5', editIconClassName)}
+										className={cn(
+											disabled ? disabledVariants[`${v}Disabled`].icon : imageInputVariants[v].icon,
+											editIconClassName
+										)}
 									/>
 								</div>
 							</Dropzone>

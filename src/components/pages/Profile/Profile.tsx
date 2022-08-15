@@ -44,7 +44,6 @@ export const Profile = function Profile({ testId = 'Profile' }: ProfileProps) {
 									<div className='flex justify-center lg:justify-start '>
 										<ImageInput
 											name='image'
-											editIconClassName='right-8'
 											errorClassName='mb-[-1rem]'
 											initialValue={currentUser.image?.image?.url}
 											placeholder='/images/profile-image-placeholder.jpg'
