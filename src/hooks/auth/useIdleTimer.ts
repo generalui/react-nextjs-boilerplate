@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 
 const whiteList = ['/auth/signin', '/auth/signup']
 
-const useIdleTimer = async () => {
+const useIdleTimer = () => {
 	const router = useRouter()
 	const currentPathname = router.pathname
 
@@ -25,12 +25,18 @@ const useIdleTimer = async () => {
 		restartAutoReset()
 	}
 
+	const trackActivity = (listener: () => void) => {
+		window.addEventListener('mousemove', listener)
+		window.addEventListener('click', listener)
+		window.addEventListener('scroll', listener)
+		window.addEventListener('keydown', listener)
+	}
+
 	useEffect(() => {
 		if (whiteList.includes(currentPathname)) return
 
 		restartAutoReset()
-		// TODO: Add more event listeners to reset timer
-		window.addEventListener('mousemove', resetTimer)
+		trackActivity(resetTimer)
 
 		// cleanup
 		return () => {
