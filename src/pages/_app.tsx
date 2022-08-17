@@ -10,9 +10,13 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import { reactQueryClient } from 'utils/client/react-query'
 import 'styles/globals.scss'
+import useIdleTimer from '../hooks/auth/useIdleTimer'
 import '../store'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+	useIdleTimer()
+	console.log('I rendered')
+
 	useEffect(() => {
 		if (process.env.NEXT_PUBLIC_ENV === 'staging') {
 			LogRocket.init('eog9r1/test-logrocket')
