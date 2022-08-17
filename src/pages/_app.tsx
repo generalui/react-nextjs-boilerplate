@@ -15,7 +15,6 @@ import '../store'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 	useIdleTimer()
-	console.log('I rendered')
 
 	useEffect(() => {
 		if (process.env.NEXT_PUBLIC_ENV === 'staging') {
