@@ -5,7 +5,6 @@ import { maxAge } from 'utils/constants'
 import { throttle } from 'utils/throttle'
 
 const whiteList = ['/auth/signin', '/auth/signup']
-const maxAgeFromNow = Date.now() + 1000 * maxAge
 const localStorageExpTimeName = '_expirationTime'
 const activityEvents = ['mousedown', 'mousemove', 'keydown', 'scroll', 'touchstart']
 
@@ -21,7 +20,7 @@ const useIdleTimer = () => {
 	const createIdleInterval = () =>
 		setInterval(() => {
 			const expirationTime = parseInt(
-				localStorage.getItem(localStorageExpTimeName) || maxAgeFromNow.toString()
+				localStorage.getItem(localStorageExpTimeName) || (Date.now() + 1000 * maxAge).toString()
 			)
 
 			if (expirationTime < Date.now()) {
@@ -32,7 +31,9 @@ const useIdleTimer = () => {
 
 	const resetExpirationTime = () => {
 		throttle(
-			() => localStorage.setItem(localStorageExpTimeName, maxAgeFromNow.toString()),
+			() => {
+				localStorage.setItem(localStorageExpTimeName, (Date.now() + 1000 * maxAge).toString())
+			},
 			300,
 			'resetExpirationTime'
 		)

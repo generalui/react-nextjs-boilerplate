@@ -9,13 +9,11 @@ import { QueryClientProvider } from 'react-query'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import { reactQueryClient } from 'utils/client/react-query'
+import { IdleTimer } from 'common/IdleTimer'
 import 'styles/globals.scss'
-import useIdleTimer from '../hooks/auth/useIdleTimer'
 import '../store'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
-	useIdleTimer()
-
 	useEffect(() => {
 		if (process.env.NEXT_PUBLIC_ENV === 'staging') {
 			LogRocket.init('eog9r1/test-logrocket')
@@ -32,6 +30,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 					<QueryClientProvider client={reactQueryClient}>
 						<Component {...pageProps} />
 						<ToastContainer />
+						<IdleTimer />
 					</QueryClientProvider>
 				</SessionProvider>
 			</Provider>
