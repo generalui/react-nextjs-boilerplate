@@ -2,10 +2,10 @@ import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { maxAge } from 'utils/constants'
+import { throttle } from 'utils/throttle'
 
 const whiteList = ['/auth/signin', '/auth/signup']
-// const thirtyMinutesFromNow = Date.now() + 1000 * maxAge
-const twoMinutesFromNow = Date.now() + 1000 * maxAge
+const maxAgeFromNow = Date.now() + 1000 * maxAge
 const localStorageExpTimeName = '_expirationTime'
 const activityEvents = ['mousedown', 'mousemove', 'keydown', 'scroll', 'touchstart']
 
@@ -21,7 +21,7 @@ const useIdleTimer = () => {
 	const createIdleInterval = () =>
 		setInterval(() => {
 			const expirationTime = parseInt(
-				localStorage.getItem(localStorageExpTimeName) || twoMinutesFromNow.toString()
+				localStorage.getItem(localStorageExpTimeName) || maxAgeFromNow.toString()
 			)
 
 			if (expirationTime < Date.now()) {
@@ -31,9 +31,11 @@ const useIdleTimer = () => {
 		}, 1000 * 60)
 
 	const resetExpirationTime = () => {
-		setTimeout(() => {
-			localStorage.setItem(localStorageExpTimeName, twoMinutesFromNow.toString())
-		}, 300)
+		throttle(
+			() => localStorage.setItem(localStorageExpTimeName, maxAgeFromNow.toString()),
+			300,
+			'resetExpirationTime'
+		)
 	}
 
 	const trackActivity = (listener: () => void) => {
