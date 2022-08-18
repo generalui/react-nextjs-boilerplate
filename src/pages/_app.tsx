@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 				<link rel='shortcut icon' href={favicon} />
 			</Head>
 			<Provider>
-				<SessionProvider session={session}>
+				<SessionProvider session={session} refetchInterval={1}>
 					<QueryClientProvider client={reactQueryClient}>
 						<Component {...pageProps} />
 						<ToastContainer />

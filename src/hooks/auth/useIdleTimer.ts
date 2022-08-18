@@ -1,68 +1,61 @@
 import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+import { maxAge } from 'utils/constants'
 
 const whiteList = ['/auth/signin', '/auth/signup']
-// const thirtyMinutesFromNow = Date.now() + 1000 * 60 * 30
-const twoMinutesFromNow = Date.now() + 1000 * 60 * 2
+// const thirtyMinutesFromNow = Date.now() + 1000 * maxAge
+const twoMinutesFromNow = Date.now() + 1000 * maxAge
+const localStorageExpTimeName = '_expirationTime'
+const activityEvents = ['mousedown', 'mousemove', 'keydown', 'scroll', 'touchstart']
 
 const useIdleTimer = () => {
 	const router = useRouter()
 	const currentPathname = router.pathname
-
-	let interval: NodeJS.Timer | null = null
 
 	/**
 	 * @description - Creates an interval that will check if the user is idle by comparing the current time and the expiration time.
 	 *
 	 * It uses local  storage to store the expiration time, so the user will not be signed out when using multiple tabs.
 	 */
-	const startIdleInterval = () => {
-		interval = setInterval(() => {
+	const createIdleInterval = () =>
+		setInterval(() => {
 			const expirationTime = parseInt(
-				localStorage.getItem('_expirationTime') || twoMinutesFromNow.toString()
+				localStorage.getItem(localStorageExpTimeName) || twoMinutesFromNow.toString()
 			)
 
 			if (expirationTime < Date.now()) {
 				signOut()
-				localStorage.removeItem('_expirationTime')
+				localStorage.removeItem(localStorageExpTimeName)
 			}
 		}, 1000 * 60)
-	}
 
 	const resetExpirationTime = () => {
 		setTimeout(() => {
-			localStorage.setItem('_expirationTime', twoMinutesFromNow.toString())
+			localStorage.setItem(localStorageExpTimeName, twoMinutesFromNow.toString())
 		}, 300)
 	}
 
 	const trackActivity = (listener: () => void) => {
-		window.addEventListener('mousemove', listener)
-		window.addEventListener('click', listener)
-		window.addEventListener('scroll', listener)
-		window.addEventListener('keydown', listener)
+		activityEvents.map((event) => window.addEventListener(event, listener))
 	}
 
 	const untrackActivity = (listener: () => void) => {
-		window.removeEventListener('mousemove', listener)
-		window.removeEventListener('click', listener)
-		window.removeEventListener('scroll', listener)
-		window.removeEventListener('keydown', listener)
+		activityEvents.map((event) => window.removeEventListener(event, listener))
 	}
 
 	useEffect(() => {
 		if (whiteList.includes(currentPathname)) return
 
-		startIdleInterval()
+		const interval = createIdleInterval()
+
 		trackActivity(resetExpirationTime)
 
 		// cleanup
 		return () => {
-			if (interval) {
-				clearInterval(interval)
-				localStorage.removeItem('_expirationTime')
-				untrackActivity(resetExpirationTime)
-			}
+			clearInterval(interval)
+			localStorage.removeItem(localStorageExpTimeName)
+			untrackActivity(resetExpirationTime)
 		}
 	}, [currentPathname])
 }
