@@ -3,26 +3,32 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
 const whiteList = ['/auth/signin', '/auth/signup']
+// const thirtyMinutesFromNow = Date.now() + 1000 * 60 * 30
+const twoMinutesFromNow = Date.now() + 1000 * 60 * 2
 
 const useIdleTimer = () => {
 	const router = useRouter()
 	const currentPathname = router.pathname
 
-	let timeout: NodeJS.Timeout | null = null
-	const restartAutoReset = () => {
-		if (timeout) {
-			clearTimeout(timeout)
-		}
-		timeout = setTimeout(() => {
-			signOut()
-			console.log('You have been idle for too long. Logging you out.')
-		}, 1000 * 10)
+	let interval: NodeJS.Timer | null = null
+
+	const startIdleInterval = () => {
+		interval = setInterval(() => {
+			const expirationTime = parseInt(
+				localStorage.getItem('_expirationTime') || twoMinutesFromNow.toString()
+			)
+
+			if (expirationTime < Date.now()) {
+				signOut()
+				localStorage.removeItem('_expirationTime')
+			}
+		}, 1000 * 60)
 	}
 
-	const resetTimer = () => {
-		console.log('resetting timer')
-
-		restartAutoReset()
+	const resetExpirationTime = () => {
+		setTimeout(() => {
+			localStorage.setItem('_expirationTime', twoMinutesFromNow.toString())
+		}, 300)
 	}
 
 	const trackActivity = (listener: () => void) => {
@@ -32,18 +38,25 @@ const useIdleTimer = () => {
 		window.addEventListener('keydown', listener)
 	}
 
+	const untrackActivity = (listener: () => void) => {
+		window.removeEventListener('mousemove', listener)
+		window.removeEventListener('click', listener)
+		window.removeEventListener('scroll', listener)
+		window.removeEventListener('keydown', listener)
+	}
+
 	useEffect(() => {
 		if (whiteList.includes(currentPathname)) return
 
-		restartAutoReset()
-		trackActivity(resetTimer)
+		startIdleInterval()
+		trackActivity(resetExpirationTime)
 
 		// cleanup
 		return () => {
-			if (timeout) {
-				clearTimeout(timeout)
-
-				window.removeEventListener('mousemove', resetTimer)
+			if (interval) {
+				clearInterval(interval)
+				localStorage.removeItem('_expirationTime')
+				untrackActivity(resetExpirationTime)
 			}
 		}
 	}, [currentPathname])
