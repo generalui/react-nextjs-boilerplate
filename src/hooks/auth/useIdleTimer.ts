@@ -12,6 +12,11 @@ const useIdleTimer = () => {
 
 	let interval: NodeJS.Timer | null = null
 
+	/**
+	 * @description - Creates an interval that will check if the user is idle by comparing the current time and the expiration time.
+	 *
+	 * It uses local  storage to store the expiration time, so the user will not be signed out when using multiple tabs.
+	 */
 	const startIdleInterval = () => {
 		interval = setInterval(() => {
 			const expirationTime = parseInt(
