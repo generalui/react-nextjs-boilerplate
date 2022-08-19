@@ -1,12 +1,9 @@
-import Image from 'next/image'
 import { UploadXmlSchema } from 'types/index'
 import { handleValidate } from 'utils/client/handleValidate'
 import { useText } from 'hooks/useText'
 import { DocumentsInput } from 'partials/DocumentsInput'
 import { Form } from 'partials/Form'
 import { ActionButtons } from 'common/ActionButtons'
-import { Card } from 'common/Card'
-import { Detail } from 'common/Detail'
 import { OrderedList } from 'common/OrderedList'
 import { Text } from 'common/Text'
 import { UploadRedcapXmlProps } from './UploadRedcapXml.types'
@@ -19,8 +16,7 @@ const acceptedFiles = {
 export const UploadRedcapXml = function UploadRedcapXml({
 	onSubmit,
 	onCancel,
-	testId = 'UploadRedcapXml',
-	title
+	testId = 'UploadRedcapXml'
 }: UploadRedcapXmlProps) {
 	const { t } = useText('studies.redcapXMLForm.upload')
 	const steps = Array.from({ length: 6 }, (_, i) => i + 1).map((step) => {

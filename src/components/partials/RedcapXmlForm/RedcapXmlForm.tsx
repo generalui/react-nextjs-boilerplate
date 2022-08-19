@@ -1,13 +1,11 @@
 /* eslint-disable react/jsx-key */
 import Image from 'next/image'
 import { useState } from 'react'
-import { UploadXmlInput, XMLParsed } from 'types/index'
-import { useModal } from 'hooks/useModal'
+import { UploadXmlInput } from 'types/index'
 import { useXMLParser } from 'hooks/useParseXML'
 import { useRouter } from 'hooks/useRouter'
 import { useText } from 'hooks/useText'
 import { MultiStepForm } from 'partials/MultiStepForm'
-// import { XmlPreview } from 'common/XmlPreview'
 import { RedcapXmlFormProps } from './RedcapXmlForm.types'
 import { MapRedcapFields } from './steps/MapRedcapFields'
 import { UploadRedcapXml } from './steps/UploadRedcapXml'
@@ -15,12 +13,11 @@ import { UploadRedcapXml } from './steps/UploadRedcapXml'
 const UPLOAD_REDCAP_XML_FORM_NAME = 'upload-redcap-xml-form'
 
 export const RedcapXmlForm = ({ className, testId = 'RedcapXmlForm' }: RedcapXmlFormProps) => {
-	const { parse, parsedXML, isError, isSuccess, isParsing, isComplete } = useXMLParser()
-	const [xmlFile, setXMLFile] = useState<File>()
+	const { parse, parsedXML } = useXMLParser()
 	const [currentStep, setCurrentStep] = useState<number>(0)
-	const [clientData, setClientData] = useState<XMLParsed>()
+	// const [clientData, setClientData] = useState<XMLParsed>()
 	const [inProgress, setInProgress] = useState<boolean>()
-	const [participantList, setParticipantList] = useState<File>()
+	// const [participantList, setParticipantList] = useState<File>()
 	// const { currentStep, step } = useMultiStepForm()
 	const { t } = useText('studies.redcapXMLForm')
 	const { forceBack } = useRouter()
@@ -31,14 +28,13 @@ export const RedcapXmlForm = ({ className, testId = 'RedcapXmlForm' }: RedcapXml
 	}
 
 	const handleUploadRedcapXml = (values: UploadXmlInput) => {
-		setXMLFile(values.xmlFile[0])
 		parse(values.xmlFile[0])
 		setCurrentStep(currentStep + 1)
 		setInProgress(true)
 	}
 
 	const handleMapRedcapFields = (values: UploadXmlInput) => {
-		setXMLFile(values.xmlFile[0])
+		console.log('handleMapRedcapFields ~ values', values)
 		setCurrentStep(currentStep + 1)
 	}
 

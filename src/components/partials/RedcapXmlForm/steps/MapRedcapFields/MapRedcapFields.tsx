@@ -1,19 +1,13 @@
-import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { UploadXmlSchema, XMLParsed, selectOptionsType } from 'types/index'
-import { z } from 'zod'
-import { getFromParsedXML } from 'utils/client/getFromParsedXML'
+import { UploadXmlSchema } from 'types/index'
 import { handleValidate } from 'utils/client/handleValidate'
 import { useText } from 'hooks/useText'
 import { DataFieldSelect } from 'partials/DataFieldSelect'
-import { DocumentsInput } from 'partials/DocumentsInput'
 import { Form } from 'partials/Form'
 import { ActionButtons } from 'common/ActionButtons'
 import { Card } from 'common/Card'
 import { Detail } from 'common/Detail'
 import { Icon } from 'common/Icon'
-import { OrderedList } from 'common/OrderedList'
-import { SelectInput } from 'common/SelectInput'
 import { Text } from 'common/Text'
 import { MapRedcapFieldsProps } from './MapRedcapFields.types'
 
@@ -35,23 +29,23 @@ const REDCAP_CONCENT_FIELDS = [
 	'withdrawal_procedures'
 ]
 
-const REDCAP_CONCENT_FIELDS_OBJS = [
-	{ name: 'current_name', required: true },
-	{ name: 'gender', required: true },
-	{ name: 'maiden_name', required: true },
-	{ name: 'enrolled_tribe', required: true },
-	{ name: 'mailing_address', required: true },
-	{ name: 'physical_address', required: true },
-	{ name: 'home_phone_number', required: true },
-	{ name: 'work_phone number', required: true },
-	{ name: 'emergency_name', required: true },
-	{ name: 'emergency_phone', required: true },
-	{ name: 'emergency_address', required: true },
-	{ name: 'nearest_hospital_name', required: true },
-	{ name: 'nearest_hospital_address', required: true },
-	{ name: 'proof_of_consent', required: true },
-	{ name: 'withdrawal_procedures', required: true }
-]
+// const REDCAP_CONCENT_FIELDS_OBJS = [
+// 	{ name: 'current_name', required: true },
+// 	{ name: 'gender', required: true },
+// 	{ name: 'maiden_name', required: true },
+// 	{ name: 'enrolled_tribe', required: true },
+// 	{ name: 'mailing_address', required: true },
+// 	{ name: 'physical_address', required: true },
+// 	{ name: 'home_phone_number', required: true },
+// 	{ name: 'work_phone number', required: true },
+// 	{ name: 'emergency_name', required: true },
+// 	{ name: 'emergency_phone', required: true },
+// 	{ name: 'emergency_address', required: true },
+// 	{ name: 'nearest_hospital_name', required: true },
+// 	{ name: 'nearest_hospital_address', required: true },
+// 	{ name: 'proof_of_consent', required: true },
+// 	{ name: 'withdrawal_procedures', required: true }
+// ]
 
 // export const StudySchema = z.object(REDCAP_CONCENT_FIELDS.reduce((schema, field) => {
 // 	const result
@@ -64,7 +58,7 @@ const REDCAP_CONCENT_FIELDS_OBJS = [
 // }
 
 export const MapRedcapFields = function MapRedcapFields({
-	onSubmit,
+	// onSubmit,
 	testId = 'MapRedcapFields',
 	title,
 	parsedXML,
@@ -77,8 +71,9 @@ export const MapRedcapFields = function MapRedcapFields({
 		if (parsedXML?.fields) setRedcapFields(parsedXML.fields as string[])
 	}, [parsedXML, setRedcapFields])
 
-	const handleSubmit = (values: any) => {
+	const handleSubmit = (values: unknown) => {
 		console.log('handleSubmit ~ values', values)
+		// onSubmit?.(values)
 	}
 
 	const renderRedCapField = (field: string) => {

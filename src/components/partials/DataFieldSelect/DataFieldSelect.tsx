@@ -15,14 +15,11 @@ const MultiValueLabel = (props: MultiValueGenericProps<selectOptionsType>) => {
 }
 
 const SingleValue = (props: SingleValueProps<selectOptionsType>) => {
-	const { value } = props.data
 	return <components.SingleValue {...props} />
 }
 
 const Option = (props: OptionProps<selectOptionsType>) => {
-	const { children, className, cx, isDisabled, isFocused, isSelected, innerRef, innerProps, data } =
-		props
-	const { value } = data
+	const { children, className, cx, isDisabled, isFocused, isSelected, innerRef, innerProps } = props
 	return (
 		<div
 			ref={innerRef}

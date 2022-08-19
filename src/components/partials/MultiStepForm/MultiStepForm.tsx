@@ -1,18 +1,15 @@
-import { useEffect, useState } from 'react'
-import { useModal } from 'hooks/useModal'
+import { useEffect } from 'react'
 import { useRouter } from 'hooks/useRouter'
 import { Card } from 'common/Card'
 import { MultiStepFormProps } from './MultiStepForm.types'
 
 export const MultiStepForm = ({
-	name,
 	title,
 	header,
 	className,
 	steps,
 	children,
 	currentStep,
-	onCancel,
 	inProgress = false,
 	testId = 'MultiStepForm'
 }: MultiStepFormProps) => {
