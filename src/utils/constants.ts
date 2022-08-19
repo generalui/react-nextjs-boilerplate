@@ -1,1 +1,1 @@
-export const maxAge = 60 * 2
+export const maxAge = 60 * 30 // 30 minutes
