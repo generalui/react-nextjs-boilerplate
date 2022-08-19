@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { XMLParsed } from 'types/index'
 import { parseStringPromise } from 'xml2js'
 import { getRedCapDataFromParsedXML } from 'utils/client/getRedCapDataFromParsedXML'
 
 type UseXMLParserReturn = {
 	parse: (xmlFile?: File) => void
-	parsedXML?: XMLParsed | XMLParsed[]
+	parsedXML?: XMLParsed
 	isSuccess?: boolean
 	isParsing?: boolean
 	isError?: boolean
@@ -13,7 +13,20 @@ type UseXMLParserReturn = {
 	error?: Error
 }
 
-type UseXMLParser = (format?: 'redcap' | 'qualtrics') => UseXMLParserReturn
+type XMLField = {
+	name: string
+	value?: string
+	meta?: {
+		key: string
+	}
+}
+
+type UseXMLParserProps = {
+	format?: 'redcap' | 'qualtrics'
+	onComplete?: (parsedXML?: XMLParsed) => void
+}
+
+type UseXMLParser = (props?: UseXMLParserProps) => UseXMLParserReturn
 
 const parseXML = async (xmlFile: File): Promise<XMLParsed> => {
 	const xmlText = await xmlFile.text()
@@ -30,8 +43,9 @@ const parseXMLError = (error?: Error): XMLParsed => {
 	}
 }
 
-export const useXMLParser: UseXMLParser = (format = 'redcap') => {
-	const [parsedXML, setParsedXML] = useState<XMLParsed | XMLParsed[]>()
+export const useXMLParser: UseXMLParser = (props = {}) => {
+	const { format = 'redcap', onComplete } = props
+	const [parsedXML, setParsedXML] = useState<XMLParsed>()
 	const [isError, setIsError] = useState<boolean>()
 	const [error, setError] = useState<Error>()
 	const [isSuccess, setIsSuccess] = useState<boolean>()
@@ -53,6 +67,7 @@ export const useXMLParser: UseXMLParser = (format = 'redcap') => {
 					default:
 						throw Error('Invalid parsing format provided')
 				}
+
 				setIsError(false)
 				setIsSuccess(true)
 			}
@@ -66,6 +81,12 @@ export const useXMLParser: UseXMLParser = (format = 'redcap') => {
 			setIsComplete(true)
 		}
 	}
+
+	useEffect(() => {
+		if (isComplete && !isError && isSuccess && parsedXML) {
+			onComplete?.(parsedXML)
+		}
+	}, [parsedXML, isError, isSuccess, isParsing, isComplete, onComplete])
 
 	return { parsedXML, parse: handleXML, isError, isSuccess, isParsing, isComplete, error }
 }

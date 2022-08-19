@@ -79,6 +79,16 @@ const common = {
 			}
 		}
 	},
+	form: {
+		actionButtons: {
+			cancel: {
+				message: 'Cancel'
+			},
+			submit: {
+				message: 'Submit'
+			}
+		}
+	},
 	errors: {
 		maxFileSizeExceeded: {
 			message: 'Max file size {1} exceeded'

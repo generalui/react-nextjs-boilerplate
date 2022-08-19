@@ -5,13 +5,13 @@
  */
 import { useText } from 'hooks/useText'
 import { PageWrapper } from 'partials/PageWrapper'
+import { RedcapXmlForm } from 'partials/RedcapXmlForm'
 import { Breadcrumbs } from 'common/Breadcrumbs'
 import { PageHeader } from 'common/PageHeader'
-import { RedcapXmlForm } from '../../partials/RedcapXmlForm'
 import { RedcapXmlProps } from './RedcapXml.types'
 
 export const RedcapXml = function RedcapXml({ testId = 'RedcapXml' }: RedcapXmlProps) {
-	const { t } = useText('studies.redcap.upload')
+	const { t } = useText('studies.redcapXMLForm.upload')
 
 	return (
 		<PageWrapper title={t('title')} testId={testId}>

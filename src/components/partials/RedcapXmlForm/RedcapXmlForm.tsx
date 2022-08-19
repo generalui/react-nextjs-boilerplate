@@ -1,42 +1,80 @@
 /* eslint-disable react/jsx-key */
-import { useReducer } from 'react'
-import { State, UploadXmlInput } from 'types/index'
+import Image from 'next/image'
+import { useState } from 'react'
+import { UploadXmlInput, XMLParsed } from 'types/index'
+import { useModal } from 'hooks/useModal'
+import { useXMLParser } from 'hooks/useParseXML'
+import { useRouter } from 'hooks/useRouter'
+import { useText } from 'hooks/useText'
 import { MultiStepForm } from 'partials/MultiStepForm'
-import { UploadRedcapXml } from 'partials/UploadRedcapXml'
+// import { XmlPreview } from 'common/XmlPreview'
 import { RedcapXmlFormProps } from './RedcapXmlForm.types'
+import { MapRedcapFields } from './steps/MapRedcapFields'
+import { UploadRedcapXml } from './steps/UploadRedcapXml'
+
+const UPLOAD_REDCAP_XML_FORM_NAME = 'upload-redcap-xml-form'
 
 export const RedcapXmlForm = ({ className, testId = 'RedcapXmlForm' }: RedcapXmlFormProps) => {
-	const initialState: State = {
-		xmlFile: undefined,
-		result2: ''
-	}
+	const { parse, parsedXML, isError, isSuccess, isParsing, isComplete } = useXMLParser()
+	const [xmlFile, setXMLFile] = useState<File>()
+	const [currentStep, setCurrentStep] = useState<number>(0)
+	const [clientData, setClientData] = useState<XMLParsed>()
+	const [inProgress, setInProgress] = useState<boolean>()
+	const [participantList, setParticipantList] = useState<File>()
+	// const { currentStep, step } = useMultiStepForm()
+	const { t } = useText('studies.redcapXMLForm')
+	const { forceBack } = useRouter()
 
-	function reducer(state: State, action: { type: string; payload: State }): State {
-		switch (action.type) {
-			case 'xmlFile': {
-				const xmlFile = action.payload.xmlFile
-				return { ...state, xmlFile }
-			}
-			default:
-				return state
-		}
+	const handleCancel = () => {
+		// Clean up
+		forceBack()
 	}
-
-	const [state, dispatch] = useReducer(reducer, initialState)
 
 	const handleUploadRedcapXml = (values: UploadXmlInput) => {
-		dispatch({ type: 'xmlFile', payload: { xmlFile: values.xmlFile[0] } })
+		setXMLFile(values.xmlFile[0])
+		parse(values.xmlFile[0])
+		setCurrentStep(currentStep + 1)
+		setInProgress(true)
+	}
+
+	const handleMapRedcapFields = (values: UploadXmlInput) => {
+		setXMLFile(values.xmlFile[0])
+		setCurrentStep(currentStep + 1)
 	}
 
 	const multiStepComponents = [
-		<UploadRedcapXml onSubmit={handleUploadRedcapXml} />,
-		<>{'Component 2'}</>,
+		<UploadRedcapXml onSubmit={handleUploadRedcapXml} onCancel={handleCancel} />,
+		<MapRedcapFields
+			parsedXML={parsedXML}
+			onSubmit={handleMapRedcapFields}
+			onCancel={handleCancel}
+		/>,
 		<>{'Component 3'}</>
 	]
 
+	const title = (
+		<div className='block flex justify-between items-center w-full'>
+			<div className='block flex justify-between items-center gap-2'>
+				<Image src='/icons/redcap.svg' width={28} height={28} alt={t('imageAlt')} />
+				{t('title')}
+			</div>
+
+			<div>
+				{currentStep + 1} {'/'} {multiStepComponents.length}
+			</div>
+		</div>
+	)
+
 	return (
 		<div className={className} data-testid={testId}>
-			<MultiStepForm steps={multiStepComponents} name='upload-redcap-xml-form-step' />
+			<MultiStepForm
+				inProgress={inProgress}
+				title={title}
+				currentStep={currentStep}
+				// header={parsedXML ? <XmlPreview className={'mb-4'} xmlParsed={parsedXML} /> : undefined}
+				steps={multiStepComponents}
+				name={UPLOAD_REDCAP_XML_FORM_NAME}
+			/>
 		</div>
 	)
 }
