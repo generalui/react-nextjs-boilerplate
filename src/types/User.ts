@@ -15,5 +15,10 @@ export type User = Prisma.UserGetPayload<{
 				image: true
 			}
 		}
+		participant: {
+			include: {
+				user: true
+			}
+		}
 	}
 }>

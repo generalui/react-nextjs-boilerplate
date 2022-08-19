@@ -52,6 +52,7 @@ model User {
   sessions      Session[]
   documents     Document[]
   studies       CoordinatorsOnStudies[]
+  participant   Participant?
 }
 
 model VerificationToken {
@@ -159,4 +160,16 @@ model EventLog {
   insertedAt DateTime   @default(now()) @map("inserted_at")
   body       Json?
   userId     String?    @map("user_id")
+}
+
+model Participant {
+  id              String   @id @default(cuid())
+  insertedAt      DateTime @default(now()) @map("inserted_at")
+  updatedAt       DateTime @default(now()) @map("updated_at")
+  user            User     @relation(fields: [userId], references: [id])
+  userId          String   @unique @map("user_id")
+  enrolledTribe   String   @map("enrolled_tribe")
+  homePhone       String   @map("home_phone")
+  workPhone       String   @map("work_phone")
+  physicalAddress String   @map("physical_address")
 }

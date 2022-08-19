@@ -3,11 +3,11 @@ const participant = {
 		contactInfo: {
 			title: { message: 'My Contact Info' },
 			name: { message: 'Current Name' },
-			tribe: { message: 'Enrolled Tribe' },
+			enrolledTribe: { message: 'Enrolled Tribe' },
 			email: { message: 'Email Address' },
 			homePhone: { message: 'Home Phone' },
 			workPhone: { message: 'Work Phone' },
-			address: { message: 'Physical Address' }
+			physicalAddress: { message: 'Physical Address' }
 		},
 		emergencyContact: {
 			title: { message: 'My Emergency Contact' },

@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
 import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcryptjs'
-import { studies, users } from './seedData'
+import { participants, studies, users } from './seedData'
 
 const prisma = new PrismaClient()
 type CreatedUser = {
@@ -25,6 +25,15 @@ const prismaSafeTestUsers = users.map(
 		}
 	}
 )
+
+// Format seed users for prisma insertion
+const prismaSafeParticipants = (participants || []).map((participant) => {
+	return {
+		where: { userId: participant.userId },
+		update: {},
+		create: { ...participant }
+	}
+})
 
 // Format seed studies for prisma insertion
 const prismaSafeStudies = studies.map(({ imageUrl, ...study }) => {
@@ -60,6 +69,12 @@ async function main() {
 		)
 		console.log('Created studies:\n', createdStudies?.length)
 	}
+
+	const createParticipants = await Promise.all(
+		prismaSafeParticipants.map((participant) => prisma.participant.upsert(participant))
+	)
+
+	console.log('Created participants:\n', createParticipants?.length)
 }
 
 main()

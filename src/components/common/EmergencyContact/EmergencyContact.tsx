@@ -1,9 +1,7 @@
 import { useMemo } from 'react'
 import { useText } from 'hooks/useText'
-import { Button } from 'common/Button'
 import { Card } from 'common/Card'
 import { Details } from 'common/Details'
-import { Icon } from 'common/Icon'
 import { EmergencyContactProps } from './EmergencyContact.types'
 
 const mockContactData = [
@@ -21,8 +19,6 @@ export const EmergencyContact = ({
 }: EmergencyContactProps) => {
 	const { t } = useText('participant.home')
 
-	const handleEditClick = () => console.log('Implement editing')
-
 	const emergencyContactDetails = useMemo(
 		() =>
 			mockContactData.map((detail) => ({
@@ -34,14 +30,6 @@ export const EmergencyContact = ({
 
 	return (
 		<Card
-			action={
-				<Button onClick={handleEditClick} v='xs'>
-					<>
-						<Icon icon='PencilAltIcon' size='sm' />
-						{t('edit')}
-					</>
-				</Button>
-			}
 			className={className}
 			headerClassName='pb-4 border-b border-gray-200'
 			iconProps={{ icon: 'Cross', wrapperClass: 'bg-red-500' }}
