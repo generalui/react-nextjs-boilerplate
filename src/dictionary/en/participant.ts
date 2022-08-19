@@ -11,12 +11,12 @@ const participant = {
 		},
 		emergencyContact: {
 			title: { message: 'My Emergency Contact' },
-			name: { message: 'Contact Name' },
-			relationship: { message: 'Relationship' },
-			email: { message: 'Email Address' },
-			homePhone: { message: 'Home Phone' },
-			workPhone: { message: 'Work Phone' },
-			address: { message: 'Physical Address' }
+			emergencyContactName: { message: 'Contact Name' },
+			emergencyContactRelationship: { message: 'Relationship' },
+			emergencyContactEmail: { message: 'Email Address' },
+			emergencyContactHomePhone: { message: 'Home Phone' },
+			emergencyContactWorkPhone: { message: 'Work Phone' },
+			emergencyContactPhysicalAddress: { message: 'Physical Address' }
 		},
 		edit: {
 			message: 'Edit'

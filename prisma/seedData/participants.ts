@@ -3,20 +3,28 @@ import { Participant } from 'types/Participant'
 export const participants: Pick<
 	Participant,
 	| 'userId'
-	| 'currentName'
 	| 'enrolledTribe'
-	| 'emailAddress'
 	| 'homePhone'
 	| 'workPhone'
 	| 'physicalAddress'
+	| 'emergencyContactName'
+	| 'emergencyContactRelationship'
+	| 'emergencyContactEmail'
+	| 'emergencyContactHomePhone'
+	| 'emergencyContactWorkPhone'
+	| 'emergencyContactPhysicalAddress'
 >[] = [
 	{
 		userId: 'testIdParticipant',
-		currentName: 'Test Participant',
 		enrolledTribe: 'Test Tribe',
-		emailAddress: 'testParticipant@email.com',
 		homePhone: '(505) 368-5118',
 		workPhone: '(505) 368-5118',
-		physicalAddress: '10800 Cibola Loop NW, Unit 3012 Albuquerque NM 87114'
+		physicalAddress: '10800 Cibola Loop NW, Unit 3012 Albuquerque NM 87114',
+		emergencyContactName: 'Bill Tsosie',
+		emergencyContactRelationship: 'Spouse',
+		emergencyContactEmail: 'bill@awesome.com',
+		emergencyContactHomePhone: '(505) 368-5118 ',
+		emergencyContactWorkPhone: '(505) 368-5118 ',
+		emergencyContactPhysicalAddress: '10800 Cibola Loop NW, Unit 3012 Albuquerque NM 87114'
 	}
 ]

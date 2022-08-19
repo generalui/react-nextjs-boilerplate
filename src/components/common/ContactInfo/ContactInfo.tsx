@@ -39,7 +39,7 @@ export const ContactInfo = ({ className, testId = 'ContactInfo' }: ContactInfoPr
 			value: value.toString() || ''
 		}))
 
-		return [...userDetails, ...participantDetails.filter((detail) => detail !== null)]
+		return [...userDetails, ...participantDetails]
 	}, [currentUser?.email, currentUser?.name, currentUser?.participant, t])
 
 	return (
