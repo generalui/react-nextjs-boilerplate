@@ -17,7 +17,7 @@ export const routeMap: Record<
 		labelKey: 'common.sidebar.nav.studies',
 		subRoutes: {
 			'[studyId]': { labelKey: 'studies.details.title' },
-			'redcap-xml': { labelKey: 'studies.redcap.upload.title' }
+			'redcap-xml': { labelKey: 'studies.redcapXMLForm.title' }
 		}
 	},
 	profile: {
