@@ -1,5 +1,4 @@
 import { get } from 'lodash'
-// TODO: lodash-es doesn't work in test
 import { XMLParsed } from 'types/Xml'
 
 export const getFromParsedXML = (
