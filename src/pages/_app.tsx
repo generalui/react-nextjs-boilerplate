@@ -9,6 +9,7 @@ import { QueryClientProvider } from 'react-query'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import { reactQueryClient } from 'utils/client/react-query'
+import { IdleTimer } from 'common/IdleTimer'
 import 'styles/globals.scss'
 import '../store'
 
@@ -25,10 +26,11 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 				<link rel='shortcut icon' href={favicon} />
 			</Head>
 			<Provider>
-				<SessionProvider session={session}>
+				<SessionProvider session={session} refetchInterval={5}>
 					<QueryClientProvider client={reactQueryClient}>
 						<Component {...pageProps} />
 						<ToastContainer />
+						<IdleTimer />
 					</QueryClientProvider>
 				</SessionProvider>
 			</Provider>
