@@ -1,3 +1,4 @@
+import cn from 'classnames'
 import { useEffect } from 'react'
 import { useRouter } from 'hooks/useRouter'
 import { Card } from 'common/Card'
@@ -45,51 +46,15 @@ export const MultiStepForm = ({
 		[inProgress, events, asPath]
 	)
 
-	// prompt the user if they try and leave with unsaved changes
-	// useEffect(() => {
-	// const warningText = 'You have unsaved changes - are you sure you wish to leave this page?'
-	// const handleWindowClose = (e: BeforeUnloadEvent) => {
-	// 	e.preventDefault()
-	// 	return (e.returnValue = warningText)
-	// }
-
-	// 	const handleBrowseAway = () => {
-	// 		if (window.confirm(warningText)) return
-	// 		events.emit('routeChangeError')
-	// 		throw 'routeChange aborted.'
-	// 	}
-
-	// 	// window.addEventListener('beforeunload', handleWindowClose)
-	// 	events.on('routeChangeStart', () => {
-	// 		if (!mounted) {
-	// 			return
-	// 		}
-	// 		handleBrowseAway()
-	// 	})
-	// 	return () => {
-	// 		// window.removeEventListener('beforeunload', handleWindowClose)
-	// 		events.off('routeChangeStart', () => {
-	// 			if (!mounted) {
-	// 				return
-	// 			}
-	// 			handleBrowseAway()
-	// 		})
-	// 	}
-	// }, [events, mounted])
-
 	return (
-		<>
-			<div className={className} data-testid={testId}>
-				<Card className='flex flex-col gap-4'>
-					{title && <h2 className={'font-semibold text-2xl flex gap-2 items-center'}>{title}</h2>}
+		<Card className={cn('flex flex-col gap-6', className)} testId={testId}>
+			{title && <h2 className={'font-semibold text-2xl flex gap-2 items-center'}>{title}</h2>}
 
-					{header}
+			{header}
 
-					{typeof currentStep === 'number' && steps[currentStep]}
+			{typeof currentStep === 'number' && steps[currentStep]}
 
-					{children}
-				</Card>
-			</div>
-		</>
+			{children}
+		</Card>
 	)
 }

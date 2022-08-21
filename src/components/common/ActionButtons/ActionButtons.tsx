@@ -19,7 +19,7 @@ export const ActionButtons = ({
 	return (
 		<div
 			className={cn(
-				'flex items-center pt-6 gap-4 rounded-b border-t border-gray-200 dark:border-gray-600',
+				'flex items-center pt-4 gap-4 rounded-b border-t border-gray-200 dark:border-gray-600',
 				className
 			)}
 			data-testid={testId}

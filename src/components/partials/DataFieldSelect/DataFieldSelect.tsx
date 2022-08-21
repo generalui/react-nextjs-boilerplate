@@ -47,7 +47,10 @@ export const DataFieldSelect = ({
 	label,
 	isMulti,
 	isClearable,
-	name
+	name,
+	defaultValue,
+	placeholder,
+	showError = true
 }: DataFieldSelectProps<selectOptionsType>) => {
 	return (
 		<div data-testid={testId} className={className}>
@@ -58,8 +61,11 @@ export const DataFieldSelect = ({
 				isMulti={isMulti}
 				name={name}
 				options={options}
+				defaultValue={defaultValue}
+				placeholder={placeholder}
 				components={{ MultiValueLabel, Option, SingleValue }}
 				isClearable={isClearable}
+				showError={showError}
 			/>
 		</div>
 	)

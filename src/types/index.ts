@@ -1,5 +1,6 @@
 // Automated exports
 export * from './Xml'
+export * from './CSV'
 export * from './QueryOptions'
 export * from './PaginatedResponse'
 export * from './AggregatedStudyData'
