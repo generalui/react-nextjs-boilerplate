@@ -44,6 +44,7 @@ module.exports = {
 				success: 'rgb(49, 196, 141)',
 				warning: 'rgb(253, 186, 140)',
 				danger: '#e74c3c',
+				'danger-hover': '#d73c2c',
 				info: 'rgb(49, 196, 141)',
 				muted: 'rgb(209, 213, 219)',
 				'blue-700': '#0773b0'

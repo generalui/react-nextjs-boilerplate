@@ -4,10 +4,6 @@ import { Icon } from 'common/Icon'
 import { Text } from 'common/Text'
 import { BreadcrumbLinkProps } from './BreadcrumbLink.types'
 
-const BreadCrumLinkText = () => {
-	return
-}
-
 export const BreadcrumbLink = ({
 	href,
 	label,

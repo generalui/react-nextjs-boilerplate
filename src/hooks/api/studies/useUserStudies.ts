@@ -14,7 +14,7 @@ export type UseUserStudies = (
 export const useUserStudies: UseUserStudies = (userId, queryOptions) => {
 	const { data, ...query } = useQuery(
 		['studies', queryOptions?.page, queryOptions?.pageSize],
-		() => getUserStudies(userId, queryOptions),
+		() => getUserStudies(userId || '', queryOptions),
 		{
 			enabled: !!userId,
 			keepPreviousData: true

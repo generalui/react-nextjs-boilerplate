@@ -4,7 +4,7 @@ export interface CommonProps {
 	id?: string | undefined
 	className?: string
 	children?: ReactNode
-	onClick?: () => void
+	onClick?: (value?: unknown) => void
 	key?: string
 	center?: boolean
 	['data-testid']?: string
