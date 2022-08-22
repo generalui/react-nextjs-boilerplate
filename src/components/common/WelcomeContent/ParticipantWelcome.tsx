@@ -13,6 +13,7 @@ export const ParticipantWelcome = ({
 		<WelcomeContent
 			className={className}
 			description={t('description')}
+			isParticipant
 			testId={testId}
 			title={t('title', [participantName])}
 		/>

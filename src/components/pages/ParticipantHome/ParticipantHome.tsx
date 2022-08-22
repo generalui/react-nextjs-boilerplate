@@ -19,7 +19,7 @@ export const ParticipantHome = ({ testId = 'ParticipantHome' }: ParticipantHomeP
 
 	return (
 		<PageWrapper title='ParticipantHome' testId={testId}>
-			<ParticipantWelcome className='mb-12' participantName={currentUser?.name || ''} />
+			<ParticipantWelcome participantName={currentUser?.name || ''} />
 			<div className='flex w-full flex-col xl:flex-row gap-8'>
 				<ContactInfo className='flex-1' />
 				<EmergencyContact className='flex-1' />

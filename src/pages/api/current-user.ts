@@ -27,6 +27,11 @@ const includes = {
 			include: {
 				image: true
 			}
+		},
+		participant: {
+			include: {
+				user: true
+			}
 		}
 	}
 }

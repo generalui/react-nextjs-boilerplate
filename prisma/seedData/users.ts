@@ -11,5 +11,11 @@ export const users: SeedUser[] = [
 		name: 'Test 👷',
 		password: 'testPassw0rd!',
 		id: 'testId'
+	},
+	{
+		email: 'testParticipant@email.com',
+		name: 'Test Participant',
+		password: 'testPassw0rd!',
+		id: 'testIdParticipant'
 	}
 ]
