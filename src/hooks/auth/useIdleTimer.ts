@@ -5,7 +5,7 @@ import { maxAge } from 'utils/constants'
 import { throttle } from 'utils/throttle'
 import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
 
-const whiteList = ['/auth/signin', '/auth/signup']
+const whiteList = ['/auth/signin']
 const localStorageExpTimeName = '_expirationTime'
 const activityEvents = ['mousedown', 'mousemove', 'keydown', 'scroll', 'touchstart']
 

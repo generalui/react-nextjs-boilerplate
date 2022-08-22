@@ -10,6 +10,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import { reactQueryClient } from 'utils/client/react-query'
 import { IdleTimer } from 'common/IdleTimer'
+import { RoleManager } from 'common/RoleManager'
 import 'styles/globals.scss'
 import '../store'
 
@@ -28,9 +29,11 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 			<Provider>
 				<SessionProvider session={session} refetchInterval={5}>
 					<QueryClientProvider client={reactQueryClient}>
-						<Component {...pageProps} />
-						<ToastContainer />
-						<IdleTimer />
+						<RoleManager>
+							<Component {...pageProps} />
+							<ToastContainer />
+							<IdleTimer />
+						</RoleManager>
 					</QueryClientProvider>
 				</SessionProvider>
 			</Provider>

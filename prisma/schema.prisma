@@ -41,6 +41,11 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+enum UserRoles {
+  admin
+  participant
+}
+
 model User {
   id            String                  @id @default(cuid())
   name          String?
@@ -53,6 +58,7 @@ model User {
   documents     Document[]
   studies       CoordinatorsOnStudies[]
   participant   Participant?
+  role          UserRoles
 }
 
 model VerificationToken {
