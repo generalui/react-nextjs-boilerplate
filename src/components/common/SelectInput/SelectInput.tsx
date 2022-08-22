@@ -1,4 +1,5 @@
-import { Field } from 'react-final-form'
+import { useEffect, useRef } from 'react'
+import { Field, FieldInputProps } from 'react-final-form'
 import { InputLabel } from 'common/InputLabel'
 import { Select } from 'common/Select'
 import { SelectInputProps } from './SelectInput.types'
@@ -14,8 +15,17 @@ export const SelectInput = <T extends unknown>({
 	labelClassName,
 	placeholder,
 	label,
-	isClearable
+	isClearable,
+	defaultValue,
+	showError = true
 }: SelectInputProps<T>) => {
+	const inputRef = useRef<FieldInputProps<File, HTMLElement>>()
+	useEffect(() => {
+		if (defaultValue && inputRef.current) {
+			inputRef.current.onChange(defaultValue)
+		}
+	}, [defaultValue])
+
 	return (
 		<div data-testid={testId}>
 			<InputLabel className={labelClassName} name={name} label={label} />
@@ -23,6 +33,7 @@ export const SelectInput = <T extends unknown>({
 			<Field name={name} className={className}>
 				{({ input, meta }) => {
 					const isError = meta.error && meta.touched
+					inputRef.current = input
 
 					return (
 						<>
@@ -43,7 +54,7 @@ export const SelectInput = <T extends unknown>({
 								}}
 							/>
 
-							{isError && (
+							{isError && showError && (
 								<>
 									<span className='text-xs text-red-500 mt-5'>
 										{'*'} {meta.error}

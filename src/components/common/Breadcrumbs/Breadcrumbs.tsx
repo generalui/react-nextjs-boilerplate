@@ -2,8 +2,6 @@ import cn from 'classnames'
 import { useRouter } from 'next/router'
 import { routeMap } from 'utils/client/routeMap'
 import { useText } from 'hooks/useText'
-import { Icon } from 'common/Icon'
-import { Text } from 'common/Text'
 import { BreadcrumbLink } from './BreadcrumbLink'
 import { BreadcrumbsProps } from './Breadcrumbs.types'
 
@@ -20,7 +18,9 @@ export const Breadcrumbs = ({ className, testId = 'Breadcrumbs' }: BreadcrumbsPr
 		)
 
 	const [, ...pathList] = asPath.split('/')
+	console.log('Breadcrumbs ~ pathList', pathList)
 	const [, ...pathNameList] = pathname.split('/')
+	console.log('Breadcrumbs ~ pathNameList', pathNameList)
 	const basePath = pathList[0]
 	const route = routeMap[basePath]
 
@@ -29,9 +29,12 @@ export const Breadcrumbs = ({ className, testId = 'Breadcrumbs' }: BreadcrumbsPr
 		const isBasePath = index === 0
 		const labelKey = (isBasePath ? route : route.subRoutes?.[pathNameList[index]])?.labelKey
 
+		if (!labelKey) throw Error('No label key found for route')
+
 		// Ensure a label key has been assigned
-		if (!labelKey || (index > 0 && !route.subRoutes))
+		if (index > 0 && !route.subRoutes) {
 			throw Error('Routes using breadcrumbs should include subRoutes in the routeMap config')
+		}
 
 		// Get href from current url
 		let href = ''

@@ -52,12 +52,12 @@ export const AddPrivateData = ({
 						label: (
 							<DropDownItemWithImage
 								src='/icons/redcap.svg'
-								alt={t('dropDownItems.redcap.alt')}
-								label={t('dropDownItems.redcap.label')}
+								alt={t('dropDownItems.addParticipants.alt')}
+								label={t('dropDownItems.addParticipants.label')}
 							/>
 						),
 						onClick: () => {
-							push(`${studyId}/upload-redcap-xml`)
+							push(`${studyId}/add-participants`)
 						},
 						value: 'profile'
 					},

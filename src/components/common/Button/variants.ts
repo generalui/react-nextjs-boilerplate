@@ -5,6 +5,7 @@ const disabledWithBorderStyles = 'border border-gray-200'
 
 export const buttonVariants = {
 	default: `${defaultStyles} border border-primary hover:border-primary-hover`,
+	danger: `${defaultStyles} border border-danger text-button-text-primary bg-danger hover:bg-danger-hover hover:border-danger-hover`,
 	secondary: `${defaultStyles} border border-primary text-button-text-secondary bg-secondary hover:bg-secondary-hover hover:border-secondary-hover`,
 	sm: `${defaultStyles} text-sm px-4 py-2`,
 	xs: `${defaultStyles} text-sm px-3 py-1`,
@@ -13,6 +14,7 @@ export const buttonVariants = {
 
 export const disabledVariants = {
 	defaultDisabled: `${defaultStyles} ${disabledWithBorderStyles} ${disabledBaseStyles}`,
+	dangerDisabled: `${defaultStyles} border border-danger text-button-text-secondary bg-secondary hover:bg-secondary-hover hover:border-secondary-hover`,
 	secondaryDisabled: `${defaultStyles} ${disabledWithBorderStyles} text-button-text-secondary border-gray-600 hover:bg-gray-600 focus:bg-gray-600`,
 	smDisabled: `${buttonVariants.sm}  ${disabledBaseStyles}`,
 	xsDisabled: `${buttonVariants.xs} ${disabledBaseStyles}`,

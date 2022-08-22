@@ -88,6 +88,10 @@ const studies = {
 		dataType: { message: 'Data Type' },
 		filesOrFolders: { message: 'Files or Folders' },
 		dropDownItems: {
+			addParticipants: {
+				alt: { message: 'Add Participants' },
+				label: { message: 'Add Participants via CSV' }
+			},
 			redcap: {
 				alt: { message: 'REDCap Logo' },
 				label: { message: 'Upload REDCap XML' }
@@ -98,9 +102,69 @@ const studies = {
 			}
 		}
 	},
-	redcap: {
+	addParticipants: {
+		title: { message: 'Add Participants' },
+		form: {
+			title: { message: 'Add Participants' },
+			upload: {
+				imageAlt: { message: 'Add Participants' },
+				subtitle: { message: 'How do I upload a CSV?' },
+				steps: {
+					1: {
+						message: 'Upload a csv containing client consent information.'
+					},
+					2: {
+						message: 'Map csv fields to participant data related to a study.'
+					},
+					3: {
+						message: 'Review your import.'
+					},
+					4: {
+						message:
+							'Participants will be emailed a password that they can use with their email to log in and view study details and update their consent information.'
+					}
+				},
+				detailsLabel: { message: 'REDCap XML Files' },
+				filesSelect: { message: 'Select file to upload' },
+				filesDrag: { message: 'or drag and drop here' },
+				subText: { message: 'Accepts: ' },
+				submit: { message: 'Import' }
+			},
+			parseRequiredData: {
+				subtitle: { message: 'Required Data' },
+				description: {
+					message:
+						'Required fields from the NBDC Consent Template in RedCap should be mapped automatically, and just require confirmation. '
+				},
+				headers: {
+					fieldName: {
+						message: 'NBDC Field Names(s)'
+					},
+					redcapFieldName: {
+						message: 'RedCap Field Name(s)'
+					}
+				},
+				inputPlaceholder: {
+					required: {
+						message: 'Select a Field'
+					},
+					optional: {
+						message: 'Select a Field (optional)'
+					}
+				},
+				errors: {
+					fieldsRequired: 'Required NBDC fields need to be mapped to RedCap data.'
+				},
+				submit: {
+					message: 'Next'
+				},
+				cancel: { message: 'Cancel' }
+			}
+		}
+	},
+	redcapXMLForm: {
+		title: { message: 'REDCap XML' },
 		upload: {
-			title: { message: 'Upload REDCap XML' },
 			imageAlt: { message: 'REDCap Logo' },
 			subtitle: { message: 'How do I download a REDCap project as an XML file?' },
 			steps: {
@@ -127,7 +191,31 @@ const studies = {
 			filesSelect: { message: 'Select file to upload' },
 			filesDrag: { message: 'or drag and drop here' },
 			subText: { message: 'Accepts: ' },
-			import: { message: 'Import' },
+			submit: { message: 'Import' }
+		},
+		parseRequiredData: {
+			subtitle: { message: 'Required Data' },
+			description: {
+				message:
+					'Required fields from the NBDC Consent Template in RedCap should be mapped automatically, and just require confirmation. '
+			},
+			headers: {
+				fieldName: {
+					message: 'NBDC Field Names(s)'
+				},
+				redcapFieldName: {
+					message: 'RedCap Field Name(s)'
+				}
+			},
+			inputPlaceholder: {
+				message: 'Select a Field'
+			},
+			errors: {
+				fieldsRequired: 'Required NBDC fields need to be mapped to RedCap data.'
+			},
+			submit: {
+				message: 'Next'
+			},
 			cancel: { message: 'Cancel' }
 		}
 	}
