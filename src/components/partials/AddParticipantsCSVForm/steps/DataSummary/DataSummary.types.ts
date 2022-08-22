@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { BaseFormProps } from 'partials/Form/Form.types'
 
-export const CSV_DATA_FIELDS: { name: string; required?: boolean }[] = [
+export const REDCAP_CONCENT_FIELDS: { name: string; required?: boolean }[] = [
 	{ name: 'current_name', required: true },
 	{ name: 'email', required: true },
 	{ name: 'gender' },
@@ -33,8 +33,8 @@ const SelectSchema = z.object({
 // 	}
 // }, {})
 
-// export const MapFieldsSchema = z.object(FieldsSchema)
-export const MapFieldsSchema = z.object({
+// export const DataSummarySchema = z.object(FieldsSchema)
+export const DataSummarySchema = z.object({
 	['current_name']: SelectSchema,
 	['email']: SelectSchema,
 	['gender']: SelectSchema.optional(),
@@ -53,10 +53,13 @@ export const MapFieldsSchema = z.object({
 	['withdrawal_procedures']: SelectSchema.optional()
 })
 
-export type MapFieldsInput = z.infer<typeof MapFieldsSchema>
+export type DataSummaryInput = z.infer<typeof DataSummarySchema>
 
-// export type MapFieldsInput = 	z.infer<typeof >
+// export type DataSummaryInput = 	z.infer<typeof >
 
-export interface MapFieldsProps extends BaseFormProps<MapFieldsInput> {
+export interface DataSummaryProps extends BaseFormProps<DataSummaryInput> {
+	consents: number
+	unMappedFields: number
+	participantList: Record<string, unknown>[]
 	fields?: string[]
 }

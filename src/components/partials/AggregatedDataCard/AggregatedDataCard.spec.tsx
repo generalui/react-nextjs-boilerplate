@@ -12,7 +12,7 @@ describe('AggregatedDataCard Component', () => {
 			<AggregatedDataCard
 				className='col-span-3 lg:col-span-1'
 				title='title'
-				dataValue='dataValue'
+				value='dataValue'
 				subTitle='subTitle'
 				description='description'
 			/>
