@@ -1,11 +1,17 @@
-export const routes = {
+import { UserRoles } from '@prisma/client'
+
+type Roles = keyof typeof UserRoles | 'general'
+
+type Routes = { [key in Roles]: Record<string, string> }
+
+export const routes: Routes = {
 	admin: { home: '/', studyDetails: '/study/:studyId' },
 	participant: { home: '/participant', studyDetails: '/participant/study/:studyId' },
 	general: { signIn: '/auth/signin' }
 }
 
 type RoleRoutes = {
-	[key in keyof typeof routes]: string[]
+	[key in Roles]: string[]
 }
 
 export const roleRoutes = Object.entries(routes).reduce<RoleRoutes>(
