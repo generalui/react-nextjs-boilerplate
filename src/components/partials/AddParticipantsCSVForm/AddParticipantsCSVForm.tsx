@@ -28,10 +28,7 @@ export const AddParticipantsCSVForm = ({
 	const { t } = useText('studies.addParticipants.form')
 	const { forceBack } = useRouter()
 
-	console.log('clientData', participantList)
-
 	const handleCancel = () => {
-		// Clean up
 		forceBack()
 	}
 
@@ -46,7 +43,6 @@ export const AddParticipantsCSVForm = ({
 	}
 
 	const handleMapCSVFields = (values: MapFieldsInput) => {
-		console.log('handleMapCSVFields ~ mapCSVResults', values)
 		const fieldKeys = (Object.keys(values) as Array<keyof typeof values>).map((key) => ({
 			field: key,
 			csvField: values[key]?.value

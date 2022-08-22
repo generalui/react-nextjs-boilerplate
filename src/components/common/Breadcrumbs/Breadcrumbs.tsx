@@ -18,9 +18,7 @@ export const Breadcrumbs = ({ className, testId = 'Breadcrumbs' }: BreadcrumbsPr
 		)
 
 	const [, ...pathList] = asPath.split('/')
-	console.log('Breadcrumbs ~ pathList', pathList)
 	const [, ...pathNameList] = pathname.split('/')
-	console.log('Breadcrumbs ~ pathNameList', pathNameList)
 	const basePath = pathList[0]
 	const route = routeMap[basePath]
 

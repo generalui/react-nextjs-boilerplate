@@ -56,8 +56,6 @@ export const useParseCSV: UseCSVParser = (props = {}) => {
 
 				switch (format) {
 					case 'csv':
-						// clientData = await getParsedCSVData(parsedCSV)
-						// console.log('handleCSV ~ clientData', clientData)
 						setParsedCSV(parsedCSV)
 						break
 					default:
