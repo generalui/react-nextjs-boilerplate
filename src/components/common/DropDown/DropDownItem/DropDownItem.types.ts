@@ -1,5 +1,5 @@
 import { CommonProps } from 'types/CommonProps'
-import { Roles } from 'utils/routes'
+import { Roles } from 'utils/routePermissions'
 
 export interface DropDownItemProps extends CommonProps {
 	label: React.ReactNode
