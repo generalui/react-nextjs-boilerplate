@@ -17,21 +17,23 @@ export const ProfileDropDown = ({
 	const { push } = useRouter()
 
 	const links: DropDownItemProps[] = [
-		{
+		{ label: t('logout'), onClick: () => signOut(), value: 'logout' }
+	]
+
+	if (currentUser?.role === 'admin') {
+		links.unshift({
 			label: t('profile'),
 			onClick: () => {
 				push('/profile')
 			},
-			value: 'profile',
-			role: 'admin'
-		},
-		{ label: t('logout'), onClick: () => signOut(), value: 'logout', role: 'general' }
-	]
+			value: 'profile'
+		})
+	}
 
 	return (
 		<DropDown
 			className={cn('w-32 lg:w-64 z-50', className)}
-			items={links.filter(({ role }) => role === 'general' || currentUser?.role === role)}
+			items={links}
 			testId={testId}
 			v='secondary'
 		>
