@@ -1,6 +1,7 @@
 import cn from 'classnames'
 import { useRouter } from 'next/router'
 import { routeMap } from 'utils/client/routeMap'
+import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
 import { useText } from 'hooks/useText'
 import { SidebarLink } from 'partials/Sidebar/SidebarLink'
 import styles from './Sidebar.module.scss'
@@ -11,19 +12,23 @@ import { SidebarProps } from './Sidebar.types'
  */
 export const Sidebar = ({ sidebarLinkOnClick, className, testId = 'Sidebar' }: SidebarProps) => {
 	const { t } = useText()
+	const { currentUser } = useCurrentUser()
 	const router = useRouter()
 	const selectedRoute = '/' + router.route.split('/')[1]
-	const links = Object.values(routeMap).map(({ labelKey, href, ...rest }) => (
-		<SidebarLink
-			onClick={sidebarLinkOnClick}
-			href={href}
-			isSelected={href === selectedRoute}
-			key={labelKey}
-			{...rest}
-		>
-			{t(labelKey)}
-		</SidebarLink>
-	))
+	const links = Object.values(routeMap).map(
+		({ labelKey, href, role, ...rest }) =>
+			(role === 'general' || currentUser?.role === role) && (
+				<SidebarLink
+					onClick={sidebarLinkOnClick}
+					href={href}
+					isSelected={href === selectedRoute}
+					key={labelKey}
+					{...rest}
+				>
+					{t(labelKey)}
+				</SidebarLink>
+			)
+	)
 	links.splice(2, 0, <div className='border-t' key='filler' />)
 
 	return (

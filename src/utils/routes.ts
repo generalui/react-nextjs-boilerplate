@@ -1,6 +1,6 @@
 import { UserRoles } from '@prisma/client'
 
-type Roles = keyof typeof UserRoles | 'general'
+export type Roles = keyof typeof UserRoles | 'general'
 
 type Routes = { [key in Roles]: Record<string, string> }
 
