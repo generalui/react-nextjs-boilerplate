@@ -1,45 +1,54 @@
 import { useMemo } from 'react'
+import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
 import { useText } from 'hooks/useText'
-import { Button } from 'common/Button'
 import { Card } from 'common/Card'
 import { Details } from 'common/Details'
-import { Icon } from 'common/Icon'
 import { ContactInfoProps } from './ContactInfo.types'
 
-const mockContactInfo = [
-	{ title: 'name', value: 'Kyla Tsosie' },
-	{ title: 'tribe', value: 'Cheyenne River Sioux' },
-	{ title: 'email', value: 'kyla@awesome.com' },
-	{ title: 'homePhone', value: '(505) 368-5118' },
-	{ title: 'workPhone', value: '(505) 368-5118' },
-	{ title: 'address', value: '10800 Cibola Loop NW, Unit 3012 Albuquerque NM 87114' }
+const contactInfoKeys = [
+	'name',
+	'email',
+	'homePhone',
+	'workPhone',
+	'physicalAddress',
+	'enrolledTribe'
 ]
 
 export const ContactInfo = ({ className, testId = 'ContactInfo' }: ContactInfoProps) => {
-	const { t } = useText('participant.home')
+	const { currentUser } = useCurrentUser()
+	const { t } = useText('participant.home.contactInfo')
 
-	const handleEditClick = () => console.log('Implement editing')
+	const contactDetails: { title: string; value: string }[] = useMemo(() => {
+		const participant = currentUser?.participant
 
-	const contactDetails = useMemo(
-		() => mockContactInfo.map((detail) => ({ ...detail, title: t(`contactInfo.${detail.title}`) })),
-		[t]
-	)
+		if (!participant) {
+			return []
+		}
+
+		const userDetails = [
+			{ title: t('name'), value: currentUser.name || '' },
+			{ title: t('email'), value: currentUser.email || '' }
+		]
+
+		const participantDetailEntries = Object.entries(participant).filter(([title]) =>
+			contactInfoKeys.includes(title)
+		)
+
+		const participantDetails = participantDetailEntries.map(([title, value]) => ({
+			title: t(`${title}`),
+			value: value.toString() || ''
+		}))
+
+		return [...userDetails, ...participantDetails]
+	}, [currentUser?.email, currentUser?.name, currentUser?.participant, t])
 
 	return (
 		<Card
-			action={
-				<Button onClick={handleEditClick} v='xs'>
-					<>
-						<Icon icon='PencilAltIcon' size='sm' />
-						{t('edit')}
-					</>
-				</Button>
-			}
 			className={className}
 			headerClassName='pb-4 border-b border-gray-200'
 			iconProps={{ icon: 'PhoneIcon', wrapperClass: 'bg-green-300' }}
 			testId={testId}
-			title={t('contactInfo.title')}
+			title={t('title')}
 		>
 			<Details details={contactDetails} />
 		</Card>

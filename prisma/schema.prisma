@@ -41,6 +41,11 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+enum UserRoles {
+  admin
+  participant
+}
+
 model User {
   id            String                  @id @default(cuid())
   name          String?
@@ -52,6 +57,8 @@ model User {
   sessions      Session[]
   documents     Document[]
   studies       CoordinatorsOnStudies[]
+  participant   Participant?
+  role          UserRoles
 }
 
 model VerificationToken {
@@ -159,4 +166,22 @@ model EventLog {
   insertedAt DateTime   @default(now()) @map("inserted_at")
   body       Json?
   userId     String?    @map("user_id")
+}
+
+model Participant {
+  id                              String   @id @default(cuid())
+  insertedAt                      DateTime @default(now()) @map("inserted_at")
+  updatedAt                       DateTime @default(now()) @map("updated_at")
+  user                            User     @relation(fields: [userId], references: [id])
+  userId                          String   @unique @map("user_id")
+  enrolledTribe                   String   @map("enrolled_tribe")
+  homePhone                       String   @map("home_phone")
+  workPhone                       String   @map("work_phone")
+  physicalAddress                 String   @map("physical_address")
+  emergencyContactName            String   @map("emergency_contact_name")
+  emergencyContactRelationship    String   @map("emergency_contact_relationship")
+  emergencyContactEmail           String   @map("emergency_contact_email")
+  emergencyContactHomePhone       String   @map("emergency_contact_home_phone")
+  emergencyContactWorkPhone       String   @map("emergency_contact_work_phone")
+  emergencyContactPhysicalAddress String   @map("emergency_contact_physical_address")
 }

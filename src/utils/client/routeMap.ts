@@ -9,7 +9,14 @@ export const routeMap: Record<
 	'': {
 		href: '/',
 		icon: 'HomeIcon',
-		labelKey: 'common.sidebar.nav.home'
+		labelKey: 'common.sidebar.nav.home',
+		role: 'admin'
+	},
+	participant: {
+		href: '/participant',
+		icon: 'HomeIcon',
+		labelKey: 'common.sidebar.nav.home',
+		role: 'participant'
 	},
 	studies: {
 		href: '/studies',
@@ -19,11 +26,13 @@ export const routeMap: Record<
 			'[studyId]': { labelKey: 'studies.details.title' },
 			'redcap-xml': { labelKey: 'studies.redcapXMLForm.title' },
 			'add-participants': { labelKey: 'studies.addParticipants.title' }
-		}
+		},
+		role: 'admin'
 	},
 	profile: {
 		href: '/profile',
 		icon: 'CogIcon',
-		labelKey: 'common.sidebar.nav.settings'
+		labelKey: 'common.sidebar.nav.settings',
+		role: 'admin'
 	}
 }

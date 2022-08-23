@@ -1,52 +1,52 @@
 import { useMemo } from 'react'
+import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
 import { useText } from 'hooks/useText'
-import { Button } from 'common/Button'
 import { Card } from 'common/Card'
 import { Details } from 'common/Details'
-import { Icon } from 'common/Icon'
 import { EmergencyContactProps } from './EmergencyContact.types'
 
-const mockContactData = [
-	{ title: 'name', value: 'Bill Tsosie' },
-	{ title: 'relationship', value: 'Spouse' },
-	{ title: 'email', value: 'bill@awesome.com' },
-	{ title: 'homePhone', value: '(505) 368-5118' },
-	{ title: 'workPhone', value: '(505) 368-5118' },
-	{ title: 'address', value: '10800 Cibola Loop NW, Unit 3012 Albuquerque NM 87114' }
+const contactInfoKeys = [
+	'emergencyContactName',
+	'emergencyContactRelationship',
+	'emergencyContactEmail',
+	'emergencyContactHomePhone',
+	'emergencyContactWorkPhone',
+	'emergencyContactPhysicalAddress'
 ]
 
 export const EmergencyContact = ({
 	className,
 	testId = 'EmergencyContact'
 }: EmergencyContactProps) => {
-	const { t } = useText('participant.home')
+	const { currentUser } = useCurrentUser()
+	const { t } = useText('participant.home.emergencyContact')
 
-	const handleEditClick = () => console.log('Implement editing')
+	const emergencyContactDetails: { title: string; value: string }[] = useMemo(() => {
+		const participant = currentUser?.participant
 
-	const emergencyContactDetails = useMemo(
-		() =>
-			mockContactData.map((detail) => ({
-				...detail,
-				title: t(`emergencyContact.${detail.title}`)
-			})),
-		[t]
-	)
+		if (!participant) {
+			return []
+		}
+
+		const participantDetailEntries = Object.entries(participant).filter(([title]) =>
+			contactInfoKeys.includes(title)
+		)
+
+		const participantDetails = participantDetailEntries.map(([title, value]) => ({
+			title: t(`${title}`),
+			value: value.toString() || ''
+		}))
+
+		return [...participantDetails]
+	}, [currentUser?.participant, t])
 
 	return (
 		<Card
-			action={
-				<Button onClick={handleEditClick} v='xs'>
-					<>
-						<Icon icon='PencilAltIcon' size='sm' />
-						{t('edit')}
-					</>
-				</Button>
-			}
 			className={className}
 			headerClassName='pb-4 border-b border-gray-200'
 			iconProps={{ icon: 'Cross', wrapperClass: 'bg-red-500' }}
 			testId={testId}
-			title={t('emergencyContact.title')}
+			title={t('title')}
 		>
 			<Details details={emergencyContactDetails} />
 		</Card>

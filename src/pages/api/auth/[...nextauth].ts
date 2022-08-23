@@ -49,7 +49,7 @@ export default NextAuth({
 					try {
 						const hashedPassword = await bcrypt.hash(password, 10)
 						const user = await prisma.user.create({
-							data: { email, password: hashedPassword }
+							data: { email, password: hashedPassword, role: 'admin' }
 						})
 
 						if (user) {
