@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
 import { useText } from 'hooks/useText'
 import { DropDown } from 'common/DropDown'
-import { DropDownItemProps } from '../../common/DropDown/DropDownItem/DropDownItem.types'
+import { DropDownItemProps } from 'common/DropDown/DropDownItem/DropDownItem.types'
 import { ProfileDropDownProps } from './ProfileDropDown.types'
 
 export const ProfileDropDown = ({
