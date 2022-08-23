@@ -42,7 +42,7 @@ export const MapFields = function MapFields({
 		const defaultValue: string | undefined = fieldsToMap.find((f) => f === name)
 
 		return (
-			<div className='grid grid-cols-12 gap-2 justify-between items-center'>
+			<div className='grid grid-cols-12 gap-2 justify-between items-center' key={name}>
 				<Detail className='col-span-12 md:col-span-5 w-100'>{name}</Detail>
 
 				<div className='c qol-span-12 md:col-span-1 w-100 hidden md:flex justify-center'>
