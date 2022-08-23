@@ -52,8 +52,6 @@ const REDCAP_CONCENT_FIELDS = [
 // }, {}))
 
 // const getRedcapFieldsFromParsedXML = (parsedXML: XMLParsed) => {
-// 	console.log('~ getRedcapFieldsFromParsedXML parsedXML', parsedXML)
-
 // 	return parsedXML
 // }
 

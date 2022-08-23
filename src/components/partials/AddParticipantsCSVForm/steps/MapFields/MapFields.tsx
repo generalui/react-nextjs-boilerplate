@@ -9,12 +9,7 @@ import { Card } from 'common/Card'
 import { Detail } from 'common/Detail'
 import { Icon } from 'common/Icon'
 import { Text } from 'common/Text'
-import {
-	MapFieldsInput,
-	MapFieldsProps,
-	MapFieldsSchema,
-	REDCAP_CONCENT_FIELDS
-} from './MapFields.types'
+import { CSV_DATA_FIELDS, MapFieldsInput, MapFieldsProps, MapFieldsSchema } from './MapFields.types'
 
 const transformFieldToOption = (fieldValue: string, field: string) => {
 	return {
@@ -47,7 +42,7 @@ export const MapFields = function MapFields({
 		const defaultValue: string | undefined = fieldsToMap.find((f) => f === name)
 
 		return (
-			<div className='grid grid-cols-12 gap-2 justify-between items-center'>
+			<div className='grid grid-cols-12 gap-2 justify-between items-center' key={name}>
 				<Detail className='col-span-12 md:col-span-5 w-100'>{name}</Detail>
 
 				<div className='c qol-span-12 md:col-span-1 w-100 hidden md:flex justify-center'>
@@ -78,9 +73,7 @@ export const MapFields = function MapFields({
 					validate={(values) => handleValidate(values, MapFieldsSchema)}
 					render={({ handleSubmit }) => (
 						<form onSubmit={handleSubmit} className='flex flex-col gap-8'>
-							<div className='flex flex-col gap-4'>
-								{REDCAP_CONCENT_FIELDS.map(renderRedCapField)}
-							</div>
+							<div className='flex flex-col gap-4'>{CSV_DATA_FIELDS.map(renderRedCapField)}</div>
 
 							<ActionButtons submitText={t('submit')} onCancel={onCancel} />
 						</form>

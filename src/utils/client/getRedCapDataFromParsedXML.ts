@@ -104,17 +104,14 @@ const getAndFlattenClientResponseData = (parsedXML: XMLParsed) => {
 	return clientDataTransformed
 }
 const getFieldsFromParsedXML = (parsedXML: XMLParsed) => {
-	console.log('getFieldsFromParsedXML ~ parsedXML', parsedXML)
 	const baseErrorString = `Invalid RedCap XML; must contain ${REDCAP_STUDY_META_DATA_KEY}`
 
 	// Get study metadata
 	const metaDataVersions = getFromParsedXML(parsedXML, REDCAP_STUDY_META_DATA_KEY, baseErrorString)
 	if (!Array.isArray(metaDataVersions)) throw new Error('metaDataVersions must be an array')
 
-	console.log('getFieldsFromParsedXML ~ metaDataVersions', metaDataVersions)
 	// Get last metadata version
 	const lastMetaDataVersion = metaDataVersions.at(-1)
-	console.log('getFieldsFromParsedXML ~ lastMetaDataVersion', lastMetaDataVersion)
 
 	// Get item definitions from metaData
 	const itemDefs = getFromParsedXML(
@@ -126,7 +123,7 @@ const getFieldsFromParsedXML = (parsedXML: XMLParsed) => {
 	const itemDefsTransformed = itemDefs.map((item) =>
 		getFromParsedXML(item, '$.OID', `${baseErrorString}.$.OID`)
 	)
-	console.log('getFieldsFromParsedXML ~ itemDefsTransformed', itemDefsTransformed)
+
 	return itemDefsTransformed
 }
 

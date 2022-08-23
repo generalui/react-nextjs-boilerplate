@@ -159,6 +159,28 @@ const studies = {
 					message: 'Next'
 				},
 				cancel: { message: 'Cancel' }
+			},
+			dataSummary: {
+				subtitle: { message: 'Data Mapping Summary' },
+				description: {
+					message:
+						'Upon completion of mapping your RedCap data to NBDC, participants will be sent email instructions on how to access the study details in the NBDC Consent Portal.'
+				},
+				aggregatedData: {
+					participants: {
+						message: 'Participants'
+					},
+					consents: {
+						message: 'Consents'
+					},
+					unmappedFields: {
+						message: 'Unmapped Fields'
+					}
+				},
+				submit: {
+					message: 'Confirm & Invite Participants'
+				},
+				cancel: { message: 'Edit Mapping' }
 			}
 		}
 	},

@@ -1,7 +1,7 @@
 import { useAggregatedStudyData } from 'hooks/api/aggregatedData/useAggregatedStudyData'
 import { useStudies } from 'hooks/api/studies/useStudies'
 import { useText } from 'hooks/useText'
-import { AggregatedDataCard } from 'partials/AggregatedDataCard'
+import { AggregatedDataCardGallery } from 'partials/AggregatedDataCardGallery'
 import { PageWrapper } from 'partials/PageWrapper'
 import { StudyList } from 'partials/StudyList'
 import { AdminWelcome } from 'common/WelcomeContent'
@@ -11,7 +11,7 @@ export const Home = () => {
 	const { studies = [], isLoading } = useStudies({ page: 0, pageSize: 5 })
 
 	const { data } = useAggregatedStudyData()
-	const AggregatedData = [
+	const aggregatedData = [
 		{
 			dataClassName: 'text-accent-1',
 			value: data?.totalStudies,
@@ -27,7 +27,14 @@ export const Home = () => {
 			value: data?.totalDocuments,
 			dataType: 'documentation'
 		}
-	]
+	].map(({ dataType, ...passThrough }) => ({
+		...passThrough,
+		title: t(`${dataType}.title`),
+		className: 'col-span-3 lg:col-span-1',
+		key: dataType,
+		subTitle: t(`${dataType}.subTitle`),
+		description: t(`${dataType}.description`)
+	}))
 
 	return (
 		<PageWrapper title={t('title')} withSpace={false}>
@@ -35,19 +42,7 @@ export const Home = () => {
 			<AdminWelcome className='mb-12' />
 
 			{/* Aggregated study data */}
-			<div className='flex flex-col lg:flex-row gap-6'>
-				{AggregatedData.map(({ dataType, dataClassName, value }) => (
-					<AggregatedDataCard
-						key={dataType}
-						className='col-span-3 lg:col-span-1'
-						title={t(`${dataType}.title`)}
-						dataClassName={dataClassName}
-						dataValue={value}
-						subTitle={t(`${dataType}.subTitle`)}
-						description={t(`${dataType}.description`)}
-					/>
-				))}
-			</div>
+			<AggregatedDataCardGallery aggregatedData={aggregatedData} />
 
 			{/* Divider */}
 			<div className='border-b col-span-1 col-span-3 border-color-black-400 my-9' />
