@@ -26,13 +26,6 @@ const SelectSchema = z.object({
 	meta: z.object({ field: z.string() }).optional()
 })
 
-// const FieldsSchema = REDCAP_CONCENT_FIELDS.reduce((schema, field) => {
-// 	return {
-// 		...schema,
-// 		[field.name]: field.required ? SelectSchema : z.optional(SelectSchema)
-// 	}
-// }, {})
-
 // export const DataSummarySchema = z.object(FieldsSchema)
 export const DataSummarySchema = z.object({
 	['current_name']: SelectSchema,
@@ -54,8 +47,6 @@ export const DataSummarySchema = z.object({
 })
 
 export type DataSummaryInput = z.infer<typeof DataSummarySchema>
-
-// export type DataSummaryInput = 	z.infer<typeof >
 
 export interface DataSummaryProps extends BaseFormProps<DataSummaryInput> {
 	consents: number
