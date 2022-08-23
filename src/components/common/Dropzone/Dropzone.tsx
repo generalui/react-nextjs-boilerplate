@@ -6,18 +6,18 @@ import { useText } from 'hooks/useText'
 import { ImagePreview } from 'common/ImageInput/ImageInput.types'
 import { DropzoneProps } from './Dropzone.types'
 
-const MAX_FILE_SIZE = 5 * 1000000 // 5 mb
+const MAX_FILE_SIZE = 5 * 1000 * 1000 // 5 mb
 const getTotalFileSize = (files?: File[]) =>
 	!files ? 0 : files.reduce((totalSize, currentFile) => totalSize + currentFile.size, 0)
 
 export const Dropzone = ({
+	accept,
+	children,
+	className,
+	imageDropzone,
+	maxFiles,
 	onChange,
 	onError,
-	className,
-	children,
-	maxFiles,
-	accept,
-	imageDropzone,
 	testId = 'Dropzone'
 }: DropzoneProps) => {
 	const [cachedFiles, setFiles] = useState<File[] | ImagePreview>()

@@ -1,6 +1,6 @@
 import cn from 'classnames'
 import Image from 'next/image'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Field, FieldInputProps } from 'react-final-form'
 import { useText } from 'hooks/useText'
 import { Dropzone } from 'common/Dropzone'
@@ -11,9 +11,11 @@ import { DocumentGrid } from './DocumentGrid'
 import { DocumentPreview, DocumentsInputProps } from './DocumentsInput.types'
 
 const defaultMaxFiles = 15
-const defaultAcceptedFiles = {
-	// TODO: Add correct support for file types
-	'application/xml': ['.xml']
+const defaultAcceptedFileTypes = {
+	'application/xml': ['.xml', '.csv'],
+	'audio/*': [],
+	'image/*': [],
+	'video/*': []
 }
 
 const defaultImage = {
@@ -30,7 +32,7 @@ export const DocumentsInput = ({
 	labelClassName,
 	testId = 'DocumentsInput',
 	showAcceptedFileTypes = true,
-	acceptedFiles = defaultAcceptedFiles,
+	acceptedFileTypes = defaultAcceptedFileTypes,
 	maxFiles = defaultMaxFiles,
 	image = defaultImage,
 	localizationScope = 'createStudy.fields.documentation',
@@ -78,6 +80,17 @@ export const DocumentsInput = ({
 		}
 	}, [previewDocumentFiles])
 
+	const fileTypeStrings = useMemo(
+		() =>
+			Object.entries(acceptedFileTypes)
+				.map(([key, fileTypes]) => {
+					const keyName = key.replace('/*', '')
+					return !fileTypes.length ? keyName : fileTypes.join(', ')
+				})
+				.join(', '),
+		[acceptedFileTypes]
+	)
+
 	return (
 		<div className={cn('pb-2', className)} data-testid={testId}>
 			<InputLabel className={labelClassName} name={name} label={label} />
@@ -93,7 +106,7 @@ export const DocumentsInput = ({
 							<Dropzone
 								multi
 								maxFiles={maxFiles}
-								accept={acceptedFiles}
+								accept={acceptedFileTypes}
 								onChange={(files: File[] | ImagePreview | Error) => {
 									if (Array.isArray(files)) {
 										setDropzoneErrors([])
@@ -122,15 +135,7 @@ export const DocumentsInput = ({
 							{/* Accept file type notice */}
 							{showAcceptedFileTypes && (
 								<div className='text-xs text-gray-500 mt-2'>
-									{t('subText')}{' '}
-									{Object.keys(acceptedFiles).map((key) =>
-										acceptedFiles[key].map((type, i) => (
-											<span key={type}>
-												{type}
-												{i < acceptedFiles[key].length - 1 ? ', ' : ''}
-											</span>
-										))
-									)}
+									{`${t('subText')} ${fileTypeStrings}`}
 								</div>
 							)}
 
