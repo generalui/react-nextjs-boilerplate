@@ -5,5 +5,5 @@ export interface AggregatedDataCardProps extends CardProps {
 	description: ReactNode
 	subTitle: ReactNode
 	dataClassName?: string
-	dataValue?: ReactNode
+	value?: ReactNode
 }

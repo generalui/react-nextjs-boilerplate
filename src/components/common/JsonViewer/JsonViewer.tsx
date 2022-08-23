@@ -14,8 +14,8 @@ export const JsonViewer = ({
 		<div data-testid={testId}>
 			<pre
 				className={cn(
-					'block p-2.5 w-full text-sm text-gray-900 rounded-lg border',
-					error ? 'border-danger bg-red-50' : 'border-gray-300  dark:border-gray-600',
+					'h-56 overflow-x-scroll overflow-y-scroll block p-2.5 w-full text-sm text-gray-900 rounded-lg border',
+					error ? 'border-danger bg-red-50' : 'border-gray-300 bg-gray-50	 dark:border-gray-600',
 					className
 				)}
 			>

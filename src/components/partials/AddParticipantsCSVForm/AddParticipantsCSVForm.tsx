@@ -7,8 +7,10 @@ import { useRouter } from 'hooks/useRouter'
 import { useText } from 'hooks/useText'
 import { MultiStepForm } from 'partials/MultiStepForm'
 import { AddParticipantsCSVFormProps } from './AddParticipantsCSVForm.types'
+import { DataSummary } from './steps/DataSummary'
 import { MapFields } from './steps/MapFields'
 import { MapFieldsInput } from './steps/MapFields/MapFields.types'
+import { CSV_DATA_FIELDS } from './steps/MapFields/MapFields.types'
 import { UploadCSV } from './steps/UploadCSV'
 
 const UPLOAD_REDCAP_XML_FORM_NAME = 'upload-redcap-xml-form'
@@ -19,15 +21,14 @@ export const AddParticipantsCSVForm = ({
 }: AddParticipantsCSVFormProps) => {
 	const { parse, parsedCSV, fields } = useParseCSV()
 	const [currentStep, setCurrentStep] = useState<number>(0)
-	const [participantList, setParticipantList] = useState<Record<string, unknown>[]>()
+	const [participantList, setParticipantList] = useState<Record<string, unknown>[]>([])
+	const [unMappedFields, setUnMappedFields] = useState<number>(0)
+	const [consents, setConsents] = useState<number>(0)
 	const [inProgress, setInProgress] = useState<boolean>()
 	const { t } = useText('studies.addParticipants.form')
 	const { forceBack } = useRouter()
 
-	console.log('clientData', participantList)
-
 	const handleCancel = () => {
-		// Clean up
 		forceBack()
 	}
 
@@ -37,24 +38,29 @@ export const AddParticipantsCSVForm = ({
 		setInProgress(true)
 	}
 
+	const handleImportParticipants = () => {
+		console.log('handleImportParticipants ~ participantList', participantList)
+	}
+
 	const handleMapCSVFields = (values: MapFieldsInput) => {
-		console.log('handleMapCSVFields ~ mapCSVResults', values)
 		const fieldKeys = (Object.keys(values) as Array<keyof typeof values>).map((key) => ({
 			field: key,
 			csvField: values[key]?.value
 		}))
 
 		// Pick relevant client data from csv list
-		const clientDataNext = parsedCSV?.map((client) => {
-			const ret_value: Record<string, unknown> = {}
+		const clientDataNext =
+			parsedCSV?.map((client) => {
+				const ret_value: Record<string, unknown> = {}
 
-			fieldKeys.forEach((key) => {
-				ret_value[key.field] = client[key.csvField as string]
-			})
+				fieldKeys.forEach((key) => {
+					ret_value[key.field] = client[key.csvField as string]
+				})
 
-			return ret_value
-		})
+				return ret_value
+			}) || []
 
+		setUnMappedFields(CSV_DATA_FIELDS.length - fieldKeys.length)
 		setParticipantList(clientDataNext)
 		setCurrentStep(currentStep + 1)
 	}
@@ -62,7 +68,14 @@ export const AddParticipantsCSVForm = ({
 	const multiStepComponents = [
 		<UploadCSV onSubmit={handleUploadCSV} onCancel={handleCancel} />,
 		<MapFields fields={fields} onSubmit={handleMapCSVFields} onCancel={handleCancel} />,
-		<>{'Component 3'}</>
+		<DataSummary
+			fields={fields}
+			onSubmit={handleImportParticipants}
+			onCancel={() => setCurrentStep(1)}
+			participantList={participantList}
+			unMappedFields={unMappedFields}
+			consents={consents}
+		/>
 	]
 
 	const title = (

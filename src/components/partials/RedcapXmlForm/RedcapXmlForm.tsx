@@ -34,7 +34,6 @@ export const RedcapXmlForm = ({ className, testId = 'RedcapXmlForm' }: RedcapXml
 	}
 
 	const handleMapRedcapFields = (values: UploadXmlInput) => {
-		console.log('handleMapRedcapFields ~ values', values)
 		setCurrentStep(currentStep + 1)
 	}
 

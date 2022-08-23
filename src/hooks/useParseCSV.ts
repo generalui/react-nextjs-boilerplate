@@ -45,6 +45,7 @@ export const useParseCSV: UseCSVParser = (props = {}) => {
 	const [isSuccess, setIsSuccess] = useState<boolean>()
 	const [isParsing, setIsParsing] = useState<boolean>()
 	const [isComplete, setIsComplete] = useState<boolean>(false)
+	const [fields, setFields] = useState<string[]>()
 
 	const handleCSV = async (csvFile?: File) => {
 		try {
@@ -56,8 +57,6 @@ export const useParseCSV: UseCSVParser = (props = {}) => {
 
 				switch (format) {
 					case 'csv':
-						// clientData = await getParsedCSVData(parsedCSV)
-						// console.log('handleCSV ~ clientData', clientData)
 						setParsedCSV(parsedCSV)
 						break
 					default:
@@ -84,9 +83,13 @@ export const useParseCSV: UseCSVParser = (props = {}) => {
 		}
 	}, [parsedCSV, isError, isSuccess, isParsing, isComplete, onComplete])
 
+	useEffect(() => {
+		if (parsedCSV && parsedCSV.length > 0) setFields(Object.keys(parsedCSV[0]))
+	}, [parsedCSV, setFields])
+
 	return {
 		parsedCSV,
-		fields: parsedCSV && parsedCSV.length > 0 ? Object.keys(parsedCSV[0]) : undefined,
+		fields,
 		parse: handleCSV,
 		isError,
 		isSuccess,
