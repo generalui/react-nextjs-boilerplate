@@ -11,6 +11,8 @@ export interface CardProps extends CommonProps {
 	}
 	img?: string
 	imgAlt?: string
+	imgIcon?: string
+	imgIconAlt?: string
 	title?: ReactNode
 	titleClassName?: string
 }

@@ -6,26 +6,26 @@ import { Text } from 'common/Text'
 import { StudyConsentProps } from './StudyConsent.types'
 
 export const StudyConsent = ({ testId = 'StudyConsent' }: StudyConsentProps) => {
-	const { t } = useText('participant.study')
+	const { t } = useText('participant.study.consent')
 	const consent = true
 
 	return (
 		<div data-testid={testId}>
-			<Card iconProps={{ icon: 'UserGroupIcon' }} title={t('consent.title')}>
+			<Card imgIcon='/icons/consents.svg' imgIconAlt={t('iconAlt')} title={t('title')}>
 				<div className='flex flex-col gap-4'>
 					<Text className='text-gray-500' size='sm'>
-						{t('consent.description')}
+						{t('description')}
 					</Text>
 					<div className='flex gap-2 items-center'>
 						<StatusBadge v={consent ? 'approved' : 'archived'} />
 						<Text className='text-lg font-bold line-clamp-4 lg:line-clamp-none'>
-							{consent ? t('consent.hasConsent') : t('consent.noConsent')}
+							{consent ? t('hasConsent') : t('noConsent')}
 						</Text>
 					</div>
 					<div className='flex gap-2 items-center justify-between w-10/12'>
 						<div className='flex gap-2 items-center'>
 							<Image
-								src={'/icons/pdf.svg'}
+								src={'/icons/doc_PDF.svg'}
 								alt={t('pdfIconAlt')}
 								className='fill-gray-500'
 								width={20}
