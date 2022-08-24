@@ -1,7 +1,7 @@
-import Image from 'next/image'
 import { useText } from 'hooks/useText'
 import { StatusBadge } from 'partials/StatusBadge'
 import { Card } from 'common/Card'
+import { Icon } from 'common/Icon'
 import { Text } from 'common/Text'
 import { StudyConsentProps } from './StudyConsent.types'
 
@@ -11,7 +11,10 @@ export const StudyConsent = ({ testId = 'StudyConsent' }: StudyConsentProps) => 
 
 	return (
 		<div data-testid={testId}>
-			<Card imgIcon='/icons/consents.svg' imgIconAlt={t('iconAlt')} title={t('title')}>
+			<Card
+				iconProps={{ className: 'text-white', icon: 'Consents', size: 'md' }}
+				title={t('title')}
+			>
 				<div className='flex flex-col gap-4'>
 					<Text className='text-gray-500' size='sm'>
 						{t('description')}
@@ -24,13 +27,7 @@ export const StudyConsent = ({ testId = 'StudyConsent' }: StudyConsentProps) => 
 					</div>
 					<div className='flex gap-2 items-center justify-between w-10/12'>
 						<div className='flex gap-2 items-center'>
-							<Image
-								src={'/icons/doc_PDF.svg'}
-								alt={t('pdfIconAlt')}
-								className='fill-gray-500'
-								width={20}
-								height={20}
-							/>
+							<Icon icon={'Pdf'} className='text-gray-500' size='sm' />
 							<Text className='text-gray-500' size='xs'>
 								{'6712A4B97F2289C3'}
 							</Text>

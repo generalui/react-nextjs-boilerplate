@@ -13,8 +13,6 @@ export const Card = ({
 	imgAlt,
 	testId = 'Card',
 	title,
-	imgIcon,
-	imgIconAlt,
 	titleClassName
 }: CardProps) => (
 	<div data-testid={testId} className={cn('bg-white p-4 rounded-lg', className)}>
@@ -26,8 +24,7 @@ export const Card = ({
 		{(title || action || iconProps) && (
 			<div className={cn('flex justify-between mb-4', headerClassName)}>
 				<div className={'flex items-center gap-3'}>
-					{iconProps?.icon && <HeaderIcon {...iconProps} size='sm' />}
-					{imgIcon && <Image src={imgIcon} alt={imgIconAlt} height={36} width={36} />}
+					{iconProps?.icon && <HeaderIcon {...{ size: 'sm', ...iconProps }} />}
 					{title && (
 						<h2 className={cn('font-semibold text-2xl flex gap-2 items-center', titleClassName)}>
 							{title}

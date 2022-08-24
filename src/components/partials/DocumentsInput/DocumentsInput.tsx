@@ -13,7 +13,8 @@ import { DocumentPreview, DocumentsInputProps } from './DocumentsInput.types'
 const defaultMaxFiles = 15
 const defaultAcceptedFiles = {
 	// TODO: Add correct support for file types
-	'application/xml': ['.xml']
+	'application/xml': ['.xml'],
+	'application/pdf': ['.pdf']
 }
 
 const defaultImage = {
