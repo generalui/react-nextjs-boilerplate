@@ -62,14 +62,15 @@ export const ImageInput = ({
 								testId={testId}
 								{...input}
 								placeholder={placeholder}
-								editIconClassName={editIconClassName}
 								onChange={(file: File[] | Error, imagePreview?: ImagePreview) => {
 									setDropzoneErrors([])
 									if (imagePreview && Array.isArray(file)) {
 										handleChange(file, imagePreview)
 									}
 								}}
-								imageDropzone
+								onError={() => {
+									console.log('onError')
+								}}
 							>
 								<div
 									className={cn(

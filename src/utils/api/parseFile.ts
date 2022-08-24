@@ -1,3 +1,4 @@
+import fs from 'fs'
 import path from 'path'
 
 interface ParsedFile {
@@ -28,8 +29,11 @@ const formatName = (originalName: string) => {
 }
 
 export const parseFile: ParseFile = async (file) => {
-	const { mimetype, originalname, buffer } = file
-	const base64 = `data:${mimetype};base64,${await buffer.toString('base64')}`
+	const { mimetype, originalname, path } = file
+
+	const fileContents = fs.readFileSync(path, { encoding: 'base64' })
+
+	const base64 = `data:${mimetype};base64,${fileContents}`
 	const publicId = `${process.env.CLOUD_FOLDER_NAME}/${formatName(originalname)}`
 
 	return { base64, originalName: originalname, publicId, mimeType: mimetype }

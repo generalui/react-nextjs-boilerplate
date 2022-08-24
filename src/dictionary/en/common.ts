@@ -91,7 +91,7 @@ const common = {
 	},
 	errors: {
 		maxFileSizeExceeded: {
-			message: 'Max file size {1} exceeded'
+			message: 'Only files under {1} may be uploaded'
 		},
 		duplicateFileOmitted: {
 			message: 'Duplicate file omitted'

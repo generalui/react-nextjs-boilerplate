@@ -46,6 +46,7 @@ export const DocumentationList = ({
 					prismaDate.getMonth() + 1
 				}/${prismaDate.getDate()}/${prismaDate.getFullYear()}`
 				return {
+					key: document.id,
 					name: (
 						<div className='flex gap-2'>
 							{renderDocumentIcon(document.fileType)}
@@ -83,7 +84,7 @@ export const DocumentationList = ({
 			data={documentComponents}
 			emptyMessage={t('noDocuments')}
 			iconProps={iconProps}
-			indexKey='name'
+			indexKey='key'
 			isLoading={isLoading}
 			sharedClassName='text-gray-500'
 			testId={testId}

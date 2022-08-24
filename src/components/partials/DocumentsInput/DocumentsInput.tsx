@@ -2,6 +2,8 @@ import cn from 'classnames'
 import Image from 'next/image'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Field, FieldInputProps } from 'react-final-form'
+import { dispatchErrorToast } from 'utils/client/toast'
+import { MAX_FILE_SIZE_MB } from 'utils/fileUpload'
 import { useText } from 'hooks/useText'
 import { Dropzone } from 'common/Dropzone'
 import { ImagePreview } from 'common/ImageInput/ImageInput.types'
@@ -40,7 +42,6 @@ export const DocumentsInput = ({
 	filesDragLabel = 'filesDrag'
 }: DocumentsInputProps) => {
 	const [previewDocumentFiles, setPreviewDocumentFiles] = useState<DocumentPreview[] | undefined>()
-	const [dropzoneErrors, setDropzoneErrors] = useState<string[]>([])
 	const inputRef = useRef<FieldInputProps<File, HTMLElement>>()
 	const { t } = useText(localizationScope)
 	const { t: error } = useText('common.errors')
@@ -98,22 +99,20 @@ export const DocumentsInput = ({
 			<Field name={name}>
 				{({ input, meta }) => {
 					inputRef.current = input
-					const isError = (meta.error && meta.touched) || dropzoneErrors.length > 0
+					const isError = meta.error && meta.touched
 
 					return (
 						<>
 							{/* Drag and drop area */}
 							<Dropzone
-								multi
 								maxFiles={maxFiles}
 								accept={acceptedFileTypes}
 								onChange={(files: File[] | ImagePreview | Error) => {
 									if (Array.isArray(files)) {
-										setDropzoneErrors([])
 										handleChange(files)
 									}
 								}}
-								onError={(err) => setDropzoneErrors([error(err.message, '5mb')])}
+								onError={(err) => dispatchErrorToast(error(err.message, `${MAX_FILE_SIZE_MB}mb`))}
 								className='w-full bg-gray-100 h-44 border border-solid  border-gray-400 border-dashed cursor-pointer overflow-y-auto p-4'
 							>
 								{previewDocumentFiles ? (
@@ -140,7 +139,7 @@ export const DocumentsInput = ({
 							)}
 
 							{/* Show errors if any */}
-							{isError && <InputError className='mt-2' errors={[...dropzoneErrors, meta.error]} />}
+							{isError && <InputError className='mt-2' errors={meta.error} />}
 						</>
 					)
 				}}
