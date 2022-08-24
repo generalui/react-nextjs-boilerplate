@@ -11,10 +11,7 @@ export const StudyConsent = ({ testId = 'StudyConsent' }: StudyConsentProps) => 
 
 	return (
 		<div data-testid={testId}>
-			<Card
-				iconProps={{ className: 'text-white', icon: 'Consents', size: 'md' }}
-				title={t('title')}
-			>
+			<Card iconProps={{ className: 'text-white', icon: 'Consents' }} title={t('title')}>
 				<div className='flex flex-col gap-4'>
 					<Text className='text-gray-500' size='sm'>
 						{t('description')}
