@@ -1,3 +1,4 @@
+import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
 import { useText } from 'hooks/useText'
 import { StatusBadge } from 'partials/StatusBadge'
 import { Card } from 'common/Card'
@@ -6,6 +7,7 @@ import { Text } from 'common/Text'
 import { StudyConsentProps } from './StudyConsent.types'
 
 export const StudyConsent = ({ testId = 'StudyConsent' }: StudyConsentProps) => {
+	const { currentUser } = useCurrentUser()
 	const { t } = useText('participant.study.consent')
 	const consent = true
 
@@ -26,7 +28,7 @@ export const StudyConsent = ({ testId = 'StudyConsent' }: StudyConsentProps) => 
 						<div className='flex gap-2 items-center'>
 							<Icon icon={'Pdf'} className='text-gray-500' size='sm' />
 							<Text className='text-gray-500' size='xs'>
-								{'6712A4B97F2289C3'}
+								{currentUser?.participant?.id.toUpperCase()}
 							</Text>
 						</div>
 						<Text className='text-gray-500' size='xs'>

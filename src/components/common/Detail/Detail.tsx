@@ -23,7 +23,7 @@ export const Detail = ({
 			typeof children === 'string' ? (
 				<Text
 					className={cn(
-						'bg-gray-50text-sm rounded px-4 py-2 flex-grow min-h-[36px] block text',
+						'bg-gray-50 text-sm rounded px-4 py-2 flex-grow min-h-[36px] block text',
 						textColor
 					)}
 				>

@@ -2,6 +2,7 @@
  * Participant Home Page
  */
 import { useRouter } from 'next/router'
+import { useStudies } from 'hooks/api/studies/useStudies'
 import { useUserStudies } from 'hooks/api/studies/useUserStudies'
 import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
 import { useText } from 'hooks/useText'
@@ -19,6 +20,7 @@ export const ParticipantHome = ({ testId = 'ParticipantHome' }: ParticipantHomeP
 	const { push } = useRouter()
 	const { currentUser } = useCurrentUser()
 	const { studies = [] } = useUserStudies(currentUser?.id, { page: 0, pageSize: 3 })
+	const { studies: allStudies } = useStudies()
 
 	return (
 		<PageWrapper title={t('title')} testId={testId}>
@@ -27,10 +29,7 @@ export const ParticipantHome = ({ testId = 'ParticipantHome' }: ParticipantHomeP
 				<ContactInfo className='flex-1' />
 				<EmergencyContact className='flex-1' />
 			</div>
-			<Button
-				className='w-32'
-				onClick={() => push('/participant/studies/cl754hnl70017vvojy5mo024k')}
-			>
+			<Button className='w-32' onClick={() => push(`/participant/studies/${allStudies?.[0].id}`)}>
 				{'Go to Study'}
 			</Button>
 			<StudyList concise studies={studies} title={t('studies')} />
