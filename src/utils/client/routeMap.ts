@@ -16,7 +16,11 @@ export const routeMap: Record<
 		href: '/participant',
 		icon: 'HomeIcon',
 		labelKey: 'common.sidebar.nav.home',
-		role: 'participant'
+		role: 'participant',
+		subRoutes: {
+			studies: { labelKey: 'common.sidebar.nav.studies' },
+			'[studyId]': { labelKey: 'studies.details.title' }
+		}
 	},
 	studies: {
 		href: '/studies',

@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { formatDisplayDate } from 'utils/client/date'
 import { getCombinedString } from 'utils/client/text'
 import { useStudy } from 'hooks/api/studies/useStudy'
+import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
 import { useText } from 'hooks/useText'
 import { AddPrivateData } from 'partials/AddPrivateData'
 import { AddStudyFiles } from 'partials/AddStudyFiles'
@@ -13,6 +14,7 @@ import { DataTypeContainer } from 'partials/DataTypeContainer'
 import { DataVaultList } from 'partials/DataVaultList'
 import { EditStudy } from 'partials/EditStudy'
 import { PageWrapper } from 'partials/PageWrapper'
+import { ParticipantStudy } from 'partials/ParticipantStudy'
 import { Breadcrumbs } from 'common/Breadcrumbs'
 import { Card } from 'common/Card'
 import { Detail } from 'common/Detail'
@@ -28,6 +30,8 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 	const router = useRouter()
 	const { studyId = '' } = router.query
 	const { t } = useText('studies.details')
+	const { currentUser } = useCurrentUser()
+	const isAdmin = currentUser?.role === 'admin'
 	const { t: common } = useText('common.dataTypes')
 	const { t: documentation } = useText('studies.documentation')
 	const { t: dataVault } = useText('studies.dataVault')
@@ -45,16 +49,18 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 		<PageWrapper title={t('title')} testId={testId}>
 			<PageHeader className='grid grid-cols-12 items-center'>
 				<Breadcrumbs className='col-span-8' />
-				<StudyStatusDropdown
-					className='col-span-4'
-					onChange={(status) => update.mutate({ status })}
-					value={study?.status || 'new'}
-				/>
+				{isAdmin && (
+					<StudyStatusDropdown
+						className='col-span-4'
+						onChange={(status) => update.mutate({ status })}
+						value={study?.status || 'new'}
+					/>
+				)}
 			</PageHeader>
 
 			<div className='flex flex-col gap-6'>
 				<Card
-					action={<EditStudy studyId={singleStudyId} disabled={loading} />}
+					action={isAdmin && <EditStudy studyId={singleStudyId} disabled={loading} />}
 					className='flex flex-col gap-6'
 					iconProps={{ icon: 'DocumentReportIcon' }}
 					title={t('title')}
@@ -80,6 +86,9 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 							</div>
 						</div>
 					</div>
+					<Detail textColor='text-gray-500' label={t('description')}>
+						{study?.description}
+					</Detail>
 					<Detail label={t('dataTypes')}>
 						<DataTypeContainer
 							tags={
@@ -92,26 +101,32 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 						/>
 					</Detail>
 				</Card>
-				<DocumentationList
-					action={<AddStudyFiles studyId={singleStudyId} />}
-					className='flex flex-col gap-6'
-					iconProps={{ icon: 'DocumentTextIcon', wrapperClass: 'bg-green-300' }}
-					title={documentation('title')}
-					documents={study?.documentation || []}
-					isLoading={loading}
-				/>
-				<DataVaultList
-					action={
-						<AddPrivateData
-							studyId={singleStudyId}
-							dataTypes={study?.dataTypes}
-							modalName='add-private-data'
+				{isAdmin ? (
+					<>
+						<DocumentationList
+							action={<AddStudyFiles studyId={singleStudyId} />}
+							className='flex flex-col gap-6'
+							iconProps={{ icon: 'DocumentTextIcon', wrapperClass: 'bg-green-300' }}
+							title={documentation('title')}
+							documents={study?.documentation || []}
+							isLoading={loading}
 						/>
-					}
-					className='flex flex-col gap-6'
-					studyId={singleStudyId}
-					title={dataVault('title')}
-				/>
+						<DataVaultList
+							action={
+								<AddPrivateData
+									studyId={singleStudyId}
+									dataTypes={study?.dataTypes}
+									modalName='add-private-data'
+								/>
+							}
+							className='flex flex-col gap-6'
+							studyId={singleStudyId}
+							title={dataVault('title')}
+						/>
+					</>
+				) : (
+					<ParticipantStudy />
+				)}
 			</div>
 		</PageWrapper>
 	)
