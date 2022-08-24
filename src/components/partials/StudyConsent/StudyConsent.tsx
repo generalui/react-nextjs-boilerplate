@@ -1,16 +1,11 @@
-/*!
- * ParticipantStudy Page
- */
 import Image from 'next/image'
 import { useText } from 'hooks/useText'
 import { StatusBadge } from 'partials/StatusBadge'
 import { Card } from 'common/Card'
 import { Text } from 'common/Text'
-import { ParticipantStudyProps } from './ParticipantStudy.types'
+import { StudyConsentProps } from './StudyConsent.types'
 
-export const ParticipantStudy = function ParticipantStudy({
-	testId = 'ParticipantStudy'
-}: ParticipantStudyProps) {
+export const StudyConsent = ({ testId = 'StudyConsent' }: StudyConsentProps) => {
 	const { t } = useText('participant.study')
 	const consent = true
 
