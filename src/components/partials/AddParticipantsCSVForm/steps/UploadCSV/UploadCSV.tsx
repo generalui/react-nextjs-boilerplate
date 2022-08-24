@@ -9,7 +9,7 @@ import { Text } from 'common/Text'
 import { UploadCSVProps } from './UploadCSV.types'
 
 const maxFiles = 1
-const acceptedFiles = {
+const acceptedFileTypes = {
 	'text/csv': ['.csv']
 }
 
@@ -44,7 +44,7 @@ export const UploadCSV = function UploadCSV({
 								label={t('detailsLabel')}
 								name='csvFile'
 								maxFiles={maxFiles}
-								acceptedFiles={acceptedFiles}
+								acceptedFileTypes={acceptedFileTypes}
 								localizationScope={'studies.redcapXMLForm.upload'}
 								image={{ src: '/icons/doc_CSV.svg', width: '50', height: '50' }}
 							/>

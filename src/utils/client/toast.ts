@@ -8,9 +8,8 @@ export const toast = (content: ToastContent, severity: ToastSeverity = 'success'
 	toastify[severity](content, { autoClose: autoCloseTime, position: toastify.POSITION.TOP_RIGHT })
 }
 
-export const dispatchErrorToast = (error: unknown) => {
-	const errorMessage =
-		(error as { message: string })?.message || 'An unknown error has occurred, please try again'
+export const dispatchErrorToast = (message: string) => {
+	const errorMessage = message || 'An unknown error has occurred, please try again'
 
 	toast(errorMessage, 'error')
 }

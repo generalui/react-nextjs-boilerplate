@@ -9,7 +9,7 @@ import { Text } from 'common/Text'
 import { UploadRedcapXmlProps } from './UploadRedcapXml.types'
 
 const maxFiles = 1
-const acceptedFiles = {
+const acceptedFileTypes = {
 	'application/xml': ['.xml']
 }
 
@@ -42,7 +42,7 @@ export const UploadRedcapXml = function UploadRedcapXml({
 								label={t('detailsLabel')}
 								name='xmlFile'
 								maxFiles={maxFiles}
-								acceptedFiles={acceptedFiles}
+								acceptedFileTypes={acceptedFileTypes}
 								localizationScope={'studies.redcapXMLForm.upload'}
 								image={{ src: '/icons/xmlFile.svg', width: '50', height: '50' }}
 							/>
