@@ -3,7 +3,7 @@ import { SidebarRoute } from 'types/Navigation'
 export const routeMap: Record<
 	string,
 	SidebarRoute & {
-		subRoutes?: Record<string, { labelKey: string }>
+		subRoutes?: Record<string, { href?: string; labelKey: string }>
 	}
 > = {
 	'': {
@@ -18,7 +18,7 @@ export const routeMap: Record<
 		labelKey: 'common.sidebar.nav.home',
 		role: 'participant',
 		subRoutes: {
-			studies: { labelKey: 'common.sidebar.nav.studies' },
+			studies: { labelKey: 'common.sidebar.nav.studies', href: '/participant' },
 			'[studyId]': { labelKey: 'studies.details.title' }
 		}
 	},
