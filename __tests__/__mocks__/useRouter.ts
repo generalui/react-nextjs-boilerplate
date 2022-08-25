@@ -4,7 +4,7 @@ export const mockUseRouterReturn = {
 	defaultLocale: 'en',
 	query: { foo: 'bar' },
 	route: '/studies/test-study',
-	pathName: '/studies/test-study',
+	pathname: '/studies/[studyId]',
 	asPath: '/studies/test-study',
 	events: {
 		on: jest.fn((value: string, _eventHandler: () => void) => {

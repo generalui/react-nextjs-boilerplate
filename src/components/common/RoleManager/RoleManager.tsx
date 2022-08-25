@@ -64,7 +64,7 @@ export const RoleManager = ({ children }: RoleManagerProps) => {
 				children
 			) : (
 				<div className='h-screen flex justify-center items-center margin-auto'>
-					<Loader isLoading />
+					<Loader isLoading timeOut={2} />
 				</div>
 			)}
 		</>
