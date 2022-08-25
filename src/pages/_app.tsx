@@ -1,4 +1,5 @@
 import { favicon } from 'client.config'
+import { backgroundColor, defaultMetaTitle } from 'client.config'
 import { Provider } from 'hooks-for-redux'
 import LogRocket from 'logrocket'
 import { SessionProvider } from 'next-auth/react'
@@ -25,7 +26,18 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 		<>
 			<Head>
 				<link rel='shortcut icon' href={favicon} />
+
+				{defaultMetaTitle && <title>{defaultMetaTitle}</title>}
+
+				{/* TODO: Handle common meta data here */}
+				<meta name='viewport' content='initial-scale=1.0, width=device-width' />
+				{/*
+				 	Style added here to set the background color based on the client config within tailwind's configuration settings.
+					Due to this projects choice to use module.scss there isn't anywhere in the style sheets to import a js module. 
+				  */}
+				<style>{`html { background-color: ${backgroundColor} !important; }`}</style>
 			</Head>
+
 			<Provider>
 				<SessionProvider session={session} refetchInterval={5}>
 					<QueryClientProvider client={reactQueryClient}>

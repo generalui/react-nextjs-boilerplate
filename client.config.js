@@ -4,6 +4,7 @@ module.exports = {
 	signInImage: '/images/NBDC_logo_full.svg',
 	favicon: '/images/nbdc_favicon.svg',
 	backgroundColor: '#f1ece9',
+	defaultMetaTitle: 'Native BioData',
 	about: {
 		title: 'Stewardship of Native BioData',
 		image: 'https://nativebio.org/wp-content/uploads/2020/12/Guthrie_profile_450.png',
