@@ -1,4 +1,5 @@
 // TODO:  rename this file to be more clear about what it is doing
+import fs from 'fs'
 import { upload } from './media'
 import { parseFile } from './parseFile'
 
@@ -24,6 +25,9 @@ export const uploadToCloudinary: UploadToCloudinary = async (file) => {
 
 	// Upload (to cloudinary)
 	const { secure_url } = await upload({ file: base64, publicId })
+
+	// Remove file from disk
+	fs.unlinkSync(file.path)
 
 	return { name: originalName, url: secure_url, fileType: mimeType }
 }
