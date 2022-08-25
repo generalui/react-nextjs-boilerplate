@@ -52,7 +52,10 @@ export const Dropzone = ({
 			}
 
 			setFiles(files)
-			onChange(files)
+			onChange(files, {
+				...files[0],
+				preview: URL.createObjectURL(files[0])
+			})
 		}
 	}
 
