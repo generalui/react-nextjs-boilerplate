@@ -97,11 +97,12 @@ export default NextAuth({
 
 			return baseUrl
 		},
-		async jwt({ token, account }) {
+		async jwt({ token, account, user }) {
 			// Persist the OAuth access_token to the token right after signin
 			if (account) {
 				token.id = account.providerAccountId
 				token.error = account.error
+				token.role = user?.role
 			}
 
 			return token
@@ -111,6 +112,7 @@ export default NextAuth({
 			if (token) {
 				session.userId = token.id
 				session.error = token.error
+				session.role = token.role
 			}
 			return session
 		}

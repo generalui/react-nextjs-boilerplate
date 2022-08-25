@@ -1,35 +1,72 @@
+import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { routePermissions } from 'utils/routePermissions'
-import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
+import { Loader } from 'common/Loader'
 import { RoleManagerProps } from './RoleManager.types'
 
 export const RoleManager = ({ children }: RoleManagerProps) => {
+	const session = useSession()
 	const { pathname, push } = useRouter()
-	const { currentUser } = useCurrentUser()
+	const [authorized, setAuthorized] = useState(false)
+
+	const isUserAuthenticated = useMemo(() => session.status === 'authenticated', [session.status])
+
+	const authCheck = useCallback(
+		(urlString: string) => {
+			// Get the pathname from the urlString
+			const path = `/${urlString.split('?')[0].split('/').slice(1).join('/')}`
+
+			if (session.status === 'loading') {
+				setAuthorized(false)
+			} else if (!isUserAuthenticated) {
+				if (routePermissions.general.includes(path)) {
+					setAuthorized(true)
+				} else {
+					setAuthorized(false)
+					push({
+						pathname: '/auth/signin'
+					})
+				}
+			} else {
+				switch (session.data?.role) {
+					case 'admin':
+						if (routePermissions.admin.includes(path)) {
+							setAuthorized(true)
+						} else {
+							push('/')
+						}
+						break
+					case 'participant':
+						if (routePermissions.participant.includes(path)) {
+							setAuthorized(true)
+						} else {
+							push('/participant')
+						}
+						break
+					default:
+						if (!routePermissions.general.includes(path)) {
+							push('/auth/signin')
+						}
+				}
+			}
+		},
+		[isUserAuthenticated, push, session.data?.role, session.status]
+	)
 
 	useEffect(() => {
-		if (currentUser && pathname) {
-			switch (currentUser.role) {
-				case 'admin':
-					if (!routePermissions.admin.includes(pathname)) {
-						push('/')
-					}
-					break
+		authCheck(pathname)
+	}, [authCheck, pathname])
 
-				case 'participant':
-					if (!routePermissions.participant.includes(pathname)) {
-						push('/participant')
-					}
-					break
-
-				default:
-					if (!routePermissions.general.includes(pathname)) {
-						push('/auth/signin')
-					}
-			}
-		}
-	}, [children, currentUser, pathname, push])
-
-	return <>{children}</>
+	return (
+		<>
+			{authorized ? (
+				children
+			) : (
+				<div className='h-screen flex justify-center items-center margin-auto'>
+					<Loader isLoading />
+				</div>
+			)}
+		</>
+	)
 }
