@@ -1,6 +1,5 @@
 import { Document } from '@prisma/client'
 import cn from 'classnames'
-import Image from 'next/image'
 import { useCallback, useMemo } from 'react'
 import { useText } from 'hooks/useText'
 import { List } from 'partials/List'
@@ -19,24 +18,21 @@ export const DocumentationList = ({
 }: DocumentationListProps) => {
 	const { t } = useText('studies.documentation')
 
-	const renderDocumentIcon = useCallback(
-		(fileType: string) => {
-			let icon: JSX.Element
+	const renderDocumentIcon = useCallback((fileType: string) => {
+		let icon: JSX.Element
 
-			if (fileType.includes('pdf')) {
-				icon = <Image src={'/icons/pdf.svg'} alt={t('pdfIconAlt')} width={20} height={20} />
-			} else if (fileType.includes('image')) {
-				icon = <Icon icon='PhotographIcon' className='text-accent-1' />
-			} else if (fileType.includes('application')) {
-				icon = <Icon icon='DocumentTextIcon' className='text-primary' />
-			} else {
-				icon = <Icon icon='PaperClipIcon' />
-			}
+		if (fileType.includes('pdf')) {
+			icon = <Icon icon={'Pdf'} className='text-danger' />
+		} else if (fileType.includes('image')) {
+			icon = <Icon icon='PhotographIcon' className='text-accent-1' />
+		} else if (fileType.includes('application')) {
+			icon = <Icon icon='DocumentTextIcon' className='text-primary' />
+		} else {
+			icon = <Icon icon='PaperClipIcon' />
+		}
 
-			return <div className='h-6 w-6 flex justify-center items-center'>{icon}</div>
-		},
-		[t]
-	)
+		return <div className='h-6 w-6 flex justify-center items-center'>{icon}</div>
+	}, [])
 
 	const documentComponents = useMemo(
 		() =>

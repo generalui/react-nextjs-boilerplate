@@ -35,9 +35,12 @@ export const Breadcrumbs = ({ className, testId = 'Breadcrumbs' }: BreadcrumbsPr
 		}
 
 		// Get href from current url
-		let href = ''
-		for (let i = 0; i <= Math.min(index, pathList.length - 1); i++) {
-			href += `/${pathList[i]}`
+		let href = (isBasePath ? route : route.subRoutes?.[pathNameList[index]])?.href || ''
+
+		if (!href) {
+			for (let i = 0; i <= Math.min(index, pathList.length - 1); i++) {
+				href += `/${pathList[i]}`
+			}
 		}
 
 		return { href, labelKey }
@@ -53,7 +56,7 @@ export const Breadcrumbs = ({ className, testId = 'Breadcrumbs' }: BreadcrumbsPr
 
 				return (
 					<BreadcrumbLink
-						key={href}
+						key={labelKey}
 						href={href}
 						label={t(labelKey)}
 						includeChevron={!!i}

@@ -18,7 +18,6 @@ type UploadToCloudinary = (
  */
 export const uploadToCloudinary: UploadToCloudinary = async (file) => {
 	if (!file) return undefined
-	console.log(file)
 
 	// Add data type to base64 string
 	const { base64, publicId, originalName, mimeType } = await parseFile(file as Express.Multer.File)

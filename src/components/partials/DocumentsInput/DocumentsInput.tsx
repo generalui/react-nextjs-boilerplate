@@ -14,7 +14,8 @@ import { DocumentPreview, DocumentsInputProps } from './DocumentsInput.types'
 
 const defaultMaxFiles = 15
 const defaultAcceptedFileTypes = {
-	'application/xml': ['.xml', '.csv'],
+	'application/xml': ['.xml'],
+	'text/csv': ['.csv'],
 	'audio/*': [],
 	'image/*': [],
 	'video/*': []

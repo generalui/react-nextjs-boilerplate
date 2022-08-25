@@ -24,7 +24,7 @@ export const Card = ({
 		{(title || action || iconProps) && (
 			<div className={cn('flex justify-between mb-4', headerClassName)}>
 				<div className={'flex items-center gap-3'}>
-					{iconProps?.icon && <HeaderIcon {...iconProps} size='sm' />}
+					{iconProps?.icon && <HeaderIcon {...{ size: 'sm', ...iconProps }} />}
 					{title && (
 						<h2 className={cn('font-semibold text-2xl flex gap-2 items-center', titleClassName)}>
 							{title}

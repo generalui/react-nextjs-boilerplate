@@ -6,7 +6,9 @@ export interface CardProps extends CommonProps {
 	action?: ReactNode
 	headerClassName?: string
 	iconProps?: {
+		className?: string
 		icon: IconProps['icon']
+		size?: IconProps['size']
 		wrapperClass?: string
 	}
 	img?: string
@@ -16,6 +18,7 @@ export interface CardProps extends CommonProps {
 }
 
 export interface HeaderIconProps {
+	className?: string
 	icon: IconProps['icon']
 	size?: IconProps['size']
 	wrapperClass?: string
