@@ -1,9 +1,9 @@
-import { PencilAltIcon } from '@heroicons/react/solid'
 import cn from 'classnames'
 import { useEffect, useRef, useState } from 'react'
 import { Field, FieldInputProps } from 'react-final-form'
 import { OnChange } from 'react-final-form-listeners'
 import { Dropzone } from 'common/Dropzone'
+import { Icon } from 'common/Icon'
 import { InputError } from 'common/InputError'
 import { ImageInputProps, ImagePreview } from './ImageInput.types'
 import { disabledVariants, imageInputVariants } from './variants'
@@ -87,12 +87,16 @@ export const ImageInput = ({
 												: imageInputVariants[v].preview
 										)}
 									/>
-									<PencilAltIcon
+									<div
 										className={cn(
-											disabled ? disabledVariants[`${v}Disabled`].icon : imageInputVariants[v].icon,
-											editIconClassName
+											'bg-white p-4 flex justify-center items-center',
+											disabled
+												? disabledVariants[`${v}Disabled`].iconWrapper
+												: imageInputVariants[v].iconWrapper
 										)}
-									/>
+									>
+										<Icon icon='PencilAltIcon' size='sm' className={cn(editIconClassName)} />
+									</div>
 								</div>
 							</Dropzone>
 
