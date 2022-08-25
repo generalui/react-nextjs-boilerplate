@@ -62,7 +62,8 @@ const createStudyUser: StudyKeyHandler<'coordinator'> = (_value, session) => [
 			name: session?.user?.name || '',
 			emailVerified: null,
 			password: null,
-			image: null
+			image: null,
+			role: 'admin'
 		}
 	}
 ]
