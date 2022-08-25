@@ -54,7 +54,6 @@ export const DataSummary = function DataSummary({
 
 				<Form
 					onSubmit={handleSubmit}
-					validate={(values) => handleValidate(values, DataSummarySchema)}
 					render={({ handleSubmit }) => (
 						<form onSubmit={handleSubmit} className='flex flex-col gap-8'>
 							{/* Data summary section */}

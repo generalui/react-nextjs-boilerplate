@@ -92,6 +92,7 @@ model Study {
   title          String
   dataTypes      StudyDataTypes[]        @map("data_types")
   users          CoordinatorsOnStudies[]
+  participants   ParticipantsOnStudies[]
   documentation  Document[]
   dataVault      DataVault[]
 }
@@ -127,6 +128,16 @@ model CoordinatorsOnStudies {
   insertedAt DateTime @default(now()) @map("inserted_at")
 
   @@id([studyId, userId])
+}
+
+model ParticipantsOnStudies {
+  study      Study    @relation(fields: [studyId], references: [id])
+  studyId    String   @map("study_id")
+  participant       Participant     @relation(fields: [participantId], references: [id])
+  participantId     String   @map("participant_id")
+  insertedAt DateTime @default(now()) @map("inserted_at")
+
+  @@id([studyId, participantId])
 }
 
 model Document {
@@ -184,4 +195,5 @@ model Participant {
   emergencyContactHomePhone       String   @map("emergency_contact_home_phone")
   emergencyContactWorkPhone       String   @map("emergency_contact_work_phone")
   emergencyContactPhysicalAddress String   @map("emergency_contact_physical_address")
+  studies ParticipantsOnStudies[]
 }

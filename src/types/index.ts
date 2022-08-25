@@ -1,5 +1,5 @@
 // Automated exports
-export * from './ParticipantOnStudy'
+export * from './StudyParticipants'
 export * from './Xml'
 export * from './CSV'
 export * from './QueryOptions'

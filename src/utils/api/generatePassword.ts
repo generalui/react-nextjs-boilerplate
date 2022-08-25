@@ -56,7 +56,7 @@ export const generatePassword = (length = 10) => {
 	}
 
 	// While password is less than the minimum length add random characters
-	while (length > password.length) {
+	while (length - Object.keys(keySet).length > password.length) {
 		const keyToAdd = getKey[Math.floor(Math.random() * getKey.length)]
 		keySet[keyToAdd.key] = true
 		password += keyToAdd.get()

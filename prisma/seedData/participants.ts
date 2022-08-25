@@ -1,4 +1,4 @@
-import { Participant } from 'types/Participant'
+import { Participant } from 'types/StudyParticipants'
 
 export const participants: Pick<
 	Participant,

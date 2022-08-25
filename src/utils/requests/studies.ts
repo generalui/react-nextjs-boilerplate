@@ -1,4 +1,5 @@
 import {
+	AddParticipantsInput,
 	AggregatedStudyData,
 	ApiDataVault,
 	ApiStudiesResponse,
@@ -108,4 +109,18 @@ export const updateStudy = async (
 export const getAggregatedStudyData = async (): Promise<AggregatedStudyData> => {
 	const response = await axios.get<AggregatedStudyData>('/aggregated-study-data')
 	return response.data
+}
+
+export const addParticipantsToStudy = async (
+	studyId: string,
+	participants: AddParticipantsInput
+): Promise<undefined> => {
+	console.log('addParticipantsToStudy ~ studyId', studyId)
+	console.log('addParticipantsToStudy ~ participants', participants)
+	const response = await axios.put(`/studies/${studyId}/add-participants`, {
+		participants
+	})
+
+	console.log('addParticipantsToStudy ~ response', response)
+	return undefined
 }
