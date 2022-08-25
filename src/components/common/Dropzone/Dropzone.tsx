@@ -2,51 +2,35 @@ import cn from 'classnames'
 import { useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { toast } from 'utils/client/toast'
+import { MAX_FILE_SIZE_BYTES } from 'utils/fileUpload'
 import { useText } from 'hooks/useText'
 import { ImagePreview } from 'common/ImageInput/ImageInput.types'
 import { DropzoneProps } from './Dropzone.types'
 
-const MAX_FILE_SIZE = 5 * 1000000 // 5 mb
-const getTotalFileSize = (files?: File[]) =>
-	!files ? 0 : files.reduce((totalSize, currentFile) => totalSize + currentFile.size, 0)
-
 export const Dropzone = ({
+	accept,
+	children,
+	className,
+	maxFiles,
 	onChange,
 	onError,
-	className,
-	children,
-	maxFiles,
-	accept,
-	imageDropzone,
 	testId = 'Dropzone'
 }: DropzoneProps) => {
 	const [cachedFiles, setFiles] = useState<File[] | ImagePreview>()
 	const { t: error } = useText('common.errors')
 
-	const onDropImg = async (acceptedFiles: File[]) => {
+	const onDrop = async (acceptedFiles: File[]) => {
 		if (!acceptedFiles || !acceptedFiles.length) return
 
-		const file = acceptedFiles[0]
-
-		if (file.size > MAX_FILE_SIZE) {
-			onChange?.(new Error('maxFileSizeExceeded'))
-		} else {
-			const imageFile: ImagePreview = {
-				...file,
-				preview: URL.createObjectURL(file)
-			}
-
-			setFiles(imageFile)
-			onChange?.(acceptedFiles, imageFile)
-		}
-	}
-
-	const onDropDocuments = async (acceptedFiles: File[]) => {
-		if (!acceptedFiles || !acceptedFiles.length) return
+		let hasFileSizeError = false
 
 		if (!cachedFiles || !('preview' in cachedFiles)) {
 			// Prevent duplicates
 			const files = acceptedFiles.filter((file) => {
+				if (file.size > MAX_FILE_SIZE_BYTES) {
+					hasFileSizeError = true
+					return false
+				}
 				const isUnique =
 					file !== undefined && !cachedFiles?.find((cachedFile) => cachedFile.name === file.name)
 
@@ -63,29 +47,19 @@ export const Dropzone = ({
 				return isUnique
 			})
 
-			// Calculate total file size of dropped files
-			const filesAfterDrop = cachedFiles ? [...cachedFiles, ...files] : [...files]
-			const totalFileSize = getTotalFileSize(filesAfterDrop)
-			if (totalFileSize > MAX_FILE_SIZE) {
-				onError?.(new Error('maxFileSizeExceeded'))
-			} else {
-				// If file size not exceeded set the files
-				setFiles(filesAfterDrop)
-				onChange?.(filesAfterDrop)
+			if (hasFileSizeError) {
+				onError(new Error('maxFileSizeExceeded'))
 			}
+
+			setFiles(files)
+			onChange(files)
 		}
 	}
 
 	const { getRootProps, getInputProps } = useDropzone({
 		maxFiles,
 		accept,
-		onDrop: async (acceptedFiles: File[]) => {
-			if (imageDropzone) {
-				onDropImg(acceptedFiles)
-			} else {
-				onDropDocuments(acceptedFiles)
-			}
-		}
+		onDrop
 	})
 
 	return (

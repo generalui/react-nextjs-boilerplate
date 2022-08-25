@@ -17,11 +17,7 @@ const apiRoute = connect()
 
 // Middleware processing FormData to file
 apiRoute.use(
-	multer.fields([
-		{ name: 'image', maxCount: 1 },
-		{ name: 'documentation', maxCount: 20 },
-		{ name: 'dataVault', maxCount: 20 }
-	])
+	multer.fields([{ name: 'image', maxCount: 1 }, { name: 'documentation' }, { name: 'dataVault' }])
 )
 
 // Get a study by ID

@@ -7,7 +7,7 @@ export interface DocumentsInputProps extends CommonProps {
 	labelClassName?: string
 	errorClassName?: string
 	showAcceptedFileTypes?: boolean
-	acceptedFiles?: Accept
+	acceptedFileTypes?: Accept
 	maxFiles?: number
 	onChange?: (files: File[] | Error) => void
 	image?: DocumentsInputImage

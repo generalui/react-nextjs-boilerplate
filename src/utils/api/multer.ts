@@ -23,7 +23,7 @@ import uploadMiddleware from 'multer'
  * @returns {uploadMiddleware.StorageEngine} multer storage engine
  */
 export const multer = uploadMiddleware({
-	storage: uploadMiddleware.memoryStorage()
+	storage: uploadMiddleware.diskStorage({})
 })
 
 // Disallow body parsing, consume as stream, for file upload

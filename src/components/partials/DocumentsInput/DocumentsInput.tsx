@@ -1,7 +1,9 @@
 import cn from 'classnames'
 import Image from 'next/image'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Field, FieldInputProps } from 'react-final-form'
+import { dispatchErrorToast } from 'utils/client/toast'
+import { MAX_FILE_SIZE_MB } from 'utils/fileUpload'
 import { useText } from 'hooks/useText'
 import { Dropzone } from 'common/Dropzone'
 import { ImagePreview } from 'common/ImageInput/ImageInput.types'
@@ -12,9 +14,11 @@ import { DocumentPreview, DocumentsInputProps } from './DocumentsInput.types'
 
 const defaultMaxFiles = 15
 const defaultAcceptedFiles = {
-	// TODO: Add correct support for file types
-	'application/xml': ['.xml'],
-	'application/pdf': ['.pdf']
+	'application/xml': ['.xml']
+	'text/csv': ['.csv'],
+	'audio/*': [],
+	'image/*': [],
+	'video/*': []
 }
 
 const defaultImage = {
@@ -31,7 +35,7 @@ export const DocumentsInput = ({
 	labelClassName,
 	testId = 'DocumentsInput',
 	showAcceptedFileTypes = true,
-	acceptedFiles = defaultAcceptedFiles,
+	acceptedFileTypes = defaultAcceptedFileTypes,
 	maxFiles = defaultMaxFiles,
 	image = defaultImage,
 	localizationScope = 'createStudy.fields.documentation',
@@ -39,7 +43,6 @@ export const DocumentsInput = ({
 	filesDragLabel = 'filesDrag'
 }: DocumentsInputProps) => {
 	const [previewDocumentFiles, setPreviewDocumentFiles] = useState<DocumentPreview[] | undefined>()
-	const [dropzoneErrors, setDropzoneErrors] = useState<string[]>([])
 	const inputRef = useRef<FieldInputProps<File, HTMLElement>>()
 	const { t } = useText(localizationScope)
 	const { t: error } = useText('common.errors')
@@ -79,6 +82,17 @@ export const DocumentsInput = ({
 		}
 	}, [previewDocumentFiles])
 
+	const fileTypeStrings = useMemo(
+		() =>
+			Object.entries(acceptedFileTypes)
+				.map(([key, fileTypes]) => {
+					const keyName = key.replace('/*', '')
+					return !fileTypes.length ? keyName : fileTypes.join(', ')
+				})
+				.join(', '),
+		[acceptedFileTypes]
+	)
+
 	return (
 		<div className={cn('pb-2', className)} data-testid={testId}>
 			<InputLabel className={labelClassName} name={name} label={label} />
@@ -86,22 +100,20 @@ export const DocumentsInput = ({
 			<Field name={name}>
 				{({ input, meta }) => {
 					inputRef.current = input
-					const isError = (meta.error && meta.touched) || dropzoneErrors.length > 0
+					const isError = meta.error && meta.touched
 
 					return (
 						<>
 							{/* Drag and drop area */}
 							<Dropzone
-								multi
 								maxFiles={maxFiles}
-								accept={acceptedFiles}
+								accept={acceptedFileTypes}
 								onChange={(files: File[] | ImagePreview | Error) => {
 									if (Array.isArray(files)) {
-										setDropzoneErrors([])
 										handleChange(files)
 									}
 								}}
-								onError={(err) => setDropzoneErrors([error(err.message, '5mb')])}
+								onError={(err) => dispatchErrorToast(error(err.message, `${MAX_FILE_SIZE_MB}mb`))}
 								className='w-full bg-gray-100 h-44 border border-solid  border-gray-400 border-dashed cursor-pointer overflow-y-auto p-4'
 							>
 								{previewDocumentFiles ? (
@@ -123,20 +135,12 @@ export const DocumentsInput = ({
 							{/* Accept file type notice */}
 							{showAcceptedFileTypes && (
 								<div className='text-xs text-gray-500 mt-2'>
-									{t('subText')}{' '}
-									{Object.keys(acceptedFiles).map((key) =>
-										acceptedFiles[key].map((type, i) => (
-											<span key={type}>
-												{type}
-												{i < acceptedFiles[key].length - 1 ? ', ' : ''}
-											</span>
-										))
-									)}
+									{`${t('subText')} ${fileTypeStrings}`}
 								</div>
 							)}
 
 							{/* Show errors if any */}
-							{isError && <InputError className='mt-2' errors={[...dropzoneErrors, meta.error]} />}
+							{isError && <InputError className='mt-2' errors={meta.error} />}
 						</>
 					)
 				}}
