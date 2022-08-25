@@ -13,8 +13,8 @@ import { DocumentGrid } from './DocumentGrid'
 import { DocumentPreview, DocumentsInputProps } from './DocumentsInput.types'
 
 const defaultMaxFiles = 15
-const defaultAcceptedFiles = {
-	'application/xml': ['.xml']
+const defaultAcceptedFileTypes = {
+	'application/xml': ['.xml'],
 	'text/csv': ['.csv'],
 	'audio/*': [],
 	'image/*': [],

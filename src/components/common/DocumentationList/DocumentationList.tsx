@@ -1,6 +1,5 @@
 import { Document } from '@prisma/client'
 import cn from 'classnames'
-import Image from 'next/image'
 import { useCallback, useMemo } from 'react'
 import { useText } from 'hooks/useText'
 import { List } from 'partials/List'
