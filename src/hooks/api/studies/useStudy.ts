@@ -1,5 +1,6 @@
 import { useSession } from 'next-auth/react'
 import { UseMutationResult, UseQueryResult, useMutation, useQuery } from 'react-query'
+import { ParticipantOnStudyInput } from 'types/ParticipantOnStudy'
 import { DataVault, DataVaultInput, Study, StudyInput } from 'types/Study'
 import { reactQueryClient } from 'utils/client/react-query'
 import { toast } from 'utils/client/toast'
@@ -18,6 +19,7 @@ export const useStudy = (
 	dataVault: UseQueryResult<DataVault[]>
 	update: UseMutationResult<Study, unknown, Partial<StudyInput>>
 	uploadToDataVault: UseMutationResult<Study, unknown, DataVaultInput>
+	addParticipants: UseMutationResult<Study, unknown, ParticipantOnStudyInput>
 } => {
 	const { data: session } = useSession()
 	const { t: error } = useText('studies.error')
@@ -35,6 +37,48 @@ export const useStudy = (
 
 	const updateMutation = useMutation(
 		`study-${studyId}`,
+		(studyUpdate: Partial<StudyInput>) => updateStudy(studyId, studyUpdate),
+		{
+			onMutate: async (studyUpdate) => {
+				await reactQueryClient.cancelQueries(['studies', studyId])
+				const previousStudy = reactQueryClient.getQueryData<Study>(['studies', studyId])
+
+				if (!previousStudy) {
+					toast(error('doesNotExist'), 'error')
+					return
+				}
+
+				const partialStudy = createPartialStudyFromFormData(studyUpdate, session)
+
+				const optimisticStudy: Study = {
+					...previousStudy,
+					...partialStudy,
+					documentation: [...previousStudy.documentation, ...(partialStudy?.documentation || [])]
+				}
+
+				// Optimistically update to the new value
+				reactQueryClient.setQueryData(['studies', studyId], {
+					...previousStudy,
+					...optimisticStudy
+				})
+
+				return { previousStudy }
+			},
+			onSuccess: () => {
+				toast(success('updated'))
+			},
+			onError: (_err, _newStudy, context?: { previousStudy: Study }) => {
+				reactQueryClient.setQueryData(['studies', studyId], context?.previousStudy)
+				toast(error('failedToUpdate'), 'error')
+			},
+			onSettled: () => {
+				reactQueryClient.invalidateQueries(['studies', studyId])
+			}
+		}
+	)
+
+	const addParticipants = useMutation(
+		`study-${studyId}-add-participants`,
 		(studyUpdate: Partial<StudyInput>) => updateStudy(studyId, studyUpdate),
 		{
 			onMutate: async (studyUpdate) => {
@@ -94,5 +138,5 @@ export const useStudy = (
 		}
 	)
 
-	return { ...query, update: updateMutation, dataVault, uploadToDataVault }
+	return { ...query, update: updateMutation, dataVault, uploadToDataVault, addParticipants }
 }
