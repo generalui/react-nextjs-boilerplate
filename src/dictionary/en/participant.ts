@@ -10,8 +10,8 @@ const participant = {
 			workPhone: { message: 'Work Phone' },
 			physicalAddress: { message: 'Physical Address' }
 		},
-		emergencyContact: {
-			title: { message: 'My Emergency Contact' },
+		alternateContact: {
+			title: { message: 'My Alternate Contact' },
 			emergencyContactName: { message: 'Contact Name' },
 			emergencyContactRelationship: { message: 'Relationship' },
 			emergencyContactEmail: { message: 'Email Address' },

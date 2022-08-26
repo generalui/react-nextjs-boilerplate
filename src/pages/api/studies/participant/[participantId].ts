@@ -40,8 +40,6 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 			})
 		])
 
-		console.log(studies)
-
 		return { count, hasMore: page.skip + page.take < count, studies: studies as Study[] }
 	}
 	handleQuery<ApiStudiesServerResponse>({
