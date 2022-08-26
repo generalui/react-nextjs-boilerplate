@@ -2,8 +2,8 @@
  * Participant Home Page
  */
 import { useRouter } from 'next/router'
+import { useParticipantStudies } from 'hooks/api/studies/useParticipantStudies'
 import { useStudies } from 'hooks/api/studies/useStudies'
-import { useUserStudies } from 'hooks/api/studies/useUserStudies'
 import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
 import { useText } from 'hooks/useText'
 import { DataVaultList } from 'partials/DataVaultList'
@@ -19,7 +19,10 @@ export const ParticipantHome = ({ testId = 'ParticipantHome' }: ParticipantHomeP
 	const { t } = useText('participant.home')
 	const { push } = useRouter()
 	const { currentUser } = useCurrentUser()
-	const { studies = [] } = useUserStudies(currentUser?.id, { page: 0, pageSize: 3 })
+	const { studies = [] } = useParticipantStudies(currentUser?.participant?.id, {
+		page: 0,
+		pageSize: 3
+	})
 	const { studies: allStudies } = useStudies()
 
 	return (

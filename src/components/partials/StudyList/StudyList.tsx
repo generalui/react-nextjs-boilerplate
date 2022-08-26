@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Study } from 'types/Study'
 import { User } from 'types/User'
 import { formatDisplayDate } from 'utils/client/date'
+import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
 import { UseText, useText } from 'hooks/useText'
 import { List } from 'partials/List'
 import { Column } from 'partials/List/List.types'
@@ -10,7 +11,11 @@ import { StatusBadge } from 'partials/StatusBadge'
 import { Text } from 'common/Text'
 import { StudyListProps } from './StudyList.types'
 
-const getColumns = (concise: boolean, t?: ReturnType<UseText>['t']): Column<Study>[] => {
+const getColumns = (
+	concise: boolean,
+	t?: ReturnType<UseText>['t'],
+	isParticipant: boolean
+): Column<Study>[] => {
 	const image: Column<Study> = {
 		key: 'image',
 		width: 1,
@@ -33,7 +38,9 @@ const getColumns = (concise: boolean, t?: ReturnType<UseText>['t']): Column<Stud
 		title: t?.('list.studyName'),
 		width: 8,
 		transformFunction: (title, study) => (
-			<Link href={`/studies/${study?.id}`}>{(title as string) || 'Test'}</Link>
+			<Link href={`${isParticipant ? '/participant' : ''}/studies/${study?.id}`}>
+				{(title as string) || 'Test'}
+			</Link>
 		)
 	}
 	const status: Column<Study> = {
@@ -87,7 +94,9 @@ export const StudyList = ({
 	title
 }: StudyListProps) => {
 	const { t } = useText('studies')
-	const columns = getColumns(concise, t)
+	const { currentUser } = useCurrentUser()
+	const isParticipant = currentUser?.role === 'participant'
+	const columns = getColumns(concise, t, isParticipant)
 
 	return (
 		<List

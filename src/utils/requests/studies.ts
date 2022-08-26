@@ -39,11 +39,14 @@ export const getStudy = async (studyId?: string): Promise<Study> => {
 	return standardizeApiStudy(response.data)
 }
 
-export const getUserStudies = async (
-	userId: string,
+export const getParticipantStudies = async (
+	participantId: string,
 	query?: QueryOptions
 ): Promise<PaginatedResponse & { studies: Study[] }> => {
-	const response = await axiosWithQuery<ApiStudiesResponse>(`/studies/user/${userId}`, query)
+	const response = await axiosWithQuery<ApiStudiesResponse>(
+		`/studies/participant/${participantId}`,
+		query
+	)
 
 	if (!response.data) {
 		return { count: 0, hasMore: false, studies: [] }
