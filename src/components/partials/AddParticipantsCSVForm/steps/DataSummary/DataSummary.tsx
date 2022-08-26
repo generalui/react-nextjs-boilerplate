@@ -1,12 +1,11 @@
 import cn from 'classnames'
-import { handleValidate } from 'utils/client/handleValidate'
 import { useText } from 'hooks/useText'
 import { Form } from 'partials/Form'
 import { ActionButtons } from 'common/ActionButtons'
 import { Card } from 'common/Card'
 import { JsonViewer } from 'common/JsonViewer'
 import { Text } from 'common/Text'
-import { DataSummaryInput, DataSummaryProps, DataSummarySchema } from './DataSummary.types'
+import { DataSummaryInput, DataSummaryProps } from './DataSummary.types'
 
 type DataSummaryInterface = {
 	dataClassName: string

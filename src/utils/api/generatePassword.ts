@@ -10,7 +10,7 @@ type Keys = {
 
 const keys: Keys = {
 	upperCase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-	lowerCase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+	lowerCase: 'abcdefghijklmnopqrstuvwxyz',
 	number: '0123456789',
 	symbol: '!@#$%^&*()_+~\\`|}{[]:;?><,./-='
 }
@@ -56,7 +56,7 @@ export const generatePassword = (length = 10) => {
 	}
 
 	// While password is less than the minimum length add random characters
-	while (length - Object.keys(keySet).length > password.length) {
+	while (length > password.length) {
 		const keyToAdd = getKey[Math.floor(Math.random() * getKey.length)]
 		keySet[keyToAdd.key] = true
 		password += keyToAdd.get()

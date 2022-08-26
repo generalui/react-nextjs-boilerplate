@@ -1,65 +1,102 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { StudyStatus } from '@prisma/client'
-import type { NextApiRequest, NextApiResponse } from 'next'
+import bcrypt from 'bcryptjs'
+import type { NextApiResponse } from 'next'
 import { ApiRequestWithFile } from 'types/ApiRequestWithFile'
-import { ApiStudiesServerResponse, StudyInput } from 'types/Study'
-import { AddParticipantsInput, Study } from 'types/index'
+import { AddParticipantsInput, ParticipantInput, Study } from 'types/index'
 import { connect } from 'utils/api/connect'
-import { getPaginationFromReq } from 'utils/api/getPaginationFromReq'
+import { generatePassword } from 'utils/api/generatePassword'
 import { getSessionFromReq } from 'utils/api/getSessionFromReq'
-import { handleAvatarJoin } from 'utils/api/handleAvatarJoin'
-import { handleDocumentationJoin } from 'utils/api/handleDocumentationJoin'
 import { handleQuery } from 'utils/api/handleQuery'
-import { multer } from 'utils/api/multer'
 import { prisma } from 'utils/api/prisma'
 
-// export { config } from 'utils/api/multer'
-
-/**
- * Api setup for uploading documents
- *
- * Reference tutorial: https://betterprogramming.pub/upload-files-to-next-js-with-api-routes-839ce9f28430
- * Multer reference: https://github.com/expressjs/multer#readme
- */
 const apiRoute = connect()
+// const addParticipantToStudy = (participant: ParticipantInput, studyId: string) =>
+// 	prisma.$transaction([
+// 		prisma.user.upsert({
+// 			create: {email: participant.email, role: 'participant' },
+// 			update: {},
+// 			where: { email: participant.email }
+// 		}),
+// 		prisma.user.update({
+// 			where: { email: participant.email },
+// 			data: { participant: { connect: { id: userId } } }
+// 		}),
+// 		prisma.study.update({
+// 			where: { id: studyId },
+// 			data: { participants: { connect: { email: participant.email } })
+// 	])
 
 // Bulk upload participants to study
 apiRoute.put(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 	const session = await getSessionFromReq(req)
-	console.log('addParticipantsToStudyQuery ~ session', session)
+	const { studyId } = req.query
+	const { participants } = req.body as Omit<AddParticipantsInput, 'dataTypes'> & {
+		dataTypes: string
+	}
 
 	const addParticipantsToStudyQuery = async () => {
-		const { participants } = req.body as Omit<AddParticipantsInput, 'dataTypes'> & {
-			dataTypes: string
-		}
+		if (!studyId || typeof studyId !== 'string') throw Error('Invalid study id')
 
-		console.log('addParticipantsToStudyQuery ~ participants', participants)
-		// Create users
+		const study = await prisma.study.findUnique({ where: { id: studyId } })
 
-		// Add users to study
+		if (!study) throw Error('Study does not exist')
 
-		// await prisma.study.update({
-		// 	data: {
-		// 		title,
-		// 		endDate: new Date(year, month - 1, day),
-		// 		description,
-		// 		status: StudyStatus.new,
-		// 		submissionDate: new Date(),
-		// 		users: {
-		// 			create: {
-		// 				user: {
-		// 					connect: {
-		// 						id: coordinator
-		// 					}
-		// 				}
-		// 			}
-		// 		},
-		// 		...insertDataTypes,
-		// 		...upsertDocumentation,
-		// 		...upsertImage
-		// 	},
-		// 	...studyIncludes
-		// })
+		// Determine which users are already in the db
+		const createdOrConnectParticipants = await prisma.$transaction(async (prisma) => {
+			const nextParticipants = await Promise.all(
+				participants.map(async (participant: ParticipantInput) => {
+					const password = generatePassword()
+
+					// Create or get the user
+					const user = await prisma.user.upsert({
+						create: { ...participant, role: 'participant', password: bcrypt.hashSync(password, 8) },
+						update: {},
+						where: { email: participant.email }
+					})
+
+					// Return an error if the user is an admin
+					if (user.role === 'admin') throw Error('User is already a Native BioData Admin')
+
+					// Create or connect a record for the user
+					const participantUser = await prisma.participant.upsert({
+						create: {
+							user: {
+								connect: { id: user.id }
+							}
+						},
+						update: {},
+						where: { userId: user.id }
+					})
+
+					// Add the participant to the study
+					await prisma.study.update({
+						where: { id: studyId },
+						data: {
+							participants: {
+								connectOrCreate: {
+									create: { participant: { connect: { id: participantUser.id } } },
+									where: {
+										studyId_participantId: { studyId, participantId: participantUser.id }
+									}
+								}
+							}
+						}
+					})
+
+					return {
+						...user,
+						password
+					}
+				})
+			)
+
+			return nextParticipants
+		})
+
+		console.log(
+			'createdOrConnectParticipants ~ createdOrConnectParticipants',
+			createdOrConnectParticipants
+		)
+
 		return undefined
 	}
 

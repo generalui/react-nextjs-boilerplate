@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { BaseFormProps } from 'partials/Form/Form.types'
 
 export const CSV_DATA_FIELDS: { name: string; required?: boolean }[] = [
-	{ name: 'current_name', required: true },
+	{ name: 'name', required: true },
 	{ name: 'email', required: true },
 	{ name: 'gender' },
 	{ name: 'maiden_name' },
@@ -26,16 +26,9 @@ const SelectSchema = z.object({
 	meta: z.object({ field: z.string() }).optional()
 })
 
-// const FieldsSchema = REDCAP_CONCENT_FIELDS.reduce((schema, field) => {
-// 	return {
-// 		...schema,
-// 		[field.name]: field.required ? SelectSchema : z.optional(SelectSchema)
-// 	}
-// }, {})
-
 // export const MapFieldsSchema = z.object(FieldsSchema)
 export const MapFieldsSchema = z.object({
-	['current_name']: SelectSchema,
+	['name']: SelectSchema,
 	['email']: SelectSchema,
 	['gender']: SelectSchema.optional(),
 	['maiden_name']: SelectSchema.optional(),

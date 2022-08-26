@@ -84,7 +84,7 @@ export const useStudy = (
 	const addParticipants = useMutation(
 		`study-${studyId}-add-participants`,
 		(participantInput: AddParticipantsInput) =>
-			addParticipantsToStudy(studyId || '', participantInput),
+			addParticipantsToStudy(studyId || '', participantInput.participants),
 		{
 			onSuccess: () => {
 				toast(success('updated'))

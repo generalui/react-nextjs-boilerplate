@@ -36,7 +36,7 @@ export const ContactInfo = ({ className, testId = 'ContactInfo' }: ContactInfoPr
 
 		const participantDetails = participantDetailEntries.map(([title, value]) => ({
 			title: t(`${title}`),
-			value: value.toString() || ''
+			value: value?.toString() || ''
 		}))
 
 		return [...userDetails, ...participantDetails]

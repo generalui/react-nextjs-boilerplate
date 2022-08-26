@@ -12,7 +12,7 @@ import { Text } from 'common/Text'
 import { MapRedcapFieldsProps } from './MapRedcapFields.types'
 
 const REDCAP_CONCENT_FIELDS = [
-	'current_name',
+	'name',
 	'gender',
 	'maiden_name',
 	'enrolled_tribe',
@@ -30,7 +30,7 @@ const REDCAP_CONCENT_FIELDS = [
 ]
 
 // const REDCAP_CONCENT_FIELDS_OBJS = [
-// 	{ name: 'current_name', required: true },
+// 	{ name: 'name', required: true },
 // 	{ name: 'gender', required: true },
 // 	{ name: 'maiden_name', required: true },
 // 	{ name: 'enrolled_tribe', required: true },
