@@ -12,6 +12,7 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["interactiveTransactions"]
 }
 
 model Account {
@@ -92,6 +93,7 @@ model Study {
   title          String
   dataTypes      StudyDataTypes[]        @map("data_types")
   users          CoordinatorsOnStudies[]
+  participants   ParticipantsOnStudies[]
   documentation  Document[]
   dataVault      DataVault[]
 }
@@ -127,6 +129,16 @@ model CoordinatorsOnStudies {
   insertedAt DateTime @default(now()) @map("inserted_at")
 
   @@id([studyId, userId])
+}
+
+model ParticipantsOnStudies {
+  study      Study    @relation(fields: [studyId], references: [id])
+  studyId    String   @map("study_id")
+  participant       Participant     @relation(fields: [participantId], references: [id])
+  participantId     String   @map("participant_id")
+  insertedAt DateTime @default(now()) @map("inserted_at")
+
+  @@id([studyId, participantId])
 }
 
 model Document {
@@ -174,14 +186,15 @@ model Participant {
   updatedAt                       DateTime @default(now()) @map("updated_at")
   user                            User     @relation(fields: [userId], references: [id])
   userId                          String   @unique @map("user_id")
-  enrolledTribe                   String   @map("enrolled_tribe")
-  homePhone                       String   @map("home_phone")
-  workPhone                       String   @map("work_phone")
-  physicalAddress                 String   @map("physical_address")
-  emergencyContactName            String   @map("emergency_contact_name")
-  emergencyContactRelationship    String   @map("emergency_contact_relationship")
-  emergencyContactEmail           String   @map("emergency_contact_email")
-  emergencyContactHomePhone       String   @map("emergency_contact_home_phone")
-  emergencyContactWorkPhone       String   @map("emergency_contact_work_phone")
-  emergencyContactPhysicalAddress String   @map("emergency_contact_physical_address")
+  enrolledTribe                   String?   @map("enrolled_tribe")
+  homePhone                       String?   @map("home_phone")
+  workPhone                       String?   @map("work_phone")
+  physicalAddress                 String?   @map("physical_address")
+  emergencyContactName            String?   @map("emergency_contact_name")
+  emergencyContactRelationship    String?   @map("emergency_contact_relationship")
+  emergencyContactEmail           String?   @map("emergency_contact_email")
+  emergencyContactHomePhone       String?   @map("emergency_contact_home_phone")
+  emergencyContactWorkPhone       String?   @map("emergency_contact_work_phone")
+  emergencyContactPhysicalAddress String?   @map("emergency_contact_physical_address")
+  studies ParticipantsOnStudies[]
 }

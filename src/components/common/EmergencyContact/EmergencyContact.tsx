@@ -34,7 +34,7 @@ export const EmergencyContact = ({
 
 		const participantDetails = participantDetailEntries.map(([title, value]) => ({
 			title: t(`${title}`),
-			value: value.toString() || ''
+			value: value?.toString() || ''
 		}))
 
 		return [...participantDetails]

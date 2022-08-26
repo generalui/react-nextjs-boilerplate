@@ -6,6 +6,7 @@ import {
 	DataVault,
 	DataVaultInput,
 	PaginatedResponse,
+	ParticipantInput,
 	QueryOptions,
 	Study,
 	StudyInput
@@ -108,4 +109,15 @@ export const updateStudy = async (
 export const getAggregatedStudyData = async (): Promise<AggregatedStudyData> => {
 	const response = await axios.get<AggregatedStudyData>('/aggregated-study-data')
 	return response.data
+}
+
+export const addParticipantsToStudy = async (
+	studyId: string,
+	participants: ParticipantInput[]
+): Promise<undefined> => {
+	const response = await axios.put(`/studies/${studyId}/add-participants`, { participants })
+
+	console.log('response', response)
+
+	return undefined
 }

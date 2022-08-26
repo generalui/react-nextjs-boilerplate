@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { BaseFormProps } from 'partials/Form/Form.types'
 
 export const REDCAP_CONCENT_FIELDS: { name: string; required?: boolean }[] = [
-	{ name: 'current_name', required: true },
+	{ name: 'name', required: true },
 	{ name: 'email', required: true },
 	{ name: 'gender' },
 	{ name: 'maiden_name' },
@@ -28,7 +28,7 @@ const SelectSchema = z.object({
 
 // export const DataSummarySchema = z.object(FieldsSchema)
 export const DataSummarySchema = z.object({
-	['current_name']: SelectSchema,
+	['name']: SelectSchema,
 	['email']: SelectSchema,
 	['gender']: SelectSchema.optional(),
 	['maiden_name']: SelectSchema.optional(),

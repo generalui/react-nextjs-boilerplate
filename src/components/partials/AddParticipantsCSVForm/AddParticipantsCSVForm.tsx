@@ -1,7 +1,8 @@
 /* eslint-disable react/jsx-key */
 import Image from 'next/image'
 import { useState } from 'react'
-import { UploadCSVInput } from 'types/index'
+import { ParticipantSchema, UploadCSVInput } from 'types/index'
+import { useStudy } from 'hooks/api/studies/useStudy'
 import { useParseCSV } from 'hooks/useParseCSV'
 import { useRouter } from 'hooks/useRouter'
 import { useText } from 'hooks/useText'
@@ -17,7 +18,8 @@ const UPLOAD_REDCAP_XML_FORM_NAME = 'upload-redcap-xml-form'
 
 export const AddParticipantsCSVForm = ({
 	className,
-	testId = 'AddParticipantsCSVForm'
+	testId = 'AddParticipantsCSVForm',
+	studyId
 }: AddParticipantsCSVFormProps) => {
 	const { parse, parsedCSV, fields } = useParseCSV()
 	const [currentStep, setCurrentStep] = useState<number>(0)
@@ -26,6 +28,7 @@ export const AddParticipantsCSVForm = ({
 	const [consents, setConsents] = useState<number>(0)
 	const [inProgress, setInProgress] = useState<boolean>()
 	const { t } = useText('studies.addParticipants.form')
+	const { addParticipants } = useStudy(studyId)
 	const { forceBack } = useRouter()
 
 	const handleCancel = () => {
@@ -39,7 +42,12 @@ export const AddParticipantsCSVForm = ({
 	}
 
 	const handleImportParticipants = () => {
-		console.log('handleImportParticipants ~ participantList', participantList)
+		const transformedParticipantList = participantList.map((participant) =>
+			ParticipantSchema.parse(participant)
+		) // transform
+		console.log('handleImportParticipants ~ transformedParticipantList', transformedParticipantList)
+
+		if (studyId) addParticipants.mutate({ studyId, participants: transformedParticipantList })
 	}
 
 	const handleMapCSVFields = (values: MapFieldsInput) => {

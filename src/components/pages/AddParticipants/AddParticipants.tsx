@@ -1,6 +1,7 @@
 /*!
  * AddParticipants Page
  */
+import { useRouter } from 'next/router'
 import { useText } from 'hooks/useText'
 import { AddParticipantsCSVForm } from 'partials/AddParticipantsCSVForm'
 import { PageWrapper } from 'partials/PageWrapper'
@@ -12,6 +13,7 @@ export const AddParticipants = function AddParticipants({
 	testId = 'AddParticipants'
 }: AddParticipantsProps) {
 	const { t } = useText('studies.addParticipants')
+	const { query } = useRouter()
 
 	return (
 		<PageWrapper title={t('title')} testId={testId}>
@@ -20,7 +22,7 @@ export const AddParticipants = function AddParticipants({
 			</PageHeader>
 
 			<div>
-				<AddParticipantsCSVForm />
+				<AddParticipantsCSVForm studyId={query?.studyId as string} />
 			</div>
 		</PageWrapper>
 	)
