@@ -45,7 +45,6 @@ export const AddParticipantsCSVForm = ({
 		const transformedParticipantList = participantList.map((participant) =>
 			ParticipantSchema.parse(participant)
 		) // transform
-		console.log('handleImportParticipants ~ transformedParticipantList', transformedParticipantList)
 
 		if (studyId) addParticipants.mutate({ studyId, participants: transformedParticipantList })
 	}

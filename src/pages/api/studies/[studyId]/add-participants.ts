@@ -92,11 +92,6 @@ apiRoute.put(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 			return nextParticipants
 		})
 
-		console.log(
-			'createdOrConnectParticipants ~ createdOrConnectParticipants',
-			createdOrConnectParticipants
-		)
-
 		return undefined
 	}
 
