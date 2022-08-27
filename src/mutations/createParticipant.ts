@@ -12,7 +12,7 @@ export type CreateParticipant = ({ email }: Credentials) => Promise<User | null>
 export const createParticipant: CreateParticipant = async ({ email }) => {
 	try {
 		const password = generatePassword()
-		console.log('constcreateParticipant:CreateParticipant= ~ password', password)
+		console.log('createParticipant:CreateParticipant= ~ password', password)
 		const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS)
 		const user = await prisma.user.create({
 			data: { email, password: hashedPassword, role: 'participant' }

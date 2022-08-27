@@ -19,7 +19,7 @@ export const EmergencyContact = ({
 	testId = 'EmergencyContact'
 }: EmergencyContactProps) => {
 	const { currentUser } = useCurrentUser()
-	const { t } = useText('participant.home.emergencyContact')
+	const { t } = useText('participant.home.alternateContact')
 
 	const emergencyContactDetails: { title: string; value: string }[] = useMemo(() => {
 		const participant = currentUser?.participant
@@ -44,7 +44,7 @@ export const EmergencyContact = ({
 		<Card
 			className={className}
 			headerClassName='pb-4 border-b border-gray-200'
-			iconProps={{ icon: 'Cross', wrapperClass: 'bg-red-500' }}
+			iconProps={{ icon: 'UsersIcon', wrapperClass: 'bg-red-500' }}
 			testId={testId}
 			title={t('title')}
 		>

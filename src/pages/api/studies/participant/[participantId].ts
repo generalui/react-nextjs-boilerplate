@@ -20,7 +20,7 @@ const apiRoute = connect()
 
 // Get a list of studies
 apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
-	const { userId } = req.query
+	const { participantId } = req.query
 
 	const page = getPaginationFromReq(req)
 
@@ -29,9 +29,9 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 			prisma.study.count({}),
 			prisma.study.findMany({
 				where: {
-					users: {
+					participants: {
 						some: {
-							userId: userId as string
+							participantId: participantId as string
 						}
 					}
 				},
