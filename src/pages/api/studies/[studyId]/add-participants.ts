@@ -1,3 +1,4 @@
+import { User } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 import type { NextApiResponse } from 'next'
 import { ApiRequestWithFile } from 'types/ApiRequestWithFile'
@@ -7,23 +8,16 @@ import { generatePassword } from 'utils/api/generatePassword'
 import { getSessionFromReq } from 'utils/api/getSessionFromReq'
 import { handleQuery } from 'utils/api/handleQuery'
 import { prisma } from 'utils/api/prisma'
+import sendEmailNotification from 'utils/api/sendgrid'
 
 const apiRoute = connect()
-// const addParticipantToStudy = (participant: ParticipantInput, studyId: string) =>
-// 	prisma.$transaction([
-// 		prisma.user.upsert({
-// 			create: {email: participant.email, role: 'participant' },
-// 			update: {},
-// 			where: { email: participant.email }
-// 		}),
-// 		prisma.user.update({
-// 			where: { email: participant.email },
-// 			data: { participant: { connect: { id: userId } } }
-// 		}),
-// 		prisma.study.update({
-// 			where: { id: studyId },
-// 			data: { participants: { connect: { email: participant.email } })
-// 	])
+
+export type CreatedOrConnectParticipantsReturns = {
+	user?: User
+	password?: string
+	userIsAlreadyOnStudy?: boolean
+	study?: string
+}[]
 
 // Bulk upload participants to study
 apiRoute.put(async (req: ApiRequestWithFile, res: NextApiResponse) => {
@@ -41,57 +35,112 @@ apiRoute.put(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 		if (!study) throw Error('Study does not exist')
 
 		// Determine which users are already in the db
-		const createdOrConnectParticipants = await prisma.$transaction(async (prisma) => {
-			const nextParticipants = await Promise.all(
-				participants.map(async (participant: ParticipantInput) => {
-					const password = generatePassword()
+		const createdOrConnectParticipants: CreatedOrConnectParticipantsReturns =
+			await prisma.$transaction(async (prisma) => {
+				const nextParticipants = await Promise.all(
+					participants.map(async (participant: ParticipantInput) => {
+						const password = generatePassword()
 
-					// Create or get the user
-					const user = await prisma.user.upsert({
-						create: { ...participant, role: 'participant', password: bcrypt.hashSync(password, 8) },
-						update: {},
-						where: { email: participant.email }
-					})
-
-					// Return an error if the user is an admin
-					if (user.role === 'admin') throw Error('User is already a Native BioData Admin')
-
-					// Create or connect a record for the user
-					const participantUser = await prisma.participant.upsert({
-						create: {
-							user: {
-								connect: { id: user.id }
-							}
-						},
-						update: {},
-						where: { userId: user.id }
-					})
-
-					// Add the participant to the study
-					await prisma.study.update({
-						where: { id: studyId },
-						data: {
-							participants: {
-								connectOrCreate: {
-									create: { participant: { connect: { id: participantUser.id } } },
-									where: {
-										studyId_participantId: { studyId, participantId: participantUser.id }
+						// Check if the participant is already on the study
+						const study = await prisma.study.findUnique({
+							where: { id: studyId },
+							include: {
+								participants: {
+									include: {
+										participant: {
+											include: {
+												user: {
+													select: {
+														email: true
+													}
+												}
+											}
+										}
 									}
 								}
 							}
+						})
+
+						const userIsAlreadyOnStudy = study?.participants.find(
+							(p) => p.participant.user.email === participant.email
+						)
+
+						// Create or get the user
+						const user = await prisma.user.upsert({
+							create: {
+								...participant,
+								role: 'participant',
+								password: bcrypt.hashSync(password, 8)
+							},
+							update: {},
+							where: { email: participant.email }
+						})
+
+						// Return an error if the user is an admin
+						if (user.role === 'admin') throw Error('User is already a Native BioData Admin')
+
+						// Create or connect a record for the user
+						const participantUser = await prisma.participant.upsert({
+							create: {
+								user: {
+									connect: { id: user.id }
+								}
+							},
+							update: {},
+							where: { userId: user.id }
+						})
+
+						// Add the participant to the study
+						await prisma.study.update({
+							where: { id: studyId },
+							data: {
+								participants: {
+									connectOrCreate: {
+										create: { participant: { connect: { id: participantUser.id } } },
+										where: {
+											studyId_participantId: { studyId, participantId: participantUser.id }
+										}
+									}
+								}
+							}
+						})
+
+						return {
+							user,
+							password,
+							userIsAlreadyOnStudy,
+							study: study?.title
 						}
 					})
+				)
 
-					return {
-						...user,
-						password
+				return nextParticipants
+			})
+		console.log(
+			'createdOrConnectParticipants ~ createdOrConnectParticipants',
+			createdOrConnectParticipants
+		)
+
+		// Send out emails to participants
+		const emailsSent = await Promise.all(
+			createdOrConnectParticipants.map(async (p) => {
+				if (!p.user?.email) return null
+				if (p.userIsAlreadyOnStudy) return null
+
+				return sendEmailNotification({
+					to: p.user.email,
+					from: process.env.SENDGRID_EMAIL_SENDER as string,
+					templateId: 'd-f73c5ed9ffc34a6b84602f71ee85b9e9',
+					dynamicTemplateData: {
+						participantName: p.user.name,
+						participantEmail: p.user.email,
+						participantPassword: p.password,
+						studyName: study?.title || 'General User'
 					}
 				})
-			)
-
-			return nextParticipants
-		})
-
+			})
+		)
+		console.log('addParticipantsToStudyQuery ~ emailsSent', emailsSent)
 		return undefined
 	}
 
