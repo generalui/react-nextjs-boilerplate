@@ -28,9 +28,10 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 
 	useEffect(() => {
 		if (isFetched && !study?.id) {
-			router.push('/studies')
+			const path = currentUser?.role === 'admin' ? '/studies' : '/participant'
+			router.push(path)
 		}
-	}, [isFetched, router, study, singleStudyId])
+	}, [isFetched, router, study, singleStudyId, currentUser])
 
 	return (
 		<PageWrapper title={t('title')} testId={testId}>
