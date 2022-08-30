@@ -130,7 +130,7 @@ apiRoute.put(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 				return sendEmailNotification({
 					to: p.user.email,
 					from: process.env.SENDGRID_EMAIL_SENDER as string,
-					templateId: 'd-f73c5ed9ffc34a6b84602f71ee85b9e9',
+					templateId: 'd-a786225347a34bd4b676946f8b235ae7',
 					dynamicTemplateData: {
 						participantName: p.user.name,
 						participantEmail: p.user.email,
