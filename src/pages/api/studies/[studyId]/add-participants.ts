@@ -16,6 +16,7 @@ export type CreatedOrConnectParticipantsReturns = {
 	user?: User
 	password?: string
 	userIsAlreadyOnStudy?: boolean
+	userIsAlreadyCreated?: boolean
 	study?: string
 }[]
 
@@ -65,16 +66,22 @@ apiRoute.put(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 							(p) => p.participant.user.email === participant.email
 						)
 
-						// Create or get the user
-						const user = await prisma.user.upsert({
-							create: {
-								...participant,
-								role: 'participant',
-								password: bcrypt.hashSync(password, 8)
-							},
-							update: {},
+						const previouslyCreatedUser = await prisma.user.findUnique({
 							where: { email: participant.email }
 						})
+
+						// Create or get the user
+						const user = previouslyCreatedUser
+							? previouslyCreatedUser
+							: await prisma.user.upsert({
+									create: {
+										...participant,
+										role: 'participant',
+										password: bcrypt.hashSync(password, 8)
+									},
+									update: {},
+									where: { email: participant.email }
+							  })
 
 						// Return an error if the user is an admin
 						if (user.role === 'admin') throw Error('User is already a Native BioData Admin')
@@ -109,6 +116,7 @@ apiRoute.put(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 							user,
 							password,
 							userIsAlreadyOnStudy,
+							userIsAlreadyCreated: !!previouslyCreatedUser,
 							study: study?.title
 						}
 					})
@@ -134,7 +142,9 @@ apiRoute.put(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 					dynamicTemplateData: {
 						participantName: p.user.name,
 						participantEmail: p.user.email,
-						participantPassword: p.password,
+						participantPassword: p.userIsAlreadyCreated
+							? 'Password sent in a previous email'
+							: p.password,
 						studyName: study?.title || 'General User'
 					}
 				})
