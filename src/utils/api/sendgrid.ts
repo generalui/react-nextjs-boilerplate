@@ -9,6 +9,7 @@ export default async function sendEmailNotification(msg: MailDataRequired) {
 			return response[0]
 		})
 		.catch((error) => {
+			console.log('sendEmailNotification ~ error', error)
 			return error as ResponseError
 		})
 }
