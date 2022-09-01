@@ -52,7 +52,7 @@ export const MapFields = function MapFields({
 				<DataFieldSelect
 					isClearable
 					showError={false}
-					className={cn('col-span-12 md:col-span-6 w-100')}
+					className='col-span-12 md:col-span-6 w-100'
 					placeholder={t(`inputPlaceholder.${required ? 'required' : 'optional'}`)}
 					name={name}
 					options={fieldsToMap.map((v) => transformFieldToOption(v, name))}

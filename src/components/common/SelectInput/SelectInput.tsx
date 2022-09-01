@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Field, FieldInputProps } from 'react-final-form'
 import { InputLabel } from 'common/InputLabel'
 import { Select } from 'common/Select'
@@ -20,11 +20,15 @@ export const SelectInput = <T extends unknown>({
 	showError = true
 }: SelectInputProps<T>) => {
 	const inputRef = useRef<FieldInputProps<File, HTMLElement>>()
+	const [defaultSet, setDefaultSet] = useState(false)
+
 	useEffect(() => {
+		if (defaultSet) return
 		if (defaultValue && inputRef.current) {
 			inputRef.current.onChange(defaultValue)
+			setDefaultSet(true)
 		}
-	}, [defaultValue])
+	}, [defaultValue, defaultSet, setDefaultSet])
 
 	return (
 		<div data-testid={testId}>
