@@ -62,7 +62,7 @@ apiRoute.put(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 							}
 						})
 
-						const userIsAlreadyOnStudy = study?.participants.find(
+						const userIsAlreadyOnStudy = !!study?.participants.find(
 							(p) => p.participant.user.email === participant.email
 						)
 

@@ -56,11 +56,13 @@ export const UserSelect = ({
 }: UserSelectProps<selectOptionsType<User>>) => {
 	const { users } = useUsers()
 
-	const selectOptions = users?.map((user) => ({
-		value: user.id,
-		label: user.email,
-		meta: user
-	}))
+	const selectOptions = users
+		?.filter((user) => user.role === 'admin')
+		.map((user) => ({
+			value: user.id,
+			label: user.email,
+			meta: user
+		}))
 
 	return (
 		<div data-testid={testId} className={className}>
