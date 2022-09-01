@@ -2,13 +2,23 @@ import cn from 'classnames'
 import { MultiValueGenericProps, OptionProps, SingleValueProps, components } from 'react-select'
 import { selectOptionsType } from 'types/index'
 import { DataTypeLabel } from 'common/DataTypeLabel'
+import { IconProps } from 'common/Icon/Icon.types'
 import { SelectInput } from 'common/SelectInput'
 import { DataTypesSelectProps } from './DataTypesSelect.types'
+
+const capitalizeFirstLetter = (word: string) => {
+	return word.charAt(0).toUpperCase() + word.slice(1)
+}
 
 const MultiValueLabel = (props: MultiValueGenericProps<selectOptionsType>) => {
 	const { value } = props.data
 	return (
-		<DataTypeLabel img={`/icons/${value}.svg`} dataType={value}>
+		<DataTypeLabel
+			icon={capitalizeFirstLetter(value) as IconProps['icon']}
+			iconClassname='text-primary'
+			size='sm'
+			dataType={value}
+		>
 			<components.MultiValueLabel {...props} />
 		</DataTypeLabel>
 	)
@@ -17,7 +27,12 @@ const MultiValueLabel = (props: MultiValueGenericProps<selectOptionsType>) => {
 const SingleValue = (props: SingleValueProps<selectOptionsType>) => {
 	const { value } = props.data
 	return (
-		<DataTypeLabel img={`/icons/${value}.svg`} dataType={value}>
+		<DataTypeLabel
+			icon={capitalizeFirstLetter(value) as IconProps['icon']}
+			iconClassname='text-gray-500'
+			size='sm'
+			dataType={value}
+		>
 			<components.SingleValue {...props} />
 		</DataTypeLabel>
 	)
