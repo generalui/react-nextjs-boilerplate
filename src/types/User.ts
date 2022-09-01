@@ -1,5 +1,8 @@
 import { Prisma } from '@prisma/client'
+import { UserRoles } from '@prisma/client'
 import { z } from 'zod'
+
+export type Roles = keyof typeof UserRoles | 'general'
 
 export const UserSchema = z.object({
 	name: z.string().trim().min(2),

@@ -1,6 +1,4 @@
-import { UserRoles } from '@prisma/client'
-
-export type Roles = keyof typeof UserRoles | 'general'
+import { Roles } from 'types/User'
 
 type RoutePermissions = {
 	[key in Roles]: string[]

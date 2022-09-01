@@ -1,5 +1,5 @@
 import { Session } from 'types/Session'
-import { Roles } from 'utils/routePermissions'
+import { Roles } from 'types/User'
 
 export const getUserIsAuthorized = (session: Session | undefined, role: Roles | undefined) => {
 	let userIsAuthorized = false

@@ -1,9 +1,9 @@
 import { MethodType } from '@prisma/client'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { Session } from 'types/Session'
+import { Roles } from 'types/User'
 import { getUserIsAuthorized } from 'utils/api/getUserIsAuthorized'
 import { logDBEvent } from 'utils/api/logDBEvent'
-import { Roles } from 'utils/routePermissions'
 import { getSessionFromReq } from './getSessionFromReq'
 
 export type HandleQueryProps<T> = {
