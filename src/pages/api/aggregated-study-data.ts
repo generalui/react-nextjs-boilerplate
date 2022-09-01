@@ -45,6 +45,7 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 		res,
 		model: 'study',
 		query: studyQuery,
+		role: 'admin',
 		disableLog: true
 	})
 })

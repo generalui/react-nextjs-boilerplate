@@ -1,4 +1,4 @@
-import { Roles } from 'utils/routePermissions'
+import { Roles } from 'types/User'
 import { IconProps } from 'common/Icon/Icon.types'
 
 export interface SidebarRoute {

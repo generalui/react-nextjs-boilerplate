@@ -56,6 +56,7 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 		req,
 		res,
 		model: 'study',
+		role: 'admin',
 		query: studiesQuery,
 		disableLog: true
 	})
@@ -110,6 +111,7 @@ apiRoute.post(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 		res,
 		session,
 		model: 'study',
+		role: 'admin',
 		query: studyQuery
 	})
 })
