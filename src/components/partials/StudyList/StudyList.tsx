@@ -13,8 +13,8 @@ import { StudyListProps } from './StudyList.types'
 
 const getColumns = (
 	concise: boolean,
-	t?: ReturnType<UseText>['t'],
-	isParticipant: boolean
+	isParticipant: boolean,
+	t?: ReturnType<UseText>['t']
 ): Column<Study>[] => {
 	const image: Column<Study> = {
 		key: 'image',
@@ -96,7 +96,7 @@ export const StudyList = ({
 	const { t } = useText('studies')
 	const { currentUser } = useCurrentUser()
 	const isParticipant = currentUser?.role === 'participant'
-	const columns = getColumns(concise, t, isParticipant)
+	const columns = getColumns(concise, isParticipant, t)
 
 	return (
 		<List
