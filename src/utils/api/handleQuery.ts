@@ -1,7 +1,9 @@
 import { MethodType } from '@prisma/client'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { Session } from 'types/Session'
+import { getUserIsAuthorized } from 'utils/api/getUserIsAuthorized'
 import { logDBEvent } from 'utils/api/logDBEvent'
+import { Roles } from 'utils/routePermissions'
 import { getSessionFromReq } from './getSessionFromReq'
 
 export type HandleQueryProps<T> = {
@@ -12,6 +14,7 @@ export type HandleQueryProps<T> = {
 	session?: Session
 	disableLog?: boolean
 	storeBody?: boolean
+	role?: Roles
 }
 
 type HandleQuery = <T>(props: HandleQueryProps<T>) => Promise<void>
@@ -28,12 +31,16 @@ export const handleQuery: HandleQuery = async ({
 	model,
 	query,
 	session,
+	role,
 	disableLog = false,
 	storeBody = true
 }) => {
 	try {
 		session = session || (await getSessionFromReq(req))
 		const queryResult = (await query()) as { id: string } | [] | null
+
+		const userIsAuthorized = getUserIsAuthorized(session, role)
+		if (!userIsAuthorized) return res.status(401).json({ message: 'Unauthorized' })
 
 		if (!disableLog && queryResult) {
 			// TODO: logging does not currently support paginated requests
