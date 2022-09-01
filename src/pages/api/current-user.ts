@@ -57,6 +57,7 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 		model: 'currentUser',
 		session,
 		disableLog: true,
+		role: 'general',
 		query: currentUserQuery
 	})
 })
@@ -86,6 +87,7 @@ apiRoute.patch(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 		res,
 		model: 'currentUser',
 		session,
+		role: 'general',
 		query: updateCurrentUser
 	})
 })

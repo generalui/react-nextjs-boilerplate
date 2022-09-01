@@ -33,6 +33,7 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 		req,
 		res,
 		model: 'dataVault',
+		role: 'general',
 		query: dataVaultQuery
 	})
 })
@@ -63,6 +64,7 @@ apiRoute.post(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 		res,
 		session,
 		model: 'study',
+		role: 'admin',
 		query: studyQuery
 	})
 })

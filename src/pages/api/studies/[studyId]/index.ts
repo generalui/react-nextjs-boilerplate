@@ -37,6 +37,7 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 		req,
 		res,
 		model: 'study',
+		role: 'general',
 		query: studyQuery
 	})
 })
@@ -111,6 +112,7 @@ apiRoute.patch(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 		req,
 		res,
 		model: 'study',
+		role: 'admin',
 		query: studyQuery
 	})
 })

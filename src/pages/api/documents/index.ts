@@ -59,6 +59,7 @@ apiRoute.post(async (req: ApiRequestWithFile, res) => {
 			res,
 			session,
 			model: 'documents',
+			role: 'admin',
 			query: documentsQuery
 		})
 	} catch (error) {

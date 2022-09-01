@@ -159,6 +159,7 @@ apiRoute.put(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 		res,
 		session,
 		model: 'study',
+		role: 'admin',
 		query: addParticipantsToStudyQuery
 	})
 })
