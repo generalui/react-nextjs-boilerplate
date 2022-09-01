@@ -22,7 +22,7 @@ type UseCSVParser = (props?: UseCSVParserProps) => UseCSVParserReturn
 
 const parseCSV = async (csvFile: File): Promise<CSVParsed> => {
 	const csvText = await csvFile.text()
-	const csvParsed = await csv.fromString(csvText)
+	const csvParsed = await csv().fromString(csvText)
 
 	if (!csvParsed) throw new Error('CSV failed to parse. Is this a valid CSV file?')
 	return csvParsed
