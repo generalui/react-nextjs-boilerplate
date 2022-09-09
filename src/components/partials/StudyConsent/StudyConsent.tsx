@@ -1,12 +1,13 @@
 import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
 import { useText } from 'hooks/useText'
+import { DataTypeContainer } from 'partials/DataTypeContainer'
 import { StatusBadge } from 'partials/StatusBadge'
 import { Card } from 'common/Card'
 import { Icon } from 'common/Icon'
 import { Text } from 'common/Text'
 import { StudyConsentProps } from './StudyConsent.types'
 
-export const StudyConsent = ({ testId = 'StudyConsent' }: StudyConsentProps) => {
+export const StudyConsent = ({ study, testId = 'StudyConsent' }: StudyConsentProps) => {
 	const { currentUser } = useCurrentUser()
 	const { t } = useText('participant.study.consent')
 	const consent = true
@@ -23,6 +24,12 @@ export const StudyConsent = ({ testId = 'StudyConsent' }: StudyConsentProps) => 
 						<Text className='text-lg font-bold line-clamp-4 lg:line-clamp-none'>
 							{consent ? t('hasConsent') : t('noConsent')}
 						</Text>
+					</div>
+					<div>
+						<Text className='text-gray-500 mb-2' size='xs'>
+							{t('dataTypes')}
+						</Text>
+						<DataTypeContainer study={study} />
 					</div>
 					<div className='flex gap-2 items-center justify-between w-10/12'>
 						<div className='flex gap-2 items-center'>

@@ -54,7 +54,10 @@ const participant = {
 			noConsent: {
 				message: 'You have not consented to share your personal information with this study'
 			},
-			iconAlt: { message: 'Consent Icon' }
+			iconAlt: { message: 'Consent Icon' },
+			dataTypes: {
+				message: 'My Data this Study can use'
+			}
 		}
 	}
 }
