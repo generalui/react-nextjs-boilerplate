@@ -57,6 +57,20 @@ const participant = {
 			iconAlt: { message: 'Consent Icon' },
 			dataTypes: {
 				message: 'My Data this Study can use'
+			},
+			modal: {
+				title: {
+					message: 'Edit Consent'
+				},
+				buttonLabel: {
+					message: 'Edit Consent'
+				},
+				submitButton: {
+					message: 'Submit'
+				},
+				cancelButton: {
+					message: 'Cancel'
+				}
 			}
 		}
 	}

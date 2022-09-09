@@ -1,6 +1,7 @@
 import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
 import { useText } from 'hooks/useText'
 import { DataTypeContainer } from 'partials/DataTypeContainer'
+import { EditConsent } from 'partials/EditConsent'
 import { StatusBadge } from 'partials/StatusBadge'
 import { Card } from 'common/Card'
 import { Icon } from 'common/Icon'
@@ -14,7 +15,11 @@ export const StudyConsent = ({ study, testId = 'StudyConsent' }: StudyConsentPro
 
 	return (
 		<div data-testid={testId}>
-			<Card iconProps={{ className: 'text-white', icon: 'Consents' }} title={t('title')}>
+			<Card
+				iconProps={{ className: 'text-white', icon: 'Consents' }}
+				title={t('title')}
+				action={<EditConsent modalName='edit-consent' />}
+			>
 				<div className='flex flex-col gap-4'>
 					<Text className='text-gray-500' size='sm'>
 						{t('description')}
