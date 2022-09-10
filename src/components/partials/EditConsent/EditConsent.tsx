@@ -1,6 +1,7 @@
 import { useText } from 'hooks/useText'
 import { Form } from 'partials/Form'
 import { ModalButton } from 'partials/ModalButton'
+import { Accordion } from 'common/Accordion'
 import { Button } from 'common/Button'
 import { Icon } from 'common/Icon'
 import { ModalFooter } from 'common/ModalFooter'
@@ -30,6 +31,9 @@ export const EditConsent = ({ className, modalName, testId = 'EditConsent' }: Ed
 					// validate={(values) => handleValidate(values, publicFilesSchema)}
 					render={({ handleSubmit }) => (
 						<form onSubmit={handleSubmit}>
+							<Accordion>{'test 1'}</Accordion>
+							<Accordion>{'test 2'}</Accordion>
+							<Accordion>{'test 3'}</Accordion>
 							<ModalFooter>
 								<SubmitButton
 									className='w-full justify-center md:justify-start md:w-auto'
