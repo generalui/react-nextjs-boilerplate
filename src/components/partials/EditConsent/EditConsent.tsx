@@ -15,6 +15,7 @@ type ConsentDataType = {
 	icon: IconProps['icon']
 	backgroundColor: string
 	isActive?: true
+	name: string
 }
 
 export const EditConsent = ({ className, modalName, testId = 'EditConsent' }: EditConsentProps) => {
@@ -25,12 +26,32 @@ export const EditConsent = ({ className, modalName, testId = 'EditConsent' }: Ed
 			dictionary: 'form.healthRecords',
 			icon: 'HealthRecords',
 			backgroundColor: 'bg-orange-400',
-			isActive: true
+			isActive: true,
+			name: 'healthRecords'
 		},
-		{ dictionary: 'form.specimens', icon: 'Specimens', backgroundColor: 'bg-green-400' },
-		{ dictionary: 'form.geneticData', icon: 'GeneticData', backgroundColor: 'bg-red-400' },
-		{ dictionary: 'form.analyses', icon: 'FolderAnalyses', backgroundColor: 'bg-gray-400' }
+		{
+			dictionary: 'form.specimens',
+			icon: 'Specimens',
+			backgroundColor: 'bg-green-400',
+			name: 'specimens'
+		},
+		{
+			dictionary: 'form.geneticData',
+			icon: 'GeneticData',
+			backgroundColor: 'bg-red-400',
+			name: 'geneticData'
+		},
+		{
+			dictionary: 'form.analyses',
+			icon: 'FolderAnalyses',
+			backgroundColor: 'bg-gray-400',
+			name: 'analyses'
+		}
 	]
+
+	const onSubmit = (value: any) => {
+		console.log(value)
+	}
 
 	return (
 		<div className={className} data-testid={testId}>
@@ -46,9 +67,7 @@ export const EditConsent = ({ className, modalName, testId = 'EditConsent' }: Ed
 				}
 			>
 				<Form
-					onSubmit={() => {
-						console.log('f')
-					}}
+					onSubmit={onSubmit}
 					render={({ handleSubmit }) => (
 						<form onSubmit={handleSubmit}>
 							{consentDataTypes.map((consentDataType) => (
@@ -69,6 +88,7 @@ export const EditConsent = ({ className, modalName, testId = 'EditConsent' }: Ed
 												<ToggleButton
 													activeLabel={t(`${consentDataType.dictionary}.consented`)}
 													inactiveLabel={t(`${consentDataType.dictionary}.notConsented`)}
+													name={consentDataType.name}
 												/>
 											</div>
 										</Text>
