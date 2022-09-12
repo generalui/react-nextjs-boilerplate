@@ -37,7 +37,43 @@ const prismaSafeParticipants = (participants || []).map((participant) => {
 })
 
 // Format seed studies for prisma insertion
-const prismaSafeStudies = studies.map(({ imageUrl, ...study }) => {
+const prismaSafeStudiesWithParticipant = studies.slice(0, 1).map(({ imageUrl, ...study }) => {
+	return {
+		data: {
+			...study,
+			image: imageUrl
+				? {
+						create: {
+							image: {
+								create: {
+									name: imageUrl,
+									url: imageUrl,
+									fileType: 'mimetype'
+								}
+							}
+						}
+				  }
+				: undefined,
+			participants: {
+				connectOrCreate: {
+					where: {
+						studyId_participantId: {
+							studyId: study.id,
+							participantId: 'participant1'
+						}
+					},
+					create: {
+						participant: {
+							connect: { id: 'participant1' }
+						}
+					}
+				}
+			}
+		}
+	}
+})
+
+const prismaSafeStudiesWithoutParticipants = studies.slice(1).map(({ imageUrl, ...study }) => {
 	return {
 		data: {
 			...study,
@@ -63,19 +99,26 @@ async function main() {
 	await Promise.all(prismaSafeTestUsers.map((user) => prisma.user.upsert(user)))
 	console.log('Created users:\n', createdUsers)
 
-	const studiesCount = await prisma.study.count({})
-	if (studiesCount === 0) {
-		const createdStudies = await Promise.all(
-			prismaSafeStudies.map((study) => prisma.study.create(study))
-		)
-		console.log('Created studies:\n', createdStudies?.length)
-	}
-
 	const createParticipants = await Promise.all(
 		prismaSafeParticipants.map((participant) => prisma.participant.upsert(participant))
 	)
 
 	console.log('Created participants:\n', createParticipants?.length)
+
+	const studiesCount = await prisma.study.count({})
+	if (studiesCount === 0) {
+		const createdStudiesWithParticipants = await Promise.all(
+			prismaSafeStudiesWithParticipant.map((study) => prisma.study.create(study))
+		)
+
+		const createdStudiesWithoutParticipants = await Promise.all(
+			prismaSafeStudiesWithoutParticipants.map((study) => prisma.study.create(study))
+		)
+
+		const createdStudies = [...createdStudiesWithoutParticipants, ...createdStudiesWithParticipants]
+
+		console.log('Created studies:\n', createdStudies?.length)
+	}
 }
 
 main()
