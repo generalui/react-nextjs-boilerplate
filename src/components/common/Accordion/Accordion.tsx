@@ -1,5 +1,6 @@
 import cn from 'classnames'
 import { useState } from 'react'
+import { MouseEvent } from 'react'
 import { Icon } from 'common/Icon'
 import { Text } from 'common/Text'
 import { AccordionProps } from './Accordion.types'
@@ -14,23 +15,22 @@ export const Accordion = ({
 }: AccordionProps) => {
 	const [active, setActive] = useState(isActive || false)
 
-	const handleAccordion = () => {
-		setActive(!active)
+	const handleAccordion = (event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
+		event.preventDefault()
+		if (event.target === event.currentTarget) {
+			setActive(!active)
+		}
 	}
 
 	return (
 		<div className={className} data-testid={testId}>
-			<div
-				onClick={handleAccordion}
-				onKeyDown={(event) => {
-					if (event.key === 'enter') handleAccordion()
-				}}
-				role='button'
-				tabIndex={0}
-			>
+			<div>
 				{/* Accordion header */}
 				<h2>
-					<button className='flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'>
+					<button
+						className='flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+						onClick={(event) => handleAccordion(event)}
+					>
 						<div className={cn('flex justify-between')}>
 							<div className={'flex items-center gap-3'}>
 								{iconProps?.icon && (
