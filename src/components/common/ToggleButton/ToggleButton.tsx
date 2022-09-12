@@ -3,17 +3,22 @@ import { MouseEvent, useState } from 'react'
 import { Button } from 'common/Button'
 import { ToggleButtonProps } from './ToggleButton.types'
 
-export const ToggleButton = ({ className, testId = 'ToggleButton' }: ToggleButtonProps) => {
-	const [selected, setSelected] = useState(false)
+export const ToggleButton = ({
+	activeLabel,
+	inactiveLabel,
+	className,
+	testId = 'ToggleButton'
+}: ToggleButtonProps) => {
+	const [active, setActive] = useState(false)
 
-	const handleSelect = (value: unknown | undefined) => {
+	const handleActive = (value: unknown | undefined) => {
 		const event = value as MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
 		if (
-			(event.currentTarget.id === 'toggleRight' && !selected) ||
-			(event.currentTarget.id === 'toggleLeft' && selected)
+			(event.currentTarget.id === 'inactiveButton' && !active) ||
+			(event.currentTarget.id === 'activeButton' && active)
 		)
 			return null
-		else setSelected(!selected)
+		else setActive(!active)
 	}
 
 	return (
@@ -22,18 +27,18 @@ export const ToggleButton = ({ className, testId = 'ToggleButton' }: ToggleButto
 			data-testid={testId}
 		>
 			<Button
-				v={selected ? 'selectedToggleLeft' : 'toggleLeft'}
-				id='toggleLeft'
-				onClick={(value) => handleSelect(value)}
+				v={active ? 'selectedToggleLeft' : 'toggleLeft'}
+				id='activeButton'
+				onClick={(value) => handleActive(value)}
 			>
-				{'Profile'}
+				{activeLabel}
 			</Button>
 			<Button
-				v={!selected ? 'selectedToggleRight' : 'toggleRight'}
-				id='toggleRight'
-				onClick={(event) => handleSelect(event)}
+				v={!active ? 'selectedToggleRight' : 'toggleRight'}
+				id='inactiveButton'
+				onClick={(event) => handleActive(event)}
 			>
-				{'Settings'}
+				{inactiveLabel}
 			</Button>
 		</div>
 	)

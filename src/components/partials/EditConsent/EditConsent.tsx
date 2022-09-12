@@ -66,7 +66,10 @@ export const EditConsent = ({ className, modalName, testId = 'EditConsent' }: Ed
 										<Text className='text-gray-600 font-normal text-base'>
 											<div className='flex flex-col gap-2'>
 												{t(`${consentDataType.dictionary}.body`)}
-												<ToggleButton />
+												<ToggleButton
+													activeLabel={t(`${consentDataType.dictionary}.consented`)}
+													inactiveLabel={t(`${consentDataType.dictionary}.notConsented`)}
+												/>
 											</div>
 										</Text>
 									</div>

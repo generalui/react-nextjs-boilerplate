@@ -72,7 +72,6 @@ const participant = {
 					message: 'Cancel'
 				},
 				form: {
-					title: { message: 'test' },
 					healthRecords: {
 						title: {
 							message: 'Health Records'
@@ -80,6 +79,12 @@ const participant = {
 						body: {
 							message:
 								'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque. Nulla facilisi morbi tempus iaculis. Volutpat maecenas volutpat blandit aliquam. Porttitor eget dolor morbi non arcu risus quis. Elementum eu facilisis sed odio. Adipiscing diam donec adipiscing tristique risus nec feugiat in fermentum. Condimentum vitae sapien pellentesque habitant morbi tristique senectus et.'
+						},
+						consented: {
+							message: 'Use My Data'
+						},
+						notConsented: {
+							message: 'Do Not Use My Data'
 						}
 					},
 					specimens: {
@@ -89,6 +94,12 @@ const participant = {
 						body: {
 							message:
 								'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque. Nulla facilisi morbi tempus iaculis. Volutpat maecenas volutpat blandit aliquam. Porttitor eget dolor morbi non arcu risus quis. Elementum eu facilisis sed odio. Adipiscing diam donec adipiscing tristique risus nec feugiat in fermentum. Condimentum vitae sapien pellentesque habitant morbi tristique senectus et.'
+						},
+						consented: {
+							message: 'Use My Data'
+						},
+						notConsented: {
+							message: 'Do Not Use My Data'
 						}
 					},
 					geneticData: {
@@ -98,6 +109,12 @@ const participant = {
 						body: {
 							message:
 								'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque. Nulla facilisi morbi tempus iaculis. Volutpat maecenas volutpat blandit aliquam. Porttitor eget dolor morbi non arcu risus quis. Elementum eu facilisis sed odio. Adipiscing diam donec adipiscing tristique risus nec feugiat in fermentum. Condimentum vitae sapien pellentesque habitant morbi tristique senectus et.'
+						},
+						consented: {
+							message: 'Use My Data'
+						},
+						notConsented: {
+							message: 'Do Not Use My Data'
 						}
 					},
 					analyses: {
@@ -107,6 +124,12 @@ const participant = {
 						body: {
 							message:
 								'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque. Nulla facilisi morbi tempus iaculis. Volutpat maecenas volutpat blandit aliquam. Porttitor eget dolor morbi non arcu risus quis. Elementum eu facilisis sed odio. Adipiscing diam donec adipiscing tristique risus nec feugiat in fermentum. Condimentum vitae sapien pellentesque habitant morbi tristique senectus et.'
+						},
+						consented: {
+							message: 'Use My Data'
+						},
+						notConsented: {
+							message: 'Do Not Use My Data'
 						}
 					}
 				}
