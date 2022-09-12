@@ -2,10 +2,10 @@ import { useText } from 'hooks/useText'
 import { Form } from 'partials/Form'
 import { ModalButton } from 'partials/ModalButton'
 import { Accordion } from 'common/Accordion'
-import { Button } from 'common/Button'
 import { Icon } from 'common/Icon'
 import { ModalFooter } from 'common/ModalFooter'
-import { SubmitButton } from 'common/SubmitButton'
+import { ModalFooterButtons } from 'common/ModalFooterButtons'
+import { Text } from 'common/Text'
 import { EditConsentProps } from './EditConsent.types'
 
 export const EditConsent = ({ className, modalName, testId = 'EditConsent' }: EditConsentProps) => {
@@ -28,28 +28,25 @@ export const EditConsent = ({ className, modalName, testId = 'EditConsent' }: Ed
 					onSubmit={() => {
 						console.log('f')
 					}}
-					// validate={(values) => handleValidate(values, publicFilesSchema)}
 					render={({ handleSubmit }) => (
 						<form onSubmit={handleSubmit}>
-							<Accordion>{'test 1'}</Accordion>
-							<Accordion>{'test 2'}</Accordion>
-							<Accordion>{'test 3'}</Accordion>
+							<Accordion
+								isActive
+								title={'test'}
+								iconProps={{ icon: 'HealthRecords', wrapperClass: 'bg-primary' }}
+							>
+								<div>
+									<Text className='text-gray-600 font-normal text-base'>
+										{
+											'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque. Nulla facilisi morbi tempus iaculis. Volutpat maecenas volutpat blandit aliquam. Porttitor eget dolor morbi non arcu risus quis. Elementum eu facilisis sed odio. Adipiscing diam donec adipiscing tristique risus nec feugiat in fermentum. Condimentum vitae sapien pellentesque habitant morbi tristique senectus et.'
+										}
+									</Text>
+								</div>
+							</Accordion>
+							<Accordion title={'test'}>{'test 2'}</Accordion>
+							<Accordion title={'test'}>{'test 3'}</Accordion>
 							<ModalFooter>
-								<SubmitButton
-									className='w-full justify-center md:justify-start md:w-auto'
-									disableOnLoading
-								>
-									{t('submitButton')}
-								</SubmitButton>
-								<Button
-									onClick={() => {
-										console.log('f')
-									}}
-									v='secondary'
-									className='w-full justify-center md:justify-start md:w-auto'
-								>
-									{t('cancelButton')}
-								</Button>
+								<ModalFooterButtons modalName={modalName} />
 							</ModalFooter>
 						</form>
 					)}
