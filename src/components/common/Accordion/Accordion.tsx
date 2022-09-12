@@ -1,6 +1,7 @@
 import cn from 'classnames'
 import { useState } from 'react'
 import { Icon } from 'common/Icon'
+import { Text } from 'common/Text'
 import { AccordionProps } from './Accordion.types'
 
 export const Accordion = ({
@@ -35,14 +36,14 @@ export const Accordion = ({
 								{iconProps?.icon && (
 									<div
 										className={cn(
-											'p-1 text-white rounded flex justify-center items-center',
+											'p-2 text-white rounded flex justify-center items-center',
 											iconProps.wrapperClass
 										)}
 									>
 										<Icon className={className} icon={iconProps.icon} size={iconProps.size} />
 									</div>
 								)}
-								{title}
+								<Text className='text-gray-900 text-lg'>{title}</Text>
 							</div>
 						</div>
 						<Icon icon={active ? 'ChevronUpIcon' : 'ChevronDownIcon'} />

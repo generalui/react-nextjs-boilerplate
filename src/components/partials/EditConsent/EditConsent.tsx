@@ -33,7 +33,7 @@ export const EditConsent = ({ className, modalName, testId = 'EditConsent' }: Ed
 							<Accordion
 								isActive
 								title={'test'}
-								iconProps={{ icon: 'HealthRecords', wrapperClass: 'bg-primary' }}
+								iconProps={{ icon: 'HealthRecords', wrapperClass: 'bg-orange-400', size: 'sm' }}
 							>
 								<div>
 									<Text className='text-gray-600 font-normal text-base'>
@@ -43,8 +43,24 @@ export const EditConsent = ({ className, modalName, testId = 'EditConsent' }: Ed
 									</Text>
 								</div>
 							</Accordion>
-							<Accordion title={'test'}>{'test 2'}</Accordion>
-							<Accordion title={'test'}>{'test 3'}</Accordion>
+							<Accordion
+								title={'test'}
+								iconProps={{ icon: 'Specimens', wrapperClass: 'bg-green-400', size: 'sm' }}
+							>
+								{'test 2'}
+							</Accordion>
+							<Accordion
+								title={'test'}
+								iconProps={{ icon: 'GeneticData', wrapperClass: 'bg-red-400', size: 'sm' }}
+							>
+								{'test 3'}
+							</Accordion>
+							<Accordion
+								title={'test'}
+								iconProps={{ icon: 'FolderAnalyses', wrapperClass: 'bg-gray-400', size: 'sm' }}
+							>
+								{'test 3'}
+							</Accordion>
 							<ModalFooter>
 								<ModalFooterButtons modalName={modalName} />
 							</ModalFooter>
