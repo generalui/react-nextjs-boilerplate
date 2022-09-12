@@ -2,6 +2,7 @@ import { Participant } from 'types/StudyParticipants'
 
 export const participants: Pick<
 	Participant,
+	| 'id'
 	| 'userId'
 	| 'enrolledTribe'
 	| 'homePhone'
@@ -15,6 +16,7 @@ export const participants: Pick<
 	| 'emergencyContactPhysicalAddress'
 >[] = [
 	{
+		id: 'participant1',
 		userId: 'testIdParticipant',
 		enrolledTribe: 'Test Tribe',
 		homePhone: '(505) 368-5118',
