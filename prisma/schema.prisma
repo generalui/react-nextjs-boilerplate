@@ -11,7 +11,7 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["interactiveTransactions"]
 }
 
@@ -132,13 +132,30 @@ model CoordinatorsOnStudies {
 }
 
 model ParticipantsOnStudies {
-  study      Study    @relation(fields: [studyId], references: [id])
-  studyId    String   @map("study_id")
-  participant       Participant     @relation(fields: [participantId], references: [id])
-  participantId     String   @map("participant_id")
-  insertedAt DateTime @default(now()) @map("inserted_at")
+  study         Study       @relation(fields: [studyId], references: [id])
+  studyId       String      @map("study_id")
+  participant   Participant @relation(fields: [participantId], references: [id])
+  participantId String      @map("participant_id")
+  consent       Consent     @relation(fields: [consentId], references: [id])
+  consentId     String      @map("consent_id")
+  insertedAt    DateTime    @default(now()) @map("inserted_at")
 
   @@id([studyId, participantId])
+}
+
+enum ConsentEnum {
+  yes
+  no
+}
+
+model Consent {
+  id                    String                  @id @default(cuid())
+  analysis              ConsentEnum             @default(yes)
+  geneticData           ConsentEnum             @default(yes)
+  healthRecords         ConsentEnum             @default(yes)
+  specimens             ConsentEnum             @default(yes)
+  insertedAt            DateTime                @default(now()) @map("inserted_at")
+  ParticipantsOnStudies ParticipantsOnStudies[]
 }
 
 model Document {
@@ -181,20 +198,20 @@ model EventLog {
 }
 
 model Participant {
-  id                              String   @id @default(cuid())
-  insertedAt                      DateTime @default(now()) @map("inserted_at")
-  updatedAt                       DateTime @default(now()) @map("updated_at")
-  user                            User     @relation(fields: [userId], references: [id])
-  userId                          String   @unique @map("user_id")
-  enrolledTribe                   String?   @map("enrolled_tribe")
-  homePhone                       String?   @map("home_phone")
-  workPhone                       String?   @map("work_phone")
-  physicalAddress                 String?   @map("physical_address")
-  emergencyContactName            String?   @map("emergency_contact_name")
-  emergencyContactRelationship    String?   @map("emergency_contact_relationship")
-  emergencyContactEmail           String?   @map("emergency_contact_email")
-  emergencyContactHomePhone       String?   @map("emergency_contact_home_phone")
-  emergencyContactWorkPhone       String?   @map("emergency_contact_work_phone")
-  emergencyContactPhysicalAddress String?   @map("emergency_contact_physical_address")
-  studies ParticipantsOnStudies[]
+  id                              String                  @id @default(cuid())
+  insertedAt                      DateTime                @default(now()) @map("inserted_at")
+  updatedAt                       DateTime                @default(now()) @map("updated_at")
+  user                            User                    @relation(fields: [userId], references: [id])
+  userId                          String                  @unique @map("user_id")
+  enrolledTribe                   String?                 @map("enrolled_tribe")
+  homePhone                       String?                 @map("home_phone")
+  workPhone                       String?                 @map("work_phone")
+  physicalAddress                 String?                 @map("physical_address")
+  emergencyContactName            String?                 @map("emergency_contact_name")
+  emergencyContactRelationship    String?                 @map("emergency_contact_relationship")
+  emergencyContactEmail           String?                 @map("emergency_contact_email")
+  emergencyContactHomePhone       String?                 @map("emergency_contact_home_phone")
+  emergencyContactWorkPhone       String?                 @map("emergency_contact_work_phone")
+  emergencyContactPhysicalAddress String?                 @map("emergency_contact_physical_address")
+  studies                         ParticipantsOnStudies[]
 }
