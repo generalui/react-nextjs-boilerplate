@@ -32,7 +32,7 @@ export const Accordion = ({
 						onClick={(event) => handleAccordion(event)}
 					>
 						<div className={cn('flex justify-between')}>
-							<div className={'flex items-center gap-3'}>
+							<div className='flex items-center gap-3'>
 								{iconProps?.icon && (
 									<div
 										className={cn(

@@ -6,7 +6,6 @@ import { Icon } from 'common/Icon'
 import { IconProps } from 'common/Icon/Icon.types'
 import { ModalFooter } from 'common/ModalFooter'
 import { ModalFooterButtons } from 'common/ModalFooterButtons'
-import { Text } from 'common/Text'
 import { ToggleButton } from 'common/ToggleButton'
 import { EditConsentProps } from './EditConsent.types'
 
@@ -84,7 +83,7 @@ export const EditConsent = ({ className, modalName, testId = 'EditConsent' }: Ed
 									}}
 								>
 									<div>
-										<Text className='text-gray-600 font-normal text-base'>
+										<div className='text-gray-600 font-normal text-base'>
 											<div className='flex flex-col gap-2'>
 												{t(`${consentDataType.dictionary}.body`)}
 												<ToggleButton
@@ -94,7 +93,7 @@ export const EditConsent = ({ className, modalName, testId = 'EditConsent' }: Ed
 													isActive={consentDataType.active}
 												/>
 											</div>
-										</Text>
+										</div>
 									</div>
 								</Accordion>
 							))}

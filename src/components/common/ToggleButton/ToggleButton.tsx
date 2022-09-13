@@ -10,17 +10,17 @@ export const ToggleButton = ({
 	inactiveLabel,
 	name,
 	className,
-	isActive,
+	isActive = false,
 	testId = 'ToggleButton'
 }: ToggleButtonProps) => {
-	const [active, setActive] = useState(isActive || false)
+	const [active, setActive] = useState(isActive)
 	const inputRef = useRef<FieldInputProps<File, HTMLElement>>()
 
-	const handleActive = (value: unknown | undefined) => {
-		const event = value as MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+	const handleActive = (event: unknown | undefined) => {
+		const { currentTarget } = event as MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
 		if (
-			(event.currentTarget.id === 'inactiveButton' && !active) ||
-			(event.currentTarget.id === 'activeButton' && active)
+			(currentTarget.id === 'inactiveButton' && !active) ||
+			(currentTarget.id === 'activeButton' && active)
 		)
 			return null
 		else setActive(!active)
@@ -48,7 +48,7 @@ export const ToggleButton = ({
 							<Button
 								v={active ? 'selectedToggleLeft' : 'toggleLeft'}
 								id='activeButton'
-								onClick={(value) => handleActive(value)}
+								onClick={(event) => handleActive(event)}
 							>
 								{activeLabel}
 							</Button>
