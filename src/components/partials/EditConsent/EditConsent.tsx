@@ -16,6 +16,7 @@ type ConsentDataType = {
 	backgroundColor: string
 	isActive?: true
 	name: string
+	active?: boolean
 }
 
 export const EditConsent = ({ className, modalName, testId = 'EditConsent' }: EditConsentProps) => {
@@ -27,7 +28,8 @@ export const EditConsent = ({ className, modalName, testId = 'EditConsent' }: Ed
 			icon: 'HealthRecords',
 			backgroundColor: 'bg-orange-400',
 			isActive: true,
-			name: 'healthRecords'
+			name: 'healthRecords',
+			active: true
 		},
 		{
 			dictionary: 'form.specimens',
@@ -89,6 +91,7 @@ export const EditConsent = ({ className, modalName, testId = 'EditConsent' }: Ed
 													activeLabel={t(`${consentDataType.dictionary}.consented`)}
 													inactiveLabel={t(`${consentDataType.dictionary}.notConsented`)}
 													name={consentDataType.name}
+													isActive={consentDataType.active}
 												/>
 											</div>
 										</Text>

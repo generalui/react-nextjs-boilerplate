@@ -10,9 +10,10 @@ export const ToggleButton = ({
 	inactiveLabel,
 	name,
 	className,
+	isActive,
 	testId = 'ToggleButton'
 }: ToggleButtonProps) => {
-	const [active, setActive] = useState(false)
+	const [active, setActive] = useState(isActive || false)
 	const inputRef = useRef<FieldInputProps<File, HTMLElement>>()
 
 	const handleActive = (value: unknown | undefined) => {
