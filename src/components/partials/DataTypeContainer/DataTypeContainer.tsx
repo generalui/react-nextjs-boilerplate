@@ -1,5 +1,6 @@
 import cn from 'classnames'
 import { useText } from 'hooks/useText'
+import { IconProps } from 'common/Icon/Icon.types'
 import { DataTypeLabel } from '../../common/DataTypeLabel'
 import { DataTypeContainerProps } from './DataTypeContainer.types'
 
@@ -10,10 +11,12 @@ export const DataTypeContainer = ({
 }: DataTypeContainerProps) => {
 	const { t: dataTypes } = useText('common.dataTypes')
 
+	const upperCaseFirstLetter = (word: string) => `${word.slice(0, 1).toUpperCase()}${word.slice(1)}`
+
 	const tags =
 		study?.dataTypes?.sort().map((dataType) => ({
 			label: dataTypes(`${dataType}.label`),
-			icon: `/icons/${dataType}.svg`,
+			icon: upperCaseFirstLetter(dataType) as IconProps['icon'],
 			dataType
 		})) || []
 
@@ -30,7 +33,7 @@ export const DataTypeContainer = ({
 				<DataTypeLabel
 					className='bg-secondary text-button-text-secondary border border-primary rounded p-1 pl-2 pr-2 flex gap-2 width-auto'
 					key={label}
-					img={icon as string}
+					icon={icon}
 					dataType={dataType}
 				>
 					{label}
