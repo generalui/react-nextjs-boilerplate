@@ -6,6 +6,8 @@ import { dispatchErrorToast } from 'utils/client/toast'
 import { MAX_FILE_SIZE_MB } from 'utils/fileUpload'
 import { useText } from 'hooks/useText'
 import { Dropzone } from 'common/Dropzone'
+import { Icon } from 'common/Icon'
+import { IconProps } from 'common/Icon/Icon.types'
 import { ImagePreview } from 'common/ImageInput/ImageInput.types'
 import { InputError } from 'common/InputError'
 import { InputLabel } from 'common/InputLabel'
@@ -21,10 +23,9 @@ const defaultAcceptedFileTypes = {
 	'video/*': []
 }
 
-const defaultImage = {
-	src: '/icons/folder.svg',
-	width: '40',
-	height: '30'
+const defaultIcon = {
+	icon: 'folder' as IconProps['icon'],
+	size: 'lg' as IconProps['size']
 }
 
 export const DocumentsInput = ({
@@ -37,7 +38,7 @@ export const DocumentsInput = ({
 	showAcceptedFileTypes = true,
 	acceptedFileTypes = defaultAcceptedFileTypes,
 	maxFiles = defaultMaxFiles,
-	image = defaultImage,
+	image = defaultIcon,
 	localizationScope = 'createStudy.fields.documentation',
 	filesSelectLabel = 'filesSelect',
 	filesDragLabel = 'filesDrag'
@@ -120,12 +121,17 @@ export const DocumentsInput = ({
 									<DocumentGrid documents={previewDocumentFiles} maxFiles={maxFiles} />
 								) : (
 									<div className='w-full h-full flex flex-col justify-center items-center cursor-pointer'>
-										<Image
-											src={image.src}
-											width={image.width}
-											height={image.height}
-											alt={t('alt')}
-										/>
+										{'icon' in image ? (
+											<Icon icon={image.icon} size={image.size} className='fill-primary' />
+										) : (
+											<Image
+												src={image.src}
+												width={image.width}
+												height={image.height}
+												alt={t('alt')}
+											/>
+										)}
+
 										<label className='font-bold text-primary'>{t(filesSelectLabel)}</label>
 										<label className='font-light text-gray-500'>{t(filesDragLabel)}</label>
 									</div>

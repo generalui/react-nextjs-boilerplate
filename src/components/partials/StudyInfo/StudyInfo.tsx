@@ -18,7 +18,6 @@ export const StudyInfo = ({
 	testId = 'StudyInfo'
 }: StudyInfoProps) => {
 	const { t } = useText('studies.details')
-	const { t: dataTypes } = useText('common.dataTypes')
 
 	return (
 		<div className={className} data-testid={testId}>
@@ -54,15 +53,7 @@ export const StudyInfo = ({
 				</Detail>
 				{isAdmin && (
 					<Detail label={t('dataTypes')}>
-						<DataTypeContainer
-							tags={
-								study?.dataTypes?.sort().map((dataType) => ({
-									label: dataTypes(`${dataType}.label`),
-									icon: `/icons/${dataType}.svg`,
-									dataType
-								})) || []
-							}
-						/>
+						<DataTypeContainer study={study} />
 					</Detail>
 				)}
 			</Card>

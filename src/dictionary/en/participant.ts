@@ -54,7 +54,86 @@ const participant = {
 			noConsent: {
 				message: 'You have not consented to share your personal information with this study'
 			},
-			iconAlt: { message: 'Consent Icon' }
+			iconAlt: { message: 'Consent Icon' },
+			dataTypes: {
+				message: 'My Data this Study can use'
+			},
+			modal: {
+				title: {
+					message: 'Edit Consent'
+				},
+				buttonLabel: {
+					message: 'Edit Consent'
+				},
+				submitButton: {
+					message: 'Submit'
+				},
+				cancelButton: {
+					message: 'Cancel'
+				},
+				form: {
+					healthRecords: {
+						title: {
+							message: 'Health Records'
+						},
+						body: {
+							message:
+								'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque. Nulla facilisi morbi tempus iaculis. Volutpat maecenas volutpat blandit aliquam. Porttitor eget dolor morbi non arcu risus quis. Elementum eu facilisis sed odio. Adipiscing diam donec adipiscing tristique risus nec feugiat in fermentum. Condimentum vitae sapien pellentesque habitant morbi tristique senectus et.'
+						},
+						consented: {
+							message: 'Use My Data'
+						},
+						notConsented: {
+							message: 'Do Not Use My Data'
+						}
+					},
+					specimens: {
+						title: {
+							message: 'Specimens'
+						},
+						body: {
+							message:
+								'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque. Nulla facilisi morbi tempus iaculis. Volutpat maecenas volutpat blandit aliquam. Porttitor eget dolor morbi non arcu risus quis. Elementum eu facilisis sed odio. Adipiscing diam donec adipiscing tristique risus nec feugiat in fermentum. Condimentum vitae sapien pellentesque habitant morbi tristique senectus et.'
+						},
+						consented: {
+							message: 'Use My Data'
+						},
+						notConsented: {
+							message: 'Do Not Use My Data'
+						}
+					},
+					geneticData: {
+						title: {
+							message: 'Genetic Data'
+						},
+						body: {
+							message:
+								'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque. Nulla facilisi morbi tempus iaculis. Volutpat maecenas volutpat blandit aliquam. Porttitor eget dolor morbi non arcu risus quis. Elementum eu facilisis sed odio. Adipiscing diam donec adipiscing tristique risus nec feugiat in fermentum. Condimentum vitae sapien pellentesque habitant morbi tristique senectus et.'
+						},
+						consented: {
+							message: 'Use My Data'
+						},
+						notConsented: {
+							message: 'Do Not Use My Data'
+						}
+					},
+					analyses: {
+						title: {
+							message: 'Analyses'
+						},
+						body: {
+							message:
+								'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque. Nulla facilisi morbi tempus iaculis. Volutpat maecenas volutpat blandit aliquam. Porttitor eget dolor morbi non arcu risus quis. Elementum eu facilisis sed odio. Adipiscing diam donec adipiscing tristique risus nec feugiat in fermentum. Condimentum vitae sapien pellentesque habitant morbi tristique senectus et.'
+						},
+						consented: {
+							message: 'Use My Data'
+						},
+						notConsented: {
+							message: 'Do Not Use My Data'
+						}
+					}
+				}
+			}
 		}
 	}
 }

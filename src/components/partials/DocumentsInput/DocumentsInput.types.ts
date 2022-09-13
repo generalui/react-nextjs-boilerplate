@@ -1,5 +1,6 @@
 import { Accept } from 'react-dropzone'
 import { CommonProps } from 'types/CommonProps'
+import { IconProps } from 'common/Icon/Icon.types'
 
 export interface DocumentsInputProps extends CommonProps {
 	name: string
@@ -10,7 +11,7 @@ export interface DocumentsInputProps extends CommonProps {
 	acceptedFileTypes?: Accept
 	maxFiles?: number
 	onChange?: (files: File[] | Error) => void
-	image?: DocumentsInputImage
+	image?: DocumentsInputImage | DocumentsInputIcon
 	filesSelectLabel?: string
 	filesDragLabel?: string
 	localizationScope?: string
@@ -23,3 +24,5 @@ export type DocumentPreview = {
 }
 
 export type DocumentsInputImage = { src: string; width: string; height: string }
+
+export type DocumentsInputIcon = { icon: IconProps['icon']; size: IconProps['size'] }

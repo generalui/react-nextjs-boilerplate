@@ -56,7 +56,7 @@ export const StudyDetails = function StudyDetails({ testId = 'StudyDetails' }: S
 				{isAdmin ? (
 					<StudyDocumentation singleStudyId={singleStudyId} loading={loading} study={study} />
 				) : (
-					<StudyConsent />
+					<StudyConsent study={study} />
 				)}
 			</div>
 		</PageWrapper>
