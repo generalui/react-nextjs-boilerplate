@@ -65,6 +65,9 @@ const prismaSafeStudiesWithParticipant = studies.slice(0, 1).map(({ imageUrl, ..
 					create: {
 						participant: {
 							connect: { id: 'participant1' }
+						},
+						consent: {
+							create: {}
 						}
 					}
 				}
