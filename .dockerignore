@@ -1,6 +1,6 @@
 # Files to for docker to ignore
-# This is mostly a copy of .gitignore (and should be maintained as such). 
-# With a few additions  that are not needed to be deployed with docker. 
+# This is mostly a copy of .gitignore (and should be maintained as such).
+# With a few additions  that are not needed to be deployed with docker.
 # See https://docs.docker.com/engine/reference/builder/#dockerignore-file for more about ignoring files in docker.
 
 
@@ -10,6 +10,9 @@
 # Docker configs
 Dockerfile
 .dockerignore
+
+# In case we are building somewhere node_modules are already installed...
+/node_modules/
 
 # Root level read me files
 *.md
