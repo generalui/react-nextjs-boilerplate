@@ -170,8 +170,8 @@ const studies = {
 					participants: {
 						message: 'Participants'
 					},
-					consents: {
-						message: 'Consents'
+					mappedFields: {
+						message: 'Mapped Fields'
 					},
 					unmappedFields: {
 						message: 'Unmapped Fields'
