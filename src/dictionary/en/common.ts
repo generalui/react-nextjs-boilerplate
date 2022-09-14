@@ -41,6 +41,9 @@ const common = {
 			},
 			settings: {
 				message: 'Settings'
+			},
+			participants: {
+				message: 'Participants'
 			}
 		}
 	},
