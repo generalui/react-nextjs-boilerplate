@@ -49,8 +49,8 @@ export const DataSummarySchema = z.object({
 export type DataSummaryInput = z.infer<typeof DataSummarySchema>
 
 export interface DataSummaryProps extends BaseFormProps<DataSummaryInput> {
-	consents: number
 	unMappedFields: number
+	mappedFields: number
 	participantList: Record<string, unknown>[]
 	fields?: string[]
 }

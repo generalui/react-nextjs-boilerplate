@@ -18,8 +18,8 @@ export const DataSummary = function DataSummary({
 	testId = 'DataSummary',
 	title,
 	onCancel,
-	consents,
 	unMappedFields,
+	mappedFields,
 	participantList
 }: DataSummaryProps) {
 	const { t } = useText('studies.addParticipants.form.dataSummary')
@@ -31,8 +31,8 @@ export const DataSummary = function DataSummary({
 		},
 		{
 			dataClassName: 'text-accent-2',
-			value: consents,
-			dataType: 'consents'
+			value: mappedFields,
+			dataType: 'mappedFields'
 		},
 		{
 			dataClassName: 'text-accent-3',
