@@ -1,16 +1,16 @@
 /**
- * Test file for Filters
+ * Test file for Condition
  */
 import { render, screen } from '@testing-library/react'
 import '__mocks__/index'
 import React from 'react'
-import { Filters } from './index'
+import { Condition } from './index'
 
-describe('Filters Component', () => {
+describe('Condition Component', () => {
 	it('renders on the page', () => {
-		render(<Filters />)
+		render(<Condition />)
 
-		const component = screen.getByTestId('Filters')
+		const component = screen.getByTestId('Condition')
 
 		expect(component).toBeInTheDocument()
 	})

@@ -1,7 +1,8 @@
-import { Filters } from 'partials/QueryBuilder/Filters'
-import { Results } from 'partials/QueryBuilder/Results'
-import { Summary } from 'partials/QueryBuilder/Summary'
+import '__mocks__/index'
+import { Filters } from './Filters'
 import { QueryBuilderProps } from './QueryBuilder.types'
+import { Results } from './Results'
+import { Summary } from './Summary'
 
 export const QueryBuilder = ({ className, testId = 'QueryBuilder' }: QueryBuilderProps) => {
 	return (
