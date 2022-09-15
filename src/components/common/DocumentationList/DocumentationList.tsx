@@ -24,7 +24,7 @@ export const DocumentationList = ({
 		if (fileType.includes('pdf')) {
 			icon = <Icon icon={'Pdf'} className='text-danger' />
 		} else if (fileType.includes('image')) {
-			icon = <Icon icon='PhotographIcon' className='text-accent-1' />
+			icon = <Icon icon='PhotoIcon' className='text-accent-1' />
 		} else if (fileType.includes('application')) {
 			icon = <Icon icon='DocumentTextIcon' className='text-primary' />
 		} else {
