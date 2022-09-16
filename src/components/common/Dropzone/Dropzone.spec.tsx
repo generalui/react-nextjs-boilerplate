@@ -8,7 +8,11 @@ import { Dropzone } from './index'
 
 describe('Dropzone Component', () => {
 	it('renders on the page', () => {
-		render(<Dropzone />)
+		render(
+			<Dropzone onChange={jest.fn()} onError={jest.fn()}>
+				Test
+			</Dropzone>
+		)
 
 		const component = screen.getByTestId('Dropzone')
 
