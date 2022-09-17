@@ -29,7 +29,6 @@ export const Sidebar = ({ sidebarLinkOnClick, className, testId = 'Sidebar' }: S
 				</SidebarLink>
 			)
 	)
-	links.splice(links.length - 1, 0, <div className='border-t' key='filler' />)
 
 	return (
 		<div

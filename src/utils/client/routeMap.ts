@@ -38,12 +38,5 @@ export const routeMap: Record<
 		icon: 'UserGroupIcon',
 		labelKey: 'common.sidebar.nav.participants',
 		role: 'admin'
-	},
-	//Leave Profile last
-	profile: {
-		href: '/profile',
-		icon: 'CogIcon',
-		labelKey: 'common.sidebar.nav.settings',
-		role: 'admin'
 	}
 }

@@ -39,9 +39,6 @@ const common = {
 			studies: {
 				message: 'Studies'
 			},
-			settings: {
-				message: 'Settings'
-			},
 			participants: {
 				message: 'Participants'
 			}

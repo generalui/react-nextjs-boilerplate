@@ -1,12 +1,10 @@
 import { useSession } from 'next-auth/react'
 import { UseMutationResult, UseQueryResult, useMutation, useQuery } from 'react-query'
 import { DataVault, DataVaultInput, Study, StudyInput } from 'types/Study'
-import { AddParticipantsInput } from 'types/StudyParticipants'
 import { reactQueryClient } from 'utils/client/react-query'
 import { toast } from 'utils/client/toast'
 import { createPartialStudyFromFormData } from 'utils/models/studies'
 import {
-	addParticipantsToStudy,
 	getStudy,
 	getStudyDataVault,
 	postStudyDataVault,
@@ -20,7 +18,6 @@ export const useStudy = (
 	dataVault: UseQueryResult<DataVault[]>
 	update: UseMutationResult<Study, unknown, Partial<StudyInput>>
 	uploadToDataVault: UseMutationResult<Study, unknown, DataVaultInput>
-	addParticipants: UseMutationResult<undefined, unknown, AddParticipantsInput>
 } => {
 	const { data: session } = useSession()
 	const { t: error } = useText('studies.error')
@@ -81,24 +78,6 @@ export const useStudy = (
 		}
 	)
 
-	const addParticipants = useMutation(
-		`study-${studyId}-add-participants`,
-		(participantInput: AddParticipantsInput) =>
-			addParticipantsToStudy(studyId || '', participantInput.participants),
-		{
-			onSuccess: () => {
-				toast(success('updated'))
-			},
-			onError: (_err, _newStudy, context?: { previousStudy: Study }) => {
-				reactQueryClient.setQueryData(['studies', studyId], context?.previousStudy)
-				toast(error('failedToUpdate'), 'error')
-			},
-			onSettled: () => {
-				reactQueryClient.invalidateQueries(['studies', studyId])
-			}
-		}
-	)
-
 	const uploadToDataVault = useMutation(
 		`study-${studyId}-upload-to-data-vault`,
 		(dataVaultValues: DataVaultInput) => postStudyDataVault(studyId || '', dataVaultValues),
@@ -120,7 +99,6 @@ export const useStudy = (
 		...query,
 		update: updateMutation,
 		dataVault,
-		uploadToDataVault,
-		addParticipants
+		uploadToDataVault
 	}
 }

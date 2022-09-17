@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import { useState } from 'react'
 import { ParticipantSchema, UploadCSVInput } from 'types/index'
-import { useStudy } from 'hooks/api/studies/useStudy'
+import { useAddParticipantsToStudy } from 'hooks/api/studies/useAddParticipantsToStudy'
 import { useParseCSV } from 'hooks/useParseCSV'
 import { useRouter } from 'hooks/useRouter'
 import { useText } from 'hooks/useText'
@@ -24,11 +24,19 @@ export const AddParticipantsCSVForm = ({
 	const [currentStep, setCurrentStep] = useState<number>(0)
 	const [participantList, setParticipantList] = useState<Record<string, unknown>[]>([])
 	const [unMappedFields, setUnMappedFields] = useState<number>(0)
-	const [consents, setConsents] = useState<number>(0)
+	const [mappedFields, setMappedFields] = useState<number>(0)
 	const [inProgress, setInProgress] = useState<boolean>()
 	const { t } = useText('studies.addParticipants.form')
-	const { addParticipants } = useStudy(studyId)
-	const { forceBack } = useRouter()
+
+	const { addParticipants } = useAddParticipantsToStudy({
+		studyId,
+		onSuccess: () => {
+			setInProgress(false)
+			push(`/studies/${studyId}`)
+		}
+	})
+
+	const { forceBack, push } = useRouter()
 
 	const handleCancel = () => {
 		forceBack()
@@ -67,6 +75,7 @@ export const AddParticipantsCSVForm = ({
 			}) || []
 
 		setUnMappedFields(CSV_DATA_FIELDS.length - fieldKeys.length)
+		setMappedFields(fieldKeys.length)
 		setParticipantList(clientDataNext)
 		setCurrentStep(currentStep + 1)
 	}
@@ -80,7 +89,7 @@ export const AddParticipantsCSVForm = ({
 			onCancel={() => setCurrentStep(1)}
 			participantList={participantList}
 			unMappedFields={unMappedFields}
-			consents={consents}
+			mappedFields={mappedFields}
 		/>
 	]
 
