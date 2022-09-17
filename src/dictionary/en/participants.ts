@@ -6,7 +6,6 @@ const participants = {
 	},
 	conditions: {
 		fields: {
-			title: { message: 'Field' },
 			study: {
 				title: { message: 'Study' },
 				options: {
@@ -40,7 +39,6 @@ const participants = {
 			}
 		},
 		condition: {
-			title: { message: 'Condition' },
 			options: {
 				equals: { label: { message: 'Equals' }, inputType: { message: 'text' } },
 				notEquals: { label: { message: 'Not Equals' }, inputType: { message: 'text' } },
@@ -50,9 +48,6 @@ const participants = {
 				before: { label: { message: 'Before' }, inputType: { message: 'date' } },
 				after: { label: { message: 'After' }, inputType: { message: 'date' } }
 			}
-		},
-		value: {
-			message: 'Value'
 		}
 	}
 }

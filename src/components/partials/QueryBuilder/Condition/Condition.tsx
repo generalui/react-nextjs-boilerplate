@@ -1,20 +1,12 @@
 import cn from 'classnames'
 import { useState } from 'react'
 import { MultiValue, OptionProps, SingleValue } from 'react-select'
-import participants from 'utils/conditionsStructure'
 import { useText } from 'hooks/useText'
+import { OptionType } from 'partials/QueryBuilder/QueryBuilder.types'
 import { Input } from 'common/Input'
 import { SelectInput } from 'common/SelectInput'
 import { Text } from 'common/Text'
 import { ConditionProps } from './Condition.types'
-
-type OptionType = {
-	label: string
-	value: string
-	type?: 'option' | 'mainField'
-	isDisabled?: boolean
-	inputType?: string
-}
 
 const Option = (props: OptionProps<OptionType>) => {
 	const { children, className, cx, isDisabled, isFocused, isSelected, innerRef, innerProps, data } =
@@ -39,59 +31,14 @@ const Option = (props: OptionProps<OptionType>) => {
 	)
 }
 
-export const Condition = ({ className, testId = 'Condition' }: ConditionProps) => {
+export const Condition = ({
+	className,
+	fields,
+	conditions,
+	testId = 'Condition'
+}: ConditionProps) => {
 	const [inputType, setInputType] = useState<string>('text')
-	const { t } = useText('participants.conditions')
-
-	const fields: OptionType[] = Object.entries(participants.conditions.fields).flatMap(
-		([key, value]) => {
-			const fieldOptions: OptionType[] = Object.entries(
-				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-				// @ts-expect-error
-				participants.conditions.fields[key].options
-			).map(([key, value]) => {
-				try {
-					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-					// @ts-expect-error
-					return value.map((item) => {
-						return {
-							label: t(item.key),
-							value: key,
-							type: 'option'
-						}
-					})
-				} catch (error) {
-					return {
-						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-						// @ts-expect-error
-						label: t(value.key),
-						value: key,
-						type: 'option'
-					}
-				}
-			})
-
-			return [
-				{
-					label: t(value.title.key),
-					value: key,
-					type: 'mainField',
-					isDisabled: true
-				},
-				...fieldOptions
-			]
-		}
-	)
-
-	const conditions: OptionType[] = Object.entries(participants.conditions.condition.options).map(
-		([key, value]) => {
-			return {
-				label: t(value.label.key),
-				value: key,
-				inputType: t(value.inputType.key)
-			}
-		}
-	)
+	const { t } = useText('common.queryBuilder.conditions')
 
 	const handleInputType = (newValue: SingleValue<OptionType> | MultiValue<OptionType>) => {
 		if (newValue && 'inputType' in newValue) {
@@ -104,10 +51,10 @@ export const Condition = ({ className, testId = 'Condition' }: ConditionProps) =
 		<div className={className} data-testid={testId}>
 			<div className='grid grid-rows-2 grid-flow-row grid-cols-7 gap-x-4 items-center'>
 				<Text size='xs' className='text-gray1-500 font-semibold col-span-3'>
-					{t('fields.title')}
+					{t('fields')}
 				</Text>
 				<Text size='xs' className='text-gray-500 font-semibold col-span-2'>
-					{t('condition.title')}
+					{t('condition')}
 				</Text>
 				<Text size='xs' className='text-gray-500 font-semibold col-span-2'>
 					{t('value')}
