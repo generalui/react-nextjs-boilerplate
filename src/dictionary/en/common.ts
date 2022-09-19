@@ -120,6 +120,12 @@ const common = {
 			value: {
 				message: 'Value'
 			}
+		},
+		summary: {
+			title: { message: 'Filter Summary' },
+			export: {
+				message: 'Export'
+			}
 		}
 	}
 }
