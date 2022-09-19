@@ -38,6 +38,9 @@ const common = {
 			},
 			studies: {
 				message: 'Studies'
+			},
+			participants: {
+				message: 'Participants'
 			}
 		}
 	},
@@ -102,6 +105,19 @@ const common = {
 		previous: { message: 'Previous' },
 		details: { message: 'Showing {1} - {2} out of {3} total results' },
 		next: { message: 'Next' }
+	},
+	queryBuilder: {
+		conditions: {
+			fields: {
+				message: 'Field'
+			},
+			condition: {
+				message: 'Condition'
+			},
+			value: {
+				message: 'Value'
+			}
+		}
 	}
 }
 

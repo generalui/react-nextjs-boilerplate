@@ -32,5 +32,11 @@ export const routeMap: Record<
 			'add-participants': { labelKey: 'studies.addParticipants.title' }
 		},
 		role: 'admin'
+	},
+	participants: {
+		href: '/participants',
+		icon: 'UserGroupIcon',
+		labelKey: 'common.sidebar.nav.participants',
+		role: 'admin'
 	}
 }
