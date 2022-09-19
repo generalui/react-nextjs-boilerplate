@@ -107,6 +107,9 @@ const common = {
 		next: { message: 'Next' }
 	},
 	queryBuilder: {
+		filters: {
+			title: { message: 'Filters' }
+		},
 		conditions: {
 			fields: {
 				message: 'Field'

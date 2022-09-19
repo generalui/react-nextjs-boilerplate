@@ -1,9 +1,4 @@
 const participants = {
-	filters: {
-		title: {
-			message: 'Filters'
-		}
-	},
 	conditions: {
 		fields: {
 			study: {

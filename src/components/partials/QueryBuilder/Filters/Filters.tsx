@@ -7,7 +7,7 @@ import { Card } from 'common/Card'
 import { FiltersProps } from './Filters.types'
 
 export const Filters = ({ className, fields, conditions, testId = 'Filters' }: FiltersProps) => {
-	const { t } = useText('participants.filters')
+	const { t } = useText('common.queryBuilder.filters')
 
 	const onSubmit = (conditions: any) => {
 		console.log('conditions: ', conditions)
@@ -18,7 +18,7 @@ export const Filters = ({ className, fields, conditions, testId = 'Filters' }: F
 			<Card
 				iconProps={{ icon: 'DocumentReportIcon' }}
 				title={t('title')}
-				headerClassName='pb-4 border-b'
+				headerClassName='pb-4 border-b mb-0'
 			>
 				<Form
 					onSubmit={onSubmit}
