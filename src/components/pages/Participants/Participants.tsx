@@ -1,11 +1,11 @@
 /*!
  * Participants Page
  */
+import { OptionType } from 'types/QueryBuilder'
 import participants from 'utils/conditionsStructure'
 import { useText } from 'hooks/useText'
 import { PageWrapper } from 'partials/PageWrapper'
 import { QueryBuilder } from 'partials/QueryBuilder'
-import { OptionType } from 'partials/QueryBuilder/QueryBuilder.types'
 import { ParticipantsProps } from './Participants.types'
 
 export const Participants = function Participants({ testId = 'Participants' }: ParticipantsProps) {
@@ -47,7 +47,7 @@ export const Participants = function Participants({ testId = 'Participants' }: P
 
 	return (
 		<PageWrapper title='Participants' testId={testId}>
-			<QueryBuilder fields={fields} conditions={conditions} />
+			<QueryBuilder fields={fields} conditions={conditions} model='participant' />
 		</PageWrapper>
 	)
 }

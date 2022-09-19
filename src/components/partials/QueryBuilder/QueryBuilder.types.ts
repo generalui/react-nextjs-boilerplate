@@ -1,13 +1,8 @@
 import { CommonProps } from 'types/CommonProps'
+import { OptionType, QueryBuilderModels } from 'types/QueryBuilder'
 
-export type OptionType = {
-	label: string
-	value: string
-	type?: 'option' | 'mainField'
-	isDisabled?: boolean
-	inputType?: string
-}
 export interface QueryBuilderProps extends CommonProps {
 	fields: OptionType[]
 	conditions: OptionType[]
+	model: QueryBuilderModels
 }
