@@ -104,8 +104,7 @@ apiRoute.put(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 								participants: {
 									connectOrCreate: {
 										create: {
-											participant: { connect: { id: participantUser.id } },
-											consent: { create: {} }
+											participant: { connect: { id: participantUser.id } }
 										},
 										where: {
 											studyId_participantId: { studyId, participantId: participantUser.id }

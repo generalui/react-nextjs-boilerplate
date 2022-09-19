@@ -8,7 +8,7 @@ import { ActionButtons } from './index'
 
 describe('ActionButtons Component', () => {
 	it('renders on the page', () => {
-		render(<ActionButtons baseTextPath='' />)
+		render(<ActionButtons />)
 
 		const component = screen.getByTestId('ActionButtons')
 

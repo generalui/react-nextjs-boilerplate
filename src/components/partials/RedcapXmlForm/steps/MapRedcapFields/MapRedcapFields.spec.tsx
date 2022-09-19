@@ -8,7 +8,7 @@ import { MapRedcapFields } from './index'
 
 describe('MapRedcapFields Component', () => {
 	it('renders on the page', () => {
-		render(<MapRedcapFields />)
+		render(<MapRedcapFields onSubmit={jest.fn} />)
 
 		const component = screen.getByTestId('MapRedcapFields')
 

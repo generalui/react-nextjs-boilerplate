@@ -8,7 +8,7 @@ import { List } from './index'
 
 describe('List Component', () => {
 	it('renders on the page', () => {
-		render(<List columns={[]} data={[]} />)
+		render(<List columns={[]} indexKey='' data={[]} />)
 
 		const component = screen.getByTestId('List')
 

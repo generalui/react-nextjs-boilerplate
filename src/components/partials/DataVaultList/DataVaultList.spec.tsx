@@ -8,7 +8,7 @@ import { DataVaultList } from './index'
 
 describe('DataVaultList Component', () => {
 	it('renders on the page', () => {
-		render(<DataVaultList studyId={''} />)
+		render(<DataVaultList studyId={''} title='' />)
 
 		const component = screen.getByTestId('DataVaultList')
 
