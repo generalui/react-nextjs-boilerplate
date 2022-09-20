@@ -1,7 +1,7 @@
 import axios from 'axios'
 import cn from 'classnames'
 import { useEffect, useState } from 'react'
-import { ConditionInput } from 'types/QueryBuilder'
+import { ConditionInput, QueryResults } from 'types/QueryBuilder'
 import { Filters } from './Filters'
 import { QueryBuilderProps } from './QueryBuilder.types'
 import { Results } from './Results'
@@ -16,6 +16,7 @@ export const QueryBuilder = ({
 	testId = 'QueryBuilder'
 }: QueryBuilderProps) => {
 	const [filters, setFilters] = useState<ConditionInput | undefined>()
+	const [results, setResults] = useState<QueryResults | undefined>()
 
 	const onFiltersChange = (filters: ConditionInput) => {
 		setFilters(filters)
@@ -27,18 +28,17 @@ export const QueryBuilder = ({
 				params: { model, summaryModel, filters }
 			})
 			console.log('test: ', test)
+			setResults(test.data)
 			return test
 		}
 
-		if (filters) {
-			getData()
-		}
+		getData()
 	}, [filters, model, summaryModel])
 
 	return (
 		<div className={cn(className, 'flex flex-col gap-6')} data-testid={testId}>
 			<Filters fields={fields} conditions={conditions} onFiltersChange={onFiltersChange} />
-			<Summary />
+			<Summary results={results} model={model} summaryModel={summaryModel} />
 			<Results />
 		</div>
 	)

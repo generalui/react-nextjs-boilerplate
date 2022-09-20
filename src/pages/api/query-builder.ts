@@ -11,16 +11,20 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	const { model, summaryModel, filters } = req.query as {
 		model: QueryBuilderModels
 		summaryModel: QueryBuilderModels
-		filters: string
+		filters?: string
 	}
 
-	const parsedFilters: ConditionInput = JSON.parse(filters)
-	console.log('parsedFilters: ', parsedFilters)
+	let where: unknown
 
-	const where = {
-		where: {
-			[parsedFilters.field.value]: {
-				[parsedFilters.condition.value]: parsedFilters.value
+	if (filters) {
+		const parsedFilters: ConditionInput = JSON.parse(filters)
+		console.log('parsedFilters: ', parsedFilters)
+
+		where = {
+			where: {
+				[parsedFilters.field.value]: {
+					[parsedFilters.condition.value]: parsedFilters.value
+				}
 			}
 		}
 	}
@@ -28,9 +32,9 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	const query = async () => {
 		const [modelCount, summaryModelCount] = await prisma.$transaction([
 			// @ts-expect-error TODO: Fix this type
-			prisma[model].count({ ...where }),
+			prisma[model].count(where && { ...where }),
 			// @ts-expect-error TODO: Fix this type
-			prisma[summaryModel].count({ ...where })
+			prisma[summaryModel].count(where && { ...where })
 		])
 
 		return { modelCount, summaryModelCount }

@@ -26,6 +26,11 @@ export const ConditionSchema = z.object({
 	value: z.string()
 })
 
+export type QueryResults = {
+	modelCount: number
+	summaryModelCount: number
+}
+
 export type ConditionInput = z.infer<typeof ConditionSchema>
 
 export type QueryBuilderModels = 'participant' | 'study'
