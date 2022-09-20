@@ -19,7 +19,7 @@ services:
       - dbvol:/var/lib/postgresql/data:delegated
 
   # Application container
-  next-js:
+  web-app:
     container_name: web-app
     # Install dependencies only when needed
     environment:
