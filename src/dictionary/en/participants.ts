@@ -19,29 +19,28 @@ const participants = {
 			participantInfo: {
 				title: { message: 'Participant Info' },
 				options: {
-					participantId: {
+					id: {
 						message: 'Participant ID'
-					},
-					dateOfBirth: { message: 'Date of Birth' }
+					}
 				}
 			},
 			metaData: {
 				title: { message: 'Meta Data' },
 				options: {
-					dateAdded: { message: 'Date Added' },
-					dateUpdated: { message: 'Date Updated' }
+					insertedAt: { message: 'Date Added' },
+					updatedAt: { message: 'Date Updated' }
 				}
 			}
 		},
 		condition: {
 			options: {
 				equals: { label: { message: 'Equals' }, inputType: { message: 'text' } },
-				notEquals: { label: { message: 'Not Equals' }, inputType: { message: 'text' } },
-				includes: { label: { message: 'Includes' }, inputType: { message: 'text' } },
-				notIncludes: { label: { message: 'Not Includes' }, inputType: { message: 'text' } },
+				not: { label: { message: 'Not Equals' }, inputType: { message: 'text' } },
+				contains: { label: { message: 'Contains' }, inputType: { message: 'text' } },
+				// notIncludes: { label: { message: 'Not Includes' }, inputType: { message: 'text' } },
 				startsWith: { label: { message: 'Starts With' }, inputType: { message: 'text' } },
-				before: { label: { message: 'Before' }, inputType: { message: 'date' } },
-				after: { label: { message: 'After' }, inputType: { message: 'date' } }
+				lte: { label: { message: 'Before' }, inputType: { message: 'date' } },
+				gte: { label: { message: 'After' }, inputType: { message: 'date' } }
 			}
 		}
 	}

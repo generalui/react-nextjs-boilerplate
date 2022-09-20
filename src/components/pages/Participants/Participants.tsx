@@ -16,8 +16,9 @@ export const Participants = function Participants({ testId = 'Participants' }: P
 			const fieldOptions: OptionType[] = Object.entries(
 				participants.conditions.fields[key as keyof typeof participants.conditions.fields].options
 			).map(([key, value]) => {
+				const { key: valueKey } = value
 				return {
-					label: t(value.key),
+					label: t(valueKey),
 					value: key,
 					type: 'option'
 				}
@@ -47,7 +48,12 @@ export const Participants = function Participants({ testId = 'Participants' }: P
 
 	return (
 		<PageWrapper title='Participants' testId={testId}>
-			<QueryBuilder fields={fields} conditions={conditions} model='participant' />
+			<QueryBuilder
+				fields={fields}
+				conditions={conditions}
+				model='participant'
+				summaryModel='study'
+			/>
 		</PageWrapper>
 	)
 }

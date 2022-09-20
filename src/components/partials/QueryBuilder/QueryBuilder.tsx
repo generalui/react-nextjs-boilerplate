@@ -12,6 +12,7 @@ export const QueryBuilder = ({
 	conditions,
 	fields,
 	model,
+	summaryModel,
 	testId = 'QueryBuilder'
 }: QueryBuilderProps) => {
 	const [filters, setFilters] = useState<ConditionInput | undefined>()
@@ -22,7 +23,9 @@ export const QueryBuilder = ({
 
 	useEffect(() => {
 		const getData = async () => {
-			const test = await axios.get('/api/query-builder', { params: { model } })
+			const test = await axios.get('/api/query-builder', {
+				params: { model, summaryModel, filters }
+			})
 			console.log('test: ', test)
 			return test
 		}
@@ -30,7 +33,7 @@ export const QueryBuilder = ({
 		if (filters) {
 			getData()
 		}
-	}, [filters, model])
+	}, [filters, model, summaryModel])
 
 	return (
 		<div className={cn(className, 'flex flex-col gap-6')} data-testid={testId}>

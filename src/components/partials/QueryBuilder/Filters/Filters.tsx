@@ -1,5 +1,5 @@
 import { FormSpy } from 'react-final-form'
-import { ConditionInput } from 'types/QueryBuilder'
+import { ConditionInput, ConditionSchema } from 'types/QueryBuilder'
 import { debounce } from 'utils/debounce'
 import { useText } from 'hooks/useText'
 import { Form } from 'partials/Form'
@@ -17,8 +17,12 @@ export const Filters = ({
 	const { t } = useText('common.queryBuilder.filters')
 
 	const onSubmit = (conditions: ConditionInput) => {
-		// console.log('conditions: ', conditions)
-		onFiltersChange(conditions)
+		try {
+			ConditionSchema.parse(conditions)
+			onFiltersChange(conditions)
+		} catch (error) {
+			return
+		}
 	}
 
 	return (

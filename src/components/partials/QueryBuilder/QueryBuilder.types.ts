@@ -5,4 +5,5 @@ export interface QueryBuilderProps extends CommonProps {
 	fields: OptionType[]
 	conditions: OptionType[]
 	model: QueryBuilderModels
+	summaryModel: QueryBuilderModels
 }

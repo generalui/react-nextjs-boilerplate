@@ -8,12 +8,24 @@ export type OptionType = {
 	inputType?: string
 }
 
+const fieldSchema = z.object({
+	label: z.string(),
+	value: z.string(),
+	type: z.string()
+})
+
+const fieldCondition = z.object({
+	label: z.string(),
+	value: z.string(),
+	inputType: z.string()
+})
+
 export const ConditionSchema = z.object({
-	field: z.string(),
-	condition: z.string(),
+	field: fieldSchema,
+	condition: fieldCondition,
 	value: z.string()
 })
 
 export type ConditionInput = z.infer<typeof ConditionSchema>
 
-export type QueryBuilderModels = 'participant'
+export type QueryBuilderModels = 'participant' | 'study'
