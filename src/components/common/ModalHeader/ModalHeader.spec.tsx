@@ -7,7 +7,7 @@ import { ModalHeader } from './index'
 
 describe('ModalHeader Component', () => {
 	it('renders on the page', () => {
-		render(<ModalHeader />)
+		render(<ModalHeader title='' />)
 
 		const component = screen.getByTestId('ModalHeader')
 

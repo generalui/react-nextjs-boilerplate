@@ -33,10 +33,10 @@ export const routeMap: Record<
 		},
 		role: 'admin'
 	},
-	profile: {
-		href: '/profile',
-		icon: 'CogIcon',
-		labelKey: 'common.sidebar.nav.settings',
+	participants: {
+		href: '/participants',
+		icon: 'UserGroupIcon',
+		labelKey: 'common.sidebar.nav.participants',
 		role: 'admin'
 	}
 }

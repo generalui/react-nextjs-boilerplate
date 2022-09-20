@@ -15,7 +15,21 @@ export const mockUseQueryBaseReturn = {
 const mockUseQueryDataMap: Record<string, Record<string, unknown>> = {
 	studies: {
 		id: new Date().toISOString(),
-		image: {},
+		image: {
+			insertedAt: new Date(),
+			imageId: '',
+			studyId: '',
+			userId: '',
+			image: {
+				id: '',
+				insertedAt: new Date(),
+				uploadedById: '',
+				name: '',
+				url: '',
+				fileType: '',
+				studyId: ''
+			}
+		},
 		title: 'Test Study',
 		description: 'Test',
 		endDate: new Date(),
@@ -24,10 +38,19 @@ const mockUseQueryDataMap: Record<string, Record<string, unknown>> = {
 		status: 'new',
 		users: [
 			{
+				studyId: '',
+				userId: '',
+				insertedAt: new Date(),
 				user: {
-					name: 'Test User',
-					studyId: '',
-					userId: ''
+					id: '',
+					email: '',
+					firstName: '',
+					lastName: '',
+					role: 'admin',
+					createdAt: new Date(),
+					name: '',
+					emailVerified: new Date(),
+					password: ''
 				}
 			}
 		],

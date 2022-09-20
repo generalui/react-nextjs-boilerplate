@@ -9,7 +9,7 @@ import { DataSummary } from './index'
 describe('DataSummary Component', () => {
 	it('renders on the page', () => {
 		render(
-			<DataSummary onSubmit={jest.fn()} consents={0} unMappedFields={0} participantList={[]} />
+			<DataSummary onSubmit={jest.fn()} unMappedFields={0} participantList={[]} mappedFields={0} />
 		)
 
 		const component = screen.getByTestId('DataSummary')

@@ -8,7 +8,7 @@ import { AddPrivateData } from './index'
 
 describe('AddPrivateData Component', () => {
 	it('renders on the page', () => {
-		render(<AddPrivateData modalName='test' />)
+		render(<AddPrivateData modalName='test' studyId='' />)
 
 		const component = screen.getByTestId('AddPrivateData')
 

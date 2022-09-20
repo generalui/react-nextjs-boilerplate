@@ -22,7 +22,8 @@ export const Button = forwardRef<HTMLAnchorElement, ButtonProps>(function Button
 		v = 'default',
 		link,
 		target,
-		href
+		href,
+		id
 	}: ButtonProps,
 	ref
 ) {
@@ -43,10 +44,12 @@ export const Button = forwardRef<HTMLAnchorElement, ButtonProps>(function Button
 	}
 
 	return link ? (
-		<a {...props} ref={ref}>
+		<a {...props} ref={ref} id={id}>
 			{children}
 		</a>
 	) : (
-		<button {...props}>{children}</button>
+		<button {...props} id={id}>
+			{children}
+		</button>
 	)
 })

@@ -5,7 +5,14 @@ type RoutePermissions = {
 }
 
 export const routePermissions: RoutePermissions = {
-	admin: ['/', '/studies', '/profile', '/studies/[studyId]', '/studies/[studyId]/add-participants'],
+	admin: [
+		'/',
+		'/studies',
+		'/profile',
+		'/studies/[studyId]',
+		'/studies/[studyId]/add-participants',
+		'/participants'
+	],
 	participant: ['/participant', '/participant/studies/[studyId]'],
 	general: ['/auth/signin']
 }
