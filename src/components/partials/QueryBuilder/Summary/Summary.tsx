@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { useText } from 'hooks/useText'
 import { AggregatedDataCardGallery } from 'partials/AggregatedDataCardGallery'
 import { Card } from 'common/Card'
@@ -18,14 +19,21 @@ export const Summary = ({
 			dataClassName: 'text-green-400',
 			value: results?.modelCount,
 			key: model
-		},
-		{
-			title: t(`models.${summaryModel}.plural`),
-			dataClassName: 'text-primary',
-			value: results?.summaryModelCount,
-			key: summaryModel
 		}
+		// {
+		// 	title: t(`models.${summaryModel}.plural`),
+		// 	dataClassName: 'text-primary',
+		// 	value: studiesCount || results?.summaryModelCount,
+		// 	key: summaryModel
+		// }
 	]
+
+	// useEffect(() => {
+	// 	const studies = results?.list?.reduce(
+	// 		(studiesCount, result) => (studiesCount += result._count.studies),
+	// 		0
+	// 	)
+	// }, [results])
 
 	return (
 		<div className={className} data-testid={testId}>
