@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client'
 import { z } from 'zod'
 
 export type OptionType = {
@@ -29,7 +30,11 @@ export const ConditionSchema = z.object({
 export type QueryResults = {
 	modelCount: number
 	summaryModelCount: number
-	list: any
+	list: Prisma.ParticipantGetPayload<{
+		include: {
+			_count: true
+		}
+	}>[]
 }
 
 export type ConditionInput = z.infer<typeof ConditionSchema>

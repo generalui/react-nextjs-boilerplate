@@ -27,7 +27,6 @@ export const QueryBuilder = ({
 			const test = await axios.get('/api/query-builder', {
 				params: { model, summaryModel, filters }
 			})
-			console.log('test: ', test)
 			setResults(test.data)
 			return test
 		}
