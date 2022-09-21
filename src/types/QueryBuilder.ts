@@ -40,3 +40,9 @@ export type ApiQueryResults = {
 export type ConditionInput = z.infer<typeof ConditionSchema>
 
 export type QueryBuilderModels = 'participant' | 'study'
+
+export type QueryBuilderParams = {
+	model: QueryBuilderModels
+	summaryModel: QueryBuilderModels
+	filters: ConditionInput | undefined
+}

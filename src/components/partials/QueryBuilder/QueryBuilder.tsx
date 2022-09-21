@@ -24,7 +24,7 @@ export const QueryBuilder = ({
 
 	useEffect(() => {
 		const getData = async () => {
-			const test = await getQueryBuilderResults(model, summaryModel, filters)
+			const test = await getQueryBuilderResults({ model, summaryModel, filters })
 			setResults(test)
 		}
 

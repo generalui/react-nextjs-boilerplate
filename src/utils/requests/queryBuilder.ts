@@ -1,11 +1,10 @@
-import { ApiQueryResults, ConditionInput, QueryBuilderModels } from 'types/QueryBuilder'
+import { ApiQueryResults, QueryBuilderParams } from 'types/QueryBuilder'
 import { axios } from 'utils/client/axios'
 
 export const getQueryBuilderResults = async (
-	model: QueryBuilderModels,
-	summaryModel: QueryBuilderModels,
-	filters: ConditionInput | undefined
+	queryParams: QueryBuilderParams
 ): Promise<ApiQueryResults> => {
+	const { model, summaryModel, filters } = queryParams
 	const response = await axios.get<ApiQueryResults>(`/query-builder`, {
 		params: { model, summaryModel, filters }
 	})
