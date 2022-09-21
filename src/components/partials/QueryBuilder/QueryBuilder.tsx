@@ -1,7 +1,7 @@
-import axios from 'axios'
 import cn from 'classnames'
 import { useEffect, useState } from 'react'
-import { ConditionInput, QueryResults } from 'types/QueryBuilder'
+import { ApiQueryResults, ConditionInput } from 'types/QueryBuilder'
+import { getQueryBuilderResults } from 'utils/requests/queryBuilder'
 import { Filters } from './Filters'
 import { QueryBuilderProps } from './QueryBuilder.types'
 import { Results } from './Results'
@@ -16,7 +16,7 @@ export const QueryBuilder = ({
 	testId = 'QueryBuilder'
 }: QueryBuilderProps) => {
 	const [filters, setFilters] = useState<ConditionInput | undefined>()
-	const [results, setResults] = useState<QueryResults | undefined>()
+	const [results, setResults] = useState<ApiQueryResults | undefined>()
 
 	const onFiltersChange = (filters: ConditionInput) => {
 		setFilters(filters)
@@ -24,11 +24,8 @@ export const QueryBuilder = ({
 
 	useEffect(() => {
 		const getData = async () => {
-			const test = await axios.get('/api/query-builder', {
-				params: { model, summaryModel, filters }
-			})
-			setResults(test.data)
-			return test
+			const test = await getQueryBuilderResults(model, summaryModel, filters)
+			setResults(test)
 		}
 
 		getData()
