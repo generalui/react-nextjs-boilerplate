@@ -8,7 +8,7 @@ import { QueryBuilder } from './index'
 
 describe('QueryBuilder Component', () => {
 	it('renders on the page', () => {
-		render(<QueryBuilder />)
+		render(<QueryBuilder model='participant' summaryModel='study' fields={[]} conditions={[]} />)
 
 		const component = screen.getByTestId('QueryBuilder')
 

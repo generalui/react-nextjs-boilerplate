@@ -107,6 +107,9 @@ const common = {
 		next: { message: 'Next' }
 	},
 	queryBuilder: {
+		filters: {
+			title: { message: 'Filters' }
+		},
 		conditions: {
 			fields: {
 				message: 'Field'
@@ -116,6 +119,22 @@ const common = {
 			},
 			value: {
 				message: 'Value'
+			}
+		},
+		summary: {
+			title: { message: 'Filter Summary' },
+			export: {
+				message: 'Export'
+			}
+		},
+		models: {
+			participant: {
+				singular: { message: 'Participant' },
+				plural: { message: 'Participants' }
+			},
+			study: {
+				singular: { message: 'Study' },
+				plural: { message: 'Studies' }
 			}
 		}
 	}

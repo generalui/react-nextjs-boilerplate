@@ -1,14 +1,11 @@
 import cn from 'classnames'
 import { MultiValueGenericProps, OptionProps, SingleValueProps, components } from 'react-select'
 import { selectOptionsType } from 'types/index'
+import { capitalizeFirstLetter } from 'utils/client/text'
 import { DataTypeLabel } from 'common/DataTypeLabel'
 import { IconProps } from 'common/Icon/Icon.types'
 import { SelectInput } from 'common/SelectInput'
 import { DataTypesSelectProps } from './DataTypesSelect.types'
-
-const capitalizeFirstLetter = (word: string) => {
-	return word.charAt(0).toUpperCase() + word.slice(1)
-}
 
 const MultiValueLabel = (props: MultiValueGenericProps<selectOptionsType>) => {
 	const { value } = props.data
