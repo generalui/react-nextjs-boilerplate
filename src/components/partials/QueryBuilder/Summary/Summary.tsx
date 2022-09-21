@@ -1,4 +1,3 @@
-import { capitalizeFirstLetter, plural } from 'utils/client/text'
 import { useText } from 'hooks/useText'
 import { AggregatedDataCardGallery } from 'partials/AggregatedDataCardGallery'
 import { Card } from 'common/Card'
@@ -11,17 +10,17 @@ export const Summary = ({
 	summaryModel,
 	testId = 'Summary'
 }: SummaryProps) => {
-	const { t } = useText('common.queryBuilder.summary')
+	const { t } = useText('common.queryBuilder')
 
 	const aggregatedData = [
 		{
-			title: capitalizeFirstLetter(plural(model)),
+			title: t(`models.${model}.plural`),
 			dataClassName: 'text-green-400',
 			value: results?.modelCount,
 			key: model
 		},
 		{
-			title: capitalizeFirstLetter(plural(summaryModel)),
+			title: t(`models.${summaryModel}.plural`),
 			dataClassName: 'text-primary',
 			value: results?.summaryModelCount,
 			key: summaryModel
@@ -32,7 +31,7 @@ export const Summary = ({
 		<div className={className} data-testid={testId}>
 			<Card
 				iconProps={{ icon: 'UserGroupIcon', wrapperClass: 'bg-green-400' }}
-				title={t('title')}
+				title={t('summary.title')}
 				headerClassName='pb-4 border-b mb-0'
 			>
 				<AggregatedDataCardGallery

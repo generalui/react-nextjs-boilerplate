@@ -126,6 +126,16 @@ const common = {
 			export: {
 				message: 'Export'
 			}
+		},
+		models: {
+			participant: {
+				singular: { message: 'Participant' },
+				plural: { message: 'Participants' }
+			},
+			study: {
+				singular: { message: 'Study' },
+				plural: { message: 'Studies' }
+			}
 		}
 	}
 }

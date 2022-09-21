@@ -39,7 +39,7 @@ export const QueryBuilder = ({
 		<div className={cn(className, 'flex flex-col gap-6')} data-testid={testId}>
 			<Filters fields={fields} conditions={conditions} onFiltersChange={onFiltersChange} />
 			<Summary results={results} model={model} summaryModel={summaryModel} />
-			<Results />
+			<Results results={results?.list} model={model} summaryModel={summaryModel} />
 		</div>
 	)
 }

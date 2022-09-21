@@ -14,7 +14,7 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 		filters?: string
 	}
 
-	let where: unknown
+	let where = {}
 
 	if (filters) {
 		const parsedFilters: ConditionInput = JSON.parse(filters)
@@ -30,14 +30,22 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	}
 
 	const query = async () => {
-		const [modelCount, summaryModelCount] = await prisma.$transaction([
+		const [modelCount, summaryModelCount, list] = await prisma.$transaction([
 			// @ts-expect-error TODO: Fix this type
 			prisma[model].count(where && { ...where }),
 			// @ts-expect-error TODO: Fix this type
-			prisma[summaryModel].count(where && { ...where })
+			prisma[summaryModel].count(where && { ...where }),
+			// @ts-expect-error TODO: Fix this type
+			prisma[model].findMany({
+				// TODO: make this include generic
+				include: {
+					_count: true
+				},
+				...where
+			})
 		])
 
-		return { modelCount, summaryModelCount }
+		return { modelCount, summaryModelCount, list }
 	}
 
 	handleQuery({
