@@ -37,7 +37,6 @@ const participants = {
 				equals: { label: { message: 'Equals' }, inputType: { message: 'text' } },
 				not: { label: { message: 'Not Equals' }, inputType: { message: 'text' } },
 				contains: { label: { message: 'Contains' }, inputType: { message: 'text' } },
-				// notIncludes: { label: { message: 'Not Includes' }, inputType: { message: 'text' } },
 				startsWith: { label: { message: 'Starts With' }, inputType: { message: 'text' } },
 				lte: { label: { message: 'Before' }, inputType: { message: 'date' } },
 				gte: { label: { message: 'After' }, inputType: { message: 'date' } }
