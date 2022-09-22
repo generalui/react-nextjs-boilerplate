@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-key */
-import Image from 'next/image'
 import { useState } from 'react'
 import { ParticipantSchema, UploadCSVInput } from 'types/index'
 import { useAddParticipantsToStudy } from 'hooks/api/studies/useAddParticipantsToStudy'
@@ -7,6 +6,7 @@ import { useParseCSV } from 'hooks/useParseCSV'
 import { useRouter } from 'hooks/useRouter'
 import { useText } from 'hooks/useText'
 import { MultiStepForm } from 'partials/MultiStepForm'
+import { Icon } from 'common/Icon'
 import { AddParticipantsCSVFormProps } from './AddParticipantsCSVForm.types'
 import { DataSummary } from './steps/DataSummary'
 import { MapFields } from './steps/MapFields'
@@ -96,7 +96,7 @@ export const AddParticipantsCSVForm = ({
 	const title = (
 		<div className='flex justify-between items-center w-full'>
 			<div className='flex justify-between items-center gap-2'>
-				<Image src='/icons/redcap.svg' width={28} height={28} alt={t('imageAlt')} />
+				<Icon icon='DocumentIcon' />
 				{t('title')}
 			</div>
 

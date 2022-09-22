@@ -8,14 +8,14 @@ import { useStudy } from 'hooks/api/studies/useStudy'
 import { useModal } from 'hooks/useModal'
 import { useStudyDataTypes } from 'hooks/useStudyDataTypes'
 import { useText } from 'hooks/useText'
+import { DataTypesSelect } from 'partials/DataTypesSelect'
 import { DocumentsInput } from 'partials/DocumentsInput'
 import { DropDown } from 'common/DropDown'
+import { DropDownItemWithIcon } from 'common/DropDownItemWithIcon'
 import { Icon } from 'common/Icon'
 import { Modal } from 'common/Modal'
 import { ModalFooterButtons } from 'common/ModalFooterButtons'
 import { Text } from 'common/Text'
-import { DropDownItemWithImage } from '../../common/DropDownItemWithImage'
-import { DataTypesSelect } from '../DataTypesSelect'
 import { AddPrivateDataProps } from './AddPrivateData.types'
 
 export const AddPrivateData = ({
@@ -50,9 +50,8 @@ export const AddPrivateData = ({
 				items={[
 					{
 						label: (
-							<DropDownItemWithImage
-								src='/icons/redcap.svg'
-								alt={t('dropDownItems.addParticipants.alt')}
+							<DropDownItemWithIcon
+								icon='DocumentIcon'
 								label={t('dropDownItems.addParticipants.label')}
 							/>
 						),
@@ -63,9 +62,8 @@ export const AddPrivateData = ({
 					},
 					{
 						label: (
-							<DropDownItemWithImage
-								src='/icons/document-upload.svg'
-								alt={t('dropDownItems.files.alt')}
+							<DropDownItemWithIcon
+								icon='DocumentArrowUpIcon'
 								label={t('dropDownItems.files.label')}
 							/>
 						),

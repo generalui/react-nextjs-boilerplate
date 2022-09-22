@@ -28,7 +28,7 @@ export const Filters = ({
 	return (
 		<div className={className} data-testid={testId}>
 			<Card
-				iconProps={{ icon: 'DocumentReportIcon' }}
+				iconProps={{ icon: 'DocumentChartBarIcon' }}
 				title={t('title')}
 				headerClassName='pb-4 border-b mb-0'
 			>
