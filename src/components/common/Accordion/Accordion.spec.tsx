@@ -7,7 +7,7 @@ import { Accordion } from './index'
 
 describe('Accordion Component', () => {
 	it('renders on the page', () => {
-		render(<Accordion />)
+		render(<Accordion title='' />)
 
 		const component = screen.getByTestId('Accordion')
 

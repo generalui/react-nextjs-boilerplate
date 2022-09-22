@@ -3,4 +3,5 @@ import { AggregatedDataCardProps } from 'partials/AggregatedDataCard/AggregatedD
 
 export interface AggregatedDataCardGalleryProps extends CommonProps {
 	aggregatedData: AggregatedDataCardProps[]
+	cardClassName?: string
 }

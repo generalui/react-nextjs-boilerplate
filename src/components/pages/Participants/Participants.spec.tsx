@@ -1,16 +1,16 @@
 /**
- * Test file for ActionButtons
+ * Test file for Participants
  */
 import { render, screen } from '@testing-library/react'
 import '__mocks__/index'
 import React from 'react'
-import { ActionButtons } from './index'
+import { Participants } from './index'
 
-describe('ActionButtons Component', () => {
+describe('Participants Component', () => {
 	it('renders on the page', () => {
-		render(<ActionButtons />)
+		render(<Participants />)
 
-		const component = screen.getByTestId('ActionButtons')
+		const component = screen.getByTestId('Participants')
 
 		expect(component).toBeInTheDocument()
 	})

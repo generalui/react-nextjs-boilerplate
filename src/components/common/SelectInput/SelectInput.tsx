@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Field, FieldInputProps } from 'react-final-form'
+import { OnChange } from 'react-final-form-listeners'
 import { InputLabel } from 'common/InputLabel'
 import { Select } from 'common/Select'
 import { SelectInputProps } from './SelectInput.types'
@@ -17,6 +18,7 @@ export const SelectInput = <T extends unknown>({
 	label,
 	isClearable,
 	defaultValue,
+	onChange,
 	showError = true
 }: SelectInputProps<T>) => {
 	const inputRef = useRef<FieldInputProps<File, HTMLElement>>()
@@ -69,6 +71,13 @@ export const SelectInput = <T extends unknown>({
 					)
 				}}
 			</Field>
+			{onChange && (
+				<OnChange name={name}>
+					{(value, previous) => {
+						onChange(value, previous)
+					}}
+				</OnChange>
+			)}
 		</div>
 	)
 }

@@ -1,16 +1,16 @@
 /**
- * Test file for ActionButtons
+ * Test file for Filters
  */
 import { render, screen } from '@testing-library/react'
 import '__mocks__/index'
 import React from 'react'
-import { ActionButtons } from './index'
+import { Filters } from './index'
 
-describe('ActionButtons Component', () => {
+describe('Filters Component', () => {
 	it('renders on the page', () => {
-		render(<ActionButtons />)
+		render(<Filters />)
 
-		const component = screen.getByTestId('ActionButtons')
+		const component = screen.getByTestId('Filters')
 
 		expect(component).toBeInTheDocument()
 	})
