@@ -18,8 +18,7 @@ export const QueryBuilder = ({
 }: QueryBuilderProps) => {
 	const { query, update } = useRouterQuery()
 	const [filters, setFilters] = useState<ConditionInput | undefined>()
-	console.log('filters: ', filters)
-	const { data: results } = useQueryBuilder({ model, summaryModel, filters })
+	const { data: results, refetch } = useQueryBuilder({ model, summaryModel, filters })
 
 	useEffect(() => {
 		const getFilters: () => ConditionInput | undefined = () => {
@@ -43,6 +42,7 @@ export const QueryBuilder = ({
 			condition: filters.condition.value,
 			value: filters.value
 		})
+		refetch()
 	}
 
 	return (
