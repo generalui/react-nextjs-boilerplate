@@ -86,7 +86,7 @@ export const StudyList = ({
 	className,
 	concise = false,
 	iconProps = {
-		icon: 'DocumentReportIcon'
+		icon: 'DocumentChartBarIcon'
 	},
 	isLoading,
 	studies,

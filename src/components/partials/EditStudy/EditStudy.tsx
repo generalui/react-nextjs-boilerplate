@@ -36,7 +36,7 @@ export const EditStudy = memo(function EditStudy({
 					modalTitle={t('title')}
 					buttonChildren={
 						<>
-							<Icon icon='PencilAltIcon' size='xs' />
+							<Icon icon='PencilSquareIcon' size='xs' />
 							{t('buttonLabel')}
 						</>
 					}

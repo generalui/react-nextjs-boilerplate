@@ -4,7 +4,7 @@ import { IconProps } from 'common/Icon/Icon.types'
 export const StatusBadgeVariants: {
 	[key in StatusBadgeProps['v']]: { bgClass: string; icon: IconProps['icon'] }
 } = {
-	new: { bgClass: 'bg-warning', icon: 'BadgeCheckIcon' },
-	approved: { bgClass: 'bg-success', icon: 'BadgeCheckIcon' },
+	new: { bgClass: 'bg-warning', icon: 'CheckBadgeIcon' },
+	approved: { bgClass: 'bg-success', icon: 'CheckBadgeIcon' },
 	archived: { bgClass: 'bg-muted', icon: 'ServerIcon' }
 }

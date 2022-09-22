@@ -24,7 +24,7 @@ export const routeMap: Record<
 	},
 	studies: {
 		href: '/studies',
-		icon: 'DocumentReportIcon',
+		icon: 'DocumentChartBarIcon',
 		labelKey: 'common.sidebar.nav.studies',
 		subRoutes: {
 			'[studyId]': { labelKey: 'studies.details.title' },

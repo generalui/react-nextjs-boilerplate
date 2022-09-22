@@ -146,7 +146,12 @@ export const DocumentsInput = ({
 							)}
 
 							{/* Show errors if any */}
-							{isError && <InputError className='mt-2' errors={meta.error} />}
+							{isError && (
+								<InputError
+									className='mt-2'
+									errors={Array.isArray(meta.error) ? meta.error : [meta.error]}
+								/>
+							)}
 						</>
 					)
 				}}
