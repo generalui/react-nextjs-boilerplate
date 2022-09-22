@@ -58,7 +58,7 @@ export const handleQuery: HandleQuery = async ({
 
 		await res.status(200).json(queryResult)
 	} catch (error) {
-		console.error({ error })
-		res.status(400).json({ message: error })
+		console.error(error)
+		res.status(400).json({ message: (error as Error)?.message || 'An unknown error has occurred' })
 	}
 }
