@@ -22,7 +22,7 @@ export const NavBar = ({
 	return (
 		<div
 			className={cn(
-				'w-full border-b py-1 flex justify-center items-center border-gray-200 bg-white px-2 py-2.5 dark:border-gray-700 dark:bg-gray-800 sm:px-4 z-10 fixed top-0 right-0 left-0',
+				'w-full border-b flex justify-center items-center border-gray-200 bg-white px-2 py-2.5 dark:border-gray-700 dark:bg-gray-800 sm:px-4 z-10 fixed top-0 right-0 left-0',
 				styles.navBar
 			)}
 			data-testid={testId}
@@ -34,7 +34,7 @@ export const NavBar = ({
 					) : (
 						<>
 							<button className='block lg:hidden h-8 w-8 cursor-pointer' onClick={handleMenuToggle}>
-								<Icon icon={isMenuOpen ? 'XIcon' : 'MenuIcon'} />
+								<Icon icon={isMenuOpen ? 'XMarkIcon' : 'Bars3Icon'} />
 							</button>
 							<Link href='/' passHref>
 								<a title={t('logoAlt')}>

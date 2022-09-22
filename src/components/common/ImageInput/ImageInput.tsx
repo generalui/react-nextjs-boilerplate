@@ -95,7 +95,7 @@ export const ImageInput = ({
 												: imageInputVariants[v].iconWrapper
 										)}
 									>
-										<Icon icon='PencilAltIcon' size='sm' className={cn(editIconClassName)} />
+										<Icon icon='PencilSquareIcon' size='sm' className={cn(editIconClassName)} />
 									</div>
 								</div>
 							</Dropzone>
