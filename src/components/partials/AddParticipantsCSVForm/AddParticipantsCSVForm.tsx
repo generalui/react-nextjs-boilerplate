@@ -94,8 +94,8 @@ export const AddParticipantsCSVForm = ({
 	]
 
 	const title = (
-		<div className='block flex justify-between items-center w-full'>
-			<div className='block flex justify-between items-center gap-2'>
+		<div className='flex justify-between items-center w-full'>
+			<div className='flex justify-between items-center gap-2'>
 				<Image src='/icons/redcap.svg' width={28} height={28} alt={t('imageAlt')} />
 				{t('title')}
 			</div>
@@ -112,7 +112,6 @@ export const AddParticipantsCSVForm = ({
 				inProgress={inProgress}
 				title={title}
 				currentStep={currentStep}
-				// header={parsedCSV ? <XmlPreview className={'mb-4'} xmlParsed={parsedCSV} /> : undefined}
 				steps={multiStepComponents}
 				name={UPLOAD_REDCAP_XML_FORM_NAME}
 			/>

@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios'
 import { UseMutationResult, useMutation } from 'react-query'
 import { Study } from 'types/Study'
 import { AddParticipantsInput } from 'types/StudyParticipants'
@@ -30,9 +31,14 @@ export const useAddParticipantsToStudy = ({
 				toast(success('updated'))
 				onSuccess?.()
 			},
-			onError: (_err, _newStudy, context?: { previousStudy: Study }) => {
+			onError: (err, _newStudy, context?: { previousStudy: Study }) => {
 				reactQueryClient.setQueryData(['studies', studyId], context?.previousStudy)
-				toast(error('failedToUpdate'), 'error')
+
+				toast(
+					(err as AxiosError<{ message: string }>)?.response?.data?.message ||
+						error('failedToUpdate'),
+					'error'
+				)
 				onError?.()
 			},
 			onSettled: () => {
