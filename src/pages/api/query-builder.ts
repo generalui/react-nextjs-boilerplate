@@ -6,7 +6,6 @@ import { prisma } from 'utils/api/prisma'
 
 const apiRoute = connect()
 
-// Get a aggregated study data
 apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	const { model, summaryModel, filters } = req.query as {
 		model: QueryBuilderModels
@@ -18,7 +17,6 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 
 	if (filters) {
 		const parsedFilters: ConditionInput = JSON.parse(filters)
-		console.log('parsedFilters: ', parsedFilters)
 
 		where = {
 			where: {

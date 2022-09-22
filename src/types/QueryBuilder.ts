@@ -27,7 +27,7 @@ export const ConditionSchema = z.object({
 	value: z.string()
 })
 
-export type QueryResults = {
+export type ApiQueryResults = {
 	modelCount: number
 	summaryModelCount: number
 	list: Prisma.ParticipantGetPayload<{
@@ -40,3 +40,9 @@ export type QueryResults = {
 export type ConditionInput = z.infer<typeof ConditionSchema>
 
 export type QueryBuilderModels = 'participant' | 'study'
+
+export type QueryBuilderParams = {
+	model: QueryBuilderModels
+	summaryModel: QueryBuilderModels
+	filters: ConditionInput | undefined
+}
