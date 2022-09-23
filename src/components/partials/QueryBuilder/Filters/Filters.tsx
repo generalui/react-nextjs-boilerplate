@@ -12,6 +12,7 @@ export const Filters = ({
 	fields,
 	conditions,
 	onFiltersChange,
+	initialValues,
 	testId = 'Filters'
 }: FiltersProps) => {
 	const { t } = useText('common.queryBuilder.filters')
@@ -34,12 +35,13 @@ export const Filters = ({
 			>
 				<Form
 					onSubmit={onSubmit}
+					initialValues={initialValues}
 					render={({ handleSubmit }) => (
 						<form onSubmit={handleSubmit}>
 							<Condition fields={fields} conditions={conditions} />
 							<FormSpy
 								onChange={(props) => {
-									debounce(() => onSubmit(props.values as ConditionInput), 1000, 'filters')()
+									debounce(() => onSubmit(props.values as ConditionInput), 500, 'filters')()
 								}}
 							/>
 						</form>

@@ -5,4 +5,5 @@ export interface FiltersProps extends CommonProps {
 	fields: OptionType[]
 	conditions: OptionType[]
 	onFiltersChange: (filter: ConditionInput) => void
+	initialValues?: ConditionInput
 }
