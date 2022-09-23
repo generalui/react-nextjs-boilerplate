@@ -1,5 +1,5 @@
 import { FormSpy } from 'react-final-form'
-import { ConditionInput } from 'types/QueryBuilder'
+import { ConditionInput, ConditionSchema } from 'types/QueryBuilder'
 import { debounce } from 'utils/debounce'
 import { useText } from 'hooks/useText'
 import { Form } from 'partials/Form'
@@ -19,7 +19,7 @@ export const Filters = ({
 
 	const onSubmit = (conditions: ConditionInput) => {
 		try {
-			// ConditionSchema.parse(conditions)
+			ConditionSchema.parse(conditions)
 			onFiltersChange(conditions)
 		} catch (error) {
 			return
@@ -41,7 +41,7 @@ export const Filters = ({
 							<Condition fields={fields} conditions={conditions} />
 							<FormSpy
 								onChange={(props) => {
-									debounce(() => onSubmit(props.values as ConditionInput), 1000, 'filters')()
+									debounce(() => onSubmit(props.values as ConditionInput), 500, 'filters')()
 								}}
 							/>
 						</form>

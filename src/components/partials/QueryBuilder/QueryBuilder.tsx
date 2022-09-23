@@ -18,7 +18,8 @@ export const QueryBuilder = ({
 }: QueryBuilderProps) => {
 	const { query, update } = useRouterQuery()
 	const [filters, setFilters] = useState<ConditionInput | undefined>()
-	const { data: results, refetch } = useQueryBuilder({ model, summaryModel, filters })
+	const [initialValues, setInitialValues] = useState<ConditionInput | undefined>()
+	const { data: results } = useQueryBuilder({ model, summaryModel, filters })
 
 	useEffect(() => {
 		const getFilters: () => ConditionInput | undefined = () => {
@@ -34,7 +35,9 @@ export const QueryBuilder = ({
 		}
 		const newFilters = getFilters()
 		setFilters(newFilters)
-	}, [conditions, fields, query])
+		// @ts-expect-error TODO: Fix this type
+		if (!initialValues && query?.value) setInitialValues(newFilters)
+	}, [conditions, fields, initialValues, query])
 
 	const onFiltersChange = (filters: ConditionInput) => {
 		update({
@@ -42,7 +45,6 @@ export const QueryBuilder = ({
 			condition: filters.condition.value,
 			value: filters.value
 		})
-		refetch()
 	}
 
 	return (
@@ -51,7 +53,7 @@ export const QueryBuilder = ({
 				fields={fields}
 				conditions={conditions}
 				onFiltersChange={onFiltersChange}
-				initialValues={filters}
+				initialValues={initialValues}
 			/>
 			<Summary results={results} model={model} summaryModel={summaryModel} />
 			<Results results={results?.list} model={model} summaryModel={summaryModel} />
