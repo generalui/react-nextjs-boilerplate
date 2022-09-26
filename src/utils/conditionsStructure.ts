@@ -23,14 +23,14 @@ const participants = {
 						key: 'fields.participantInfo.options.id'
 					}
 				}
+			},
+			metaData: {
+				title: { key: 'fields.metaData.title' },
+				options: {
+					insertedAt: { key: 'fields.metaData.options.insertedAt' },
+					updatedAt: { key: 'fields.metaData.options.updatedAt' }
+				}
 			}
-			// metaData: {
-			// 	title: { key: 'fields.metaData.title' },
-			// 	options: {
-			// 		insertedAt: { key: 'fields.metaData.options.insertedAt' },
-			// 		updatedAt: { key: 'fields.metaData.options.updatedAt' }
-			// 	}
-			// }
 		},
 		condition: {
 			options: {
@@ -53,15 +53,15 @@ const participants = {
 				startsWith: {
 					label: { key: 'condition.options.startsWith.label' },
 					inputType: { key: 'condition.options.startsWith.inputType' }
+				},
+				lte: {
+					label: { key: 'condition.options.lte.label' },
+					inputType: { key: 'condition.options.lte.inputType' }
+				},
+				gte: {
+					label: { key: 'condition.options.gte.label' },
+					inputType: { key: 'condition.options.gte.inputType' }
 				}
-				// lte: {
-				// 	label: { key: 'condition.options.lte.label' },
-				// 	inputType: { key: 'condition.options.lte.inputType' }
-				// },
-				// gte: {
-				// 	label: { key: 'condition.options.gte.label' },
-				// 	inputType: { key: 'condition.options.gte.inputType' }
-				// }
 			}
 		}
 	}

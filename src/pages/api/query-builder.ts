@@ -17,11 +17,14 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 
 	if (filters) {
 		const parsedFilters: ConditionInput = JSON.parse(filters)
+		const value = parsedFilters?.field.label.toLowerCase().includes('date')
+			? new Date(parsedFilters?.value)
+			: parsedFilters.value
 
 		where = {
 			where: {
 				[parsedFilters.field.value]: {
-					[parsedFilters.condition.value]: parsedFilters.value
+					[parsedFilters.condition.value]: value
 				}
 			}
 		}
@@ -32,7 +35,7 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 			// @ts-expect-error TODO: Fix this type
 			prisma[model].count(where && { ...where }),
 			// @ts-expect-error TODO: Fix this type
-			prisma[summaryModel].count(where && { ...where }),
+			prisma[summaryModel].count(),
 			// @ts-expect-error TODO: Fix this type
 			prisma[model].findMany({
 				// TODO: make this include generic
