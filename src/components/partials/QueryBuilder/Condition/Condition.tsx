@@ -1,5 +1,6 @@
 import cn from 'classnames'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { FieldInputProps } from 'react-final-form'
 import { MultiValue, OptionProps, SingleValue } from 'react-select'
 import { OptionType } from 'types/QueryBuilder'
 import { useText } from 'hooks/useText'
@@ -39,6 +40,7 @@ export const Condition = ({
 }: ConditionProps) => {
 	const [fieldInputType, setFieldInputType] = useState<string | undefined>()
 	const [filteredConditions, setFilteredConditions] = useState<OptionType[]>(conditions)
+	const inputRef = useRef<FieldInputProps<string>>()
 
 	const { t } = useText('common.queryBuilder.conditions')
 
@@ -54,6 +56,9 @@ export const Condition = ({
 				condition.allowedFieldTypes?.includes(fieldInputType)
 			)
 			setFilteredConditions(newConditions)
+			if (inputRef.current) {
+				inputRef.current?.onChange?.('')
+			}
 		}
 	}, [conditions, fieldInputType])
 
@@ -81,7 +86,7 @@ export const Condition = ({
 					<SelectInput<OptionType> name='condition' options={filteredConditions} />
 				</div>
 				<div className='col-span-2'>
-					<Input name='value' type={fieldInputType} />
+					<Input name='value' type={fieldInputType} ref={inputRef} />
 				</div>
 			</div>
 		</div>

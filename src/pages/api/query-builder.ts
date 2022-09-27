@@ -17,9 +17,17 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 
 	if (filters) {
 		const parsedFilters: ConditionInput = JSON.parse(filters)
-		const value = parsedFilters?.field.label.toLowerCase().includes('date')
-			? new Date(parsedFilters?.value)
-			: parsedFilters.value
+		let value
+
+		if (parsedFilters?.field.label.toLowerCase().includes('date')) {
+			value = new Date(parsedFilters?.value)
+			// @ts-expect-error TODO: Fix this type
+			if (!(value instanceof Date && !isNaN(value))) {
+				return
+			}
+		} else {
+			value = parsedFilters.value
+		}
 
 		where = {
 			where: {

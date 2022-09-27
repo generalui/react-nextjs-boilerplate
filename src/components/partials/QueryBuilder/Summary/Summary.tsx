@@ -17,7 +17,7 @@ export const Summary = ({
 		{
 			title: t(`models.${model}.plural`),
 			dataClassName: 'text-green-400',
-			value: results?.modelCount,
+			value: results?.modelCount || 0,
 			key: model
 		}
 		// {
