@@ -20,7 +20,8 @@ export const Participants = function Participants({ testId = 'Participants' }: P
 				return {
 					label: t(valueKey),
 					value: key,
-					type: 'option'
+					type: 'option',
+					inputType: t(valueKey).toLowerCase().includes('date') ? 'date' : 'text'
 				}
 			})
 
@@ -41,7 +42,7 @@ export const Participants = function Participants({ testId = 'Participants' }: P
 			return {
 				label: t(value.label.key),
 				value: key,
-				inputType: t(value.inputType.key)
+				allowedFieldTypes: value.allowedFieldTypes
 			}
 		}
 	)

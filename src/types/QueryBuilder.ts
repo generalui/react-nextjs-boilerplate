@@ -7,6 +7,7 @@ export type OptionType = {
 	type?: 'option' | 'mainField'
 	isDisabled?: boolean
 	inputType?: string
+	allowedFieldTypes?: string[]
 }
 
 const fieldSchema = z.object({

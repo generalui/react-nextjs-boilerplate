@@ -36,31 +36,30 @@ const participants = {
 			options: {
 				equals: {
 					label: { key: 'condition.options.equals.label' },
-					inputType: { key: 'condition.options.equals.inputType' }
+					allowedFieldTypes: ['text', 'date']
 				},
 				not: {
 					label: { key: 'condition.options.not.label' },
-					inputType: { key: 'condition.options.not.inputType' }
+					allowedFieldTypes: ['text', 'date']
 				},
 				contains: {
 					label: { key: 'condition.options.contains.label' },
-					inputType: { key: 'condition.options.contains.inputType' }
+					allowedFieldTypes: ['text']
 				},
 				// notIncludes: {
 				// 	label: { key: 'condition.options.notIncludes.label' },
-				// 	inputType: { key: 'condition.options.notIncludes.inputType' }
 				// },
 				startsWith: {
 					label: { key: 'condition.options.startsWith.label' },
-					inputType: { key: 'condition.options.startsWith.inputType' }
+					allowedFieldTypes: ['text']
 				},
 				lte: {
 					label: { key: 'condition.options.lte.label' },
-					inputType: { key: 'condition.options.lte.inputType' }
+					allowedFieldTypes: ['date']
 				},
 				gte: {
 					label: { key: 'condition.options.gte.label' },
-					inputType: { key: 'condition.options.gte.inputType' }
+					allowedFieldTypes: ['date']
 				}
 			}
 		}
