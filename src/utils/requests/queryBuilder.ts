@@ -8,7 +8,7 @@ export const getQueryBuilderResults = async (
 	if (queryParams?.filters) {
 		filters = queryParams?.filters.value ? queryParams?.filters : undefined
 	}
-	const response = await axios.get<ApiQueryResults>(`/query-builder`, {
+	const response = await axios.get<ApiQueryResults>(`participants/query`, {
 		params: {
 			model: queryParams?.model,
 			summaryModel: queryParams?.summaryModel,

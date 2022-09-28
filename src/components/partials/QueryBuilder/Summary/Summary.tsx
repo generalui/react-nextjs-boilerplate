@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { useText } from 'hooks/useText'
 import { AggregatedDataCardGallery } from 'partials/AggregatedDataCardGallery'
 import { Card } from 'common/Card'
