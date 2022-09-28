@@ -14,6 +14,7 @@ export const QueryBuilder = ({
 	fields,
 	model,
 	summaryModel,
+	transformField,
 	testId = 'QueryBuilder'
 }: QueryBuilderProps) => {
 	const { query, update } = useRouterQuery()
@@ -50,6 +51,7 @@ export const QueryBuilder = ({
 	return (
 		<div className={cn(className, 'flex flex-col gap-6')} data-testid={testId}>
 			<Filters
+				transformField={transformField}
 				fields={fields}
 				conditions={conditions}
 				onFiltersChange={onFiltersChange}

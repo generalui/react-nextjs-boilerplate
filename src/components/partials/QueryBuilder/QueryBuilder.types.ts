@@ -1,9 +1,8 @@
 import { CommonProps } from 'types/CommonProps'
-import { OptionType, QueryBuilderModels } from 'types/QueryBuilder'
+import { ConditionInput, OptionType, QueryBuilderModel } from 'types/QueryBuilder'
 
 export interface QueryBuilderProps extends CommonProps {
 	fields: OptionType[]
+	transformField?: (field: ConditionInput) => Record<string, unknown>
 	conditions: OptionType[]
-	model: QueryBuilderModels
-	summaryModel: QueryBuilderModels
-}
+	model: QQueryBuilderModel	summaryModel: QQueryBuilderModel}

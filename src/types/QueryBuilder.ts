@@ -1,12 +1,15 @@
 import { Prisma } from '@prisma/client'
 import { z } from 'zod'
 
+export type QueryBuilderModel = 'participant' | 'study'
+
 export type OptionType = {
 	label: string
 	value: string
-	type?: 'option' | 'mainField'
+	type?: 'option' | 'header'
 	isDisabled?: boolean
 	inputType?: string
+	model?: QueryBuilderModel
 	allowedFieldTypes?: string[]
 }
 
@@ -40,10 +43,8 @@ export type ApiQueryResults = {
 
 export type ConditionInput = z.infer<typeof ConditionSchema>
 
-export type QueryBuilderModels = 'participant' | 'study'
-
 export type QueryBuilderParams = {
-	model: QueryBuilderModels
-	summaryModel: QueryBuilderModels
+	model: QueryBuilderModel
+	summaryModel: QueryBuilderModel
 	filters: ConditionInput | undefined
 }

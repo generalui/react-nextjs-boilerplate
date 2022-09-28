@@ -19,7 +19,8 @@ export const Filters = ({
 
 	const onSubmit = (conditions: ConditionInput) => {
 		try {
-			ConditionSchema.parse(conditions)
+			const parsedConditions = ConditionSchema.parse(conditions)
+			console.log('parsedConditions', parsedConditions)
 			onFiltersChange(conditions)
 		} catch (error) {
 			return

@@ -6,4 +6,5 @@ export interface FiltersProps extends CommonProps {
 	conditions: OptionType[]
 	onFiltersChange: (filter: ConditionInput) => void
 	initialValues?: ConditionInput
+	transformField?: (filter: ConditionInput) => Record<string, unknown>
 }

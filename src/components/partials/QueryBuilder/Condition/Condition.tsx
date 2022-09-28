@@ -23,7 +23,7 @@ const Option = (props: OptionProps<OptionType>) => {
 					'option--is-focused': isFocused,
 					'option--is-selected': isSelected
 				},
-				cn(className, type === 'mainField' && 'font-semibold')
+				cn(className, type === 'header' && 'font-semibold')
 			)}
 			{...innerProps}
 		>

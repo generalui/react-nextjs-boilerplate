@@ -1,5 +1,13 @@
-import { ConditionInput, QueryBuilderModels } from 'types/QueryBuilder'
+import { ConditionInput, QueryBuilderModel } from 'types/QueryBuilder'
 import { prisma } from 'utils/api/prisma'
+
+export const tranformField = (field: ConditionInput) => {
+	return {
+		[field.field.value]: {
+			[field.condition.value]: field.value
+		}
+	}
+}
 
 export const getWhere = (filters?: string) => {
 	let where = {}
@@ -19,7 +27,7 @@ export const getWhere = (filters?: string) => {
 	return where
 }
 
-export const getQuery = (model: QueryBuilderModels, filters?: string) => {
+export const getQuery = (model: QueryBuilderModel, filters?: string) => {
 	const where = getWhere(filters)
 
 	const query = async () => {

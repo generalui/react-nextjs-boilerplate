@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { ConditionInput, QueryBuilderModels } from 'types/QueryBuilder'
+import { ConditionInput, QueryBuilderModel } from 'types/QueryBuilder'
 import { connect } from 'utils/api/connect'
 import { handleQuery } from 'utils/api/handleQuery'
 import { prisma } from 'utils/api/prisma'
@@ -8,8 +8,8 @@ const apiRoute = connect()
 
 apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	const { model, summaryModel, filters } = req.query as {
-		model: QueryBuilderModels
-		summaryModel: QueryBuilderModels
+		model: QueryBuilderModel
+		summaryModel: QueryBuilderModel
 		filters?: string
 	}
 
@@ -60,7 +60,7 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	handleQuery({
 		req,
 		res,
-		model: model as QueryBuilderModels,
+		model: model as QueryBuilderModel,
 		query,
 		role: 'admin',
 		disableLog: true

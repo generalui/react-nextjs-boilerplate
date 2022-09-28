@@ -1,27 +1,45 @@
 /*!
  * Participants Page
  */
-import { OptionType } from 'types/QueryBuilder'
+import { OptionType, QueryBuilderModel } from 'types/QueryBuilder'
+import { ConditionInput } from 'types/QueryBuilder'
 import participants from 'utils/conditionsStructure'
 import { useText } from 'hooks/useText'
 import { PageWrapper } from 'partials/PageWrapper'
 import { QueryBuilder } from 'partials/QueryBuilder'
 import { ParticipantsProps } from './Participants.types'
 
+const transformField = (field: ConditionInput, study?: boolean) => {
+	// if study
+	if (study)
+		return {
+			study: {
+				some: {
+					[field.field.value]: {
+						[field.condition.value]: field.value
+					}
+				}
+			}
+		}
+	else return field
+}
+
 export const Participants = function Participants({ testId = 'Participants' }: ParticipantsProps) {
 	const { t } = useText('participants.conditions')
 
 	const fields: OptionType[] = Object.entries(participants.conditions.fields).flatMap(
 		([key, value]) => {
+			const { model } = value
 			const fieldOptions: OptionType[] = Object.entries(
 				participants.conditions.fields[key as keyof typeof participants.conditions.fields].options
-			).map(([key, value]) => {
-				const { key: valueKey } = value
+			).map(([optionKey, optionValue]) => {
+				const { key } = optionValue
 				return {
-					label: t(valueKey),
-					value: key,
+					label: t(key),
+					value: optionKey,
 					type: 'option',
-					inputType: t(valueKey).toLowerCase().includes('date') ? 'date' : 'text'
+					inputType: t(optionKey).toLowerCase().includes('date') ? 'date' : 'text',
+					model: model as QueryBuilderModel
 				}
 			})
 
@@ -29,14 +47,16 @@ export const Participants = function Participants({ testId = 'Participants' }: P
 				{
 					label: t(value.title.key),
 					value: key,
-					type: 'mainField',
-					isDisabled: true
+					type: 'header',
+					isDisabled: true,
+					model: model as QueryBuilderModel
 				},
 				...fieldOptions
 			]
 		}
 	)
 
+	console.log(fields)
 	const conditions: OptionType[] = Object.entries(participants.conditions.condition.options).map(
 		([key, value]) => {
 			return {
@@ -50,6 +70,7 @@ export const Participants = function Participants({ testId = 'Participants' }: P
 	return (
 		<PageWrapper title='Participants' testId={testId}>
 			<QueryBuilder
+				transformField={transformField}
 				fields={fields}
 				conditions={conditions}
 				model='participant'

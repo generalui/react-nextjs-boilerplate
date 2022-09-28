@@ -4,7 +4,7 @@ const participants = {
 			study: {
 				title: { message: 'Study' },
 				options: {
-					studyName: { message: 'Study Name' },
+					title: { message: 'Study Name' },
 					studyCoordinator: { message: 'Study Coordinator' }
 				}
 			},

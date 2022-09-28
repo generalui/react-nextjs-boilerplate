@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { QueryBuilderModels } from 'types/QueryBuilder'
+import { QueryBuilderModel } from 'types/QueryBuilder'
 import { connect } from 'utils/api/connect'
 import { handleQuery } from 'utils/api/handleQuery'
 import { getQuery } from 'utils/api/queryBuilder'
@@ -12,7 +12,7 @@ const transformParticipantFilters = (filtersJSON?: string) => {
 
 apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	const { model, filters } = req.query as {
-		model: QueryBuilderModels
+		model: QueryBuilderModel
 		filters?: string
 	}
 
@@ -31,7 +31,7 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	handleQuery({
 		req,
 		res,
-		model: model as QueryBuilderModels,
+		model: model as QueryBuilderModel,
 		query,
 		role: 'admin',
 		disableLog: true
