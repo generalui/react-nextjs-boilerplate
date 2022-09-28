@@ -23,45 +23,44 @@ const participants = {
 						key: 'fields.participantInfo.options.id'
 					}
 				}
+			},
+			metaData: {
+				title: { key: 'fields.metaData.title' },
+				options: {
+					insertedAt: { key: 'fields.metaData.options.insertedAt' },
+					updatedAt: { key: 'fields.metaData.options.updatedAt' }
+				}
 			}
-			// metaData: {
-			// 	title: { key: 'fields.metaData.title' },
-			// 	options: {
-			// 		insertedAt: { key: 'fields.metaData.options.insertedAt' },
-			// 		updatedAt: { key: 'fields.metaData.options.updatedAt' }
-			// 	}
-			// }
 		},
 		condition: {
 			options: {
 				equals: {
 					label: { key: 'condition.options.equals.label' },
-					inputType: { key: 'condition.options.equals.inputType' }
+					allowedFieldTypes: ['text', 'date']
 				},
 				not: {
 					label: { key: 'condition.options.not.label' },
-					inputType: { key: 'condition.options.not.inputType' }
+					allowedFieldTypes: ['text', 'date']
 				},
 				contains: {
 					label: { key: 'condition.options.contains.label' },
-					inputType: { key: 'condition.options.contains.inputType' }
+					allowedFieldTypes: ['text']
 				},
 				// notIncludes: {
 				// 	label: { key: 'condition.options.notIncludes.label' },
-				// 	inputType: { key: 'condition.options.notIncludes.inputType' }
 				// },
 				startsWith: {
 					label: { key: 'condition.options.startsWith.label' },
-					inputType: { key: 'condition.options.startsWith.inputType' }
+					allowedFieldTypes: ['text']
+				},
+				lte: {
+					label: { key: 'condition.options.lte.label' },
+					allowedFieldTypes: ['date']
+				},
+				gte: {
+					label: { key: 'condition.options.gte.label' },
+					allowedFieldTypes: ['date']
 				}
-				// lte: {
-				// 	label: { key: 'condition.options.lte.label' },
-				// 	inputType: { key: 'condition.options.lte.inputType' }
-				// },
-				// gte: {
-				// 	label: { key: 'condition.options.gte.label' },
-				// 	inputType: { key: 'condition.options.gte.inputType' }
-				// }
 			}
 		}
 	}

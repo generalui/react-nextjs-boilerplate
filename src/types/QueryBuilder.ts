@@ -7,6 +7,7 @@ export type OptionType = {
 	type?: 'option' | 'mainField'
 	isDisabled?: boolean
 	inputType?: string
+	allowedFieldTypes?: string[]
 }
 
 const fieldSchema = z.object({
@@ -18,7 +19,7 @@ const fieldSchema = z.object({
 const fieldCondition = z.object({
 	label: z.string(),
 	value: z.string(),
-	inputType: z.string()
+	allowedFieldTypes: z.array(z.string())
 })
 
 export const ConditionSchema = z.object({

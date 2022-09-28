@@ -34,12 +34,12 @@ const participants = {
 		},
 		condition: {
 			options: {
-				equals: { label: { message: 'Equals' }, inputType: { message: 'text' } },
-				not: { label: { message: 'Not Equals' }, inputType: { message: 'text' } },
-				contains: { label: { message: 'Contains' }, inputType: { message: 'text' } },
-				startsWith: { label: { message: 'Starts With' }, inputType: { message: 'text' } },
-				lte: { label: { message: 'Before' }, inputType: { message: 'date' } },
-				gte: { label: { message: 'After' }, inputType: { message: 'date' } }
+				equals: { label: { message: 'Equals' } },
+				not: { label: { message: 'Not Equals' } },
+				contains: { label: { message: 'Contains' } },
+				startsWith: { label: { message: 'Starts With' } },
+				lte: { label: { message: 'Before' } },
+				gte: { label: { message: 'After' } }
 			}
 		}
 	}
