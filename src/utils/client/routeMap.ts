@@ -18,7 +18,7 @@ export const routeMap: Record<
 		labelKey: 'common.sidebar.nav.home',
 		role: 'participant',
 		subRoutes: {
-			studies: { labelKey: 'common.sidebar.nav.studies', href: '/participant' },
+			studies: { labelKey: '', href: '/participant' },
 			'[studyId]': { labelKey: 'studies.details.title' }
 		}
 	},
