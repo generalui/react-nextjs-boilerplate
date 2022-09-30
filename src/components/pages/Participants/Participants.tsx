@@ -38,7 +38,7 @@ export const Participants = function Participants({ testId = 'Participants' }: P
 					label: t(key),
 					value: optionKey,
 					type: 'option',
-					inputType: t(optionKey).toLowerCase().includes('date') ? 'date' : 'text',
+					inputType: t(key).toLowerCase().includes('date') ? 'date' : 'text',
 					model: model as QueryBuilderModel
 				}
 			})
@@ -67,6 +67,7 @@ export const Participants = function Participants({ testId = 'Participants' }: P
 		}
 	)
 
+	console.log('fields: ', fields)
 	return (
 		<PageWrapper title='Participants' testId={testId}>
 			<QueryBuilder
