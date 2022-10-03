@@ -15,6 +15,7 @@ export const getWhere = (filters?: string) => {
 	if (filters) {
 		const parsedFilters: ConditionInput = JSON.parse(filters)
 		let value
+		let whereStatement = {}
 
 		if (parsedFilters?.field.label.toLowerCase().includes('date')) {
 			value = new Date(parsedFilters?.value)
@@ -22,16 +23,30 @@ export const getWhere = (filters?: string) => {
 			if (!(value instanceof Date && !isNaN(value))) {
 				return
 			}
+			const nextDay = new Date(value.getTime())
+			nextDay.setDate(nextDay.getDate() + 1)
+
+			switch (parsedFilters.condition.value) {
+				case 'equals':
+					whereStatement = {
+						[parsedFilters.field.value]: {
+							gte: value,
+							lt: nextDay
+						}
+					}
+					break
+			}
 		} else {
 			value = parsedFilters.value
-		}
-
-		where = {
-			where: {
+			whereStatement = {
 				[parsedFilters.field.value]: {
 					[parsedFilters.condition.value]: value
 				}
 			}
+		}
+
+		where = {
+			where: whereStatement
 		}
 	}
 
@@ -45,14 +60,15 @@ export const getQuery = (model: QueryBuilderModel, filters?: string) => {
 		const [modelCount, list] = await prisma.$transaction([
 			// @ts-expect-error TODO: Fix this type
 			prisma[model].count(where && { ...where }),
-			// @ts-expect-error TODO: Fix this type
-			prisma[model].findMany({
-				// TODO: make this include generic
-				include: {
-					_count: true
-				},
-				...where
-			})
+			prisma[model]
+				// @ts-expect-error TODO: Fix this type
+				.findMany({
+					// TODO: make this include generic
+					include: {
+						_count: true
+					},
+					...where
+				})
 		])
 
 		return { modelCount, list }
