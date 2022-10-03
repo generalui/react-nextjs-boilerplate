@@ -21,12 +21,7 @@ const participants = {
 				options: {
 					id: {
 						message: 'Participant ID'
-					}
-				}
-			},
-			metaData: {
-				title: { message: 'Meta Data' },
-				options: {
+					},
 					insertedAt: { message: 'Date Added' },
 					updatedAt: { message: 'Date Updated' }
 				}

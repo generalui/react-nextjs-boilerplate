@@ -16,16 +16,10 @@ const participants = {
 					id: {
 						key: 'fields.participantInfo.options.id'
 					},
-					insertedAt: { key: 'fields.metaData.options.insertedAt' },
-					updatedAt: { key: 'fields.metaData.options.updatedAt' }
+					insertedAt: { key: 'fields.participantInfo.options.insertedAt' },
+					updatedAt: { key: 'fields.participantInfo.options.updatedAt' }
 				}
 			}
-			// metaData: {
-			// 	model: 'participant',
-			// 	title: { key: 'fields.metaData.title' },
-			// 	options: {
-			// 	}
-			// }
 		},
 		condition: {
 			options: {

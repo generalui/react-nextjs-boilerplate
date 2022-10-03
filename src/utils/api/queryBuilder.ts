@@ -14,11 +14,22 @@ export const getWhere = (filters?: string) => {
 
 	if (filters) {
 		const parsedFilters: ConditionInput = JSON.parse(filters)
+		let value
+
+		if (parsedFilters?.field.label.toLowerCase().includes('date')) {
+			value = new Date(parsedFilters?.value)
+			// @ts-expect-error TODO: Fix this type
+			if (!(value instanceof Date && !isNaN(value))) {
+				return
+			}
+		} else {
+			value = parsedFilters.value
+		}
 
 		where = {
 			where: {
 				[parsedFilters.field.value]: {
-					[parsedFilters.condition.value]: parsedFilters.value
+					[parsedFilters.condition.value]: value
 				}
 			}
 		}
