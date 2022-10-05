@@ -1,3 +1,4 @@
+import { ConsentEnum } from '@prisma/client'
 import cn from 'classnames'
 import { useText } from 'hooks/useText'
 import { IconProps } from 'common/Icon/Icon.types'
@@ -7,18 +8,26 @@ import { DataTypeContainerProps } from './DataTypeContainer.types'
 export const DataTypeContainer = ({
 	className,
 	study,
-	testId = 'DataTypeContainer'
+	testId = 'DataTypeContainer',
+	consent
 }: DataTypeContainerProps) => {
-	const { t: dataTypes } = useText('common.dataTypes')
-
+	const { t } = useText('common.dataTypes')
 	const upperCaseFirstLetter = (word: string) => `${word.slice(0, 1).toUpperCase()}${word.slice(1)}`
+	// TODO: question for team / nbdc - what happens when a participant consents to a study with no datatypes?
+	// TODO: followup - can a study exist without dat types
+	// TODO: resolve type consent[i]
+	const tagList = consent
+		? Object.keys(consent).filter((i) => consent[i] === ConsentEnum.yes)
+		: study?.dataTypes
+		? study?.dataTypes?.sort()
+		: []
 
-	const tags =
-		study?.dataTypes?.sort().map((dataType) => ({
-			label: dataTypes(`${dataType}.label`),
-			icon: upperCaseFirstLetter(dataType) as IconProps['icon'],
-			dataType
-		})) || []
+	const tags = tagList.map((dataType) => ({
+		label: t(`${dataType}.label`),
+		icon: upperCaseFirstLetter(dataType) as IconProps['icon'],
+		dataType
+	}))
+	console.log('tags ~ tags', tags)
 
 	return (
 		// Min hight added to compensate for empty state without tags

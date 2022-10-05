@@ -1,3 +1,4 @@
+import { useParticipantStudyConsent } from 'hooks/api/studies/useParticipantStudyConsent'
 import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
 import { useText } from 'hooks/useText'
 import { DataTypeContainer } from 'partials/DataTypeContainer'
@@ -11,7 +12,8 @@ import { StudyConsentProps } from './StudyConsent.types'
 export const StudyConsent = ({ study, testId = 'StudyConsent' }: StudyConsentProps) => {
 	const { currentUser } = useCurrentUser()
 	const { t } = useText('participant.study.consent')
-	const consent = true
+	const { consent } = useParticipantStudyConsent(currentUser?.participant?.id, study?.id)
+	console.log('StudyConsent ~ consent', consent)
 
 	return (
 		<div data-testid={testId}>
@@ -34,7 +36,7 @@ export const StudyConsent = ({ study, testId = 'StudyConsent' }: StudyConsentPro
 						<Text className='text-gray-500 mb-2' size='xs'>
 							{t('dataTypes')}
 						</Text>
-						<DataTypeContainer study={study} />
+						<DataTypeContainer consent={consent} />
 					</div>
 					<div className='flex gap-2 items-center justify-between w-10/12'>
 						<div className='flex gap-2 items-center'>

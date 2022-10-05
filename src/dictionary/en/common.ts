@@ -56,6 +56,12 @@ const common = {
 		}
 	},
 	dataTypes: {
+		analysis: {
+			label: { message: 'Analysis' },
+			alt: {
+				message: 'Analysis data type icon'
+			}
+		},
 		consents: {
 			label: { message: 'Consents' },
 			alt: {
