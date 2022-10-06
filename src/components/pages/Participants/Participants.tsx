@@ -1,11 +1,11 @@
 /*!
  * Participants Page
  */
+import { OptionType } from 'types/QueryBuilder'
 import participants from 'utils/conditionsStructure'
 import { useText } from 'hooks/useText'
 import { PageWrapper } from 'partials/PageWrapper'
 import { QueryBuilder } from 'partials/QueryBuilder'
-import { OptionType } from 'partials/QueryBuilder/QueryBuilder.types'
 import { ParticipantsProps } from './Participants.types'
 
 export const Participants = function Participants({ testId = 'Participants' }: ParticipantsProps) {
@@ -16,10 +16,12 @@ export const Participants = function Participants({ testId = 'Participants' }: P
 			const fieldOptions: OptionType[] = Object.entries(
 				participants.conditions.fields[key as keyof typeof participants.conditions.fields].options
 			).map(([key, value]) => {
+				const { key: valueKey } = value
 				return {
-					label: t(value.key),
+					label: t(valueKey),
 					value: key,
-					type: 'option'
+					type: 'option',
+					inputType: t(valueKey).toLowerCase().includes('date') ? 'date' : 'text'
 				}
 			})
 
@@ -40,14 +42,19 @@ export const Participants = function Participants({ testId = 'Participants' }: P
 			return {
 				label: t(value.label.key),
 				value: key,
-				inputType: t(value.inputType.key)
+				allowedFieldTypes: value.allowedFieldTypes
 			}
 		}
 	)
 
 	return (
 		<PageWrapper title='Participants' testId={testId}>
-			<QueryBuilder fields={fields} conditions={conditions} />
+			<QueryBuilder
+				fields={fields}
+				conditions={conditions}
+				model='participant'
+				summaryModel='study'
+			/>
 		</PageWrapper>
 	)
 }

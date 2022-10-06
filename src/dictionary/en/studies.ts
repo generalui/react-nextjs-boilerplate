@@ -47,12 +47,12 @@ const studies = {
 	},
 	success: {
 		created: { message: 'Study was successfully created' },
-		updated: { message: 'Study has been updated' }
+		updated: { message: 'Participants have been added to the study successfully' }
 	},
 	error: {
 		doesNotExist: { message: 'Study does not exist' },
 		failedToUpload: { message: 'Failed to upload' },
-		failedToUpdate: { message: 'Failed to update' }
+		failedToUpdate: { message: 'Participants could not be added to study' }
 	},
 	documentation: {
 		title: { message: 'Documentation' },

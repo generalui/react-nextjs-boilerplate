@@ -24,7 +24,7 @@ export const StudyInfo = ({
 			<Card
 				action={isAdmin && <EditStudy studyId={singleStudyId} disabled={loading} />}
 				className='flex flex-col gap-6'
-				iconProps={{ icon: 'DocumentReportIcon' }}
+				iconProps={{ icon: 'DocumentChartBarIcon' }}
 				title={t('title')}
 			>
 				<div className='flex flex-col lg:flex-row items-start lg:items-center gap-6'>

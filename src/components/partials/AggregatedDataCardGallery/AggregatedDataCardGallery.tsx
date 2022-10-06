@@ -5,14 +5,15 @@ import { AggregatedDataCardGalleryProps } from './AggregatedDataCardGallery.type
 export const AggregatedDataCardGallery = ({
 	className,
 	testId = 'AggregatedDataCardGallery',
-	aggregatedData
+	aggregatedData,
+	cardClassName
 }: AggregatedDataCardGalleryProps) => {
 	return (
 		<div className={cn('flex flex-col lg:flex-row gap-6', className)} data-testid={testId}>
 			{aggregatedData.map(({ title, dataClassName, value, key, subTitle, description }) => (
 				<AggregatedDataCard
 					key={key}
-					className='col-span-3 lg:col-span-1'
+					className={cn('col-span-3 lg:col-span-1', cardClassName)}
 					title={title}
 					dataClassName={dataClassName}
 					value={value}

@@ -1,8 +1,9 @@
 import cn from 'classnames'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { FieldInputProps } from 'react-final-form'
 import { MultiValue, OptionProps, SingleValue } from 'react-select'
+import { OptionType } from 'types/QueryBuilder'
 import { useText } from 'hooks/useText'
-import { OptionType } from 'partials/QueryBuilder/QueryBuilder.types'
 import { Input } from 'common/Input'
 import { SelectInput } from 'common/SelectInput'
 import { Text } from 'common/Text'
@@ -37,15 +38,29 @@ export const Condition = ({
 	conditions,
 	testId = 'Condition'
 }: ConditionProps) => {
-	const [inputType, setInputType] = useState<string>('text')
+	const [fieldInputType, setFieldInputType] = useState<string | undefined>()
+	const [filteredConditions, setFilteredConditions] = useState<OptionType[]>(conditions)
+	const inputRef = useRef<FieldInputProps<string>>()
+
 	const { t } = useText('common.queryBuilder.conditions')
 
-	const handleInputType = (newValue: SingleValue<OptionType> | MultiValue<OptionType>) => {
+	const handleFieldChange = (newValue: SingleValue<OptionType> | MultiValue<OptionType>) => {
 		if (newValue && 'inputType' in newValue) {
-			const newInputType = newValue?.inputType || 'text'
-			setInputType(newInputType)
+			setFieldInputType(newValue?.inputType)
 		}
 	}
+
+	useEffect(() => {
+		if (fieldInputType) {
+			const newConditions = conditions.filter((condition) =>
+				condition.allowedFieldTypes?.includes(fieldInputType)
+			)
+			setFilteredConditions(newConditions)
+			if (inputRef.current) {
+				inputRef.current?.onChange?.('')
+			}
+		}
+	}, [conditions, fieldInputType])
 
 	return (
 		<div className={className} data-testid={testId}>
@@ -60,17 +75,18 @@ export const Condition = ({
 					{t('value')}
 				</Text>
 				<div className='col-span-3'>
-					<SelectInput name='field' options={fields} components={{ Option }} />
-				</div>
-				<div className='col-span-2'>
-					<SelectInput<OptionType>
-						name='condition'
-						options={conditions}
-						onChange={handleInputType}
+					<SelectInput
+						name='field'
+						options={fields}
+						components={{ Option }}
+						onChange={handleFieldChange}
 					/>
 				</div>
 				<div className='col-span-2'>
-					<Input name='value' type={inputType} />
+					<SelectInput<OptionType> name='condition' options={filteredConditions} />
+				</div>
+				<div className='col-span-2'>
+					<Input name='value' type={fieldInputType} ref={inputRef} />
 				</div>
 			</div>
 		</div>

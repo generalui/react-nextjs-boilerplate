@@ -1,4 +1,4 @@
-import { XIcon } from '@heroicons/react/solid'
+import { Icon } from 'common/Icon'
 import { ModalHeaderProps } from './ModalHeader.types'
 
 export const ModalHeader = ({
@@ -19,7 +19,7 @@ export const ModalHeader = ({
 					data-modal-toggle='popup-modal'
 					onClick={onClose}
 				>
-					<XIcon className='h-5 w-5' />
+					<Icon icon='XMarkIcon' size='sm' />
 				</button>
 			</div>
 		</div>

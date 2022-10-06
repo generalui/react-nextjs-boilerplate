@@ -6,6 +6,7 @@ import { useXMLParser } from 'hooks/useParseXML'
 import { useRouter } from 'hooks/useRouter'
 import { useText } from 'hooks/useText'
 import { MultiStepForm } from 'partials/MultiStepForm'
+import { Icon } from 'common/Icon'
 import { RedcapXmlFormProps } from './RedcapXmlForm.types'
 import { MapRedcapFields } from './steps/MapRedcapFields'
 import { UploadRedcapXml } from './steps/UploadRedcapXml'
@@ -50,7 +51,7 @@ export const RedcapXmlForm = ({ className, testId = 'RedcapXmlForm' }: RedcapXml
 	const title = (
 		<div className='block flex justify-between items-center w-full'>
 			<div className='block flex justify-between items-center gap-2'>
-				<Image src='/icons/redcap.svg' width={28} height={28} alt={t('imageAlt')} />
+				<Icon icon='DocumentIcon' />
 				{t('title')}
 			</div>
 
