@@ -1,8 +1,8 @@
 import { CommonProps } from 'types/CommonProps'
-import { QueryBuilderModels, QueryResults } from 'types/QueryBuilder'
+import { ApiQueryResults, QueryBuilderModels } from 'types/QueryBuilder'
 
 export interface ResultsProps extends CommonProps {
-	results?: QueryResults['list']
+	results?: ApiQueryResults['list']
 	model: QueryBuilderModels
 	summaryModel: QueryBuilderModels
 }
