@@ -17,7 +17,7 @@ export const DataTypeContainer = ({
 	// TODO: followup - can a study exist without dat types
 	// TODO: resolve type consent[i]
 	const tagList = consent
-		? Object.keys(consent).filter((i) => consent[i] === ConsentEnum.yes)
+		? Object.keys(consent).filter((i) => consent[i as keyof typeof consent] === ConsentEnum.yes)
 		: study?.dataTypes
 		? study?.dataTypes?.sort()
 		: []

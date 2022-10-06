@@ -5,4 +5,6 @@ export interface QueryBuilderProps extends CommonProps {
 	fields: OptionType[]
 	transformField?: (field: ConditionInput) => Record<string, unknown>
 	conditions: OptionType[]
-	model: QQueryBuilderModel	summaryModel: QQueryBuilderModel}
+	model: QueryBuilderModel
+	summaryModel: QueryBuilderModel
+}
