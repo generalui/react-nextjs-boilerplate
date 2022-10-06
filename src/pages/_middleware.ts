@@ -2,12 +2,7 @@ import { withAuth } from 'next-auth/middleware'
 
 export default withAuth({
 	callbacks: {
-		authorized: ({ req, token }) => {
-			if (req.url.startsWith(`${process.env.BASE_URL}/images/`)) {
-				return true
-			}
-			return token ? true : false
-		}
+		authorized: ({ req, token }) => !!token || new URL(req.url).pathname.startsWith('/images/')
 	},
 	pages: {
 		signIn: '/auth/signin'

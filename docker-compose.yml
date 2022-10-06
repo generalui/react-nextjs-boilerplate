@@ -19,13 +19,13 @@ services:
       - dbvol:/var/lib/postgresql/data:delegated
 
   # Application container
-  next-js:
+  web-app:
     container_name: web-app
     # Install dependencies only when needed
     environment:
       NODE_ENV: production
+      NEXT_PUBLIC_ENV: production
       DATABASE_URL: 'postgresql://postgres:docker@db:5432/nbdc-db?schema=public&connect_timeout=300'
-      NEXTAUTH_SECRET: 'TEST'
       NEXT_SHARP_PATH: /app/node_modules/sharp
     build: .
     ports:
