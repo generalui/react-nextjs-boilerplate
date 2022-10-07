@@ -134,6 +134,13 @@ apiRoute.put(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 
 				return nextParticipants
 			})
+
+		const newlyAddedUsers = createdOrConnectParticipants.filter(
+			({ userIsAlreadyOnStudy }) => !userIsAlreadyOnStudy
+		)
+
+		if (!newlyAddedUsers.length) throw Error('No new participants were added')
+
 		console.log(
 			'createdOrConnectParticipants ~ createdOrConnectParticipants',
 			createdOrConnectParticipants
@@ -141,9 +148,8 @@ apiRoute.put(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 
 		// Send out emails to participants
 		const emailsSent = await Promise.all(
-			createdOrConnectParticipants.map(async (p) => {
+			newlyAddedUsers.map(async (p) => {
 				if (!p.user?.email) return null
-				if (p.userIsAlreadyOnStudy) return null
 
 				return sendEmailNotification({
 					to: p.user.email,
@@ -160,6 +166,7 @@ apiRoute.put(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 				})
 			})
 		)
+
 		console.log('addParticipantsToStudyQuery ~ emailsSent', emailsSent)
 		return undefined
 	}
