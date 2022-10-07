@@ -56,7 +56,6 @@ export const Participants = function Participants({ testId = 'Participants' }: P
 		}
 	)
 
-	console.log(fields)
 	const conditions: OptionType[] = Object.entries(participants.conditions.condition.options).map(
 		([key, value]) => {
 			return {
@@ -67,7 +66,6 @@ export const Participants = function Participants({ testId = 'Participants' }: P
 		}
 	)
 
-	console.log('fields: ', fields)
 	return (
 		<PageWrapper title='Participants' testId={testId}>
 			<QueryBuilder
