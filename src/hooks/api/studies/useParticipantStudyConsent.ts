@@ -2,6 +2,7 @@ import { Consent } from '@prisma/client'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { UseMutationResult, UseQueryResult, useMutation, useQuery } from 'react-query'
+import { ConsentPickDataTypes } from 'types/Consent'
 import { DataVault, DataVaultInput, Study, StudyInput } from 'types/Study'
 import { reactQueryClient } from 'utils/client/react-query'
 import { toast } from 'utils/client/toast'
@@ -19,7 +20,7 @@ export const useParticipantStudyConsent = (
 	participantId?: string,
 	studyId?: string
 ): Omit<UseQueryResult<Consent>, 'data'> & {
-	consent?: Partial<Consent>
+	consent?: ConsentPickDataTypes
 } => {
 	const { t: error } = useText('studies.error')
 	const { t: success } = useText('studies.success')

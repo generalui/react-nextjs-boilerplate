@@ -1,5 +1,7 @@
 import { CommonProps } from 'types/CommonProps'
+import { ConsentPickDataTypes } from 'types/Consent'
 
-export interface EditConsentProps extends CommonProps {
+export default interface EditConsentProps extends CommonProps {
 	modalName: string
+	consent?: ConsentPickDataTypes
 }

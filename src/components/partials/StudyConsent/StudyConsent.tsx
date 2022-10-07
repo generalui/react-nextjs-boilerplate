@@ -13,14 +13,13 @@ export const StudyConsent = ({ study, testId = 'StudyConsent' }: StudyConsentPro
 	const { currentUser } = useCurrentUser()
 	const { t } = useText('participant.study.consent')
 	const { consent } = useParticipantStudyConsent(currentUser?.participant?.id, study?.id)
-	console.log('StudyConsent ~ consent', consent)
 
 	return (
 		<div data-testid={testId}>
 			<Card
 				iconProps={{ className: 'text-white', icon: 'Consents' }}
 				title={t('title')}
-				action={<EditConsent modalName='edit-consent' />}
+				action={<EditConsent consent={consent} modalName='edit-consent' />}
 			>
 				<div className='flex flex-col gap-4'>
 					<Text className='text-gray-500' size='sm'>
