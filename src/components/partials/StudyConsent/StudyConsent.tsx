@@ -1,4 +1,5 @@
-import { ConsentInput } from 'types/Consent'
+import { ConsentEnum } from '@prisma/client'
+import { ConsentInput, ConsentPickDataTypes } from 'types/Consent'
 import { useParticipantStudyConsent } from 'hooks/api/studies/useParticipantStudyConsent'
 import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
 import { useText } from 'hooks/useText'
@@ -10,6 +11,15 @@ import { Icon } from 'common/Icon'
 import { Text } from 'common/Text'
 import { StudyConsentProps } from './StudyConsent.types'
 
+const getConsentStatus = (consent?: ConsentPickDataTypes) => {
+	return consent
+		? Object.values(consent).reduce(
+				(result, consentDataType) => result || consentDataType === ConsentEnum.yes,
+				false
+		  )
+		: false
+}
+
 export const StudyConsent = ({ study, testId = 'StudyConsent' }: StudyConsentProps) => {
 	const { currentUser } = useCurrentUser()
 	const { t } = useText('participant.study.consent')
@@ -20,6 +30,7 @@ export const StudyConsent = ({ study, testId = 'StudyConsent' }: StudyConsentPro
 	const handleEditConsent = (consentValues: ConsentInput) => {
 		updateConsent.mutate(consentValues)
 	}
+	const consentGiven = getConsentStatus(consent)
 
 	return (
 		<div data-testid={testId}>
@@ -35,9 +46,9 @@ export const StudyConsent = ({ study, testId = 'StudyConsent' }: StudyConsentPro
 						{t('description')}
 					</Text>
 					<div className='flex gap-2 items-center'>
-						<StatusBadge v={consent ? 'approved' : 'archived'} />
+						<StatusBadge v={consentGiven ? 'approved' : 'archived'} />
 						<Text className='text-lg font-bold line-clamp-4 lg:line-clamp-none'>
-							{consent ? t('hasConsent') : t('noConsent')}
+							{consentGiven ? t('hasConsent') : t('noConsent')}
 						</Text>
 					</div>
 					<div>

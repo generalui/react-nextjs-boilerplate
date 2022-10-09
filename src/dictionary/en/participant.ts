@@ -75,7 +75,7 @@ const participant = {
 				},
 				form: {
 					success: {
-						message: 'Successfully edited consent'
+						message: 'Successfully updated consent'
 					},
 					error: {
 						message: 'Failed to update consent'
