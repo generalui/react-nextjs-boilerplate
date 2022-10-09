@@ -13,7 +13,7 @@ ALTER TABLE "ParticipantsOnStudies" ADD COLUMN     "consent_id" TEXT NOT NULL;
 -- CreateTable
 CREATE TABLE "Consent" (
     "id" TEXT NOT NULL,
-    "analysis" "ConsentEnum" NOT NULL DEFAULT E'yes',
+    "analyses" "ConsentEnum" NOT NULL DEFAULT E'yes',
     "geneticData" "ConsentEnum" NOT NULL DEFAULT E'yes',
     "healthRecords" "ConsentEnum" NOT NULL DEFAULT E'yes',
     "specimens" "ConsentEnum" NOT NULL DEFAULT E'yes',

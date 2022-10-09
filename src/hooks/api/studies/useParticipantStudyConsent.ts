@@ -1,19 +1,11 @@
 import { Consent } from '@prisma/client'
-import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { UseMutationResult, UseQueryResult, useMutation, useQuery } from 'react-query'
-import { ConsentPickDataTypes } from 'types/Consent'
-import { DataVault, DataVaultInput, Study, StudyInput } from 'types/Study'
+import { ConsentInput, ConsentPickDataTypes } from 'types/Consent'
 import { reactQueryClient } from 'utils/client/react-query'
 import { toast } from 'utils/client/toast'
-import { createPartialStudyFromFormData } from 'utils/models/studies'
-import { getParticipantConsent } from 'utils/requests/participants'
-import {
-	getStudy,
-	getStudyDataVault,
-	postStudyDataVault,
-	updateStudy
-} from 'utils/requests/studies'
+import { getParticipantConsent, updateParticipantConsent } from 'utils/requests/participants'
+import { useModal } from 'hooks/useModal'
 import { useText } from 'hooks/useText'
 
 export const useParticipantStudyConsent = (
@@ -21,10 +13,11 @@ export const useParticipantStudyConsent = (
 	studyId?: string
 ): Omit<UseQueryResult<Consent>, 'data'> & {
 	consent?: ConsentPickDataTypes
+	updateConsent: UseMutationResult<ConsentPickDataTypes, unknown, ConsentInput>
 } => {
-	const { t: error } = useText('studies.error')
-	const { t: success } = useText('studies.success')
-	const [consent, setConsent] = useState({})
+	const { t } = useText('participant.study.consent.modal.form')
+	const [consent, setConsent] = useState<ConsentPickDataTypes>()
+	const { close } = useModal('edit-consent')
 
 	const consentQuery = useQuery(
 		['studies', studyId, 'consent'],
@@ -37,21 +30,22 @@ export const useParticipantStudyConsent = (
 
 	useEffect(() => {
 		if (consentQuery?.data) {
-			const { analysis, geneticData, healthRecords, specimens } = consentQuery.data
-			setConsent({ analysis, geneticData, healthRecords, specimens })
+			const { analyses, geneticData, healthRecords, specimens } = consentQuery.data
+			setConsent({ analyses, geneticData, healthRecords, specimens })
 		}
 	}, [consentQuery?.data])
 
 	const updateConsent = useMutation(
 		`study-${studyId}-update-consent`,
-		(dataVaultValues: DataVaultInput) => postStudyDataVault(studyId || '', dataVaultValues),
+		(consentValues: ConsentInput) =>
+			updateParticipantConsent(participantId || '', studyId || '', consentValues),
 		{
 			onSuccess: () => {
-				toast(success('consentUpdated'))
+				toast(t('success'))
+				close()
 			},
-			onError: (_err, _newStudy, context?: { previousStudy: Study }) => {
-				reactQueryClient.setQueryData(['studies', studyId], context?.previousStudy)
-				toast(error('failedToUpdateConsent'), 'error')
+			onError: () => {
+				toast(t('error'), 'error')
 			},
 			onSettled: () => {
 				reactQueryClient.invalidateQueries(['studies', studyId])
@@ -61,6 +55,7 @@ export const useParticipantStudyConsent = (
 
 	return {
 		consent,
+		updateConsent,
 		...consentQuery
 	}
 }

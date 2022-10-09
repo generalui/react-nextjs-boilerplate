@@ -58,6 +58,8 @@ const participant = {
 			dataTypes: {
 				message: 'My Data this Study can use'
 			},
+
+			// TODO: rename this to editConsent {modal}
 			modal: {
 				title: {
 					message: 'Edit Consent'
@@ -72,6 +74,12 @@ const participant = {
 					message: 'Cancel'
 				},
 				form: {
+					success: {
+						message: 'Successfully edited consent'
+					},
+					error: {
+						message: 'Failed to update consent'
+					},
 					healthRecords: {
 						title: {
 							message: 'Health Records'

@@ -4,6 +4,6 @@ export const getDefaultConsentFromStudy = (study: Partial<Study>, dataType: stri
 	const consentResult = study?.dataTypes?.includes(dataType as StudyDataTypes)
 		? ConsentEnum.yes
 		: ConsentEnum.no
-	console.log('getConsent ~ consentResult', consentResult)
+
 	return consentResult
 }

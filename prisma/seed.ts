@@ -69,7 +69,7 @@ const prismaSafeStudiesWithParticipant = studies.slice(0, 1).map(({ imageUrl, ..
 						},
 						consent: {
 							create: {
-								analysis: ConsentEnum.no,
+								analyses: ConsentEnum.no,
 								geneticData: ConsentEnum.yes,
 								healthRecords: ConsentEnum.yes,
 								specimens: ConsentEnum.yes

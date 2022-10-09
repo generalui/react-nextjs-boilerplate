@@ -27,7 +27,6 @@ export const DataTypeContainer = ({
 		icon: upperCaseFirstLetter(dataType) as IconProps['icon'],
 		dataType
 	}))
-	console.log('tags ~ tags', tags)
 
 	return (
 		// Min height added to compensate for empty state without tags

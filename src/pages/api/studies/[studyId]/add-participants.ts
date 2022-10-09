@@ -109,7 +109,7 @@ apiRoute.put(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 											participant: { connect: { id: participantUser.id } },
 											consent: {
 												create: {
-													analysis: getDefaultConsentFromStudy(study, 'analysis'),
+													analyses: getDefaultConsentFromStudy(study, 'analyses'),
 													geneticData: getDefaultConsentFromStudy(study, 'geneticData'),
 													healthRecords: getDefaultConsentFromStudy(study, 'healthRecords'),
 													specimens: getDefaultConsentFromStudy(study, 'specimens')

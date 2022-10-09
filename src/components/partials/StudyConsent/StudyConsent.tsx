@@ -1,3 +1,4 @@
+import { ConsentInput } from 'types/Consent'
 import { useParticipantStudyConsent } from 'hooks/api/studies/useParticipantStudyConsent'
 import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
 import { useText } from 'hooks/useText'
@@ -12,14 +13,22 @@ import { StudyConsentProps } from './StudyConsent.types'
 export const StudyConsent = ({ study, testId = 'StudyConsent' }: StudyConsentProps) => {
 	const { currentUser } = useCurrentUser()
 	const { t } = useText('participant.study.consent')
-	const { consent } = useParticipantStudyConsent(currentUser?.participant?.id, study?.id)
+	const { consent, updateConsent } = useParticipantStudyConsent(
+		currentUser?.participant?.id,
+		study?.id
+	)
+	const handleEditConsent = (consentValues: ConsentInput) => {
+		updateConsent.mutate(consentValues)
+	}
 
 	return (
 		<div data-testid={testId}>
 			<Card
 				iconProps={{ className: 'text-white', icon: 'Consents' }}
 				title={t('title')}
-				action={<EditConsent consent={consent} modalName='edit-consent' />}
+				action={
+					<EditConsent consent={consent} modalName='edit-consent' onSubmit={handleEditConsent} />
+				}
 			>
 				<div className='flex flex-col gap-4'>
 					<Text className='text-gray-500' size='sm'>

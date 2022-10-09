@@ -1,5 +1,5 @@
 import { ConsentEnum } from '@prisma/client'
-import { ConsentPickDataTypes } from 'types/Consent'
+import { ConsentInput, ConsentPickDataTypes } from 'types/Consent'
 import { useText } from 'hooks/useText'
 import { Form } from 'partials/Form'
 import { ModalButton } from 'partials/ModalButton'
@@ -21,7 +21,7 @@ type ConsentDataType = {
 }
 
 const CONSENT_DATA_TYPE_PROPS: Record<string, ConsentDataType> = {
-	analysis: {
+	analyses: {
 		dictionary: 'form.analyses',
 		icon: 'FolderAnalyses',
 		backgroundColor: 'bg-gray-400',
@@ -54,7 +54,7 @@ const getConsentDataTypes = (consent?: ConsentPickDataTypes) => {
 		'healthRecords',
 		'geneticData',
 		'specimens',
-		'analysis'
+		'analyses'
 	]
 
 	return consentDataTypes.map((dt) => ({
@@ -67,14 +67,11 @@ export const EditConsent = ({
 	className,
 	modalName,
 	testId = 'EditConsent',
-	consent
+	consent,
+	onSubmit
 }: EditConsentProps) => {
 	const { t } = useText('participant.study.consent.modal')
 	const consentDataTypes = getConsentDataTypes(consent)
-
-	const onSubmit = (value: any) => {
-		console.log('onSubmit ~ value', value)
-	}
 
 	return (
 		<div className={className} data-testid={testId}>
@@ -90,7 +87,7 @@ export const EditConsent = ({
 				}
 			>
 				<Form
-					onSubmit={onSubmit}
+					onSubmit={(values: ConsentInput) => onSubmit(values)}
 					render={({ handleSubmit }) => (
 						<form onSubmit={handleSubmit}>
 							{consentDataTypes.map((consentDataType) => (
