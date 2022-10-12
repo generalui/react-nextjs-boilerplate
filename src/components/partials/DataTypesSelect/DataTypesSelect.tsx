@@ -1,13 +1,13 @@
 import cn from 'classnames'
 import { MultiValueGenericProps, OptionProps, SingleValueProps, components } from 'react-select'
-import { selectOptionsType } from 'types/index'
+import { SelectOptionsType } from 'types/index'
 import { capitalizeFirstLetter } from 'utils/client/text'
 import { DataTypeLabel } from 'common/DataTypeLabel'
 import { IconProps } from 'common/Icon/Icon.types'
 import { SelectInput } from 'common/SelectInput'
 import { DataTypesSelectProps } from './DataTypesSelect.types'
 
-const MultiValueLabel = (props: MultiValueGenericProps<selectOptionsType>) => {
+const MultiValueLabel = (props: MultiValueGenericProps<SelectOptionsType>) => {
 	const { value } = props.data
 	return (
 		<DataTypeLabel
@@ -21,7 +21,7 @@ const MultiValueLabel = (props: MultiValueGenericProps<selectOptionsType>) => {
 	)
 }
 
-const SingleValue = (props: SingleValueProps<selectOptionsType>) => {
+const SingleValue = (props: SingleValueProps<SelectOptionsType>) => {
 	const { value } = props.data
 	return (
 		<DataTypeLabel
@@ -35,7 +35,7 @@ const SingleValue = (props: SingleValueProps<selectOptionsType>) => {
 	)
 }
 
-const Option = (props: OptionProps<selectOptionsType>) => {
+const Option = (props: OptionProps<SelectOptionsType>) => {
 	const { children, className, cx, isDisabled, isFocused, isSelected, innerRef, innerProps, data } =
 		props
 	const { value } = data
@@ -69,10 +69,10 @@ export const DataTypesSelect = ({
 	isMulti,
 	isClearable,
 	name
-}: DataTypesSelectProps<selectOptionsType>) => {
+}: DataTypesSelectProps<SelectOptionsType>) => {
 	return (
 		<div data-testid={testId} className={className}>
-			<SelectInput<selectOptionsType>
+			<SelectInput<SelectOptionsType>
 				labelClassName={labelClassName}
 				label={label}
 				data-testid={testId}

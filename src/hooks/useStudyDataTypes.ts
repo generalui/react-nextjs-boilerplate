@@ -1,10 +1,10 @@
 import { StudyDataTypes } from '@prisma/client'
 import { Study } from 'types/Study'
-import { selectOptionsType } from 'types/index'
+import { SelectOptionsType } from 'types/index'
 import { useText } from './useText'
 
 const defaultDataTypes: StudyDataTypes[] = ['consents', 'geneticData', 'healthRecords', 'specimens']
-type UseStudyDataTypes = (studyDataTypes?: Study['dataTypes']) => selectOptionsType[]
+type UseStudyDataTypes = (studyDataTypes?: Study['dataTypes']) => SelectOptionsType[]
 
 /**
  * Takes in a list of datatypes from a study and returns a list of select options
