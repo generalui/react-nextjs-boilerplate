@@ -13,6 +13,8 @@ export type OptionType = {
 	allowedFieldTypes?: string[]
 }
 
+export type Filter = { field: string; condition: string; value: string; dataType?: string }
+
 const fieldSchema = z.object({
 	label: z.string(),
 	value: z.string(),
@@ -25,7 +27,7 @@ const fieldCondition = z.object({
 	allowedFieldTypes: z.array(z.string())
 })
 
-export const ConditionSchema = z.object({
+export const FilterSchema = z.object({
 	field: fieldSchema,
 	condition: fieldCondition,
 	value: z.string()
@@ -41,10 +43,10 @@ export type ApiQueryResults = {
 	}>[]
 }
 
-export type ConditionInput = z.infer<typeof ConditionSchema>
+export type FilterInput = z.infer<typeof FilterSchema>
 
 export type QueryBuilderParams = {
 	model: QueryBuilderModel
 	summaryModel: QueryBuilderModel
-	filters: ConditionInput | undefined
+	filters: FilterInput[]
 }

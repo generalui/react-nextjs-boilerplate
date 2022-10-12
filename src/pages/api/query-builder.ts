@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { ConditionInput, QueryBuilderModel } from 'types/QueryBuilder'
+import { FilterInput, QueryBuilderModel } from 'types/QueryBuilder'
 import { connect } from 'utils/api/connect'
 import { handleQuery } from 'utils/api/handleQuery'
 import { prisma } from 'utils/api/prisma'
@@ -16,7 +16,7 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	let where = {}
 
 	if (filters) {
-		const parsedFilters: ConditionInput = JSON.parse(filters)
+		const parsedFilters: FilterInput = JSON.parse(filters)
 		let value
 
 		if (parsedFilters?.field.label.toLowerCase().includes('date')) {

@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { FormSpy } from 'react-final-form'
-import { ConditionInput, ConditionSchema } from 'types/QueryBuilder'
+import { FilterInput, FilterSchema } from 'types/QueryBuilder'
 import { debounce } from 'utils/debounce'
 import { useText } from 'hooks/useText'
 import { Form } from 'partials/Form'
@@ -11,17 +12,18 @@ export const Filters = ({
 	className,
 	fields,
 	conditions,
-	onFiltersChange,
+	onChange,
 	initialValues,
 	testId = 'Filters'
 }: FiltersProps) => {
-	const { t } = useText('common.queryBuilder.filters')
+	const { t } = useText('queryBuilder.filters')
+	const [fieldDataType, setFieldDataType] = useState<string>()
 
-	const onSubmit = (conditions: ConditionInput) => {
+	const onSubmit = (filters: FilterInput) => {
 		try {
-			const parsedConditions = ConditionSchema.parse(conditions)
-			console.log('parsedConditions', parsedConditions)
-			onFiltersChange(conditions)
+			const parsedFilters = FilterSchema.parse(filters)
+			console.log('parsedFilters', parsedFilters)
+			onChange(filters, fieldDataType)
 		} catch (error) {
 			return
 		}
@@ -39,10 +41,14 @@ export const Filters = ({
 					initialValues={initialValues}
 					render={({ handleSubmit }) => (
 						<form onSubmit={handleSubmit}>
-							<Condition fields={fields} conditions={conditions} />
+							<Condition
+								fields={fields}
+								conditions={conditions}
+								onFieldTypeChange={setFieldDataType}
+							/>
 							<FormSpy
 								onChange={(props) => {
-									debounce(() => onSubmit(props.values as ConditionInput), 500, 'filters')()
+									debounce(() => onSubmit(props.values as FilterInput), 500, 'filters')()
 								}}
 							/>
 						</form>

@@ -8,7 +8,7 @@ import { Results } from './index'
 
 describe('Results Component', () => {
 	it('renders on the page', () => {
-		render(<Results model='participant' summaryModel='study' />)
+		render(<Results columns={[]} title={'title'} />)
 
 		const component = screen.getByTestId('Results')
 

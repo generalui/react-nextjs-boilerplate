@@ -1,35 +1,52 @@
 import cn from 'classnames'
 import { useEffect, useState } from 'react'
-import { ConditionInput } from 'types/QueryBuilder'
-import { useQueryBuilder } from 'hooks/api/queryBuilder/useQueryBuilder'
+import { Filter, FilterInput, OptionType } from 'types/QueryBuilder'
 import { useRouterQuery } from 'hooks/useRouterQuery'
+import { useText } from 'hooks/useText'
+import { List } from 'partials/List'
+import { Column, ListData } from 'partials/List/List.types'
+import { Card } from 'common/Card'
 import { Filters } from './Filters'
-import { QueryBuilderProps } from './QueryBuilder.types'
-import { Results } from './Results'
+import { QueryBuilderComponent } from './QueryBuilder.types'
 import { Summary } from './Summary'
+import { queryBuilderConditions } from './queryBuilderConditions'
 
-export const QueryBuilder = ({
+export const QueryBuilder: QueryBuilderComponent = ({
 	className,
-	conditions,
 	fields,
-	model,
-	summaryModel,
-	transformField,
-	testId = 'QueryBuilder'
-}: QueryBuilderProps) => {
+	testId = 'QueryBuilder',
+	title,
+	columns,
+	dataSummaryCards,
+	results = { list: [] },
+	onFilterChange
+}) => {
+	const { t } = useText('queryBuilder')
 	const { query, update } = useRouterQuery()
-	const [filters, setFilters] = useState<ConditionInput | undefined>()
-	const [initialValues, setInitialValues] = useState<ConditionInput | undefined>()
-	const { data: results } = useQueryBuilder({ model, summaryModel, filters })
+	const [filters, setFilters] = useState<FilterInput>()
+	const [conditions, setConditions] = useState<OptionType[]>([])
+	const [initialValues, setInitialValues] = useState<FilterInput | undefined>()
 
 	useEffect(() => {
-		const getFilters: () => ConditionInput | undefined = () => {
+		setConditions(
+			Object.entries(queryBuilderConditions).map(([key, value]) => {
+				return {
+					label: t(value.label.key),
+					value: key,
+					allowedFieldTypes: value.allowedFieldTypes
+				}
+			})
+		)
+	}, [t])
+
+	useEffect(() => {
+		const getFilters: () => FilterInput | undefined = () => {
 			if (query) {
 				// @ts-expect-error TODO: Fix this type
 				const { field, condition, value } = query
 				return {
-					field: fields.find((f) => f.value === field) as ConditionInput['field'],
-					condition: conditions.find((f) => f.value === condition) as ConditionInput['condition'],
+					field: fields.find((f) => f.value === field) as FilterInput['field'],
+					condition: conditions.find((f) => f.value === condition) as FilterInput['condition'],
 					value
 				}
 			}
@@ -40,25 +57,35 @@ export const QueryBuilder = ({
 		if (!initialValues && query?.value) setInitialValues(newFilters)
 	}, [conditions, fields, initialValues, query])
 
-	const onFiltersChange = (filters: ConditionInput) => {
-		update({
-			field: filters.field.value,
-			condition: filters.condition.value,
-			value: filters.value
-		})
+	const handleFilterChange = (filterValue: FilterInput, dataType?: string) => {
+		const change: Filter = {
+			field: filterValue.field.value,
+			condition: filterValue.condition.value,
+			value: filterValue.value,
+			dataType
+		}
+
+		onFilterChange?.([change])
+		update(change)
 	}
 
 	return (
 		<div className={cn(className, 'flex flex-col gap-6')} data-testid={testId}>
 			<Filters
-				transformField={transformField}
 				fields={fields}
 				conditions={conditions}
-				onFiltersChange={onFiltersChange}
+				onChange={handleFilterChange}
 				initialValues={initialValues}
 			/>
-			<Summary results={results} model={model} summaryModel={summaryModel} />
-			<Results results={results?.list} model={model} summaryModel={summaryModel} />
+			<Summary dataSummaryCards={dataSummaryCards} />
+			<Card iconProps={{ icon: 'UserIcon', wrapperClass: 'bg-green-300' }} title={title}>
+				<List
+					columns={columns as unknown as Column<ListData>[]}
+					data={results.list}
+					indexKey='id'
+					concise
+				/>
+			</Card>
 		</div>
 	)
 }

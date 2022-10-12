@@ -1,4 +1,4 @@
-const participants = {
+export const participants = {
 	conditions: {
 		fields: {
 			study: {
@@ -20,36 +20,6 @@ const participants = {
 					updatedAt: { key: 'fields.participantInfo.options.updatedAt' }
 				}
 			}
-		},
-		condition: {
-			options: {
-				equals: {
-					label: { key: 'condition.options.equals.label' },
-					allowedFieldTypes: ['text', 'date']
-				},
-				not: {
-					label: { key: 'condition.options.not.label' },
-					allowedFieldTypes: ['text', 'date']
-				},
-				contains: {
-					label: { key: 'condition.options.contains.label' },
-					allowedFieldTypes: ['text']
-				},
-				startsWith: {
-					label: { key: 'condition.options.startsWith.label' },
-					allowedFieldTypes: ['text']
-				},
-				lte: {
-					label: { key: 'condition.options.lte.label' },
-					allowedFieldTypes: ['date']
-				},
-				gte: {
-					label: { key: 'condition.options.gte.label' },
-					allowedFieldTypes: ['date']
-				}
-			}
 		}
 	}
 }
-
-export default participants

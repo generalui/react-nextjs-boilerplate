@@ -4,4 +4,5 @@ import { OptionType } from 'types/QueryBuilder'
 export interface ConditionProps extends CommonProps {
 	fields: OptionType[]
 	conditions: OptionType[]
+	onFieldTypeChange: (fieldDataType?: string) => void
 }

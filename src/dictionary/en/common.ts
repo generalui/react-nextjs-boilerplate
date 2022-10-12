@@ -111,38 +111,6 @@ const common = {
 		previous: { message: 'Previous' },
 		details: { message: 'Showing {1} - {2} out of {3} total results' },
 		next: { message: 'Next' }
-	},
-	queryBuilder: {
-		filters: {
-			title: { message: 'Filters' }
-		},
-		conditions: {
-			fields: {
-				message: 'Field'
-			},
-			condition: {
-				message: 'Condition'
-			},
-			value: {
-				message: 'Value'
-			}
-		},
-		summary: {
-			title: { message: 'Filter Summary' },
-			export: {
-				message: 'Export'
-			}
-		},
-		models: {
-			participant: {
-				singular: { message: 'Participant' },
-				plural: { message: 'Participants' }
-			},
-			study: {
-				singular: { message: 'Study' },
-				plural: { message: 'Studies' }
-			}
-		}
 	}
 }
 

@@ -1,26 +1,20 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { QueryBuilderModel } from 'types/QueryBuilder'
+import { Filter, QueryBuilderModel } from 'types/QueryBuilder'
 import { connect } from 'utils/api/connect'
 import { handleQuery } from 'utils/api/handleQuery'
+import { parseParamArray } from 'utils/api/parseParamArray'
 import { getQuery } from 'utils/api/queryBuilder'
-import { getJSON } from 'utils/getJSON'
 
 const apiRoute = connect()
-const transformParticipantFilters = (filtersJSON?: string) => {
-	const filters = getJSON(filtersJSON)
-}
-
 apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
-	const { model, filters } = req.query as {
+	const { model } = req.query as {
 		model: QueryBuilderModel
-		filters?: string
 	}
 
-	// Transform filters
-	const transformQueryFilters = transformParticipantFilters(filters)
+	const filters = parseParamArray<Filter>(req.query['filters[]'])
 
 	// Filter participants on studies
-	const query = getQuery(model, filters)
+	const query = getQuery('participant', filters)
 
 	// Get count of studies
 	// const studyCount = getCount('study', studyFilter)

@@ -16,7 +16,13 @@ describe('Condition Component', () => {
 				}}
 				render={({ handleSubmit }) => (
 					<form onSubmit={handleSubmit}>
-						<Condition />
+						<Condition
+							fields={[]}
+							conditions={[]}
+							onFieldTypeChange={(value) => {
+								expect(value)
+							}}
+						/>
 					</form>
 				)}
 			/>

@@ -1,24 +1,17 @@
-import { ConditionInput, QueryBuilderModel } from 'types/QueryBuilder'
+import { QueryBuilderModel } from 'types/QueryBuilder'
+import { Filter } from 'types/QueryBuilder'
 import { prisma } from 'utils/api/prisma'
 
-export const tranformField = (field: ConditionInput) => {
-	return {
-		[field.field.value]: {
-			[field.condition.value]: field.value
-		}
-	}
-}
+export const getWhere = (filters?: Filter[]) => {
+	if (!filters) return {}
 
-export const getWhere = (filters?: string) => {
 	let where = {}
+	filters.forEach((filter: Filter) => {
+		console.log('filters.forEach ~ filter.dataType', filter.dataType)
 
-	if (filters) {
-		const parsedFilters: ConditionInput = JSON.parse(filters)
-		let value
-		let whereStatement = {}
-
-		if (parsedFilters?.field.label.toLowerCase().includes('date')) {
-			value = new Date(parsedFilters?.value)
+		// TODO: refactor - the type should be a prop on filter
+		if (filter.dataType === 'date') {
+			const value = new Date(filter.value)
 			// @ts-expect-error TODO: Fix this type
 			if (!(value instanceof Date && !isNaN(value))) {
 				return
@@ -26,34 +19,58 @@ export const getWhere = (filters?: string) => {
 			const nextDay = new Date(value.getTime())
 			nextDay.setDate(nextDay.getDate() + 1)
 
-			switch (parsedFilters.condition.value) {
+			switch (filter.condition) {
 				case 'equals':
-					whereStatement = {
-						[parsedFilters.field.value]: {
-							gte: value,
-							lt: nextDay
+					where = {
+						[filter.field]: {
+							lt: nextDay,
+							gte: value
+						}
+					}
+					break
+
+				case 'not':
+					where = {
+						NOT: {
+							[filter.field]: {
+								lt: nextDay,
+								gte: value
+							}
+						}
+					}
+					break
+
+				case 'lt':
+					where = {
+						[filter.field]: {
+							lt: value
+						}
+					}
+					break
+
+				case 'gt':
+					where = {
+						[filter.field]: {
+							gt: value
 						}
 					}
 					break
 			}
 		} else {
-			value = parsedFilters.value
-			whereStatement = {
-				[parsedFilters.field.value]: {
-					[parsedFilters.condition.value]: value
+			where = {
+				[filter.field]: {
+					[filter.condition]: filter.value
 				}
 			}
 		}
+	})
 
-		where = {
-			where: whereStatement
-		}
+	return {
+		where
 	}
-
-	return where
 }
 
-export const getQuery = (model: QueryBuilderModel, filters?: string) => {
+export const getQuery = (model: QueryBuilderModel, filters?: Filter[]) => {
 	const where = getWhere(filters)
 
 	const query = async () => {

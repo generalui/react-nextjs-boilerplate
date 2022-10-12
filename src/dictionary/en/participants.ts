@@ -26,16 +26,6 @@ const participants = {
 					updatedAt: { message: 'Date Updated' }
 				}
 			}
-		},
-		condition: {
-			options: {
-				equals: { label: { message: 'Equals' } },
-				not: { label: { message: 'Not Equals' } },
-				contains: { label: { message: 'Contains' } },
-				startsWith: { label: { message: 'Starts With' } },
-				lte: { label: { message: 'Before' } },
-				gte: { label: { message: 'After' } }
-			}
 		}
 	}
 }

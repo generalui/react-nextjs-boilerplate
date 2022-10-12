@@ -8,7 +8,15 @@ import { QueryBuilder } from './index'
 
 describe('QueryBuilder Component', () => {
 	it('renders on the page', () => {
-		render(<QueryBuilder model='participant' summaryModel='study' fields={[]} conditions={[]} />)
+		render(
+			<QueryBuilder
+				onFilterChange={jest.fn()}
+				dataSummaryCards={[]}
+				title={'Participants'}
+				fields={[]}
+				columns={[]}
+			/>
+		)
 
 		const component = screen.getByTestId('QueryBuilder')
 

@@ -10,7 +10,7 @@ export const AggregatedDataCardGallery = ({
 }: AggregatedDataCardGalleryProps) => {
 	return (
 		<div className={cn('flex flex-col lg:flex-row gap-6', className)} data-testid={testId}>
-			{aggregatedData.map(({ title, dataClassName, value, key, subTitle, description }) => (
+			{aggregatedData?.map(({ title, dataClassName, value, key, subTitle, description }) => (
 				<AggregatedDataCard
 					key={key}
 					className={cn('col-span-3 lg:col-span-1', cardClassName)}

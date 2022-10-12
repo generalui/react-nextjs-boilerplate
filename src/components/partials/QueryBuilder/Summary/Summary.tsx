@@ -3,36 +3,8 @@ import { AggregatedDataCardGallery } from 'partials/AggregatedDataCardGallery'
 import { Card } from 'common/Card'
 import { SummaryProps } from './Summary.types'
 
-export const Summary = ({
-	className,
-	results,
-	model,
-	summaryModel,
-	testId = 'Summary'
-}: SummaryProps) => {
-	const { t } = useText('common.queryBuilder')
-
-	const aggregatedData = [
-		{
-			title: t(`models.${model}.plural`),
-			dataClassName: 'text-green-400',
-			value: results?.modelCount || 0,
-			key: model
-		}
-		// {
-		// 	title: t(`models.${summaryModel}.plural`),
-		// 	dataClassName: 'text-primary',
-		// 	value: studiesCount || results?.summaryModelCount,
-		// 	key: summaryModel
-		// }
-	]
-
-	// useEffect(() => {
-	// 	const studies = results?.list?.reduce(
-	// 		(studiesCount, result) => (studiesCount += result._count.studies),
-	// 		0
-	// 	)
-	// }, [results])
+export const Summary = ({ className, testId = 'Summary', dataSummaryCards }: SummaryProps) => {
+	const { t } = useText('queryBuilder')
 
 	return (
 		<div className={className} data-testid={testId}>
@@ -42,9 +14,9 @@ export const Summary = ({
 				headerClassName='pb-4 border-b mb-0'
 			>
 				<AggregatedDataCardGallery
-					aggregatedData={aggregatedData}
+					aggregatedData={dataSummaryCards}
 					cardClassName='bg-gray-100 w-64 items-center'
-					className='pt-4 flex justify-around'
+					className='pt-4 flex justify-around sm:flex-row'
 				/>
 			</Card>
 		</div>
