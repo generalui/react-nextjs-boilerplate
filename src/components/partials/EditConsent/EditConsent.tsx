@@ -1,3 +1,5 @@
+import { ConsentEnum } from '@prisma/client'
+import { ConsentInput, ConsentPickDataTypes } from 'types/Consent'
 import { useText } from 'hooks/useText'
 import { Form } from 'partials/Form'
 import { ModalButton } from 'partials/ModalButton'
@@ -7,7 +9,7 @@ import { IconProps } from 'common/Icon/Icon.types'
 import { ModalFooter } from 'common/ModalFooter'
 import { ModalFooterButtons } from 'common/ModalFooterButtons'
 import { ToggleButton } from 'common/ToggleButton'
-import { EditConsentProps } from './EditConsent.types'
+import EditConsentProps from './EditConsent.types'
 
 type ConsentDataType = {
 	dictionary: string
@@ -18,41 +20,58 @@ type ConsentDataType = {
 	active?: boolean
 }
 
-export const EditConsent = ({ className, modalName, testId = 'EditConsent' }: EditConsentProps) => {
-	const { t } = useText('participant.study.consent.modal')
+const CONSENT_DATA_TYPE_PROPS: Record<string, ConsentDataType> = {
+	analyses: {
+		dictionary: 'form.analyses',
+		icon: 'FolderAnalyses',
+		backgroundColor: 'bg-gray-400',
+		name: 'analyses'
+	},
+	geneticData: {
+		dictionary: 'form.geneticData',
+		icon: 'GeneticData',
+		backgroundColor: 'bg-red-400',
+		name: 'geneticData'
+	},
+	healthRecords: {
+		dictionary: 'form.healthRecords',
+		icon: 'HealthRecords',
+		backgroundColor: 'bg-orange-400',
+		name: 'healthRecords'
+	},
+	specimens: {
+		dictionary: 'form.specimens',
+		icon: 'Specimens',
+		backgroundColor: 'bg-green-400',
+		name: 'specimens'
+	}
+}
 
-	const consentDataTypes: ConsentDataType[] = [
-		{
-			dictionary: 'form.healthRecords',
-			icon: 'HealthRecords',
-			backgroundColor: 'bg-orange-400',
-			isActive: true,
-			name: 'healthRecords',
-			active: true
-		},
-		{
-			dictionary: 'form.specimens',
-			icon: 'Specimens',
-			backgroundColor: 'bg-green-400',
-			name: 'specimens'
-		},
-		{
-			dictionary: 'form.geneticData',
-			icon: 'GeneticData',
-			backgroundColor: 'bg-red-400',
-			name: 'geneticData'
-		},
-		{
-			dictionary: 'form.analyses',
-			icon: 'FolderAnalyses',
-			backgroundColor: 'bg-gray-400',
-			name: 'analyses'
-		}
+const getConsentDataTypes = (consent?: ConsentPickDataTypes) => {
+	if (!consent) return []
+
+	const consentDataTypes: (keyof typeof consent)[] = [
+		'healthRecords',
+		'geneticData',
+		'specimens',
+		'analyses'
 	]
 
-	const onSubmit = (value: any) => {
-		console.log(value)
-	}
+	return consentDataTypes.map((dt) => ({
+		...CONSENT_DATA_TYPE_PROPS[dt],
+		active: consent[dt] === ConsentEnum.yes
+	}))
+}
+
+export const EditConsent = ({
+	className,
+	modalName,
+	testId = 'EditConsent',
+	consent,
+	onSubmit
+}: EditConsentProps) => {
+	const { t } = useText('participant.study.consent.modal')
+	const consentDataTypes = getConsentDataTypes(consent)
 
 	return (
 		<div className={className} data-testid={testId}>
@@ -68,7 +87,7 @@ export const EditConsent = ({ className, modalName, testId = 'EditConsent' }: Ed
 				}
 			>
 				<Form
-					onSubmit={onSubmit}
+					onSubmit={(values: ConsentInput) => onSubmit(values)}
 					render={({ handleSubmit }) => (
 						<form onSubmit={handleSubmit}>
 							{consentDataTypes.map((consentDataType) => (

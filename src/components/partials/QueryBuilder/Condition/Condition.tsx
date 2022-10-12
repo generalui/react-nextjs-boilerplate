@@ -2,7 +2,7 @@ import cn from 'classnames'
 import { useEffect, useRef, useState } from 'react'
 import { FieldInputProps } from 'react-final-form'
 import { MultiValue, OptionProps, SingleValue } from 'react-select'
-import { OptionType } from 'types/QueryBuilder'
+import { OptionType, QueryBuilderModel } from 'types/QueryBuilder'
 import { useText } from 'hooks/useText'
 import { Input } from 'common/Input'
 import { SelectInput } from 'common/SelectInput'
@@ -23,7 +23,7 @@ const Option = (props: OptionProps<OptionType>) => {
 					'option--is-focused': isFocused,
 					'option--is-selected': isSelected
 				},
-				cn(className, type === 'mainField' && 'font-semibold')
+				cn(className, type === 'header' && 'font-semibold')
 			)}
 			{...innerProps}
 		>
@@ -36,19 +36,30 @@ export const Condition = ({
 	className,
 	fields,
 	conditions,
-	testId = 'Condition'
+	testId = 'Condition',
+	onFieldTypeChange,
+	onModelChange
 }: ConditionProps) => {
 	const [fieldInputType, setFieldInputType] = useState<string | undefined>()
+	const [fieldModel, setFieldModel] = useState<QueryBuilderModel | undefined>()
 	const [filteredConditions, setFilteredConditions] = useState<OptionType[]>(conditions)
 	const inputRef = useRef<FieldInputProps<string>>()
-
-	const { t } = useText('common.queryBuilder.conditions')
+	const { t } = useText('queryBuilder.filters')
 
 	const handleFieldChange = (newValue: SingleValue<OptionType> | MultiValue<OptionType>) => {
 		if (newValue && 'inputType' in newValue) {
 			setFieldInputType(newValue?.inputType)
+			setFieldModel(newValue?.model)
 		}
 	}
+
+	useEffect(() => {
+		onFieldTypeChange(fieldInputType)
+	}, [fieldInputType, onFieldTypeChange])
+
+	useEffect(() => {
+		onModelChange(fieldModel)
+	}, [fieldModel, onModelChange])
 
 	useEffect(() => {
 		if (fieldInputType) {
@@ -64,17 +75,11 @@ export const Condition = ({
 
 	return (
 		<div className={className} data-testid={testId}>
-			<div className='grid grid-rows-2 grid-flow-row grid-cols-7 gap-x-4 items-center'>
-				<Text size='xs' className='text-gray1-500 font-semibold col-span-3'>
-					{t('fields')}
-				</Text>
-				<Text size='xs' className='text-gray-500 font-semibold col-span-2'>
-					{t('condition')}
-				</Text>
-				<Text size='xs' className='text-gray-500 font-semibold col-span-2'>
-					{t('value')}
-				</Text>
-				<div className='col-span-3'>
+			<div className='grid grid-cols-7 gap-4 items-center pt-4'>
+				<div className='flex flex-col gap-3 col-span-7 md:col-span-3'>
+					<Text size='xs' className='text-gray1-500 font-semibold'>
+						{t('fields')}
+					</Text>
 					<SelectInput
 						name='field'
 						options={fields}
@@ -82,10 +87,16 @@ export const Condition = ({
 						onChange={handleFieldChange}
 					/>
 				</div>
-				<div className='col-span-2'>
+				<div className='flex flex-col gap-3 col-span-7 md:col-span-2'>
+					<Text size='xs' className='text-gray-500 font-semibold'>
+						{t('condition')}
+					</Text>
 					<SelectInput<OptionType> name='condition' options={filteredConditions} />
 				</div>
-				<div className='col-span-2'>
+				<div className='flex flex-col gap-3 col-span-7 md:col-span-2'>
+					<Text size='xs' className='text-gray-500 font-semibold'>
+						{t('value')}
+					</Text>
 					<Input name='value' type={fieldInputType} ref={inputRef} />
 				</div>
 			</div>

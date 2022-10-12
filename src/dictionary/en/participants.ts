@@ -4,7 +4,7 @@ const participants = {
 			study: {
 				title: { message: 'Study' },
 				options: {
-					studyName: { message: 'Study Name' },
+					title: { message: 'Study Name' },
 					studyCoordinator: { message: 'Study Coordinator' }
 				}
 			},
@@ -21,25 +21,10 @@ const participants = {
 				options: {
 					id: {
 						message: 'Participant ID'
-					}
-				}
-			},
-			metaData: {
-				title: { message: 'Meta Data' },
-				options: {
+					},
 					insertedAt: { message: 'Date Added' },
 					updatedAt: { message: 'Date Updated' }
 				}
-			}
-		},
-		condition: {
-			options: {
-				equals: { label: { message: 'Equals' } },
-				not: { label: { message: 'Not Equals' } },
-				contains: { label: { message: 'Contains' } },
-				startsWith: { label: { message: 'Starts With' } },
-				lte: { label: { message: 'Before' } },
-				gte: { label: { message: 'After' } }
 			}
 		}
 	}

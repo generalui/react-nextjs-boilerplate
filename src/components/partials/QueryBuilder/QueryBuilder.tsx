@@ -1,50 +1,79 @@
 import cn from 'classnames'
 import { useEffect, useState } from 'react'
-import { ConditionInput } from 'types/QueryBuilder'
-import { useQueryBuilder } from 'hooks/api/queryBuilder/useQueryBuilder'
-import { useRouterQuery } from 'hooks/useRouterQuery'
+import { Filter, FilterInput, OptionType, QueryBuilderModel } from 'types/QueryBuilder'
+// import { useRouterQuery } from 'hooks/useRouterQuery'
+import { useText } from 'hooks/useText'
+import { List } from 'partials/List'
+import { Column, ListData } from 'partials/List/List.types'
+import { Card } from 'common/Card'
 import { Filters } from './Filters'
-import { QueryBuilderProps } from './QueryBuilder.types'
-import { Results } from './Results'
+import { QueryBuilderComponent } from './QueryBuilder.types'
 import { Summary } from './Summary'
+import { queryBuilderConditions } from './queryBuilderConditions'
 
-export const QueryBuilder = ({
+export const QueryBuilder: QueryBuilderComponent = ({
 	className,
-	conditions,
 	fields,
-	model,
-	summaryModel,
-	testId = 'QueryBuilder'
-}: QueryBuilderProps) => {
-	const { query, update } = useRouterQuery()
-	const [filters, setFilters] = useState<ConditionInput | undefined>()
-	const [initialValues, setInitialValues] = useState<ConditionInput | undefined>()
-	const { data: results } = useQueryBuilder({ model, summaryModel, filters })
+	testId = 'QueryBuilder',
+	title,
+	columns,
+	dataSummaryCards,
+	results = { list: [] },
+	onFilterChange
+}) => {
+	const { t } = useText('queryBuilder')
+	// const { query, update } = useRouterQuery()
+	// const [filters, setFilters] = useState<FilterInput>()
+	const [conditions, setConditions] = useState<OptionType[]>([])
+	// const [initialValues, setInitialValues] = useState<FilterInput>()
+	// const [initialDataType, setInitialDataType] = useState<string>()
 
 	useEffect(() => {
-		const getFilters: () => ConditionInput | undefined = () => {
-			if (query) {
-				// @ts-expect-error TODO: Fix this type
-				const { field, condition, value } = query
+		setConditions(
+			Object.entries(queryBuilderConditions).map(([key, value]) => {
 				return {
-					field: fields.find((f) => f.value === field) as ConditionInput['field'],
-					condition: conditions.find((f) => f.value === condition) as ConditionInput['condition'],
-					value
+					label: t(value.label.key),
+					value: key,
+					allowedFieldTypes: value.allowedFieldTypes
 				}
-			}
-		}
-		const newFilters = getFilters()
-		setFilters(newFilters)
-		// @ts-expect-error TODO: Fix this type
-		if (!initialValues && query?.value) setInitialValues(newFilters)
-	}, [conditions, fields, initialValues, query])
+			})
+		)
+	}, [t])
 
-	const onFiltersChange = (filters: ConditionInput) => {
-		update({
-			field: filters.field.value,
-			condition: filters.condition.value,
-			value: filters.value
-		})
+	// TODO: re-add query update
+	// useEffect(() => {
+	// 	if (query) {
+	// 		// @ts-expect-error TODO: Fix this type
+	// 		const { field, condition, value, dataType } = query
+	// 		const filter = {
+	// 			field: fields.find((f) => f.value === field) as FilterInput['field'],
+	// 			condition: conditions.find((f) => f.value === condition) as FilterInput['condition'],
+	// 			value
+	// 		}
+	// 		// setFilters(filter)
+	// 		setInitialDataType(dataType)
+
+	// 		// @ts-expect-error TODO: Fix this type
+	// 		if (!initialValues && query?.value) setInitialValues(filter)
+	// 	}
+	// }, [conditions, fields, initialValues, query])
+
+	const handleFilterChange = (
+		filterValue: FilterInput,
+		model?: QueryBuilderModel,
+		dataType?: string
+	) => {
+		const change: Filter = {
+			field: filterValue.field.value,
+			condition: filterValue.condition.value,
+			value: filterValue.value,
+			model,
+			dataType
+		}
+
+		onFilterChange?.([change])
+		// TODO: re-add query update
+		// update(change)
 	}
 
 	return (
@@ -52,11 +81,19 @@ export const QueryBuilder = ({
 			<Filters
 				fields={fields}
 				conditions={conditions}
-				onFiltersChange={onFiltersChange}
-				initialValues={initialValues}
+				onChange={handleFilterChange}
+				// initialValues={initialValues}
+				// initialDataType={initialDataType}
 			/>
-			<Summary results={results} model={model} summaryModel={summaryModel} />
-			<Results results={results?.list} model={model} summaryModel={summaryModel} />
+			<Summary dataSummaryCards={dataSummaryCards} />
+			<Card iconProps={{ icon: 'UserIcon', wrapperClass: 'bg-green-300' }} title={title}>
+				<List
+					columns={columns as unknown as Column<ListData>[]}
+					data={results.list?.length ? results.list : []}
+					indexKey='id'
+					concise
+				/>
+			</Card>
 		</div>
 	)
 }

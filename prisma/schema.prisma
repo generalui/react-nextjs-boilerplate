@@ -150,7 +150,7 @@ enum ConsentEnum {
 
 model Consent {
   id                    String                  @id @default(cuid())
-  analysis              ConsentEnum             @default(yes)
+  analyses              ConsentEnum             @default(yes)
   geneticData           ConsentEnum             @default(yes)
   healthRecords         ConsentEnum             @default(yes)
   specimens             ConsentEnum             @default(yes)

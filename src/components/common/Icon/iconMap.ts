@@ -1,4 +1,6 @@
 export { default as Consents } from 'public/icons/consents.svg'
+// TODO: replace analyses with another icon
+export { default as Analyses } from 'public/icons/consents.svg'
 export { default as Cross } from 'public/icons/cross.svg'
 export { default as folder } from 'public/icons/folder.svg'
 export { default as GeneticData } from 'public/icons/geneticData.svg'

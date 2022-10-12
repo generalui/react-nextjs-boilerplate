@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker'
-import { PrismaClient } from '@prisma/client'
+import { ConsentEnum, PrismaClient } from '@prisma/client'
 import bcrypt from 'bcryptjs'
+import { getDefaultConsentFromStudy } from 'utils/api/getDefaultConsentFromStudy'
 import { participants, studies, users } from './seedData'
 
 const prisma = new PrismaClient()
@@ -67,7 +68,12 @@ const prismaSafeStudiesWithParticipant = studies.slice(0, 1).map(({ imageUrl, ..
 							connect: { id: 'participant1' }
 						},
 						consent: {
-							create: {}
+							create: {
+								analyses: ConsentEnum.no,
+								geneticData: ConsentEnum.yes,
+								healthRecords: ConsentEnum.yes,
+								specimens: ConsentEnum.yes
+							}
 						}
 					}
 				}

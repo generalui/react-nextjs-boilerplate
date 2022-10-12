@@ -5,6 +5,7 @@ import home from './home'
 import participant from './participant'
 import participants from './participants'
 import profile from './profile'
+import queryBuilder from './queryBuilder'
 import signIn from './signIn'
 import studies from './studies'
 
@@ -15,6 +16,7 @@ export const en = {
 	home,
 	participant,
 	profile,
+	queryBuilder,
 	signIn,
 	studies,
 	participants

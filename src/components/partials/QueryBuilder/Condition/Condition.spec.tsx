@@ -16,7 +16,12 @@ describe('Condition Component', () => {
 				}}
 				render={({ handleSubmit }) => (
 					<form onSubmit={handleSubmit}>
-						<Condition />
+						<Condition
+							fields={[]}
+							conditions={[]}
+							onFieldTypeChange={jest.fn}
+							onModelChange={jest.fn}
+						/>
 					</form>
 				)}
 			/>

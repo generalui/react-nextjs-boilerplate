@@ -21,6 +21,30 @@ export type Study = Prisma.StudyGetPayload<{
 	}
 }>
 
+export type StudyWithParticipantIds = Prisma.StudyGetPayload<{
+	include: {
+		participants: {
+			include: {
+				participant: {
+					select: {
+						id: true
+					}
+				}
+			}
+		}
+	}
+}>
+
+export type StudyWithParticipants = Prisma.StudyGetPayload<{
+	include: {
+		participants: {
+			include: {
+				participant: true
+			}
+		}
+	}
+}>
+
 export type ApiStudiesResponse = PaginatedResponse & {
 	studies: ApiStudy[]
 }

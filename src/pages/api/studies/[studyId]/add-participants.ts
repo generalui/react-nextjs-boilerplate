@@ -1,10 +1,11 @@
-import { User } from '@prisma/client'
+import { ConsentEnum, StudyDataTypes, User } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 import type { NextApiResponse } from 'next'
 import { ApiRequestWithFile } from 'types/ApiRequestWithFile'
 import { AddParticipantsInput, ParticipantInput, Study } from 'types/index'
 import { connect } from 'utils/api/connect'
 import { generatePassword } from 'utils/api/generatePassword'
+import { getDefaultConsentFromStudy } from 'utils/api/getDefaultConsentFromStudy'
 import { getSessionFromReq } from 'utils/api/getSessionFromReq'
 import { handleQuery } from 'utils/api/handleQuery'
 import { prisma } from 'utils/api/prisma'
@@ -61,6 +62,7 @@ apiRoute.put(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 								}
 							}
 						})
+						if (!study) throw Error('Study not found')
 
 						const userIsAlreadyOnStudy = !!study?.participants.find(
 							(p) => p.participant.user.email === participant.email
@@ -107,10 +109,10 @@ apiRoute.put(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 											participant: { connect: { id: participantUser.id } },
 											consent: {
 												create: {
-													analysis: 'yes',
-													geneticData: 'yes',
-													healthRecords: 'yes',
-													specimens: 'yes'
+													analyses: getDefaultConsentFromStudy(study, 'analyses'),
+													geneticData: getDefaultConsentFromStudy(study, 'geneticData'),
+													healthRecords: getDefaultConsentFromStudy(study, 'healthRecords'),
+													specimens: getDefaultConsentFromStudy(study, 'specimens')
 												}
 											}
 										},

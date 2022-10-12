@@ -1,3 +1,6 @@
+import { ConsentEnum } from '@prisma/client'
+import { ConsentInput, ConsentPickDataTypes } from 'types/Consent'
+import { useParticipantStudyConsent } from 'hooks/api/studies/useParticipantStudyConsent'
 import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
 import { useText } from 'hooks/useText'
 import { DataTypeContainer } from 'partials/DataTypeContainer'
@@ -8,33 +11,51 @@ import { Icon } from 'common/Icon'
 import { Text } from 'common/Text'
 import { StudyConsentProps } from './StudyConsent.types'
 
+const getConsentStatus = (consent?: ConsentPickDataTypes) => {
+	return consent
+		? Object.values(consent).reduce(
+				(result, consentDataType) => result || consentDataType === ConsentEnum.yes,
+				false
+		  )
+		: false
+}
+
 export const StudyConsent = ({ study, testId = 'StudyConsent' }: StudyConsentProps) => {
 	const { currentUser } = useCurrentUser()
 	const { t } = useText('participant.study.consent')
-	const consent = true
+	const { consent, updateConsent } = useParticipantStudyConsent(
+		currentUser?.participant?.id,
+		study?.id
+	)
+	const handleEditConsent = (consentValues: ConsentInput) => {
+		updateConsent.mutate(consentValues)
+	}
+	const consentGiven = getConsentStatus(consent)
 
 	return (
 		<div data-testid={testId}>
 			<Card
 				iconProps={{ className: 'text-white', icon: 'Consents' }}
 				title={t('title')}
-				action={<EditConsent modalName='edit-consent' />}
+				action={
+					<EditConsent consent={consent} modalName='edit-consent' onSubmit={handleEditConsent} />
+				}
 			>
 				<div className='flex flex-col gap-4'>
 					<Text className='text-gray-500' size='sm'>
 						{t('description')}
 					</Text>
 					<div className='flex gap-2 items-center'>
-						<StatusBadge v={consent ? 'approved' : 'archived'} />
+						<StatusBadge v={consentGiven ? 'approved' : 'archived'} />
 						<Text className='text-lg font-bold line-clamp-4 lg:line-clamp-none'>
-							{consent ? t('hasConsent') : t('noConsent')}
+							{consentGiven ? t('hasConsent') : t('noConsent')}
 						</Text>
 					</div>
 					<div>
 						<Text className='text-gray-500 mb-2' size='xs'>
 							{t('dataTypes')}
 						</Text>
-						<DataTypeContainer study={study} />
+						<DataTypeContainer consent={consent} />
 					</div>
 					<div className='flex gap-2 items-center justify-between w-10/12'>
 						<div className='flex gap-2 items-center'>
