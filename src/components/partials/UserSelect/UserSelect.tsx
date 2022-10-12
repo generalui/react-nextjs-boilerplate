@@ -1,11 +1,11 @@
 import { OptionProps } from 'react-select'
-import { User, selectOptionsType } from 'types/index'
+import { SelectOptionsType, User } from 'types/index'
 import { useUsers } from 'hooks/api/users/useUsers'
 // import { ImageWithPlaceholder } from 'common/ImageWithPlaceholder'
 import { SelectInput } from 'common/SelectInput'
 import { UserSelectProps } from './UserSelect.types'
 
-const Option = (props: OptionProps<selectOptionsType<User>>) => {
+const Option = (props: OptionProps<SelectOptionsType<User>>) => {
 	const { className, cx, isDisabled, isFocused, isSelected, innerRef, innerProps, data } = props
 	const { meta } = data
 
@@ -53,7 +53,7 @@ export const UserSelect = ({
 	label,
 	placeholder,
 	name
-}: UserSelectProps<selectOptionsType<User>>) => {
+}: UserSelectProps<SelectOptionsType<User>>) => {
 	const { users } = useUsers()
 
 	const selectOptions = users
@@ -66,7 +66,7 @@ export const UserSelect = ({
 
 	return (
 		<div data-testid={testId} className={className}>
-			<SelectInput<selectOptionsType<User>>
+			<SelectInput<SelectOptionsType<User>>
 				placeholder={placeholder}
 				labelClassName={labelClassName}
 				label={label}

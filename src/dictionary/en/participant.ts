@@ -85,8 +85,7 @@ const participant = {
 							message: 'Health Records'
 						},
 						body: {
-							message:
-								'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque. Nulla facilisi morbi tempus iaculis. Volutpat maecenas volutpat blandit aliquam. Porttitor eget dolor morbi non arcu risus quis. Elementum eu facilisis sed odio. Adipiscing diam donec adipiscing tristique risus nec feugiat in fermentum. Condimentum vitae sapien pellentesque habitant morbi tristique senectus et.'
+							message: 'This study has permission to use health records uploaded on your behalf.'
 						},
 						consented: {
 							message: 'Use My Data'
@@ -101,7 +100,7 @@ const participant = {
 						},
 						body: {
 							message:
-								'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque. Nulla facilisi morbi tempus iaculis. Volutpat maecenas volutpat blandit aliquam. Porttitor eget dolor morbi non arcu risus quis. Elementum eu facilisis sed odio. Adipiscing diam donec adipiscing tristique risus nec feugiat in fermentum. Condimentum vitae sapien pellentesque habitant morbi tristique senectus et.'
+								'This study has permission to use physical specimens given to NBDC on your behalf.'
 						},
 						consented: {
 							message: 'Use My Data'
@@ -115,8 +114,7 @@ const participant = {
 							message: 'Genetic Data'
 						},
 						body: {
-							message:
-								'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque. Nulla facilisi morbi tempus iaculis. Volutpat maecenas volutpat blandit aliquam. Porttitor eget dolor morbi non arcu risus quis. Elementum eu facilisis sed odio. Adipiscing diam donec adipiscing tristique risus nec feugiat in fermentum. Condimentum vitae sapien pellentesque habitant morbi tristique senectus et.'
+							message: 'This study has permission to use genetic data uploaded on your behalf.'
 						},
 						consented: {
 							message: 'Use My Data'
@@ -130,8 +128,7 @@ const participant = {
 							message: 'Analyses'
 						},
 						body: {
-							message:
-								'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna cursus eget nunc scelerisque. Nulla facilisi morbi tempus iaculis. Volutpat maecenas volutpat blandit aliquam. Porttitor eget dolor morbi non arcu risus quis. Elementum eu facilisis sed odio. Adipiscing diam donec adipiscing tristique risus nec feugiat in fermentum. Condimentum vitae sapien pellentesque habitant morbi tristique senectus et.'
+							message: 'This study has permission to use analyses data uploaded on your behalf.'
 						},
 						consented: {
 							message: 'Use My Data'

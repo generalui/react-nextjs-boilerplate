@@ -85,7 +85,7 @@ export interface DataVaultListData extends DataVault, ListData {}
 
 export type ApiDataVault = Omit<DataVault, '_max'> & { _max: { insertedAt: string } }
 
-export type selectOptionsType<T = unknown> = {
+export type SelectOptionsType<T = unknown> = {
 	value: string
 	label: ReactNode
 	meta?: T
@@ -115,8 +115,8 @@ export const StudySchema = z.object({
 export type StudyInput = z.infer<typeof StudySchema>
 
 export type StudyInputPreTransform = Omit<StudyInput, 'coordinator' | 'dataTypes'> & {
-	coordinator?: selectOptionsType
-	dataTypes?: selectOptionsType[]
+	coordinator?: SelectOptionsType
+	dataTypes?: SelectOptionsType[]
 }
 
 export const publicFilesSchema = z.object({
