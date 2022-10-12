@@ -1,6 +1,5 @@
-import { createReduxModule } from 'hooks-for-redux'
 import { useQuery } from 'react-query'
-import { ApiQueryResults, FilterInput, QueryBuilderParams } from 'types/QueryBuilder'
+import { ApiParticipantQueryResults } from 'types/Participants'
 import { Filter } from 'types/QueryBuilder'
 import { getParticipantsQuery } from 'utils/requests/participants'
 
@@ -13,7 +12,7 @@ import { getParticipantsQuery } from 'utils/requests/participants'
 // export const useParticipantQueryFilters = queryBuilderFilters
 
 export const useParticipantQuery = (filters?: Filter[]) => {
-	const { data, ...query } = useQuery<ApiQueryResults | undefined>(
+	const { data, ...query } = useQuery<ApiParticipantQueryResults | undefined>(
 		['participants-query', filters],
 		() => getParticipantsQuery(filters),
 

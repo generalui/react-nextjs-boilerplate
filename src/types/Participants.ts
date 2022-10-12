@@ -3,7 +3,7 @@ import { z } from 'zod'
 
 export type ApiParticipantQueryResults = {
 	modelCount: number
-	summaryModelCount: number
+	studyCount?: number
 	list: Prisma.ParticipantGetPayload<{
 		include: {
 			_count: true

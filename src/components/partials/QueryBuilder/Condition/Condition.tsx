@@ -2,7 +2,7 @@ import cn from 'classnames'
 import { useEffect, useRef, useState } from 'react'
 import { FieldInputProps } from 'react-final-form'
 import { MultiValue, OptionProps, SingleValue } from 'react-select'
-import { OptionType } from 'types/QueryBuilder'
+import { OptionType, QueryBuilderModel } from 'types/QueryBuilder'
 import { useText } from 'hooks/useText'
 import { Input } from 'common/Input'
 import { SelectInput } from 'common/SelectInput'
@@ -37,23 +37,29 @@ export const Condition = ({
 	fields,
 	conditions,
 	testId = 'Condition',
-	onFieldTypeChange
+	onFieldTypeChange,
+	onModelChange
 }: ConditionProps) => {
 	const [fieldInputType, setFieldInputType] = useState<string | undefined>()
+	const [fieldModel, setFieldModel] = useState<QueryBuilderModel | undefined>()
 	const [filteredConditions, setFilteredConditions] = useState<OptionType[]>(conditions)
 	const inputRef = useRef<FieldInputProps<string>>()
 	const { t } = useText('queryBuilder.filters')
 
 	const handleFieldChange = (newValue: SingleValue<OptionType> | MultiValue<OptionType>) => {
 		if (newValue && 'inputType' in newValue) {
-			console.log('handleFieldChange ~ newValue', newValue)
 			setFieldInputType(newValue?.inputType)
+			setFieldModel(newValue?.model)
 		}
 	}
 
 	useEffect(() => {
 		onFieldTypeChange(fieldInputType)
 	}, [fieldInputType, onFieldTypeChange])
+
+	useEffect(() => {
+		onModelChange(fieldModel)
+	}, [fieldModel, onModelChange])
 
 	useEffect(() => {
 		if (fieldInputType) {

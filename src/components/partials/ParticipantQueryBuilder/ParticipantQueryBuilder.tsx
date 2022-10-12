@@ -24,13 +24,22 @@ export const ParticipantQueryBuilder = ({
 
 	useEffect(() => {
 		setDataSummary(
-			summaryCards.map((summaryElem: AggregatedDataCardProps) => ({
-				...summaryElem,
-				title: queryBuilderText(summaryElem.title as string),
-				value: summaryElem.key === 'participants' ? participants?.modelCount ?? 0 : 0
-			}))
+			summaryCards.map((summaryElem: AggregatedDataCardProps) => {
+				const value =
+					summaryElem.key === 'participants'
+						? participants?.modelCount ?? 0
+						: summaryElem.key === 'studies'
+						? participants?.studyCount ?? 0
+						: 0
+
+				return {
+					...summaryElem,
+					title: queryBuilderText(summaryElem.title as string),
+					value
+				}
+			})
 		)
-	}, [participants?.modelCount, queryBuilderText])
+	}, [participants?.modelCount, participants?.studyCount, queryBuilderText])
 
 	const handleFilterChange = (change: Filter[]) => {
 		setFilters(change)
@@ -42,20 +51,20 @@ export const ParticipantQueryBuilder = ({
 		const fieldOptions: OptionType[] = Object.entries(
 			participantQueryFields[key as keyof typeof participantQueryFields].options
 		).map(([optionKey, optionValue]) => {
-			const { key } = optionValue
+			const { label, inputType } = optionValue
 
 			return {
-				label: t(key),
+				label: t(label),
 				value: optionKey,
 				type: 'option',
-				inputType: t(key).toLowerCase().includes('date') ? 'date' : 'text',
+				inputType,
 				model: model as QueryBuilderModel
 			}
 		})
 
 		return [
 			{
-				label: t(value.title.key),
+				label: t(value.title.label),
 				value: key,
 				type: 'header',
 				isDisabled: true,

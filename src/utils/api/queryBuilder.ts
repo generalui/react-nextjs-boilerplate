@@ -2,76 +2,91 @@ import { QueryBuilderModel } from 'types/QueryBuilder'
 import { Filter } from 'types/QueryBuilder'
 import { prisma } from 'utils/api/prisma'
 
-export const getWhere = (filters?: Filter[]) => {
-	if (!filters) return {}
-
+export const getSingleWhere = (filter?: Filter) => {
 	let where = {}
-	filters.forEach((filter: Filter) => {
-		console.log('filters.forEach ~ filter.dataType', filter.dataType)
+	if (!filter) return where
 
-		// TODO: refactor - the type should be a prop on filter
-		if (filter.dataType === 'date') {
-			const value = new Date(filter.value)
-			// @ts-expect-error TODO: Fix this type
-			if (!(value instanceof Date && !isNaN(value))) {
-				return
-			}
-			const nextDay = new Date(value.getTime())
-			nextDay.setDate(nextDay.getDate() + 1)
+	// TODO: refactor - the type should be a prop on filter
+	if (filter.dataType === 'date') {
+		const value = new Date(filter.value)
+		// @ts-expect-error TODO: Fix this type
+		if (!(value instanceof Date && !isNaN(value))) {
+			return
+		}
+		const nextDay = new Date(value.getTime())
+		nextDay.setDate(nextDay.getDate() + 1)
 
-			switch (filter.condition) {
-				case 'equals':
-					where = {
+		switch (filter.condition) {
+			case 'equals':
+				where = {
+					[filter.field]: {
+						lt: nextDay,
+						gte: value
+					}
+				}
+				break
+
+			case 'not':
+				where = {
+					NOT: {
 						[filter.field]: {
 							lt: nextDay,
 							gte: value
 						}
 					}
-					break
-
-				case 'not':
-					where = {
-						NOT: {
-							[filter.field]: {
-								lt: nextDay,
-								gte: value
-							}
-						}
-					}
-					break
-
-				case 'lt':
-					where = {
-						[filter.field]: {
-							lt: value
-						}
-					}
-					break
-
-				case 'gt':
-					where = {
-						[filter.field]: {
-							gt: value
-						}
-					}
-					break
-			}
-		} else {
-			where = {
-				[filter.field]: {
-					[filter.condition]: filter.value
 				}
+				break
+
+			case 'lt':
+				where = {
+					[filter.field]: {
+						lt: value
+					}
+				}
+				break
+
+			case 'gt':
+				where = {
+					[filter.field]: {
+						gt: value
+					}
+				}
+				break
+		}
+	} else {
+		where = {
+			[filter.field]: {
+				[filter.condition]: filter.value,
+				mode: 'insensitive' // Default value: default
 			}
 		}
-	})
-
-	return {
-		where
 	}
+
+	return { where }
 }
 
+// TODO: add multi-where statement
+// export const getWhere = (filters?: Filter[]) => {
+// 	if (!filters) return {}
+
+// 	const ret = filters.reduce((where, filter: Filter) => {
+// 		// Manage clause here [and, or, excluding]
+// 		return {
+// 			...where,
+// 			...getSingleWhere(filter)
+// 		}
+// 	}, {})
+// 	console.log('getWhere ~ ret', ret)
+
+// 	return {
+// 		where: ret
+// 	}
+// }
+
 export const getQuery = (model: QueryBuilderModel, filters?: Filter[]) => {
-	const where = getWhere(filters)
+	// TODO: manage multi filter
+	const where = getSingleWhere(filters?.[0])
+	console.log('getQuery ~ where', where)
 
 	const query = async () => {
 		const [modelCount, list] = await prisma.$transaction([
@@ -81,9 +96,9 @@ export const getQuery = (model: QueryBuilderModel, filters?: Filter[]) => {
 				// @ts-expect-error TODO: Fix this type
 				.findMany({
 					// TODO: make this include generic
-					include: {
-						_count: true
-					},
+					// include: {
+					// 	_count: true
+					// },
 					...where
 				})
 		])

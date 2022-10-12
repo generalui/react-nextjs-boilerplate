@@ -1,7 +1,7 @@
 import cn from 'classnames'
 import { useEffect, useState } from 'react'
-import { Filter, FilterInput, OptionType } from 'types/QueryBuilder'
-import { useRouterQuery } from 'hooks/useRouterQuery'
+import { Filter, FilterInput, OptionType, QueryBuilderModel } from 'types/QueryBuilder'
+// import { useRouterQuery } from 'hooks/useRouterQuery'
 import { useText } from 'hooks/useText'
 import { List } from 'partials/List'
 import { Column, ListData } from 'partials/List/List.types'
@@ -22,10 +22,11 @@ export const QueryBuilder: QueryBuilderComponent = ({
 	onFilterChange
 }) => {
 	const { t } = useText('queryBuilder')
-	const { query, update } = useRouterQuery()
-	const [filters, setFilters] = useState<FilterInput>()
+	// const { query, update } = useRouterQuery()
+	// const [filters, setFilters] = useState<FilterInput>()
 	const [conditions, setConditions] = useState<OptionType[]>([])
-	const [initialValues, setInitialValues] = useState<FilterInput | undefined>()
+	// const [initialValues, setInitialValues] = useState<FilterInput>()
+	// const [initialDataType, setInitialDataType] = useState<string>()
 
 	useEffect(() => {
 		setConditions(
@@ -39,34 +40,40 @@ export const QueryBuilder: QueryBuilderComponent = ({
 		)
 	}, [t])
 
-	useEffect(() => {
-		const getFilters: () => FilterInput | undefined = () => {
-			if (query) {
-				// @ts-expect-error TODO: Fix this type
-				const { field, condition, value } = query
-				return {
-					field: fields.find((f) => f.value === field) as FilterInput['field'],
-					condition: conditions.find((f) => f.value === condition) as FilterInput['condition'],
-					value
-				}
-			}
-		}
-		const newFilters = getFilters()
-		setFilters(newFilters)
-		// @ts-expect-error TODO: Fix this type
-		if (!initialValues && query?.value) setInitialValues(newFilters)
-	}, [conditions, fields, initialValues, query])
+	// TODO: re-add query update
+	// useEffect(() => {
+	// 	if (query) {
+	// 		// @ts-expect-error TODO: Fix this type
+	// 		const { field, condition, value, dataType } = query
+	// 		const filter = {
+	// 			field: fields.find((f) => f.value === field) as FilterInput['field'],
+	// 			condition: conditions.find((f) => f.value === condition) as FilterInput['condition'],
+	// 			value
+	// 		}
+	// 		// setFilters(filter)
+	// 		setInitialDataType(dataType)
 
-	const handleFilterChange = (filterValue: FilterInput, dataType?: string) => {
+	// 		// @ts-expect-error TODO: Fix this type
+	// 		if (!initialValues && query?.value) setInitialValues(filter)
+	// 	}
+	// }, [conditions, fields, initialValues, query])
+
+	const handleFilterChange = (
+		filterValue: FilterInput,
+		model?: QueryBuilderModel,
+		dataType?: string
+	) => {
 		const change: Filter = {
 			field: filterValue.field.value,
 			condition: filterValue.condition.value,
 			value: filterValue.value,
+			model,
 			dataType
 		}
 
 		onFilterChange?.([change])
-		update(change)
+		// TODO: re-add query update
+		// update(change)
 	}
 
 	return (
@@ -75,13 +82,14 @@ export const QueryBuilder: QueryBuilderComponent = ({
 				fields={fields}
 				conditions={conditions}
 				onChange={handleFilterChange}
-				initialValues={initialValues}
+				// initialValues={initialValues}
+				// initialDataType={initialDataType}
 			/>
 			<Summary dataSummaryCards={dataSummaryCards} />
 			<Card iconProps={{ icon: 'UserIcon', wrapperClass: 'bg-green-300' }} title={title}>
 				<List
 					columns={columns as unknown as Column<ListData>[]}
-					data={results.list}
+					data={results.list?.length ? results.list : []}
 					indexKey='id'
 					concise
 				/>

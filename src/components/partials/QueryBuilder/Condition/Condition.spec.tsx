@@ -19,9 +19,8 @@ describe('Condition Component', () => {
 						<Condition
 							fields={[]}
 							conditions={[]}
-							onFieldTypeChange={(value) => {
-								expect(value)
-							}}
+							onFieldTypeChange={jest.fn}
+							onModelChange={jest.fn}
 						/>
 					</form>
 				)}

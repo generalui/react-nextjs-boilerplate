@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { FormSpy } from 'react-final-form'
-import { FilterInput, FilterSchema } from 'types/QueryBuilder'
+import { FilterInput, FilterSchema, QueryBuilderModel } from 'types/QueryBuilder'
 import { debounce } from 'utils/debounce'
 import { useText } from 'hooks/useText'
 import { Form } from 'partials/Form'
@@ -17,13 +17,15 @@ export const Filters = ({
 	testId = 'Filters'
 }: FiltersProps) => {
 	const { t } = useText('queryBuilder.filters')
-	const [fieldDataType, setFieldDataType] = useState<string>()
+	const [fieldDataType, setFieldDataType] = useState<string | undefined>()
+	const [fieldModel, setFieldModel] = useState<QueryBuilderModel | undefined>()
+	// console.log('initialDataType', typeof initialDataType, initialDataType)
 
 	const onSubmit = (filters: FilterInput) => {
 		try {
 			const parsedFilters = FilterSchema.parse(filters)
 			console.log('parsedFilters', parsedFilters)
-			onChange(filters, fieldDataType)
+			onChange(filters, fieldModel, fieldDataType)
 		} catch (error) {
 			return
 		}
@@ -45,6 +47,7 @@ export const Filters = ({
 								fields={fields}
 								conditions={conditions}
 								onFieldTypeChange={setFieldDataType}
+								onModelChange={setFieldModel}
 							/>
 							<FormSpy
 								onChange={(props) => {

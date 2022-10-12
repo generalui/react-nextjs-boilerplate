@@ -1,21 +1,22 @@
 export const participantQueryFields = {
 	study: {
 		model: 'study',
-		title: { key: 'fields.study.title' },
+		title: { label: 'fields.study.title' },
 		options: {
-			title: { key: 'fields.study.options.title' },
-			studyCoordinator: { key: 'fields.study.options.studyCoordinator' }
+			title: { label: 'fields.study.options.title', inputType: 'text' }
+			// studyCoordinator: { label: 'fields.study.options.studyCoordinator', inputType: 'text' }
 		}
 	},
 	participantInfo: {
 		model: 'participant',
-		title: { key: 'fields.participantInfo.title' },
+		title: { label: 'fields.participantInfo.title' },
 		options: {
 			id: {
-				key: 'fields.participantInfo.options.id'
+				label: 'fields.participantInfo.options.id',
+				inputType: 'text'
 			},
-			insertedAt: { key: 'fields.participantInfo.options.insertedAt' },
-			updatedAt: { key: 'fields.participantInfo.options.updatedAt' }
+			insertedAt: { label: 'fields.participantInfo.options.insertedAt', inputType: 'date' },
+			updatedAt: { label: 'fields.participantInfo.options.updatedAt', inputType: 'date' }
 		}
 	}
 }

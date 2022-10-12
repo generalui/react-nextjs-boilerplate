@@ -13,7 +13,13 @@ export type OptionType = {
 	allowedFieldTypes?: string[]
 }
 
-export type Filter = { field: string; condition: string; value: string; dataType?: string }
+export type Filter = {
+	field: string
+	condition: string
+	value: string
+	dataType?: string
+	model?: QueryBuilderModel
+}
 
 const fieldSchema = z.object({
 	label: z.string(),
