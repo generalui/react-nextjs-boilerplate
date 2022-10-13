@@ -1,4 +1,4 @@
-import { StudyDataTypes } from '@prisma/client'
+import { StudyDataType } from '@prisma/client'
 import cn from 'classnames'
 import { DataVaultListData } from 'types/Study'
 import { formatDisplayDate } from 'utils/client/date'
@@ -36,7 +36,7 @@ export const DataVaultList = ({
 					img={`/icons/gray_${value}.svg`}
 					className='gap-2 capitalize flex items-center'
 				>
-					{dataTypes(value as StudyDataTypes)}
+					{dataTypes(value as StudyDataType)}
 				</DataTypeLabel>
 			)
 		},

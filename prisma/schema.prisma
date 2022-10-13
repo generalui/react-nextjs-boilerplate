@@ -42,7 +42,7 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-enum UserRoles {
+enum UserRole {
   admin
   participant
 }
@@ -59,7 +59,7 @@ model User {
   documents     Document[]
   studies       CoordinatorsOnStudies[]
   participant   Participant?
-  role          UserRoles
+  role          UserRole
 }
 
 model VerificationToken {
@@ -76,10 +76,19 @@ enum StudyStatus {
   archived
 }
 
-enum StudyDataTypes {
+// enum DocumentDataTypes {
+//   analyses
+//   consents
+//   healthRecords
+//   geneticData
+//   specimens
+// }
+
+enum StudyDataType {
+  analyses
   consents
-  geneticData
   healthRecords
+  geneticData
   specimens
 }
 
@@ -91,7 +100,7 @@ model Study {
   submissionDate DateTime                @default(now()) @map("submission_date")
   endDate        DateTime                @map("end_date")
   title          String
-  dataTypes      StudyDataTypes[]        @map("data_types")
+  dataTypes      StudyDataType[]        @map("data_types")
   users          CoordinatorsOnStudies[]
   participants   ParticipantsOnStudies[]
   documentation  Document[]
@@ -116,7 +125,7 @@ model DataVault {
   document   Document       @relation(fields: [documentId], references: [id])
   documentId String         @map("document_id")
   insertedAt DateTime       @default(now()) @map("inserted_at")
-  dataType   StudyDataTypes
+  dataType   StudyDataType
 
   @@id([documentId])
 }

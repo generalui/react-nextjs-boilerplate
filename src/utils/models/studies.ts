@@ -1,4 +1,4 @@
-import { StudyDataTypes, StudyStatus } from '@prisma/client'
+import { StudyDataType, StudyStatus } from '@prisma/client'
 import { uniqueId } from 'lodash'
 import { Session } from 'next-auth'
 import {
@@ -94,7 +94,7 @@ const optimisticStudyKeyHandlers: {
 	image: createStudyImage,
 	status: (value) => value as StudyStatus,
 	title: (value) => value,
-	dataTypes: (value) => value as StudyDataTypes[],
+	dataTypes: (value) => value as StudyDataType[],
 	documentation: createDocumentation
 }
 
