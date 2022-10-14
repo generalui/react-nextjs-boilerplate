@@ -1,4 +1,4 @@
-import { StudyDataTypes } from '@prisma/client'
+import { StudyDataType } from '@prisma/client'
 import { UploadToCloudinaryReturn, uploadToCloudinary } from './uploadToCloudinary'
 
 // TODO: merge this logic with handleAvatarJoin and handleDocumentationJoin
@@ -17,14 +17,14 @@ type DataVaultQuery = {
 					}
 				}
 			}
-			dataType: StudyDataTypes
+			dataType: StudyDataType
 		}[]
 	}
 }
 // TODO: this is very similar to handleAvatarJoin and handleDataVaultJoin so we should probably merge them
 type HandleDataVaultJoin = (
 	dataVault: Express.Multer.File[] | undefined,
-	dataType: StudyDataTypes,
+	dataType: StudyDataType,
 	userId: string
 ) => Promise<DataVaultQuery | undefined>
 

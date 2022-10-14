@@ -92,9 +92,10 @@ export const ParticipantQueryBuilder = ({
 			key: 'consents',
 			title: 'Consents',
 			width: 2,
-			transformFunction: () => (
-				<div className='bg-green-100 p-4 flex justify-center rounded-md w-fit'>{'Full'}</div>
-			)
+			transformFunction: (value) => {
+				console.log('consents value', value)
+				return <div className='bg-green-100 p-4 flex justify-center rounded-md w-fit'>{'Full'}</div>
+			}
 		},
 		{
 			key: 'insertedAt',

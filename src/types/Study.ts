@@ -1,4 +1,4 @@
-import { Prisma, StudyDataTypes, StudyStatus, User } from '@prisma/client'
+import { Prisma, StudyDataType, StudyStatus, User } from '@prisma/client'
 import { ReactNode } from 'react'
 import { PaginatedResponse } from 'types/PaginatedResponse'
 import { z } from 'zod'
@@ -77,7 +77,7 @@ export type StudyInputMap = typeof studyInputMap
 
 export interface DataVault {
 	_count: number
-	dataType: StudyDataTypes
+	dataType: StudyDataType
 	_max: { insertedAt: Date }
 }
 
@@ -125,7 +125,7 @@ export const publicFilesSchema = z.object({
 
 export const DataVaultSchema = z.object({
 	dataType: z
-		.object({ label: z.string(), value: z.nativeEnum(StudyDataTypes) })
+		.object({ label: z.string(), value: z.nativeEnum(StudyDataType) })
 		.transform(({ value }) => value),
 	dataVault: z.any().array()
 })

@@ -1,9 +1,9 @@
-import { StudyDataTypes } from '@prisma/client'
+import { StudyDataType } from '@prisma/client'
 import { Study } from 'types/Study'
 import { SelectOptionsType } from 'types/index'
 import { useText } from './useText'
 
-const defaultDataTypes: StudyDataTypes[] = ['consents', 'geneticData', 'healthRecords', 'specimens']
+const defaultDataTypes: StudyDataType[] = ['consents', 'geneticData', 'healthRecords', 'specimens']
 type UseStudyDataTypes = (studyDataTypes?: Study['dataTypes']) => SelectOptionsType[]
 
 /**
@@ -14,7 +14,7 @@ type UseStudyDataTypes = (studyDataTypes?: Study['dataTypes']) => SelectOptionsT
 export const useStudyDataTypes: UseStudyDataTypes = (initialDataTypes = defaultDataTypes) => {
 	const { t: common } = useText('common.dataTypes')
 
-	return initialDataTypes.map((dataType: StudyDataTypes) => {
+	return initialDataTypes.map((dataType: StudyDataType) => {
 		return { label: common(`${dataType}.label`), value: dataType }
 	})
 }
