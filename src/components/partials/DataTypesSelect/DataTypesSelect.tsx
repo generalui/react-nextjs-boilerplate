@@ -23,6 +23,7 @@ const MultiValueLabel = (props: MultiValueGenericProps<SelectOptionsType>) => {
 
 const SingleValue = (props: SingleValueProps<SelectOptionsType>) => {
 	const { value } = props.data
+	console.log('SingleValue ~ value', value)
 	return (
 		<DataTypeLabel
 			icon={capitalizeFirstLetter(value) as IconProps['icon']}
