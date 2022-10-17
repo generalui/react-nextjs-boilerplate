@@ -3,7 +3,7 @@ import { Study } from 'types/Study'
 import { SelectOptionsType } from 'types/index'
 import { useText } from './useText'
 
-const defaultDataTypes: StudyDataType[] = ['consents', 'geneticData', 'healthRecords', 'specimens']
+const defaultDataTypes: StudyDataType[] = ['analyses', 'geneticData', 'healthRecords', 'specimens']
 type UseStudyDataTypes = (studyDataTypes?: Study['dataTypes']) => SelectOptionsType[]
 
 /**
