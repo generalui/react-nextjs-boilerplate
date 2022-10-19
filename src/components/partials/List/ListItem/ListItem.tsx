@@ -23,7 +23,6 @@ export const ListItem = <DataType extends ListData>({
 				const transformedValue = column.transformFunction
 					? column.transformFunction(value, itemData)
 					: value
-				console.log('{columns.map ~ transformedValue', column.title, transformedValue)
 
 				return (
 					<div className={cn(`col-span-${column.width}`, column.className)} key={`${column.title}`}>

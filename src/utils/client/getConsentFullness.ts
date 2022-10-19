@@ -31,7 +31,6 @@ export const getConsentFullness: GetConsentFullness = (consent) => {
 	const fullness = [analyses, geneticData, healthRecords, specimens].filter(
 		(c) => c === ConsentEnum.yes
 	).length
-	console.log('fullness', fullness)
 
 	return fullness === 0
 		? ConsentState.none
