@@ -1,13 +1,14 @@
 import { Consent } from '@prisma/client'
 import qs from 'query-string'
 import { ConsentInput } from 'types/Consent'
-import { ApiQueryResults, Filter, FilterInput, QueryBuilderParams } from 'types/QueryBuilder'
+import { ParticipantQueryResults } from 'types/Participants'
+import { Filter, FilterInput, QueryBuilderParams } from 'types/QueryBuilder'
 import { axios } from 'utils/client/axios'
 
 // Cohort builder query
 export const getParticipantsQuery = async (
 	filters?: Filter[]
-): Promise<ApiQueryResults | undefined> => {
+): Promise<ParticipantQueryResults | undefined> => {
 	// if (!filters) return undefined
 
 	// let filters
@@ -15,7 +16,7 @@ export const getParticipantsQuery = async (
 	// 	filters = queryParams?.filters.value ? queryParams?.filters : undefined
 	// }
 	console.log('filters', filters)
-	const response = await axios.get<ApiQueryResults>(`participants/query`, {
+	const response = await axios.get<ParticipantQueryResults>(`participants/query`, {
 		params: {
 			filters
 		}

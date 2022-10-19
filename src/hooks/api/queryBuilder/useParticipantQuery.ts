@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query'
-import { ApiParticipantQueryResults } from 'types/Participants'
+import { ParticipantQueryResults } from 'types/Participants'
 import { Filter } from 'types/QueryBuilder'
 import { getParticipantsQuery } from 'utils/requests/participants'
 
@@ -12,7 +12,7 @@ import { getParticipantsQuery } from 'utils/requests/participants'
 // export const useParticipantQueryFilters = queryBuilderFilters
 
 export const useParticipantQuery = (filters?: Filter[]) => {
-	const { data, ...query } = useQuery<ApiParticipantQueryResults | undefined>(
+	const { data, ...query } = useQuery<ParticipantQueryResults | undefined>(
 		['participants-query', filters],
 		() => getParticipantsQuery(filters),
 

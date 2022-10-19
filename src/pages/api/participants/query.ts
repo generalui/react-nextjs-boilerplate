@@ -7,7 +7,8 @@ import { handleQuery } from 'utils/api/handleQuery'
 import { parseParamArray } from 'utils/api/parseParamArray'
 import { prisma } from 'utils/api/prisma'
 import { getSingleWhere } from 'utils/api/queryBuilder'
-import { studyIncludesParticipantIds } from '../studies/utils'
+import { participantQueryInclude } from 'utils/includes/participantIncludes'
+import { studyIncludesParticipantIds } from 'utils/includes/studyIncludes'
 
 const getParticipants = async (where?: ReturnType<typeof getSingleWhere>) => {
 	// Get participants
@@ -15,12 +16,9 @@ const getParticipants = async (where?: ReturnType<typeof getSingleWhere>) => {
 		prisma.participant.count({ ...where }),
 		prisma.participant.findMany({
 			...where,
-			include: {
-				_count: true
-			}
+			...participantQueryInclude
 		})
 	])
-	console.log('query= ~ participants', participants)
 
 	// Get study count
 	const studyCount = await prisma.study.count({
@@ -88,7 +86,7 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 
 				const participants = await prisma.participant.findMany({
 					where: { id: { in: studyParticipantIds } },
-					include: { _count: true }
+					...participantQueryInclude
 				})
 
 				return { modelCount: participants?.length || 0, list: participants || [], studyCount }

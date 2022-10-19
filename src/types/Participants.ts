@@ -1,12 +1,17 @@
 import { Prisma } from '@prisma/client'
-import { z } from 'zod'
+import {
+	participantIncludesConsent,
+	participantQueryInclude
+} from 'utils/includes/participantIncludes'
 
-export type ApiParticipantQueryResults = {
+export type SingleParticipantQueryResult = Prisma.ParticipantGetPayload<
+	typeof participantQueryInclude
+>
+
+export type ParticipantWithConsent = Prisma.ParticipantGetPayload<typeof participantIncludesConsent>
+
+export type ParticipantQueryResults = {
 	modelCount: number
 	studyCount?: number
-	list: Prisma.ParticipantGetPayload<{
-		include: {
-			_count: true
-		}
-	}>[]
+	list: SingleParticipantQueryResult[]
 }

@@ -57,7 +57,7 @@ export const List = <DataType extends ListData>({
 								concise && 'text-gray-500',
 								column.headerClassName
 							)}
-							key={column.key}
+							key={column.title + '-' + column.key}
 						>
 							{column.title}
 						</div>

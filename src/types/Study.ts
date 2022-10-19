@@ -2,24 +2,12 @@ import { Prisma, StudyDataType, StudyStatus, User } from '@prisma/client'
 import { ReactNode } from 'react'
 import { PaginatedResponse } from 'types/PaginatedResponse'
 import { z } from 'zod'
+import { studyDefaultIncludes, studyIncludesConsent } from 'utils/includes/studyIncludes'
 import { ListData } from 'partials/List/List.types'
 
-export type Study = Prisma.StudyGetPayload<{
-	include: {
-		users: {
-			// Include all users in the returned object
-			include: {
-				user: true
-			}
-		}
-		image: {
-			include: {
-				image: true
-			}
-		}
-		documentation: true
-	}
-}>
+export type Study = Prisma.StudyGetPayload<typeof studyDefaultIncludes>
+
+export type StudyWithConsent = Prisma.StudyGetPayload<typeof studyIncludesConsent>
 
 export type StudyWithParticipantIds = Prisma.StudyGetPayload<{
 	include: {

@@ -157,6 +157,12 @@ enum ConsentEnum {
   no
 }
 
+enum ConsentState {
+  full
+  partial
+  none
+}
+
 model Consent {
   id                    String                  @id @default(cuid())
   analyses              ConsentEnum             @default(yes)
