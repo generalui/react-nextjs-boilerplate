@@ -58,6 +58,17 @@ const participant = {
 			dataTypes: {
 				message: 'My Data this Study can use'
 			},
+			consentState: {
+				full: {
+					message: 'Full'
+				},
+				partial: {
+					message: 'Partial'
+				},
+				none: {
+					message: 'No Consent'
+				}
+			},
 
 			// TODO: rename this to editConsent {modal}
 			modal: {

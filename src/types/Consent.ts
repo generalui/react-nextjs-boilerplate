@@ -1,6 +1,12 @@
 import { Consent } from '@prisma/client'
 import { z } from 'zod'
 
+export enum ConsentState {
+	full = 'full',
+	partial = 'partial',
+	none = 'none'
+}
+
 export type ConsentPickDataTypes = Pick<
 	Consent,
 	'analyses' | 'geneticData' | 'healthRecords' | 'specimens'

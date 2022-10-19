@@ -1,8 +1,12 @@
 import { Participant } from '@prisma/client'
+import cn from 'classnames'
 import { useEffect, useState } from 'react'
-import { ApiParticipantQueryResults } from 'types/Participants'
+import { ConsentState } from 'types/Consent'
+import { ParticipantQueryResults, SingleParticipantQueryResult } from 'types/Participants'
 import { Filter, OptionType, QueryBuilderModel } from 'types/QueryBuilder'
 import { formatDisplayDate } from 'utils/client/date'
+import { getParticipantConsentFullness } from 'utils/client/getConsentFullness'
+import { participantOnStudyIncludesConsent } from 'utils/includes/participantOnStudiesIncludes'
 import { useParticipantQuery } from 'hooks/api/queryBuilder/useParticipantQuery'
 import { useText } from 'hooks/useText'
 import { AggregatedDataCardProps } from 'partials/AggregatedDataCard/AggregatedDataCard.types'
@@ -17,6 +21,7 @@ export const ParticipantQueryBuilder = ({
 	testId = 'ParticipantQueryBuilder'
 }: ParticipantQueryBuilderProps) => {
 	const { t } = useText('participants.conditions')
+	const { t: consentText } = useText('participant.study.consent.consentState')
 	const [filters, setFilters] = useState<Filter[]>()
 	const { participants } = useParticipantQuery(filters)
 	const { t: queryBuilderText } = useText('queryBuilder')
@@ -74,27 +79,45 @@ export const ParticipantQueryBuilder = ({
 		]
 	})
 
-	const columns: Column<Participant>[] = [
+	const columns: Column<SingleParticipantQueryResult>[] = [
 		{
 			key: 'id',
 			title: 'Participant ID',
 			width: 5
 		},
 		{
-			// @ts-expect-error TODO: Fix this type
-			key: '_count.studies',
+			key: 'studies',
 			title: 'Studies',
 			width: 2,
-			className: 'p-4 bg-gray-100 flex justify-center rounded-md w-fit'
+			transformFunction: (_value, data) => {
+				return (
+					<div className='p-4 bg-gray-100 flex justify-center rounded-md w-fit'>
+						{data.studies?.length}
+					</div>
+				)
+			}
 		},
 		{
-			// @ts-expect-error TODO: Fix this type
-			key: 'consents',
+			key: 'studies',
 			title: 'Consents',
 			width: 2,
-			transformFunction: (value) => {
-				console.log('consents value', value)
-				return <div className='bg-green-100 p-4 flex justify-center rounded-md w-fit'>{'Full'}</div>
+			transformFunction: (_value, data) => {
+				const participantConsentState = getParticipantConsentFullness(data)
+
+				return (
+					<div
+						className={cn(
+							'p-4 flex justify-center rounded-md w-fit',
+							participantConsentState === ConsentState.full
+								? 'bg-green-100'
+								: participantConsentState === ConsentState.partial
+								? 'bg-yellow-100'
+								: 'bg-red-100'
+						)}
+					>
+						{consentText(participantConsentState)}
+					</div>
+				)
 			}
 		},
 		{
@@ -107,7 +130,7 @@ export const ParticipantQueryBuilder = ({
 	]
 	return (
 		<div className={className} data-testid={testId}>
-			<QueryBuilder<Participant, ApiParticipantQueryResults>
+			<QueryBuilder<SingleParticipantQueryResult, ParticipantQueryResults>
 				fields={fields}
 				onFilterChange={handleFilterChange}
 				results={participants}
