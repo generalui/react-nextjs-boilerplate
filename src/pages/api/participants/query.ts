@@ -71,7 +71,6 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 					...studyWhere,
 					...studyIncludesParticipantIds
 				})
-
 				let studyCount = 0
 				const studyParticipantIds = (studies as StudyWithParticipantIds[])?.reduce(
 					(pList: string[], study: StudyWithParticipantIds) => {

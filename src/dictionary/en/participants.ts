@@ -5,6 +5,7 @@ const participants = {
 				title: { message: 'Study' },
 				options: {
 					title: { message: 'Study Name' },
+					dataTypes: { message: 'Study Data Type' },
 					studyCoordinator: { message: 'Study Coordinator' }
 				}
 			},

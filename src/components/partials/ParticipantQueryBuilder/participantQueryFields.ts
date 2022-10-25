@@ -3,8 +3,8 @@ export const participantQueryFields = {
 		model: 'study',
 		title: { label: 'fields.study.title' },
 		options: {
-			title: { label: 'fields.study.options.title', inputType: 'text' }
-			// studyCoordinator: { label: 'fields.study.options.studyCoordinator', inputType: 'text' }
+			title: { label: 'fields.study.options.title', inputType: 'text' },
+			dataTypes: { label: 'fields.study.options.dataTypes', inputType: 'text' }
 		}
 	},
 	participantInfo: {
