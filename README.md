@@ -2,12 +2,13 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 # Getting Started
 
-1. First, install dependencies: `yarn`
-2. Start up the dev database: `yarn run docker:db` (make sure [Docker](https://docs.docker.com/get-docker/) is running)
-3. Initialize the DB: `prisma migrate dev`
-4. Run the dev server: `yarn dev`
-5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-6. Log in with `test@email.com` and `testPassw0rd!`
+1. First, make sure you are using `node v16.13.0`. If you are using nvm, run `nvm use` to set a compatible version. Check out [.nvmrc](./.nvmrc)
+2. Install dependencies: `yarn`
+3. Start up the dev database: `yarn run docker:db` (make sure [Docker](https://docs.docker.com/get-docker/) is running)
+4. Initialize the DB: `yarn prisma:migrate:dev`
+5. Run the dev server: `yarn dev`
+6. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+7. Log in with `test@email.com` and `testPassw0rd!`
 
 # Testing
 
