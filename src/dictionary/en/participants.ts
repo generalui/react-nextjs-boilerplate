@@ -12,6 +12,7 @@ const participants = {
 			dataTypes: {
 				title: { message: 'Data Types' },
 				options: {
+					analyses: { message: 'Analyses' },
 					geneticData: { message: 'Genetic Data' },
 					healthRecords: { message: 'Health Records' },
 					specimens: { message: 'Specimens' }

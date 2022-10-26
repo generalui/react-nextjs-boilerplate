@@ -10,6 +10,7 @@ export const participantQueryFields: QueryFields = {
 				label: 'fields.study.options.dataTypes',
 				inputType: 'studyDataType',
 				items: {
+					analyses: { label: 'fields.dataTypes.options.analyses' },
 					geneticData: { label: 'fields.dataTypes.options.geneticData' },
 					healthRecords: { label: 'fields.dataTypes.options.healthRecords' },
 					specimens: { label: 'fields.dataTypes.options.specimens' }
