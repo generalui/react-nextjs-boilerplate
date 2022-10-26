@@ -5,7 +5,8 @@ const queryBuilder = {
 		contains: { label: { message: 'Contains' } },
 		startsWith: { label: { message: 'Starts With' } },
 		lt: { label: { message: 'Before' } },
-		gt: { label: { message: 'After' } }
+		gt: { label: { message: 'After' } },
+		has: { label: { message: 'Has' } }
 	},
 
 	filters: {

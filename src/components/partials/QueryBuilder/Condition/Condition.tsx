@@ -99,10 +99,11 @@ export const Condition = ({
 					<Text size='xs' className='text-gray-500 font-semibold'>
 						{t('value')}
 					</Text>
-					{fieldInputType === 'select' && value ? (
+					{(fieldInputType === 'studyDataType' || fieldInputType === 'select') && value ? (
 						<SelectInput
 							name='value'
 							options={fields.filter((field) => field.value === value)[0].items}
+							// ref={inputRef}
 						/>
 					) : (
 						<Input name='value' type={fieldInputType} ref={inputRef} />

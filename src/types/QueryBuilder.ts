@@ -39,7 +39,7 @@ const fieldCondition = z.object({
 export const FilterSchema = z.object({
 	field: fieldSchema,
 	condition: fieldCondition,
-	value: z.string()
+	value: z.union([z.string(), z.object({ label: z.string(), value: z.string() })])
 })
 
 export type ApiQueryResults = {
@@ -59,3 +59,17 @@ export type QueryBuilderParams = {
 	summaryModel: QueryBuilderModel
 	filters: FilterInput[]
 }
+
+export type QueryBuilderFieldGroup = {
+	model: string
+	title: { label: string }
+	options: Record<string, QueryBuilderField>
+}
+
+export type QueryBuilderField = {
+	label: string
+	items?: Record<string, { label: string }>
+	inputType: string
+}
+
+export type QueryFields = Record<string, QueryBuilderFieldGroup>

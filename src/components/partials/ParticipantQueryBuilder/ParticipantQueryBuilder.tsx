@@ -11,7 +11,7 @@ import { AggregatedDataCardProps } from 'partials/AggregatedDataCard/AggregatedD
 import { Column } from 'partials/List/List.types'
 import { QueryBuilder } from 'partials/QueryBuilder'
 import { ParticipantQueryBuilderProps } from './ParticipantQueryBuilder.types'
-import { optionItems, participantQueryFields } from './participantQueryFields'
+import { participantQueryFields } from './participantQueryFields'
 import { summaryCards } from './summaryCards'
 
 export const ParticipantQueryBuilder = ({
@@ -54,17 +54,15 @@ export const ParticipantQueryBuilder = ({
 		const fieldOptions: OptionType[] = Object.entries(
 			participantQueryFields[key as keyof typeof participantQueryFields].options
 		).map(([optionKey, optionValue]) => {
-			const { label, inputType } = optionValue
+			const { label, inputType, items: optionItems } = optionValue
 			let items: ItemsSelect | undefined = undefined
 
-			if (inputType === 'select') {
+			if (optionItems) {
 				items = []
-				Object.entries(optionItems[optionKey as keyof typeof optionItems]).map(
-					([itemKey, itemValue]) => {
-						const { label } = itemValue
-						items?.push({ label: t(label), value: itemKey })
-					}
-				)
+				Object.entries(optionItems).map(([itemKey, itemValue]) => {
+					const { label } = itemValue
+					items?.push({ label: t(label), value: itemKey })
+				})
 			}
 
 			return {

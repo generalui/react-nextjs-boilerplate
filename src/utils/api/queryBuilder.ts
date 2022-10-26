@@ -1,10 +1,11 @@
+import { StudyDataType } from '@prisma/client'
 import { QueryBuilderModel } from 'types/QueryBuilder'
 import { Filter } from 'types/QueryBuilder'
 import { prisma } from 'utils/api/prisma'
 
 export const getSingleWhere = (filter?: Filter) => {
 	let where = {}
-	if (!filter) return where
+	if (!filter || !filter.value) return where
 
 	// TODO: refactor - the type should be a prop on filter
 	if (filter.dataType === 'date') {
@@ -53,15 +54,22 @@ export const getSingleWhere = (filter?: Filter) => {
 				}
 				break
 		}
+	} else if (filter.dataType === 'studyDataType') {
+		where = {
+			[filter.field]: {
+				[filter.condition]: filter.value as StudyDataType
+			}
+		}
 	} else {
 		where = {
 			[filter.field]: {
 				[filter.condition]: filter.value,
-				...(filter.dataType === 'text' && { mode: 'insensitive' }) // Default value: default
+				mode: 'insensitive' // Default value: default
 			}
 		}
 	}
 
+	console.log('where: ', where)
 	return { where }
 }
 
