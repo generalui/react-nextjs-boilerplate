@@ -99,7 +99,7 @@ export const Condition = ({
 					<Text size='xs' className='text-gray-500 font-semibold'>
 						{t('value')}
 					</Text>
-					{(fieldInputType === 'studyDataType' || fieldInputType === 'select') && value ? (
+					{fieldInputType === 'select' && value ? (
 						<SelectInput
 							name='value'
 							options={fields.filter((field) => field.value === value)[0].items}

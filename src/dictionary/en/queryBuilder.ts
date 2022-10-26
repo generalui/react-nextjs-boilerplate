@@ -6,7 +6,8 @@ const queryBuilder = {
 		startsWith: { label: { message: 'Starts With' } },
 		lt: { label: { message: 'Before' } },
 		gt: { label: { message: 'After' } },
-		has: { label: { message: 'Has' } }
+		has: { label: { message: 'Has' } },
+		notIncludes: { label: { message: 'Does Not Include' } }
 	},
 
 	filters: {

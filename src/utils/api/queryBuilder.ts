@@ -1,4 +1,3 @@
-import { StudyDataType } from '@prisma/client'
 import { QueryBuilderModel } from 'types/QueryBuilder'
 import { Filter } from 'types/QueryBuilder'
 import { prisma } from 'utils/api/prisma'
@@ -54,11 +53,24 @@ export const getSingleWhere = (filter?: Filter) => {
 				}
 				break
 		}
-	} else if (filter.dataType === 'studyDataType') {
-		where = {
-			[filter.field]: {
-				[filter.condition]: filter.value as StudyDataType
-			}
+	} else if (filter.dataType === 'select') {
+		switch (filter.condition) {
+			case 'notIncludes':
+				where = {
+					NOT: {
+						[filter.field]: {
+							has: filter.value
+						}
+					}
+				}
+				break
+			default:
+				where = {
+					[filter.field]: {
+						[filter.condition]: filter.value
+					}
+				}
+				break
 		}
 	} else {
 		where = {
@@ -69,7 +81,6 @@ export const getSingleWhere = (filter?: Filter) => {
 		}
 	}
 
-	console.log('where: ', where)
 	return { where }
 }
 
