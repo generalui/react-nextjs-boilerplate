@@ -1,7 +1,7 @@
 export const queryBuilderConditions = {
 	equals: {
 		label: { key: 'conditions.equals.label' },
-		allowedFieldTypes: ['text', 'date']
+		allowedFieldTypes: ['text', 'date', 'select']
 	},
 	not: {
 		label: { key: 'conditions.not.label' },

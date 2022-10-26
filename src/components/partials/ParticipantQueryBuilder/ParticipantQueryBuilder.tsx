@@ -1,19 +1,17 @@
-import { Participant } from '@prisma/client'
 import cn from 'classnames'
 import { useEffect, useState } from 'react'
 import { ConsentState } from 'types/Consent'
 import { ParticipantQueryResults, SingleParticipantQueryResult } from 'types/Participants'
-import { Filter, OptionType, QueryBuilderModel } from 'types/QueryBuilder'
+import { Filter, ItemsSelect, OptionType, QueryBuilderModel } from 'types/QueryBuilder'
 import { formatDisplayDate } from 'utils/client/date'
 import { getParticipantConsentFullness } from 'utils/client/getConsentFullness'
-import { participantOnStudyIncludesConsent } from 'utils/includes/participantOnStudiesIncludes'
 import { useParticipantQuery } from 'hooks/api/queryBuilder/useParticipantQuery'
 import { useText } from 'hooks/useText'
 import { AggregatedDataCardProps } from 'partials/AggregatedDataCard/AggregatedDataCard.types'
 import { Column } from 'partials/List/List.types'
 import { QueryBuilder } from 'partials/QueryBuilder'
 import { ParticipantQueryBuilderProps } from './ParticipantQueryBuilder.types'
-import { participantQueryFields } from './participantQueryFields'
+import { optionItems, participantQueryFields } from './participantQueryFields'
 import { summaryCards } from './summaryCards'
 
 export const ParticipantQueryBuilder = ({
@@ -57,13 +55,25 @@ export const ParticipantQueryBuilder = ({
 			participantQueryFields[key as keyof typeof participantQueryFields].options
 		).map(([optionKey, optionValue]) => {
 			const { label, inputType } = optionValue
+			let items: ItemsSelect | undefined = undefined
+
+			if (inputType === 'select') {
+				items = []
+				Object.entries(optionItems[optionKey as keyof typeof optionItems]).map(
+					([itemKey, itemValue]) => {
+						const { label } = itemValue
+						items?.push({ label: t(label), value: itemKey })
+					}
+				)
+			}
 
 			return {
 				label: t(label),
 				value: optionKey,
 				type: 'option',
 				inputType,
-				model: model as QueryBuilderModel
+				model: model as QueryBuilderModel,
+				items
 			}
 		})
 

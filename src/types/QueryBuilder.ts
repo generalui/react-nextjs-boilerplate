@@ -3,6 +3,8 @@ import { z } from 'zod'
 
 export type QueryBuilderModel = 'participant' | 'study'
 
+export type ItemsSelect = { label: string; value: string }[]
+
 export type OptionType = {
 	label: string
 	value: string
@@ -11,6 +13,7 @@ export type OptionType = {
 	inputType?: string
 	model?: QueryBuilderModel
 	allowedFieldTypes?: string[]
+	items?: ItemsSelect
 }
 
 export type Filter = {

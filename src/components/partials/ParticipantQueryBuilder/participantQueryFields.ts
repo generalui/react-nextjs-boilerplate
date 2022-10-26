@@ -4,7 +4,10 @@ export const participantQueryFields = {
 		title: { label: 'fields.study.title' },
 		options: {
 			title: { label: 'fields.study.options.title', inputType: 'text' },
-			dataTypes: { label: 'fields.study.options.dataTypes', inputType: 'text' }
+			dataTypes: {
+				label: 'fields.study.options.dataTypes',
+				inputType: 'select'
+			}
 		}
 	},
 	participantInfo: {
@@ -18,5 +21,13 @@ export const participantQueryFields = {
 			insertedAt: { label: 'fields.participantInfo.options.insertedAt', inputType: 'date' },
 			updatedAt: { label: 'fields.participantInfo.options.updatedAt', inputType: 'date' }
 		}
+	}
+}
+
+export const optionItems = {
+	dataTypes: {
+		geneticData: { label: 'fields.dataTypes.options.geneticData' },
+		healthRecords: { label: 'fields.dataTypes.options.healthRecords' },
+		specimens: { label: 'fields.dataTypes.options.specimens' }
 	}
 }

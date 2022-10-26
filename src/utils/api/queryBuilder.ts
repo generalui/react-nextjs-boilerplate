@@ -56,8 +56,8 @@ export const getSingleWhere = (filter?: Filter) => {
 	} else {
 		where = {
 			[filter.field]: {
-				[filter.condition]: filter.value
-				// mode: 'insensitive' // Default value: default
+				[filter.condition]: filter.value,
+				...(filter.dataType === 'text' && { mode: 'insensitive' }) // Default value: default
 			}
 		}
 	}
