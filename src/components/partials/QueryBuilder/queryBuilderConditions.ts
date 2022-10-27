@@ -1,36 +1,36 @@
-import { InputType } from 'types/QueryBuilder'
+import { QueryInputType } from 'types/QueryBuilder'
 
 export const queryBuilderConditions = {
 	equals: {
 		label: { key: 'conditions.equals.label' },
-		allowedFieldTypes: [InputType.TEXT, InputType.DATE, InputType.SELECT]
+		allowedFieldTypes: [QueryInputType.text, QueryInputType.date, QueryInputType.select]
 	},
 	not: {
 		label: { key: 'conditions.not.label' },
-		allowedFieldTypes: [InputType.TEXT, InputType.DATE]
+		allowedFieldTypes: [QueryInputType.text, QueryInputType.date]
 	},
 	contains: {
 		label: { key: 'conditions.contains.label' },
-		allowedFieldTypes: [InputType.TEXT]
+		allowedFieldTypes: [QueryInputType.text]
 	},
 	startsWith: {
 		label: { key: 'conditions.startsWith.label' },
-		allowedFieldTypes: [InputType.TEXT]
+		allowedFieldTypes: [QueryInputType.text]
 	},
 	lt: {
 		label: { key: 'conditions.lt.label' },
-		allowedFieldTypes: [InputType.DATE]
+		allowedFieldTypes: [QueryInputType.date]
 	},
 	gt: {
 		label: { key: 'conditions.gt.label' },
-		allowedFieldTypes: [InputType.DATE]
+		allowedFieldTypes: [QueryInputType.date]
 	},
 	has: {
-		label: { key: 'conditions.has.label' },
-		allowedFieldTypes: [InputType.SELECT]
+		label: { key: 'conditions.includes.label' },
+		allowedFieldTypes: [QueryInputType.select]
 	},
-	notIncludes: {
-		label: { key: 'conditions.notIncludes.label' },
-		allowedFieldTypes: [InputType.SELECT]
+	excludes: {
+		label: { key: 'conditions.excludes.label' },
+		allowedFieldTypes: [QueryInputType.select]
 	}
 }

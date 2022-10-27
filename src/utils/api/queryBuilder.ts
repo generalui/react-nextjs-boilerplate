@@ -1,4 +1,4 @@
-import { InputType, QueryBuilderModel } from 'types/QueryBuilder'
+import { QueryBuilderModel, QueryInputType } from 'types/QueryBuilder'
 import { Filter } from 'types/QueryBuilder'
 import { prisma } from 'utils/api/prisma'
 
@@ -7,7 +7,7 @@ export const getSingleWhere = (filter?: Filter) => {
 	if (!filter || !filter.value) return where
 
 	// TODO: refactor - the type should be a prop on filter
-	if (filter.dataType === InputType.DATE) {
+	if (filter.dataType === QueryInputType.date) {
 		const value = new Date(filter.value)
 		// @ts-expect-error TODO: Fix this type
 		if (!(value instanceof Date && !isNaN(value))) {
@@ -53,9 +53,9 @@ export const getSingleWhere = (filter?: Filter) => {
 				}
 				break
 		}
-	} else if (filter.dataType === InputType.SELECT) {
+	} else if (filter.dataType === QueryInputType.select) {
 		switch (filter.condition) {
-			case 'notIncludes':
+			case 'excludes':
 				where = {
 					NOT: {
 						[filter.field]: {

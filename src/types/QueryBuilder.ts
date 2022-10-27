@@ -1,10 +1,10 @@
 import { Prisma } from '@prisma/client'
 import { z } from 'zod'
 
-export enum InputType {
-	TEXT = 'text',
-	DATE = 'date',
-	SELECT = 'select'
+export enum QueryInputType {
+	text = 'text',
+	date = 'date',
+	select = 'select'
 }
 
 export type QueryBuilderModel = 'participant' | 'study'
@@ -75,7 +75,7 @@ export type QueryBuilderFieldGroup = {
 export type QueryBuilderField = {
 	label: string
 	items?: Record<string, { label: string }>
-	inputType: InputType
+	inputType: QueryInputType
 }
 
 export type QueryFields = Record<string, QueryBuilderFieldGroup>
