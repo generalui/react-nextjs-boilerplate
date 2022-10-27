@@ -2,7 +2,7 @@ import cn from 'classnames'
 import { useEffect, useRef, useState } from 'react'
 import { FieldInputProps } from 'react-final-form'
 import { MultiValue, OptionProps, SingleValue } from 'react-select'
-import { OptionType, QueryBuilderModel } from 'types/QueryBuilder'
+import { InputType, OptionType, QueryBuilderModel } from 'types/QueryBuilder'
 import { useText } from 'hooks/useText'
 import { Input } from 'common/Input'
 import { SelectInput } from 'common/SelectInput'
@@ -99,7 +99,7 @@ export const Condition = ({
 					<Text size='xs' className='text-gray-500 font-semibold'>
 						{t('value')}
 					</Text>
-					{fieldInputType === 'select' && value ? (
+					{fieldInputType === InputType.SELECT && value ? (
 						<SelectInput
 							name='value'
 							options={fields.filter((field) => field.value === value)[0].items}

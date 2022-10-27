@@ -1,34 +1,36 @@
+import { InputType } from 'types/QueryBuilder'
+
 export const queryBuilderConditions = {
 	equals: {
 		label: { key: 'conditions.equals.label' },
-		allowedFieldTypes: ['text', 'date', 'studyDataType', 'select']
+		allowedFieldTypes: [InputType.TEXT, InputType.DATE, InputType.SELECT]
 	},
 	not: {
 		label: { key: 'conditions.not.label' },
-		allowedFieldTypes: ['text', 'date']
+		allowedFieldTypes: [InputType.TEXT, InputType.DATE]
 	},
 	contains: {
 		label: { key: 'conditions.contains.label' },
-		allowedFieldTypes: ['text']
+		allowedFieldTypes: [InputType.TEXT]
 	},
 	startsWith: {
 		label: { key: 'conditions.startsWith.label' },
-		allowedFieldTypes: ['text']
+		allowedFieldTypes: [InputType.TEXT]
 	},
 	lt: {
 		label: { key: 'conditions.lt.label' },
-		allowedFieldTypes: ['date']
+		allowedFieldTypes: [InputType.DATE]
 	},
 	gt: {
 		label: { key: 'conditions.gt.label' },
-		allowedFieldTypes: ['date']
+		allowedFieldTypes: [InputType.DATE]
 	},
 	has: {
 		label: { key: 'conditions.has.label' },
-		allowedFieldTypes: ['studyDataType', 'select']
+		allowedFieldTypes: [InputType.SELECT]
 	},
 	notIncludes: {
 		label: { key: 'conditions.notIncludes.label' },
-		allowedFieldTypes: ['studyDataType', 'select']
+		allowedFieldTypes: [InputType.SELECT]
 	}
 }
