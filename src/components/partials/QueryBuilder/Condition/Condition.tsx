@@ -103,7 +103,6 @@ export const Condition = ({
 						<SelectInput
 							name='value'
 							options={fields.filter((field) => field.value === value)[0].items}
-							// ref={inputRef}
 						/>
 					) : (
 						<Input name='value' type={fieldInputType} ref={inputRef} />

@@ -22,7 +22,6 @@ export const Filters = ({
 
 	const onSubmit = (filters: FilterInput) => {
 		try {
-			// const parsedFilters = FilterSchema.parse(filters)
 			onChange(filters, fieldModel, fieldDataType)
 		} catch (error) {
 			return
