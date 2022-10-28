@@ -5,6 +5,7 @@ import { debounce } from 'utils/debounce'
 import { useText } from 'hooks/useText'
 import { Form } from 'partials/Form'
 import { Condition } from 'partials/QueryBuilder/Condition'
+import { ConditionText } from 'partials/QueryBuilder/ConditionText'
 import { Button } from 'common/Button'
 import { Card } from 'common/Card'
 import { Icon } from 'common/Icon'
@@ -50,6 +51,7 @@ export const Filters = ({
 					render={({ handleSubmit }) => (
 						<form onSubmit={handleSubmit}>
 							<div className='pb-4'>
+								<ConditionText />
 								{Array.from({ length: conditionsCount }, (_, i) => i).map((i) => {
 									return (
 										<Condition

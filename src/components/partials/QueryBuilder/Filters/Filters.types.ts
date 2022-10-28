@@ -1,5 +1,6 @@
 import { CommonProps } from 'types/CommonProps'
-import { FilterInput, ItemsSelect, OptionType, QueryBuilderModel } from 'types/QueryBuilder'
+import { FilterInput, OptionType, QueryBuilderModel } from 'types/QueryBuilder'
+import { ItemsSelect } from 'common/SelectInput/SelectInput.types'
 
 export interface FiltersProps extends CommonProps {
 	fields: OptionType[]

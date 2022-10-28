@@ -8,7 +8,16 @@ import { Filters } from './index'
 
 describe('Filters Component', () => {
 	it('renders on the page', () => {
-		render(<Filters />)
+		render(
+			<Filters
+				fields={[]}
+				conditions={[]}
+				onChange={() => {
+					return
+				}}
+				filterTypes={[]}
+			/>
+		)
 
 		const component = screen.getByTestId('Filters')
 
