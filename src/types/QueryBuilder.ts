@@ -41,10 +41,13 @@ const fieldCondition = z.object({
 	allowedFieldTypes: z.array(z.string())
 })
 
+const selectInput = z.object({ label: z.string(), value: z.string() })
+
 export const FilterSchema = z.object({
 	field: fieldSchema,
 	condition: fieldCondition,
-	value: z.union([z.string(), z.object({ label: z.string(), value: z.string() })])
+	value: z.union([z.string(), selectInput]),
+	dataType: selectInput.optional()
 })
 
 export type ApiQueryResults = {
