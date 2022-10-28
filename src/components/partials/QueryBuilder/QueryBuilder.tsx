@@ -66,7 +66,7 @@ export const QueryBuilder: QueryBuilderComponent = ({
 		const change: Filter = {
 			field: filterValue.field.value,
 			condition: filterValue.condition.value,
-			value: filterValue.value,
+			value: typeof filterValue.value === 'string' ? filterValue.value : filterValue.value?.value,
 			model,
 			dataType
 		}

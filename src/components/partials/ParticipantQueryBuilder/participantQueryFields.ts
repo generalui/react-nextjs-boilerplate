@@ -1,10 +1,21 @@
-export const participantQueryFields = {
+import { QueryFields, QueryInputType } from 'types/QueryBuilder'
+
+export const participantQueryFields: QueryFields = {
 	study: {
 		model: 'study',
 		title: { label: 'fields.study.title' },
 		options: {
-			title: { label: 'fields.study.options.title', inputType: 'text' }
-			// studyCoordinator: { label: 'fields.study.options.studyCoordinator', inputType: 'text' }
+			title: { label: 'fields.study.options.title', inputType: QueryInputType.text },
+			dataTypes: {
+				label: 'fields.study.options.dataTypes',
+				inputType: QueryInputType.select,
+				items: {
+					analyses: { label: 'fields.dataTypes.options.analyses' },
+					geneticData: { label: 'fields.dataTypes.options.geneticData' },
+					healthRecords: { label: 'fields.dataTypes.options.healthRecords' },
+					specimens: { label: 'fields.dataTypes.options.specimens' }
+				}
+			}
 		}
 	},
 	participantInfo: {
@@ -13,10 +24,16 @@ export const participantQueryFields = {
 		options: {
 			id: {
 				label: 'fields.participantInfo.options.id',
-				inputType: 'text'
+				inputType: QueryInputType.text
 			},
-			insertedAt: { label: 'fields.participantInfo.options.insertedAt', inputType: 'date' },
-			updatedAt: { label: 'fields.participantInfo.options.updatedAt', inputType: 'date' }
+			insertedAt: {
+				label: 'fields.participantInfo.options.insertedAt',
+				inputType: QueryInputType.date
+			},
+			updatedAt: {
+				label: 'fields.participantInfo.options.updatedAt',
+				inputType: QueryInputType.date
+			}
 		}
 	}
 }

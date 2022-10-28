@@ -1,7 +1,15 @@
 import { Prisma } from '@prisma/client'
 import { z } from 'zod'
 
+export enum QueryInputType {
+	text = 'text',
+	date = 'date',
+	select = 'select'
+}
+
 export type QueryBuilderModel = 'participant' | 'study'
+
+export type ItemsSelect = { label: string; value: string }[]
 
 export type OptionType = {
 	label: string
@@ -11,6 +19,7 @@ export type OptionType = {
 	inputType?: string
 	model?: QueryBuilderModel
 	allowedFieldTypes?: string[]
+	items?: ItemsSelect
 }
 
 export type Filter = {
@@ -36,7 +45,7 @@ const fieldCondition = z.object({
 export const FilterSchema = z.object({
 	field: fieldSchema,
 	condition: fieldCondition,
-	value: z.string()
+	value: z.union([z.string(), z.object({ label: z.string(), value: z.string() })])
 })
 
 export type ApiQueryResults = {
@@ -56,3 +65,17 @@ export type QueryBuilderParams = {
 	summaryModel: QueryBuilderModel
 	filters: FilterInput[]
 }
+
+export type QueryBuilderFieldGroup = {
+	model: string
+	title: { label: string }
+	options: Record<string, QueryBuilderField>
+}
+
+export type QueryBuilderField = {
+	label: string
+	items?: Record<string, { label: string }>
+	inputType: QueryInputType
+}
+
+export type QueryFields = Record<string, QueryBuilderFieldGroup>

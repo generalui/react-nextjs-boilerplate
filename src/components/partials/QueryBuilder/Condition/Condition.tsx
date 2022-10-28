@@ -2,7 +2,7 @@ import cn from 'classnames'
 import { useEffect, useRef, useState } from 'react'
 import { FieldInputProps } from 'react-final-form'
 import { MultiValue, OptionProps, SingleValue } from 'react-select'
-import { OptionType, QueryBuilderModel } from 'types/QueryBuilder'
+import { OptionType, QueryBuilderModel, QueryInputType } from 'types/QueryBuilder'
 import { useText } from 'hooks/useText'
 import { Input } from 'common/Input'
 import { SelectInput } from 'common/SelectInput'
@@ -42,6 +42,7 @@ export const Condition = ({
 }: ConditionProps) => {
 	const [fieldInputType, setFieldInputType] = useState<string | undefined>()
 	const [fieldModel, setFieldModel] = useState<QueryBuilderModel | undefined>()
+	const [value, setValue] = useState<string | undefined>()
 	const [filteredConditions, setFilteredConditions] = useState<OptionType[]>(conditions)
 	const inputRef = useRef<FieldInputProps<string>>()
 	const { t } = useText('queryBuilder.filters')
@@ -50,6 +51,7 @@ export const Condition = ({
 		if (newValue && 'inputType' in newValue) {
 			setFieldInputType(newValue?.inputType)
 			setFieldModel(newValue?.model)
+			setValue(newValue?.value)
 		}
 	}
 
@@ -97,7 +99,14 @@ export const Condition = ({
 					<Text size='xs' className='text-gray-500 font-semibold'>
 						{t('value')}
 					</Text>
-					<Input name='value' type={fieldInputType} ref={inputRef} />
+					{fieldInputType === QueryInputType.select && value ? (
+						<SelectInput
+							name='value'
+							options={fields.filter((field) => field.value === value)[0].items}
+						/>
+					) : (
+						<Input name='value' type={fieldInputType} ref={inputRef} />
+					)}
 				</div>
 			</div>
 		</div>
