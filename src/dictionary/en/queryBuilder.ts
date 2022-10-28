@@ -23,6 +23,9 @@ const queryBuilder = {
 		},
 		filterType: {
 			message: 'Filter Type'
+		},
+		add: {
+			message: 'Add Row'
 		}
 	},
 	summary: {
