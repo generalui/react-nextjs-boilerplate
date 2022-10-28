@@ -1,6 +1,6 @@
 import cn from 'classnames'
 import { useEffect, useState } from 'react'
-import { Filter, FilterInput, OptionType, QueryBuilderModel } from 'types/QueryBuilder'
+import { Filter, FilterInput, ItemsSelect, OptionType, QueryBuilderModel } from 'types/QueryBuilder'
 // import { useRouterQuery } from 'hooks/useRouterQuery'
 import { useText } from 'hooks/useText'
 import { List } from 'partials/List'
@@ -9,7 +9,7 @@ import { Card } from 'common/Card'
 import { Filters } from './Filters'
 import { QueryBuilderComponent } from './QueryBuilder.types'
 import { Summary } from './Summary'
-import { queryBuilderConditions } from './queryBuilderConditions'
+import { queryBuilderConditions, queryBuilderFilterTypes } from './queryBuilderConditions'
 
 export const QueryBuilder: QueryBuilderComponent = ({
 	className,
@@ -76,12 +76,20 @@ export const QueryBuilder: QueryBuilderComponent = ({
 		// update(change)
 	}
 
+	const filterTypes: ItemsSelect = Object.entries(queryBuilderFilterTypes).map(([key, value]) => {
+		return {
+			label: t(value.key),
+			value: key
+		}
+	})
+
 	return (
 		<div className={cn(className, 'flex flex-col gap-6')} data-testid={testId}>
 			<Filters
 				fields={fields}
 				conditions={conditions}
 				onChange={handleFilterChange}
+				filterTypes={filterTypes}
 				// initialValues={initialValues}
 				// initialDataType={initialDataType}
 			/>

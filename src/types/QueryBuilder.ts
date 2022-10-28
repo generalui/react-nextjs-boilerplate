@@ -1,5 +1,6 @@
 import { Prisma } from '@prisma/client'
 import { z } from 'zod'
+import { ItemsSelect } from 'common/SelectInput/SelectInput.types'
 
 export enum QueryInputType {
 	text = 'text',
@@ -8,8 +9,6 @@ export enum QueryInputType {
 }
 
 export type QueryBuilderModel = 'participant' | 'study'
-
-export type ItemsSelect = { label: string; value: string }[]
 
 export type OptionType = {
 	label: string

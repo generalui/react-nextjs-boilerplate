@@ -12,6 +12,7 @@ export const Filters = ({
 	className,
 	fields,
 	conditions,
+	filterTypes,
 	onChange,
 	initialValues,
 	testId = 'Filters'
@@ -44,6 +45,7 @@ export const Filters = ({
 							<Condition
 								fields={fields}
 								conditions={conditions}
+								filterTypes={filterTypes}
 								onFieldTypeChange={setFieldDataType}
 								onModelChange={setFieldModel}
 							/>

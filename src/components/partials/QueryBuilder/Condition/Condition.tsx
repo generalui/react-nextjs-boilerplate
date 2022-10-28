@@ -36,6 +36,7 @@ export const Condition = ({
 	className,
 	fields,
 	conditions,
+	filterTypes,
 	testId = 'Condition',
 	onFieldTypeChange,
 	onModelChange
@@ -77,9 +78,20 @@ export const Condition = ({
 
 	return (
 		<div className={className} data-testid={testId}>
-			<div className='grid grid-cols-7 gap-4 items-center pt-4'>
+			<div className='grid grid-cols-8 gap-4 items-center pt-4'>
+				<div className='flex flex-col gap-3 col-span-7 md:col-span-1'>
+					<Text size='xs' className='text-gray-500 font-semibold'>
+						{t('filterType')}
+					</Text>
+					<SelectInput
+						name='filterType'
+						options={filterTypes}
+						components={{ Option }}
+						onChange={handleFieldChange}
+					/>
+				</div>
 				<div className='flex flex-col gap-3 col-span-7 md:col-span-3'>
-					<Text size='xs' className='text-gray1-500 font-semibold'>
+					<Text size='xs' className='text-gray-500 font-semibold'>
 						{t('fields')}
 					</Text>
 					<SelectInput
@@ -103,7 +115,6 @@ export const Condition = ({
 						<SelectInput
 							name='value'
 							options={fields.filter((field) => field.value === value)[0].items}
-							// ref={inputRef}
 						/>
 					) : (
 						<Input name='value' type={fieldInputType} ref={inputRef} />

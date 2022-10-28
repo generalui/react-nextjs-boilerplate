@@ -20,6 +20,9 @@ const queryBuilder = {
 		},
 		value: {
 			message: 'Value'
+		},
+		filterType: {
+			message: 'Filter Type'
 		}
 	},
 	summary: {
@@ -37,6 +40,11 @@ const queryBuilder = {
 			singular: { message: 'Study' },
 			plural: { message: 'Studies' }
 		}
+	},
+	filterTypes: {
+		and: { message: 'And' },
+		or: { message: 'Or' },
+		not: { message: 'Not' }
 	}
 }
 
