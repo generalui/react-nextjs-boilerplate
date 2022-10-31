@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FormSpy } from 'react-final-form'
-import { FilterInput, FilterSchema, QueryBuilderModel } from 'types/QueryBuilder'
+import { FilterInput, FilterListItem, FilterSchema, QueryBuilderModel } from 'types/QueryBuilder'
+import { v4 as uuidv4 } from 'uuid'
 import { debounce } from 'utils/debounce'
 import { useText } from 'hooks/useText'
 import { Form } from 'partials/Form'
@@ -23,12 +24,14 @@ export const Filters = ({
 	const { t } = useText('queryBuilder.filters')
 	const [fieldDataType, setFieldDataType] = useState<string | undefined>()
 	const [fieldModel, setFieldModel] = useState<QueryBuilderModel | undefined>()
-	const [conditionsCount, setConditionsCount] = useState<number>(1)
-	const [filtersArray, setFiltersArray] = useState<FilterInput[]>([])
+	const [filtersArray, setFiltersArray] = useState<FilterListItem[]>([])
 	console.log('filtersArray: ', filtersArray)
 
-	const updateFiltersArray = (filter: FilterInput) => {
-		setFiltersArray([...filtersArray, filter])
+	const updateFiltersArray = (filter: FilterInput, key: string) => {
+		const filtersArrayCopy = [...filtersArray]
+		const index = filtersArrayCopy.findIndex((item) => item.key === key)
+		filtersArrayCopy[index].filter = filter
+		setFiltersArray(filtersArrayCopy)
 	}
 
 	const onSubmit = (filters: FilterInput) => {
@@ -42,8 +45,12 @@ export const Filters = ({
 	}
 
 	const handleAddRow = () => {
-		setConditionsCount((prev) => prev + 1)
+		setFiltersArray([...filtersArray, { key: uuidv4() }])
 	}
+
+	useEffect(() => {
+		handleAddRow()
+	}, [])
 
 	return (
 		<div className={className} data-testid={testId}>
@@ -59,10 +66,11 @@ export const Filters = ({
 				<div>
 					<div className='pb-4'>
 						<FiltersHeader />
-						{Array.from({ length: conditionsCount }, (_, i) => i).map((i) => {
+						{filtersArray.map((filter) => {
 							return (
 								<Filter
-									key={i.toString()}
+									key={filter.key}
+									filterKey={filter.key}
 									fields={fields}
 									conditions={conditions}
 									filterTypes={filterTypes}

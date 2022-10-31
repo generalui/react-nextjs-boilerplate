@@ -44,6 +44,7 @@ export const Filter = ({
 	fields,
 	conditions,
 	filterTypes,
+	filterKey,
 	updateFiltersArray,
 	onFieldTypeChange,
 	onModelChange,
@@ -86,7 +87,7 @@ export const Filter = ({
 	const onSubmit = (filters: FilterInput) => {
 		try {
 			const parsedFilters = FilterSchema.parse(filters)
-			updateFiltersArray(parsedFilters)
+			updateFiltersArray(parsedFilters, filterKey)
 		} catch (error) {
 			return
 		}

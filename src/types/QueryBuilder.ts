@@ -81,3 +81,8 @@ export type QueryBuilderField = {
 }
 
 export type QueryFields = Record<string, QueryBuilderFieldGroup>
+
+export type FilterListItem = {
+	filter?: FilterInput
+	key: string
+}
