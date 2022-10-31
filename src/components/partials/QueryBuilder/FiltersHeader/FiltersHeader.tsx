@@ -1,11 +1,8 @@
 import { useText } from 'hooks/useText'
 import { Text } from 'common/Text'
-import { ConditionsHeaderRowProps } from './ConditionsHeaderRow.types'
+import { FiltersHeaderProps } from './FiltersHeader.types'
 
-export const ConditionsHeaderRow = ({
-	className,
-	testId = 'ConditionsHeaderRow'
-}: ConditionsHeaderRowProps) => {
+export const FiltersHeader = ({ className, testId = 'FiltersHeader' }: FiltersHeaderProps) => {
 	const { t } = useText('queryBuilder.filters')
 
 	return (

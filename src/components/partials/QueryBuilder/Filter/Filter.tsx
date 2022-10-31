@@ -14,7 +14,7 @@ import { debounce } from 'utils/debounce'
 import { Form } from 'partials/Form'
 import { Input } from 'common/Input'
 import { SelectInput } from 'common/SelectInput'
-import { ConditionProps } from './Condition.types'
+import { FilterProps } from './Filter.types'
 
 const Option = (props: OptionProps<OptionType>) => {
 	const { children, className, cx, isDisabled, isFocused, isSelected, innerRef, innerProps, data } =
@@ -39,16 +39,16 @@ const Option = (props: OptionProps<OptionType>) => {
 	)
 }
 
-export const Condition = ({
+export const Filter = ({
 	className,
 	fields,
 	conditions,
 	filterTypes,
 	updateFiltersArray,
-	testId = 'Condition',
 	onFieldTypeChange,
-	onModelChange
-}: ConditionProps) => {
+	onModelChange,
+	testId = 'Filter'
+}: FilterProps) => {
 	const [fieldInputType, setFieldInputType] = useState<string | undefined>()
 	const [fieldModel, setFieldModel] = useState<QueryBuilderModel | undefined>()
 	const [value, setValue] = useState<string | undefined>()

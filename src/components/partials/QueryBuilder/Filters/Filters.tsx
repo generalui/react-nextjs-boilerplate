@@ -4,8 +4,8 @@ import { FilterInput, FilterSchema, QueryBuilderModel } from 'types/QueryBuilder
 import { debounce } from 'utils/debounce'
 import { useText } from 'hooks/useText'
 import { Form } from 'partials/Form'
-import { Condition } from 'partials/QueryBuilder/Condition'
-import { ConditionsHeaderRow } from 'partials/QueryBuilder/ConditionsHeaderRow'
+import { Filter } from 'partials/QueryBuilder/Filter/Filter'
+import { FiltersHeader } from 'partials/QueryBuilder/FiltersHeader'
 import { Button } from 'common/Button'
 import { Card } from 'common/Card'
 import { Icon } from 'common/Icon'
@@ -58,10 +58,10 @@ export const Filters = ({
 					render={() => ( */}
 				<div>
 					<div className='pb-4'>
-						<ConditionsHeaderRow />
+						<FiltersHeader />
 						{Array.from({ length: conditionsCount }, (_, i) => i).map((i) => {
 							return (
-								<Condition
+								<Filter
 									key={i.toString()}
 									fields={fields}
 									conditions={conditions}
