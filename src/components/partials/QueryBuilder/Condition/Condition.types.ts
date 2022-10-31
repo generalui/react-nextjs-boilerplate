@@ -1,5 +1,5 @@
 import { CommonProps } from 'types/CommonProps'
-import { OptionType, QueryBuilderModel } from 'types/QueryBuilder'
+import { FilterInput, OptionType, QueryBuilderModel } from 'types/QueryBuilder'
 import { ItemsSelect } from 'common/SelectInput/SelectInput.types'
 
 export interface ConditionProps extends CommonProps {
@@ -8,4 +8,5 @@ export interface ConditionProps extends CommonProps {
 	filterTypes: ItemsSelect
 	onFieldTypeChange: (fieldDataType?: string) => void
 	onModelChange: (model?: QueryBuilderModel) => void
+	updateFiltersArray: (filters: FilterInput) => void
 }
