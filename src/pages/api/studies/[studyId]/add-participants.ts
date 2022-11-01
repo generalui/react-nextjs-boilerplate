@@ -1,4 +1,4 @@
-import { ConsentEnum, StudyDataType, User } from '@prisma/client'
+import { User } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 import type { NextApiResponse } from 'next'
 import { ApiRequestWithFile } from 'types/ApiRequestWithFile'
