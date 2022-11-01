@@ -1,6 +1,6 @@
 import cn from 'classnames'
 import { useEffect, useState } from 'react'
-import { Filter, FilterInput, OptionType, QueryBuilderModel } from 'types/QueryBuilder'
+import { FilterInput, OptionType, QueryBuilderModel } from 'types/QueryBuilder'
 // import { useRouterQuery } from 'hooks/useRouterQuery'
 import { useText } from 'hooks/useText'
 import { List } from 'partials/List'

@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react'
-import { FormSpy } from 'react-final-form'
-import { FilterInput, FilterListItem, FilterSchema, QueryBuilderModel } from 'types/QueryBuilder'
+import { FilterInput, FilterListItem, QueryBuilderModel } from 'types/QueryBuilder'
 import { v4 as uuidv4 } from 'uuid'
-import { debounce } from 'utils/debounce'
 import { useText } from 'hooks/useText'
-import { Form } from 'partials/Form'
 import { Filter } from 'partials/QueryBuilder/Filter/Filter'
 import { FiltersHeader } from 'partials/QueryBuilder/FiltersHeader'
 import { Button } from 'common/Button'
@@ -18,7 +15,6 @@ export const Filters = ({
 	conditions,
 	filterTypes,
 	onChange,
-	initialValues,
 	testId = 'Filters'
 }: FiltersProps) => {
 	const { t } = useText('queryBuilder.filters')
@@ -41,22 +37,13 @@ export const Filters = ({
 		onChange(getFiltersArray(filtersArrayCopy), fieldModel, fieldDataType)
 	}
 
-	const onSubmit = (filters: FilterInput) => {
-		console.log('filters: ', filters)
-		try {
-			// const parsedFilters = FilterSchema.parse(filters)
-			// onChange(parsedFilters, fieldModel, fieldDataType)
-		} catch (error) {
-			return
-		}
-	}
-
 	const handleAddRow = () => {
 		setFiltersArray([...filtersArray, { key: uuidv4() }])
 	}
 
 	useEffect(() => {
 		handleAddRow()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	return (
@@ -66,10 +53,6 @@ export const Filters = ({
 				title={t('title')}
 				headerClassName='pb-4 border-b mb-0'
 			>
-				{/* <Form
-					onSubmit={onSubmit}
-					initialValues={initialValues}
-					render={() => ( */}
 				<div>
 					<div className='pb-4'>
 						<FiltersHeader />
@@ -94,14 +77,6 @@ export const Filters = ({
 						{t('add')}
 					</Button>
 				</div>
-				{/* <FormSpy
-								onChange={(props) => {
-									debounce(() => onSubmit(props.values as FilterInput), 500, 'filters')()
-								}}
-							/>
-				</div>
-					)} */}
-				{/* /> */}
 			</Card>
 		</div>
 	)
