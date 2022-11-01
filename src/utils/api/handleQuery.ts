@@ -37,10 +37,11 @@ export const handleQuery: HandleQuery = async ({
 }) => {
 	try {
 		session = session || (await getSessionFromReq(req))
-		const queryResult = (await query()) as { id: string } | [] | null
 
 		const userIsAuthorized = getUserIsAuthorized(session, role)
 		if (!userIsAuthorized) return res.status(401).json({ message: 'Unauthorized' })
+
+		const queryResult = (await query()) as { id: string } | [] | null
 
 		if (!disableLog && queryResult) {
 			// TODO: logging does not currently support paginated requests
