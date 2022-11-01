@@ -21,7 +21,7 @@ export const ParticipantQueryBuilder = ({
 }: ParticipantQueryBuilderProps) => {
 	const { t } = useText('participants.conditions')
 	const { t: consentText } = useText('participant.study.consent.consentState')
-	const [filters] = useState<Filter[]>()
+	const [filters, setFilters] = useState<Filter[]>()
 	const { participants } = useParticipantQuery(filters)
 	const { t: queryBuilderText } = useText('queryBuilder')
 	const [dataSummary, setDataSummary] = useState<AggregatedDataCardProps[]>(summaryCards)
@@ -46,8 +46,8 @@ export const ParticipantQueryBuilder = ({
 	}, [participants?.modelCount, participants?.studyCount, queryBuilderText])
 
 	const handleFilterChange = (change: Filter[]) => {
-		console.log('change: ', change)
-		// setFilters(change)
+		console.log('handleFilterChange ~ change', change)
+		setFilters(change)
 	}
 
 	const fields: OptionType[] = Object.entries(participantQueryFields).flatMap(([key, value]) => {
