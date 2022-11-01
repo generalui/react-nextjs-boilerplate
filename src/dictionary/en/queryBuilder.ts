@@ -26,6 +26,9 @@ const queryBuilder = {
 		},
 		add: {
 			message: 'Add Row'
+		},
+		where: {
+			message: 'Where'
 		}
 	},
 	summary: {
@@ -46,8 +49,7 @@ const queryBuilder = {
 	},
 	filterTypes: {
 		and: { message: 'And' },
-		or: { message: 'Or' },
-		not: { message: 'Not' }
+		or: { message: 'Or' }
 	}
 }
 

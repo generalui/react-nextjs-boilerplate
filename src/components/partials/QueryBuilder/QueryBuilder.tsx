@@ -60,19 +60,23 @@ export const QueryBuilder: QueryBuilderComponent = ({
 	// }, [conditions, fields, initialValues, query])
 
 	const handleFilterChange = (
-		filterValue: FilterInput,
+		filterValue: FilterInput[],
 		model?: QueryBuilderModel,
 		dataType?: string
 	) => {
-		const change: Filter = {
-			field: filterValue.field.value,
-			condition: filterValue.condition.value,
-			value: typeof filterValue.value === 'string' ? filterValue.value : filterValue.value?.value,
-			model,
-			dataType
-		}
+		console.log('filterValue: ', filterValue)
+		const filters = filterValue.map((filter) => {
+			return {
+				field: filter.field.value,
+				condition: filter.condition.value,
+				value: typeof filter.value === 'string' ? filter.value : filter.value?.value,
+				filterType: filter.filterType?.value,
+				model,
+				dataType
+			}
+		})
 
-		onFilterChange?.([change])
+		onFilterChange?.(filters)
 		// TODO: re-add query update
 		// update(change)
 	}

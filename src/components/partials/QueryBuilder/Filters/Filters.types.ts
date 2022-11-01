@@ -6,7 +6,7 @@ export interface FiltersProps extends CommonProps {
 	fields: OptionType[]
 	conditions: OptionType[]
 	filterTypes: ItemsSelect
-	onChange: (filter: FilterInput, model?: QueryBuilderModel, dataType?: string) => void
+	onChange: (filter: FilterInput[], model?: QueryBuilderModel, dataType?: string) => void
 	initialValues?: FilterInput
 	initialDataType?: string
 	transformField?: (filter: FilterInput) => Record<string, unknown>

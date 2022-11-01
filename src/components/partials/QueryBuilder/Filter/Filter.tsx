@@ -11,9 +11,11 @@ import {
 	QueryInputType
 } from 'types/QueryBuilder'
 import { debounce } from 'utils/debounce'
+import { useText } from 'hooks/useText'
 import { Form } from 'partials/Form'
 import { Input } from 'common/Input'
 import { SelectInput } from 'common/SelectInput'
+import { Text } from 'common/Text'
 import { FilterProps } from './Filter.types'
 
 const Option = (props: OptionProps<OptionType>) => {
@@ -45,6 +47,7 @@ export const Filter = ({
 	conditions,
 	filterTypes,
 	filterKey,
+	firstItem,
 	updateFiltersArray,
 	onFieldTypeChange,
 	onModelChange,
@@ -55,6 +58,7 @@ export const Filter = ({
 	const [value, setValue] = useState<string | undefined>()
 	const [filteredConditions, setFilteredConditions] = useState<OptionType[]>(conditions)
 	const inputRef = useRef<FieldInputProps<string>>()
+	const { t } = useText('queryBuilder.filters')
 
 	const handleFieldChange = (newValue: SingleValue<OptionType> | MultiValue<OptionType>) => {
 		if (newValue && 'inputType' in newValue) {
@@ -97,17 +101,20 @@ export const Filter = ({
 		<div className={className} data-testid={testId}>
 			<Form
 				onSubmit={onSubmit}
-				// initialValues={initialValues}
 				render={({ handleSubmit }) => (
 					<form onSubmit={handleSubmit}>
 						<div className='grid grid-cols-8 gap-4 items-center pt-4'>
 							<div className='flex flex-col gap-3 col-span-7 md:col-span-1'>
-								<SelectInput
-									name='filterType'
-									options={filterTypes}
-									components={{ Option }}
-									onChange={handleFieldChange}
-								/>
+								{firstItem ? (
+									<Text className='bg-gray-200 rounded m-auto px-6 py-2'>{t('where')}</Text>
+								) : (
+									<SelectInput
+										name='filterType'
+										options={filterTypes}
+										components={{ Option }}
+										onChange={handleFieldChange}
+									/>
+								)}
 							</div>
 							<div className='flex flex-col gap-3 col-span-7 md:col-span-3'>
 								<SelectInput

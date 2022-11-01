@@ -27,6 +27,7 @@ export type Filter = {
 	value: string
 	dataType?: string
 	model?: QueryBuilderModel
+	filterType?: string
 }
 
 const fieldSchema = z.object({
@@ -47,7 +48,7 @@ export const FilterSchema = z.object({
 	field: fieldSchema,
 	condition: fieldCondition,
 	value: z.union([z.string(), selectInput]),
-	dataType: selectInput.optional()
+	filterType: selectInput.optional()
 })
 
 export type ApiQueryResults = {

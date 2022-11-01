@@ -10,4 +10,5 @@ export interface FilterProps extends CommonProps {
 	onModelChange: (model?: QueryBuilderModel) => void
 	updateFiltersArray: (filters: FilterInput, key: string) => void
 	filterKey: string
+	firstItem?: boolean
 }

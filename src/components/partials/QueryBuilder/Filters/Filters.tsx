@@ -25,13 +25,20 @@ export const Filters = ({
 	const [fieldDataType, setFieldDataType] = useState<string | undefined>()
 	const [fieldModel, setFieldModel] = useState<QueryBuilderModel | undefined>()
 	const [filtersArray, setFiltersArray] = useState<FilterListItem[]>([])
-	console.log('filtersArray: ', filtersArray)
+
+	const getFiltersArray = (filters: FilterListItem[]) => {
+		return filters
+			.filter((filter) => !!filter?.filter)
+			.map((filter) => ({ ...filter.filter } as FilterInput))
+	}
 
 	const updateFiltersArray = (filter: FilterInput, key: string) => {
 		const filtersArrayCopy = [...filtersArray]
 		const index = filtersArrayCopy.findIndex((item) => item.key === key)
 		filtersArrayCopy[index].filter = filter
 		setFiltersArray(filtersArrayCopy)
+
+		onChange(getFiltersArray(filtersArrayCopy), fieldModel, fieldDataType)
 	}
 
 	const onSubmit = (filters: FilterInput) => {
@@ -66,7 +73,7 @@ export const Filters = ({
 				<div>
 					<div className='pb-4'>
 						<FiltersHeader />
-						{filtersArray.map((filter) => {
+						{filtersArray.map((filter, i) => {
 							return (
 								<Filter
 									key={filter.key}
@@ -77,6 +84,7 @@ export const Filters = ({
 									onFieldTypeChange={setFieldDataType}
 									onModelChange={setFieldModel}
 									updateFiltersArray={updateFiltersArray}
+									firstItem={i === 0}
 								/>
 							)
 						})}

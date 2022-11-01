@@ -37,6 +37,5 @@ export const queryBuilderConditions = {
 
 export const queryBuilderFilterTypes = {
 	and: { key: 'filterTypes.and' },
-	or: { key: 'filterTypes.or' },
-	not: { key: 'filterTypes.not' }
+	or: { key: 'filterTypes.or' }
 }
