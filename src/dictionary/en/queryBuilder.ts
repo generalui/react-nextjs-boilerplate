@@ -7,7 +7,7 @@ const queryBuilder = {
 		lt: { label: { message: 'Before' } },
 		gt: { label: { message: 'After' } },
 		includes: { label: { message: 'Includes' } },
-		excludes: { label: { message: 'Exclude' } }
+		excludes: { label: { message: 'Excludes' } }
 	},
 
 	filters: {
