@@ -38,6 +38,32 @@ const getParticipants = async (where?: ReturnType<typeof getSingleWhere>) => {
 	return { modelCount: modelCount ?? 0, list: participants || [], studyCount }
 }
 
+const getWhereFromFilters = (filters: Filter[], model: QueryBuilderModel) => {
+	const where = {}
+
+	filters.reduce((where, filter: Filter) => {
+		const { field, condition, value, filterType } = filter
+
+		if (filterType) {
+			const newWhereStatement = {
+				[filterType]: {
+					[field]: {
+						[condition]: value
+					}
+				}
+			}
+		} else {
+			const newWhereStatement = {
+				[field]: {
+					[condition]: value
+				}
+			}
+		}
+
+		return filter
+	})
+}
+
 const apiRoute = connect()
 apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	const { model } = req.query as {
@@ -64,7 +90,7 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 		if (studyWhere) {
 			// Do complicated study query
 			console.log('query ~ studyWhere', studyWhere)
-			return await getParticipantsViaStudy(participantWhere)
+			// return await getParticipantsViaStudy(participantWhere)
 		} else {
 			// Do less complicated single layer participant study
 			console.log('query ~ participantWhere', participantWhere)
