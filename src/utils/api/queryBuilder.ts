@@ -81,7 +81,7 @@ export const getSingleWhere = (filter?: Filter) => {
 		}
 	}
 
-	return { where }
+	return where
 }
 
 // TODO: add multi-where statement

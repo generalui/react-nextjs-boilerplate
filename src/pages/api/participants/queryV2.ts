@@ -39,29 +39,46 @@ const getParticipants = async (where?: ReturnType<typeof getSingleWhere>) => {
 }
 
 const getWhereFromFilters = (filters: Filter[], model: QueryBuilderModel) => {
-	const where = {}
+	const whereStatement = filters
+		.filter((filter) => filter.model === model)
+		.reduce((where, filter: Filter) => {
+			const { filterType } = filter
+			const currentWhere = { ...getSingleWhere(filter) }
 
-	filters.reduce((where, filter: Filter) => {
-		const { field, condition, value, filterType } = filter
-
-		if (filterType) {
-			const newWhereStatement = {
-				[filterType]: {
-					[field]: {
-						[condition]: value
-					}
-				}
+			if (filterType) {
+				where = { ...where, [filterType.toUpperCase()]: { ...currentWhere } }
+			} else {
+				where = { ...where, ...currentWhere }
 			}
-		} else {
-			const newWhereStatement = {
-				[field]: {
-					[condition]: value
-				}
-			}
-		}
 
-		return filter
+			return where
+		}, {})
+	return { where: whereStatement }
+}
+
+const getParticipantsViaStudy = async (whereStatement: Record<string, unknown>) => {
+	const studies = await prisma.study.findMany({
+		...whereStatement,
+		...studyIncludesParticipantIds
 	})
+	let studyCount = 0
+	const studyParticipantIds = (studies as StudyWithParticipantIds[])?.reduce(
+		(pList: string[], study: StudyWithParticipantIds) => {
+			// Increment study count if study contains a participant
+			if (study.participants.length) studyCount++
+
+			// Add participant ID's to list
+			return [...pList, ...study.participants.map((p) => p.participant.id)]
+		},
+		[]
+	)
+
+	const participants = await prisma.participant.findMany({
+		where: { id: { in: studyParticipantIds } },
+		...participantQueryInclude
+	})
+
+	return { modelCount: participants?.length || 0, list: participants || [], studyCount }
 }
 
 const apiRoute = connect()
@@ -90,7 +107,9 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 		if (studyWhere) {
 			// Do complicated study query
 			console.log('query ~ studyWhere', studyWhere)
-			// return await getParticipantsViaStudy(participantWhere)
+			const test = await getParticipantsViaStudy(studyWhere)
+			// TODO: Solve mode: case insensitive
+			console.log('test: ', test)
 		} else {
 			// Do less complicated single layer participant study
 			console.log('query ~ participantWhere', participantWhere)

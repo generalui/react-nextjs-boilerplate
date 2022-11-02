@@ -15,7 +15,7 @@ export const getParticipantsQuery = async (
 	// if (queryParams?.filters) {
 	// 	filters = queryParams?.filters.value ? queryParams?.filters : undefined
 	// }
-	const response = await axios.get<ParticipantQueryResults>(`participants/query`, {
+	const response = await axios.get<ParticipantQueryResults>(`participants/queryV2`, {
 		params: {
 			filters
 		}
