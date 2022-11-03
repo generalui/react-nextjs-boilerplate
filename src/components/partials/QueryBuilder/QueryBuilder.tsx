@@ -64,7 +64,6 @@ export const QueryBuilder: QueryBuilderComponent = ({
 		model?: QueryBuilderModel,
 		dataType?: string
 	) => {
-		console.log('filterValue: ', filterValue)
 		const filters = filterValue.map((filter) => {
 			return {
 				field: filter.field.value,

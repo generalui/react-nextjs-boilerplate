@@ -46,7 +46,6 @@ export const ParticipantQueryBuilder = ({
 	}, [participants?.modelCount, participants?.studyCount, queryBuilderText])
 
 	const handleFilterChange = (change: Filter[]) => {
-		console.log('handleFilterChange ~ change', change)
 		setFilters(change)
 	}
 
