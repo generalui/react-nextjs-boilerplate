@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { FilterInput, FilterListItem, QueryBuilderModel } from 'types/QueryBuilder'
+import { FilterInputWithModel, FilterListItem, QueryBuilderModel } from 'types/QueryBuilder'
 import { v4 as uuidv4 } from 'uuid'
 import { useText } from 'hooks/useText'
 import { Filter } from 'partials/QueryBuilder/Filter/Filter'
@@ -25,16 +25,16 @@ export const Filters = ({
 	const getFiltersArray = (filters: FilterListItem[]) => {
 		return filters
 			.filter((filter) => !!filter?.filter)
-			.map((filter) => ({ ...filter.filter } as FilterInput))
+			.map((filter) => ({ ...filter.filter } as FilterInputWithModel))
 	}
 
-	const updateFiltersArray = (filter: FilterInput, key: string) => {
+	const updateFiltersArray = (filter: FilterInputWithModel, key: string) => {
 		const filtersArrayCopy = [...filtersArray]
 		const index = filtersArrayCopy.findIndex((item) => item.key === key)
 		filtersArrayCopy[index].filter = filter
 		setFiltersArray(filtersArrayCopy)
 
-		onChange(getFiltersArray(filtersArrayCopy), fieldModel, fieldDataType)
+		onChange(getFiltersArray(filtersArrayCopy))
 	}
 
 	const handleAddRow = () => {

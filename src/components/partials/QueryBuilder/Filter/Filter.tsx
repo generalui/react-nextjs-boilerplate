@@ -5,6 +5,7 @@ import { FormSpy } from 'react-final-form'
 import { MultiValue, OptionProps, SingleValue } from 'react-select'
 import {
 	FilterInput,
+	FilterInputWithModel,
 	FilterSchema,
 	OptionType,
 	QueryBuilderModel,
@@ -90,8 +91,13 @@ export const Filter = ({
 
 	const onSubmit = (filters: FilterInput) => {
 		try {
-			const parsedFilters = FilterSchema.parse(filters)
-			updateFiltersArray(parsedFilters, filterKey)
+			const parsedFilter = FilterSchema.parse(filters)
+			const filterWithModel: FilterInputWithModel = {
+				...parsedFilter,
+				model: fieldModel,
+				dataType: fieldInputType
+			}
+			updateFiltersArray(filterWithModel, filterKey)
 		} catch (error) {
 			return
 		}

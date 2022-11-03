@@ -63,6 +63,11 @@ export type ApiQueryResults = {
 
 export type FilterInput = z.infer<typeof FilterSchema>
 
+export type FilterInputWithModel = FilterInput & {
+	model: QueryBuilderModel | undefined
+	dataType: string | undefined
+}
+
 export type QueryBuilderParams = {
 	model: QueryBuilderModel
 	summaryModel: QueryBuilderModel
@@ -84,6 +89,6 @@ export type QueryBuilderField = {
 export type QueryFields = Record<string, QueryBuilderFieldGroup>
 
 export type FilterListItem = {
-	filter?: FilterInput
+	filter?: FilterInputWithModel
 	key: string
 }

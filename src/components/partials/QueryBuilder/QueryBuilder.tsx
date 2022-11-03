@@ -1,6 +1,6 @@
 import cn from 'classnames'
 import { useEffect, useState } from 'react'
-import { FilterInput, OptionType, QueryBuilderModel } from 'types/QueryBuilder'
+import { Filter, FilterInputWithModel, OptionType } from 'types/QueryBuilder'
 // import { useRouterQuery } from 'hooks/useRouterQuery'
 import { useText } from 'hooks/useText'
 import { List } from 'partials/List'
@@ -59,19 +59,15 @@ export const QueryBuilder: QueryBuilderComponent = ({
 	// 	}
 	// }, [conditions, fields, initialValues, query])
 
-	const handleFilterChange = (
-		filterValue: FilterInput[],
-		model?: QueryBuilderModel,
-		dataType?: string
-	) => {
-		const filters = filterValue.map((filter) => {
+	const handleFilterChange = (filterValue: FilterInputWithModel[]) => {
+		const filters: Filter[] = filterValue.map((filter) => {
 			return {
 				field: filter.field.value,
 				condition: filter.condition.value,
 				value: typeof filter.value === 'string' ? filter.value : filter.value?.value,
 				filterType: filter.filterType?.value,
-				model,
-				dataType
+				model: filter.model,
+				dataType: filter.dataType
 			}
 		})
 
