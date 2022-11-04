@@ -46,7 +46,7 @@ const getWhereFromFilters = (filters: Filter[], model: QueryBuilderModel) => {
 			const currentWhere = { ...getSingleWhere(filter) }
 
 			if (filterType) {
-				where = { ...where, [filterType.toUpperCase()]: { ...currentWhere } }
+				where = { [filterType.toUpperCase()]: [{ ...where }, { ...currentWhere }] }
 			} else {
 				where = { ...where, ...currentWhere }
 			}
@@ -104,15 +104,11 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 		// Parse participant filters
 		const participantWhere = getWhereFromFilters(participantFilters, 'participant')
 
-		if (studyWhere) {
+		if (Object.keys(studyWhere.where).length > 0) {
 			// Do complicated study query
-			console.log('query ~ studyWhere', studyWhere)
-			const test = await getParticipantsViaStudy(studyWhere)
-			// TODO: Solve mode: case insensitive
-			console.log('test: ', test)
+			return await getParticipantsViaStudy(studyWhere)
 		} else {
 			// Do less complicated single layer participant study
-			console.log('query ~ participantWhere', participantWhere)
 			return await getParticipants(participantWhere)
 		}
 	}
