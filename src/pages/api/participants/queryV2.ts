@@ -1,16 +1,25 @@
 import { Participant } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { Filter, QueryBuilderModel } from 'types/QueryBuilder'
-import { StudyWithParticipantIds } from 'types/Study'
+import { ParticipantQueryBuilderStudyPayload } from 'types/Study'
 import { connect } from 'utils/api/connect'
 import { handleQuery } from 'utils/api/handleQuery'
 import { parseParamArray } from 'utils/api/parseParamArray'
 import { prisma } from 'utils/api/prisma'
 import { getSingleWhere } from 'utils/api/queryBuilder'
 import { participantQueryInclude } from 'utils/includes/participantIncludes'
-import { studyIncludesParticipantIds } from 'utils/includes/studyIncludes'
+import { studySelectParticipantIds } from 'utils/includes/studyIncludes'
 
-const getParticipants = async (where?: ReturnType<typeof getSingleWhere>) => {
+type ParticipantQueryReturn = {
+	modelCount: number
+	list: Participant[]
+	studyCount: number
+}
+
+type GetParticipantsReturnType = Promise<ParticipantQueryReturn>
+
+type GetParticipants = (where?: ReturnType<typeof getSingleWhere>) => GetParticipantsReturnType
+const getParticipants: GetParticipants = async (where) => {
 	// Get participants
 	const [modelCount, participants] = await prisma.$transaction([
 		prisma.participant.count({ ...where }),
@@ -39,42 +48,147 @@ const getParticipants = async (where?: ReturnType<typeof getSingleWhere>) => {
 }
 
 const getWhereFromFilters = (filters: Filter[], model: QueryBuilderModel) => {
-	const whereStatement = filters
-		.filter((filter) => filter.model === model)
-		.reduce((where, filter: Filter) => {
-			const { filterType } = filter
-			const currentWhere = { ...getSingleWhere(filter) }
+	// Filter relevant data model
+	const filtersToParse = filters.filter((filter) => filter.model === model)
 
-			if (filterType) {
-				where = { [filterType.toUpperCase()]: [{ ...where }, { ...currentWhere }] }
-			} else {
-				where = { ...where, ...currentWhere }
+	// Filter handle empty case of relevant data model
+	if (filtersToParse.length === 0) return { where: undefined }
+	else if (filtersToParse.length === 1) return { where: getSingleWhere(filtersToParse[0]) }
+
+	// Parse filters
+	const where = filtersToParse
+		// Get compose statement from filters
+		.reduce(
+			(where: Record<string, unknown>, filter: Filter) => {
+				const { filterType } = filter
+				const currentWhere = getSingleWhere(filter)
+
+				// Called only on first iteration
+				if (!filterType) {
+					return {
+						...where,
+						OR: [currentWhere]
+					}
+				}
+
+				// Add to filterType on where
+				else {
+					return {
+						...where,
+						[filterType.toUpperCase()]: [
+							...(where[filterType.toUpperCase()] as Record<string, unknown>[]),
+							{ ...currentWhere }
+						]
+					}
+				}
+			},
+			{
+				OR: [],
+				AND: []
 			}
+		)
 
-			return where
-		}, {})
-	return { where: whereStatement }
+	return { where }
 }
 
-const getParticipantsViaStudy = async (whereStatement: Record<string, unknown>) => {
-	const studies = await prisma.study.findMany({
-		...whereStatement,
-		...studyIncludesParticipantIds
-	})
+type ParticipantsAndCount = [number, Participant['id'][], Participant['id'][]]
+type GetStudyParticipantIdsAndCount = (
+	studiesA: ParticipantQueryBuilderStudyPayload[],
+	studiesB?: ParticipantQueryBuilderStudyPayload[]
+) => ParticipantsAndCount
+const getStudyParticipantIdsAndCount: GetStudyParticipantIdsAndCount = (
+	studiesA,
+	studiesB = []
+) => {
+	const studySet = new Set<string>()
 	let studyCount = 0
-	const studyParticipantIds = (studies as StudyWithParticipantIds[])?.reduce(
-		(pList: string[], study: StudyWithParticipantIds) => {
-			// Increment study count if study contains a participant
-			if (study.participants.length) studyCount++
+	let participantIdsA = [] as Participant['id'][]
+	let participantIdsB = [] as Participant['id'][]
 
-			// Add participant ID's to list
-			return [...pList, ...study.participants.map((p) => p.participant.id)]
-		},
-		[]
-	)
+	const incrementCount = (study: ParticipantQueryBuilderStudyPayload) => {
+		if (!studySet.has(study.id)) {
+			if (study.participants.length > 0) studyCount++
+			studySet.add(study.id)
+		}
+	}
+
+	const incrementParticipantIds = (
+		currentList: Participant['id'][],
+		study: ParticipantQueryBuilderStudyPayload
+	) => [...new Set([...currentList, ...study.participants.map((p) => p.participant.id)])]
+
+	// If no studies return empty state
+	if (!studiesA.length && !studiesB?.length) return [0, [], []]
+	else {
+		for (const study of studiesA) {
+			incrementCount(study)
+
+			// Map participants from join table and add to running list
+			participantIdsA = incrementParticipantIds(participantIdsA, study)
+		}
+
+		for (const study of studiesB) {
+			incrementCount(study)
+
+			participantIdsB = incrementParticipantIds(participantIdsB, study)
+		}
+	}
+
+	return [studyCount, participantIdsA, participantIdsB]
+}
+
+type GetParticipantsViaStudy = (
+	studyWhere: Record<string, unknown>,
+	participantWhere: { where?: { OR: Record<string, unknown>[]; AND: Record<string, unknown>[] } }
+) => GetParticipantsReturnType
+const getParticipantsViaStudy: GetParticipantsViaStudy = async (studyWhere, participantWhere) => {
+	let participantViaStudyWhere = participantWhere.where || { OR: [], AND: [] }
+	let studyCount = 0
+
+	if (studyWhere.AND || studyWhere.OR) {
+		const [studiesAND, studiesOR] = await prisma.$transaction([
+			prisma.study.findMany({
+				...studyWhere,
+				...studySelectParticipantIds
+			}),
+			prisma.study.findMany({
+				...studyWhere,
+				...studySelectParticipantIds
+			})
+		])
+		const [count, studyANDIds, studyORIds] = getStudyParticipantIdsAndCount(
+			studiesAND as ParticipantQueryBuilderStudyPayload[],
+			studiesOR as ParticipantQueryBuilderStudyPayload[]
+		)
+
+		studyCount = count
+
+		participantViaStudyWhere.AND = [
+			...(participantViaStudyWhere.AND || []),
+			{ id: { in: studyANDIds } }
+		]
+
+		participantViaStudyWhere.OR = [
+			...(participantViaStudyWhere.OR || []),
+			{ id: { in: studyORIds } }
+		]
+	} else {
+		// Study is the only filter
+		const studies = await prisma.study.findMany({
+			...studyWhere,
+			...studySelectParticipantIds
+		})
+
+		const [count, participantIDs] = getStudyParticipantIdsAndCount(
+			studies as ParticipantQueryBuilderStudyPayload[]
+		)
+
+		studyCount = count
+		participantViaStudyWhere = { OR: [{ id: { in: participantIDs } }], AND: [] }
+	}
 
 	const participants = await prisma.participant.findMany({
-		where: { id: { in: studyParticipantIds } },
+		where: participantViaStudyWhere,
 		...participantQueryInclude
 	})
 
@@ -94,19 +208,12 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 		// General query
 		if (!filters?.length) return await getParticipants()
 
-		// Iterate over filters
-		const studyFilters = filters.filter((filter) => filter.model === 'study')
-		const participantFilters = filters.filter((filter) => filter.model === 'participant')
+		const studyWhere = getWhereFromFilters(filters, 'study')
+		const participantWhere = getWhereFromFilters(filters, 'participant')
 
-		// Parse study filters
-		const studyWhere = getWhereFromFilters(studyFilters, 'study')
-
-		// Parse participant filters
-		const participantWhere = getWhereFromFilters(participantFilters, 'participant')
-
-		if (Object.keys(studyWhere.where).length > 0) {
+		if (studyWhere.where && Object.keys(studyWhere.where).length > 0) {
 			// Do complicated study query
-			return await getParticipantsViaStudy(studyWhere)
+			return await getParticipantsViaStudy(studyWhere, participantWhere)
 		} else {
 			// Do less complicated single layer participant study
 			return await getParticipants(participantWhere)
@@ -124,3 +231,61 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 })
 
 export default apiRoute
+
+/**
+ * Where condition brain storming bellow (delete when complete)
+				CURRENT 
+				where = {
+					title: { contains: string },   - > A
+					OR: [
+						{dataTypes: { has: StudyDataType }},  - > B
+						{-: { has: StudyDataType }},  - > C
+					],
+					AND: [
+						{updatedAt: { has: StudyDataType }}, - > D
+						{-: { has: StudyDataType }}, - > E
+					]
+				}
+				A AND (B OR C) AND (D AND E)
+			 */
+
+/* 
+				OPTION 2 - middle ground
+				where = {
+					OR: [
+						firstFilter, - > A
+						
+					],
+					AND: [
+						{title: {eq:string}},
+						{title: {eq:string}},
+					]
+				}
+				(B OR C OR F) AND (D AND E)
+			 */
+
+/*
+			SIMPLE 
+			where = {
+				title: { contains: string },        - > A
+				dataTypes: { has: StudyDataType }}  - > B
+			}
+			A AND B
+			 */
+/* 
+				IDEAL 
+				where = {
+					(AND or OR): [
+						{dataTypes: { has: StudyDataType }},  - > B
+						{
+							(AND or OR): [
+								{dataTypes: { has: StudyDataType }},  - > B
+								... potentially additional nested where statements
+							]
+						},  - > C
+					]
+				
+				}
+				A AND (B OR C) AND (D AND E)
+			 */
+// Single filter no filterType (first filter will never have a filter type)

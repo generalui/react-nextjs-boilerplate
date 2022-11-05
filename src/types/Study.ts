@@ -33,6 +33,26 @@ export type StudyWithParticipants = Prisma.StudyGetPayload<{
 	}
 }>
 
+export type ParticipantQueryBuilderStudyPayload = Prisma.StudyGetPayload<{
+	select: {
+		id: true
+		participants: {
+			include: {
+				// TODO: this should only select the fields relevant to the
+				participant: {
+					include: {
+						studies: {
+							select: {
+								consent: true
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}>
+
 export type ApiStudiesResponse = PaginatedResponse & {
 	studies: ApiStudy[]
 }

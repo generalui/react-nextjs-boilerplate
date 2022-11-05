@@ -27,7 +27,7 @@ export type Filter = {
 	value: string
 	dataType?: string
 	model?: QueryBuilderModel
-	filterType?: string
+	filterType?: 'and' | 'or'
 }
 
 const fieldSchema = z.object({
