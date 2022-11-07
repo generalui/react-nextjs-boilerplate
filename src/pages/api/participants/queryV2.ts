@@ -47,13 +47,15 @@ const getParticipants: GetParticipants = async (where) => {
 	return { modelCount: modelCount ?? 0, list: participants || [], studyCount }
 }
 
+// TODO: move this function
 const getWhereFromFilters = (filters: Filter[], model: QueryBuilderModel) => {
 	// Filter relevant data model
 	const filtersToParse = filters.filter((filter) => filter.model === model)
 
 	// Filter handle empty case of relevant data model
 	if (filtersToParse.length === 0) return { where: undefined }
-	else if (filtersToParse.length === 1) return { where: getSingleWhere(filtersToParse[0]) }
+	else if (filtersToParse.length === 1 && !filtersToParse[0].filterType)
+		return { where: getSingleWhere(filtersToParse[0]) }
 
 	// Parse filters
 	const where = filtersToParse
@@ -143,6 +145,17 @@ type GetParticipantsViaStudy = (
 ) => GetParticipantsReturnType
 const getParticipantsViaStudy: GetParticipantsViaStudy = async (studyWhere, participantWhere) => {
 	let participantViaStudyWhere = participantWhere.where || { OR: [], AND: [] }
+	if (participantWhere.where?.OR || participantWhere.where?.AND) {
+		participantViaStudyWhere = participantWhere.where
+	} else if (participantWhere.where) {
+		participantViaStudyWhere = {
+			OR: [participantWhere.where],
+			AND: []
+		}
+	} else {
+		participantViaStudyWhere = { OR: [], AND: [] }
+	}
+
 	let studyCount = 0
 
 	if (studyWhere.AND || studyWhere.OR) {
@@ -156,7 +169,7 @@ const getParticipantsViaStudy: GetParticipantsViaStudy = async (studyWhere, part
 				...studySelectParticipantIds
 			})
 		])
-		const [count, studyANDIds, studyORIds] = getStudyParticipantIdsAndCount(
+		const [count, studyParticipantANDIds, studyParticipantORIds] = getStudyParticipantIdsAndCount(
 			studiesAND as ParticipantQueryBuilderStudyPayload[],
 			studiesOR as ParticipantQueryBuilderStudyPayload[]
 		)
@@ -164,13 +177,13 @@ const getParticipantsViaStudy: GetParticipantsViaStudy = async (studyWhere, part
 		studyCount = count
 
 		participantViaStudyWhere.AND = [
-			...(participantViaStudyWhere.AND || []),
-			{ id: { in: studyANDIds } }
+			...participantViaStudyWhere.AND,
+			{ id: { in: studyParticipantANDIds } }
 		]
 
 		participantViaStudyWhere.OR = [
-			...(participantViaStudyWhere.OR || []),
-			{ id: { in: studyORIds } }
+			...participantViaStudyWhere.OR,
+			{ id: { in: studyParticipantORIds } }
 		]
 	} else {
 		// Study is the only filter
@@ -184,7 +197,10 @@ const getParticipantsViaStudy: GetParticipantsViaStudy = async (studyWhere, part
 		)
 
 		studyCount = count
-		participantViaStudyWhere = { OR: [{ id: { in: participantIDs } }], AND: [] }
+		participantViaStudyWhere = {
+			OR: [...participantViaStudyWhere.OR, { id: { in: participantIDs } }],
+			AND: [...participantViaStudyWhere.AND]
+		}
 	}
 
 	const participants = await prisma.participant.findMany({
