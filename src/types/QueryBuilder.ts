@@ -11,7 +11,7 @@ export enum QueryInputType {
 
 export enum QueryBuilderModel {
 	participant = 'participant',
-	studies = 'studies'
+	studies = 'study'
 }
 
 export type OptionType = {
