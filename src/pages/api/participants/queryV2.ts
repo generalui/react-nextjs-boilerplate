@@ -224,8 +224,8 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 		// General query
 		if (!filters?.length) return await getParticipants()
 
-		const studyWhere = getWhereFromFilters(filters, 'study')
-		const participantWhere = getWhereFromFilters(filters, 'participant')
+		const studyWhere = getWhereFromFilters(filters, QueryBuilderModel.studies)
+		const participantWhere = getWhereFromFilters(filters, QueryBuilderModel.participant)
 
 		if (studyWhere.where && Object.keys(studyWhere.where).length > 0) {
 			// Do complicated study query
