@@ -1,6 +1,12 @@
 import { Participant } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { Filter, QueryBuilderModel } from 'types/QueryBuilder'
+import {
+	Filter,
+	GetWhereFromFilters,
+	QueryBuilderModel,
+	WhereStatement,
+	WhereStatementWithFilterType
+} from 'types/QueryBuilder'
 import { ParticipantQueryBuilderStudyPayload } from 'types/Study'
 import { connect } from 'utils/api/connect'
 import { handleQuery } from 'utils/api/handleQuery'
@@ -48,7 +54,7 @@ const getParticipants: GetParticipants = async (where) => {
 }
 
 // TODO: move this function
-const getWhereFromFilters = (filters: Filter[], model: QueryBuilderModel) => {
+const getWhereFromFilters: GetWhereFromFilters = (filters, model) => {
 	// Filter relevant data model
 	const filtersToParse = filters.filter((filter) => filter.model === model)
 
@@ -140,12 +146,16 @@ const getStudyParticipantIdsAndCount: GetStudyParticipantIdsAndCount = (
 }
 
 type GetParticipantsViaStudy = (
-	studyWhere: Record<string, unknown>,
-	participantWhere: { where?: { OR: Record<string, unknown>[]; AND: Record<string, unknown>[] } }
+	studyWhere: { where?: WhereStatement },
+	participantWhere: { where?: WhereStatement }
 ) => GetParticipantsReturnType
 const getParticipantsViaStudy: GetParticipantsViaStudy = async (studyWhere, participantWhere) => {
-	let participantViaStudyWhere = participantWhere.where || { OR: [], AND: [] }
-	if (participantWhere.where?.OR || participantWhere.where?.AND) {
+	if (!studyWhere.where) return { modelCount: 0, list: [], studyCount: 0 }
+	let participantViaStudyWhere: WhereStatementWithFilterType = { OR: [], AND: [] }
+	if (
+		participantWhere.where &&
+		('OR' in participantWhere.where || 'AND' in participantWhere.where)
+	) {
 		participantViaStudyWhere = participantWhere.where
 	} else if (participantWhere.where) {
 		participantViaStudyWhere = {
@@ -158,7 +168,7 @@ const getParticipantsViaStudy: GetParticipantsViaStudy = async (studyWhere, part
 
 	let studyCount = 0
 
-	if (studyWhere.AND || studyWhere.OR) {
+	if ('AND' in studyWhere || 'OR' in studyWhere) {
 		const [studiesAND, studiesOR] = await prisma.$transaction([
 			prisma.study.findMany({
 				...studyWhere,
@@ -247,61 +257,3 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 })
 
 export default apiRoute
-
-/**
- * Where condition brain storming bellow (delete when complete)
-				CURRENT 
-				where = {
-					title: { contains: string },   - > A
-					OR: [
-						{dataTypes: { has: StudyDataType }},  - > B
-						{-: { has: StudyDataType }},  - > C
-					],
-					AND: [
-						{updatedAt: { has: StudyDataType }}, - > D
-						{-: { has: StudyDataType }}, - > E
-					]
-				}
-				A AND (B OR C) AND (D AND E)
-			 */
-
-/* 
-				OPTION 2 - middle ground
-				where = {
-					OR: [
-						firstFilter, - > A
-						
-					],
-					AND: [
-						{title: {eq:string}},
-						{title: {eq:string}},
-					]
-				}
-				(B OR C OR F) AND (D AND E)
-			 */
-
-/*
-			SIMPLE 
-			where = {
-				title: { contains: string },        - > A
-				dataTypes: { has: StudyDataType }}  - > B
-			}
-			A AND B
-			 */
-/* 
-				IDEAL 
-				where = {
-					(AND or OR): [
-						{dataTypes: { has: StudyDataType }},  - > B
-						{
-							(AND or OR): [
-								{dataTypes: { has: StudyDataType }},  - > B
-								... potentially additional nested where statements
-							]
-						},  - > C
-					]
-				
-				}
-				A AND (B OR C) AND (D AND E)
-			 */
-// Single filter no filterType (first filter will never have a filter type)

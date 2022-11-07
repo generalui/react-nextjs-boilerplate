@@ -1,5 +1,4 @@
 import { Prisma } from '@prisma/client'
-import participant from 'dictionary/en/participant'
 import { z } from 'zod'
 import { ItemsSelect } from 'common/SelectInput/SelectInput.types'
 
@@ -96,3 +95,15 @@ export type FilterListItem = {
 	filter?: FilterInputWithModel
 	key: string
 }
+
+export type WhereStatementWithFilterType = {
+	OR: Record<string, unknown>[]
+	AND: Record<string, unknown>[]
+}
+
+export type WhereStatement = WhereStatementWithFilterType | {} | undefined
+
+export type GetWhereFromFilters = (
+	filters: Filter[],
+	model: QueryBuilderModel
+) => { where?: WhereStatement }
