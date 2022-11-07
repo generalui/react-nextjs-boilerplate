@@ -1,11 +1,14 @@
-// TODO: move this function to utils
-const getWhereFromFilters = (filters: Filter[], model: QueryBuilderModel) => {
+import { Filter, GetWhereFromFilters } from 'types/QueryBuilder'
+import { getSingleWhere } from 'utils/api/queryBuilder'
+
+export const getWhereFromFilters: GetWhereFromFilters = (filters, model) => {
 	// Filter relevant data model
 	const filtersToParse = filters.filter((filter) => filter.model === model)
 
 	// Filter handle empty case of relevant data model
 	if (filtersToParse.length === 0) return { where: undefined }
-	else if (filtersToParse.length === 1) return { where: getSingleWhere(filtersToParse[0]) }
+	else if (filtersToParse.length === 1 && !filtersToParse[0].filterType)
+		return { where: getSingleWhere(filtersToParse[0]) }
 
 	// Parse filters
 	const where = filtersToParse

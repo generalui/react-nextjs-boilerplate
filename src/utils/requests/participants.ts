@@ -9,13 +9,7 @@ import { axios } from 'utils/client/axios'
 export const getParticipantsQuery = async (
 	filters?: Filter[]
 ): Promise<ParticipantQueryResults | undefined> => {
-	// if (!filters) return undefined
-
-	// let filters
-	// if (queryParams?.filters) {
-	// 	filters = queryParams?.filters.value ? queryParams?.filters : undefined
-	// }
-	const response = await axios.get<ParticipantQueryResults>(`participants/queryV2`, {
+	const response = await axios.get<ParticipantQueryResults>(`participants/query`, {
 		params: {
 			filters
 		}
