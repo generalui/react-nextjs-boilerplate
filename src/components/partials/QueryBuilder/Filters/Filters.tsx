@@ -72,10 +72,12 @@ export const Filters = ({
 							)
 						})}
 					</div>
-					<Button v='xs' onClick={handleAddRow}>
-						<Icon icon='PlusSmallIcon' />
-						{t('add')}
-					</Button>
+					<div className='pl-3'>
+						<Button v='xs' onClick={handleAddRow}>
+							<Icon icon='PlusSmallIcon' />
+							{t('add')}
+						</Button>
+					</div>
 				</div>
 			</Card>
 		</div>

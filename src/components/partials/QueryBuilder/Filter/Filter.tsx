@@ -14,6 +14,8 @@ import {
 import { debounce } from 'utils/debounce'
 import { useText } from 'hooks/useText'
 import { Form } from 'partials/Form'
+import { Button } from 'common/Button'
+import { Icon } from 'common/Icon'
 import { Input } from 'common/Input'
 import { SelectInput } from 'common/SelectInput'
 import { Text } from 'common/Text'
@@ -109,20 +111,21 @@ export const Filter = ({
 				onSubmit={onSubmit}
 				render={({ handleSubmit }) => (
 					<form onSubmit={handleSubmit}>
-						<div className='grid grid-cols-8 gap-4 items-center pt-4'>
-							<div className='flex flex-col gap-3 col-span-7 md:col-span-1'>
+						<div className='grid grid-cols-10 gap-4 items-center pt-4 content-between pl-3'>
+							<div className='gap-3 col-span-7 md:col-span-1'>
 								{firstItem ? (
-									<Text className='bg-gray-200 rounded m-auto px-6 py-2'>{t('where')}</Text>
+									<Text className='bg-gray-200 rounded py-3 text-center'>{t('where')}</Text>
 								) : (
 									<SelectInput
 										name='filterType'
 										options={filterTypes}
 										components={{ Option }}
 										onChange={handleFieldChange}
+										className='w-full'
 									/>
 								)}
 							</div>
-							<div className='flex flex-col gap-3 col-span-7 md:col-span-3'>
+							<div className='gap-3 col-span-7 md:col-span-3'>
 								<SelectInput
 									name='field'
 									options={fields}
@@ -130,10 +133,10 @@ export const Filter = ({
 									onChange={handleFieldChange}
 								/>
 							</div>
-							<div className='flex flex-col gap-3 col-span-7 md:col-span-2'>
+							<div className='gap-3 col-span-7 md:col-span-2'>
 								<SelectInput<OptionType> name='condition' options={filteredConditions} />
 							</div>
-							<div className='flex flex-col gap-3 col-span-7 md:col-span-2'>
+							<div className='gap-3 col-span-7 md:col-span-3'>
 								{fieldInputType === QueryInputType.select && value ? (
 									<SelectInput
 										name='value'
@@ -142,6 +145,11 @@ export const Filter = ({
 								) : (
 									<Input name='value' type={fieldInputType} ref={inputRef} />
 								)}
+							</div>
+							<div className='h-12'>
+								<Button className='h-full'>
+									<Icon icon='TrashIcon' className='m-auto' />
+								</Button>
 							</div>
 						</div>
 						<FormSpy

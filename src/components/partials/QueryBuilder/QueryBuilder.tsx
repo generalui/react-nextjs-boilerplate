@@ -72,8 +72,6 @@ export const QueryBuilder: QueryBuilderComponent = ({
 		})
 
 		onFilterChange?.(filters)
-		// TODO: re-add query update
-		// update(change)
 	}
 
 	const filterTypes: ItemsSelect = Object.entries(queryBuilderFilterTypes).map(([key, value]) => {
@@ -90,8 +88,6 @@ export const QueryBuilder: QueryBuilderComponent = ({
 				conditions={conditions}
 				onChange={handleFilterChange}
 				filterTypes={filterTypes}
-				// initialValues={initialValues}
-				// initialDataType={initialDataType}
 			/>
 			<Summary dataSummaryCards={dataSummaryCards} />
 			<Card iconProps={{ icon: 'UserIcon', wrapperClass: 'bg-green-300' }} title={title}>
