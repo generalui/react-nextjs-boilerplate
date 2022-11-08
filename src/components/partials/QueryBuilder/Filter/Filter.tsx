@@ -52,8 +52,6 @@ export const Filter = ({
 	filterKey,
 	firstItem,
 	updateFiltersArray,
-	onFieldTypeChange,
-	onModelChange,
 	handleRemoveFilter,
 	testId = 'Filter'
 }: FilterProps) => {
@@ -85,14 +83,6 @@ export const Filter = ({
 			setValue(newValue?.value)
 		}
 	}
-
-	useEffect(() => {
-		onFieldTypeChange(fieldInputType)
-	}, [fieldInputType, onFieldTypeChange])
-
-	useEffect(() => {
-		onModelChange(fieldModel)
-	}, [fieldModel, onModelChange])
 
 	useEffect(() => {
 		if (fieldInputType) {

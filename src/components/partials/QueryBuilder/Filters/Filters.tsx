@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { FilterInputWithModel, FilterListItem, QueryBuilderModel } from 'types/QueryBuilder'
+import { FilterInputWithModel, FilterListItem } from 'types/QueryBuilder'
 import { v4 as uuidv4 } from 'uuid'
 import { useText } from 'hooks/useText'
 import { Filter } from 'partials/QueryBuilder/Filter/Filter'
@@ -18,9 +18,11 @@ export const Filters = ({
 	testId = 'Filters'
 }: FiltersProps) => {
 	const { t } = useText('queryBuilder.filters')
-	const [fieldDataType, setFieldDataType] = useState<string | undefined>()
-	const [fieldModel, setFieldModel] = useState<QueryBuilderModel | undefined>()
 	const [filtersArray, setFiltersArray] = useState<FilterListItem[]>([])
+
+	const updateResults = (filters: FilterListItem[]) => {
+		onChange(getFiltersArray(filters))
+	}
 
 	const getFiltersArray = (filters: FilterListItem[]) => {
 		return filters
@@ -34,7 +36,7 @@ export const Filters = ({
 		filtersArrayCopy[index].filter = filter
 		setFiltersArray(filtersArrayCopy)
 
-		onChange(getFiltersArray(filtersArrayCopy))
+		updateResults(filtersArrayCopy)
 	}
 
 	const handleAddRow = () => {
@@ -45,7 +47,7 @@ export const Filters = ({
 		const newFilterArray = filtersArray.filter((f) => f.key !== key)
 		setFiltersArray(newFilterArray)
 
-		onChange(getFiltersArray(newFilterArray))
+		updateResults(newFilterArray)
 	}
 
 	useEffect(() => {
@@ -71,8 +73,6 @@ export const Filters = ({
 									fields={fields}
 									conditions={conditions}
 									filterTypes={filterTypes}
-									onFieldTypeChange={setFieldDataType}
-									onModelChange={setFieldModel}
 									updateFiltersArray={updateFiltersArray}
 									firstItem={i === 0}
 									handleRemoveFilter={handleRemoveFilter}
