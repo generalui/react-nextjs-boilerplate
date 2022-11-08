@@ -54,6 +54,7 @@ export const Filter = ({
 	updateFiltersArray,
 	onFieldTypeChange,
 	onModelChange,
+	handleRemoveFilter,
 	testId = 'Filter'
 }: FilterProps) => {
 	const [fieldInputType, setFieldInputType] = useState<string | undefined>()
@@ -62,6 +63,20 @@ export const Filter = ({
 	const [filteredConditions, setFilteredConditions] = useState<OptionType[]>(conditions)
 	const inputRef = useRef<FieldInputProps<string>>()
 	const { t } = useText('queryBuilder.filters')
+
+	const onSubmit = (filters: FilterInput) => {
+		try {
+			const parsedFilter = FilterSchema.parse(filters)
+			const filterWithModel: FilterInputWithModel = {
+				...parsedFilter,
+				model: fieldModel,
+				dataType: fieldInputType
+			}
+			updateFiltersArray(filterWithModel, filterKey)
+		} catch (error) {
+			return
+		}
+	}
 
 	const handleFieldChange = (newValue: SingleValue<OptionType> | MultiValue<OptionType>) => {
 		if (newValue && 'inputType' in newValue) {
@@ -91,28 +106,14 @@ export const Filter = ({
 		}
 	}, [conditions, fieldInputType])
 
-	const onSubmit = (filters: FilterInput) => {
-		try {
-			const parsedFilter = FilterSchema.parse(filters)
-			const filterWithModel: FilterInputWithModel = {
-				...parsedFilter,
-				model: fieldModel,
-				dataType: fieldInputType
-			}
-			updateFiltersArray(filterWithModel, filterKey)
-		} catch (error) {
-			return
-		}
-	}
-
 	return (
 		<div className={className} data-testid={testId}>
 			<Form
 				onSubmit={onSubmit}
 				render={({ handleSubmit }) => (
 					<form onSubmit={handleSubmit}>
-						<div className='grid grid-cols-10 gap-4 items-center pt-4 content-between pl-3'>
-							<div className='gap-3 col-span-7 md:col-span-1'>
+						<div className='grid grid-cols-8 gap-4 items-center pt-4 content-between pl-3'>
+							<div className='gap-3 md:col-span-1'>
 								{firstItem ? (
 									<Text className='bg-gray-200 rounded py-3 text-center'>{t('where')}</Text>
 								) : (
@@ -125,7 +126,7 @@ export const Filter = ({
 									/>
 								)}
 							</div>
-							<div className='gap-3 col-span-7 md:col-span-3'>
+							<div className='gap-3 col-span-7 md:col-span-2'>
 								<SelectInput
 									name='field'
 									options={fields}
@@ -136,7 +137,7 @@ export const Filter = ({
 							<div className='gap-3 col-span-7 md:col-span-2'>
 								<SelectInput<OptionType> name='condition' options={filteredConditions} />
 							</div>
-							<div className='gap-3 col-span-7 md:col-span-3'>
+							<div className='gap-3 col-span-7 md:col-span-2'>
 								{fieldInputType === QueryInputType.select && value ? (
 									<SelectInput
 										name='value'
@@ -147,9 +148,11 @@ export const Filter = ({
 								)}
 							</div>
 							<div className='h-12'>
-								<Button className='h-full'>
-									<Icon icon='TrashIcon' className='m-auto' />
-								</Button>
+								{firstItem || (
+									<Button className='h-full' onClick={() => handleRemoveFilter(filterKey)}>
+										<Icon icon='TrashIcon' className='m-auto' outlined />
+									</Button>
+								)}
 							</div>
 						</div>
 						<FormSpy

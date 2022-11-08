@@ -9,6 +9,7 @@ export interface FilterProps extends CommonProps {
 	onFieldTypeChange: (fieldDataType?: string) => void
 	onModelChange: (model?: QueryBuilderModel) => void
 	updateFiltersArray: (filters: FilterInputWithModel, key: string) => void
+	handleRemoveFilter: (key: string) => void
 	filterKey: string
 	firstItem?: boolean
 }

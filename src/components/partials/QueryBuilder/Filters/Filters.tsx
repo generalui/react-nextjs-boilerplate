@@ -41,6 +41,13 @@ export const Filters = ({
 		setFiltersArray([...filtersArray, { key: uuidv4() }])
 	}
 
+	const handleRemoveFilter = (key: string) => {
+		const newFilterArray = filtersArray.filter((f) => f.key !== key)
+		setFiltersArray(newFilterArray)
+
+		onChange(getFiltersArray(newFilterArray))
+	}
+
 	useEffect(() => {
 		handleAddRow()
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -68,6 +75,7 @@ export const Filters = ({
 									onModelChange={setFieldModel}
 									updateFiltersArray={updateFiltersArray}
 									firstItem={i === 0}
+									handleRemoveFilter={handleRemoveFilter}
 								/>
 							)
 						})}
