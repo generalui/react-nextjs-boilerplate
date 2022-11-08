@@ -102,7 +102,7 @@ export const Filter = ({
 				onSubmit={onSubmit}
 				render={({ handleSubmit }) => (
 					<form onSubmit={handleSubmit}>
-						<div className='grid grid-cols-8 gap-4 items-center pt-4 content-between pl-3'>
+						<div className='grid grid-cols-8 gap-4 items-center pt-4 content-between pl-7'>
 							<div className='gap-3 md:col-span-1'>
 								{firstItem ? (
 									<Text className='bg-gray-200 rounded py-3 text-center'>{t('where')}</Text>

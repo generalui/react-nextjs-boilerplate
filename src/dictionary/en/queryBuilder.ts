@@ -29,6 +29,9 @@ const queryBuilder = {
 		},
 		where: {
 			message: 'Where'
+		},
+		clear: {
+			message: 'Clear Filters'
 		}
 	},
 	summary: {

@@ -21,6 +21,7 @@ export const Filters = ({
 	const [filtersArray, setFiltersArray] = useState<FilterListItem[]>([])
 
 	const updateResults = (filters: FilterListItem[]) => {
+		setFiltersArray(filters)
 		onChange(getFiltersArray(filters))
 	}
 
@@ -34,24 +35,29 @@ export const Filters = ({
 		const filtersArrayCopy = [...filtersArray]
 		const index = filtersArrayCopy.findIndex((item) => item.key === key)
 		filtersArrayCopy[index].filter = filter
-		setFiltersArray(filtersArrayCopy)
 
 		updateResults(filtersArrayCopy)
 	}
 
-	const handleAddRow = () => {
-		setFiltersArray([...filtersArray, { key: uuidv4() }])
+	const handleAddRow = (filters: FilterListItem[]) => {
+		setFiltersArray([...filters, { key: uuidv4() }])
 	}
 
 	const handleRemoveFilter = (key: string) => {
 		const newFilterArray = filtersArray.filter((f) => f.key !== key)
-		setFiltersArray(newFilterArray)
 
 		updateResults(newFilterArray)
 	}
 
+	const handleClearFilter = () => {
+		const newFilterArray: FilterListItem[] = []
+		updateResults(newFilterArray)
+
+		handleAddRow(newFilterArray)
+	}
+
 	useEffect(() => {
-		handleAddRow()
+		handleAddRow(filtersArray)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
@@ -61,6 +67,12 @@ export const Filters = ({
 				iconProps={{ icon: 'DocumentChartBarIcon' }}
 				title={t('title')}
 				headerClassName='pb-4 border-b mb-0'
+				action={
+					<Button v='xs' onClick={handleClearFilter}>
+						<Icon icon='BackspaceIcon' outlined />
+						{t('clear')}
+					</Button>
+				}
 			>
 				<div>
 					<div className='pb-4'>
@@ -80,8 +92,8 @@ export const Filters = ({
 							)
 						})}
 					</div>
-					<div className='pl-3'>
-						<Button v='xs' onClick={handleAddRow}>
+					<div className='pl-7'>
+						<Button v='xs' onClick={() => handleAddRow(filtersArray)}>
 							<Icon icon='PlusSmallIcon' />
 							{t('add')}
 						</Button>
