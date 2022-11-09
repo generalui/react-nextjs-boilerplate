@@ -67,35 +67,32 @@ export const Filters = ({
 				iconProps={{ icon: 'DocumentChartBarIcon' }}
 				title={t('title')}
 				headerClassName='pb-4 border-b mb-0'
-				action={
-					<Button v='xs' onClick={handleClearFilter}>
-						<Icon icon='BackspaceIcon' outlined />
-						{t('clear')}
-					</Button>
-				}
 			>
-				<div>
-					<div className='pb-4'>
-						<FiltersHeader />
-						{filtersArray.map((filter, i) => {
-							return (
-								<Filter
-									key={filter.key}
-									filterKey={filter.key}
-									fields={fields}
-									conditions={conditions}
-									filterTypes={filterTypes}
-									updateFiltersArray={updateFiltersArray}
-									firstItem={i === 0}
-									handleRemoveFilter={handleRemoveFilter}
-								/>
-							)
-						})}
-					</div>
-					<div className='pl-7'>
-						<Button v='xs' onClick={() => handleAddRow(filtersArray)}>
+				<div className='flex flex-col gap-4 p-4'>
+					<FiltersHeader />
+					{filtersArray.map((filter, i) => {
+						return (
+							<Filter
+								key={filter.key}
+								filterKey={filter.key}
+								fields={fields}
+								conditions={conditions}
+								filterTypes={filterTypes}
+								updateFiltersArray={updateFiltersArray}
+								firstItem={i === 0}
+								handleRemoveFilter={handleRemoveFilter}
+							/>
+						)
+					})}
+					<div className='flex flex-row justify-between w-100'>
+						<Button onClick={() => handleAddRow(filtersArray)}>
 							<Icon icon='PlusSmallIcon' />
 							{t('add')}
+						</Button>
+
+						<Button v='secondaryOutlined' onClick={handleClearFilter}>
+							<Icon icon='XMarkIcon' outlined />
+							{t('clear')}
 						</Button>
 					</div>
 				</div>

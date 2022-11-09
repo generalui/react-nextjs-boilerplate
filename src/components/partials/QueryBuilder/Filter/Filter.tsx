@@ -102,8 +102,8 @@ export const Filter = ({
 				onSubmit={onSubmit}
 				render={({ handleSubmit }) => (
 					<form onSubmit={handleSubmit}>
-						<div className='grid grid-cols-8 gap-4 items-center pt-4 content-between pl-7'>
-							<div className='gap-3 md:col-span-1'>
+						<div className='grid grid-cols-12 gap-4 items-center content-between'>
+							<div className='gap-3 col-span-12 md:col-span-2'>
 								{firstItem ? (
 									<Text className='bg-gray-200 rounded py-3 text-center'>{t('where')}</Text>
 								) : (
@@ -116,7 +116,7 @@ export const Filter = ({
 									/>
 								)}
 							</div>
-							<div className='gap-3 col-span-7 md:col-span-2'>
+							<div className='gap-3 col-span-12 md:col-span-3'>
 								<SelectInput
 									name='field'
 									options={fields}
@@ -124,10 +124,10 @@ export const Filter = ({
 									onChange={handleFieldChange}
 								/>
 							</div>
-							<div className='gap-3 col-span-7 md:col-span-2'>
+							<div className='gap-3 col-span-12 md:col-span-3'>
 								<SelectInput<OptionType> name='condition' options={filteredConditions} />
 							</div>
-							<div className='gap-3 col-span-7 md:col-span-2'>
+							<div className='gap-3 col-span-12 md:col-span-3'>
 								{fieldInputType === QueryInputType.select && value ? (
 									<SelectInput
 										name='value'
@@ -137,12 +137,14 @@ export const Filter = ({
 									<Input name='value' type={fieldInputType} ref={inputRef} />
 								)}
 							</div>
-							<div className='h-12'>
-								{firstItem || (
-									<Button className='h-full' onClick={() => handleRemoveFilter(filterKey)}>
-										<Icon icon='TrashIcon' className='m-auto' outlined />
-									</Button>
-								)}
+							<div className='col-span-12 md:col-span-1 h-full flex justify-end'>
+								<Button
+									className='h-full'
+									onClick={() => handleRemoveFilter(filterKey)}
+									disabled={firstItem}
+								>
+									<Icon icon='TrashIcon' className='m-auto' outlined />
+								</Button>
 							</div>
 						</div>
 						<FormSpy
