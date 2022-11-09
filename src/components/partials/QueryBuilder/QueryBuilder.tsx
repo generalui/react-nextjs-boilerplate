@@ -1,15 +1,16 @@
 import cn from 'classnames'
 import { useEffect, useState } from 'react'
-import { Filter, FilterInput, OptionType, QueryBuilderModel } from 'types/QueryBuilder'
+import { Filter, FilterInputWithModel, OptionType } from 'types/QueryBuilder'
 // import { useRouterQuery } from 'hooks/useRouterQuery'
 import { useText } from 'hooks/useText'
 import { List } from 'partials/List'
 import { Column, ListData } from 'partials/List/List.types'
 import { Card } from 'common/Card'
+import { ItemsSelect } from 'common/SelectInput/SelectInput.types'
 import { Filters } from './Filters'
 import { QueryBuilderComponent } from './QueryBuilder.types'
 import { Summary } from './Summary'
-import { queryBuilderConditions } from './queryBuilderConditions'
+import { queryBuilderConditions, queryBuilderFilterTypes } from './queryBuilderConditions'
 
 export const QueryBuilder: QueryBuilderComponent = ({
 	className,
@@ -58,23 +59,27 @@ export const QueryBuilder: QueryBuilderComponent = ({
 	// 	}
 	// }, [conditions, fields, initialValues, query])
 
-	const handleFilterChange = (
-		filterValue: FilterInput,
-		model?: QueryBuilderModel,
-		dataType?: string
-	) => {
-		const change: Filter = {
-			field: filterValue.field.value,
-			condition: filterValue.condition.value,
-			value: typeof filterValue.value === 'string' ? filterValue.value : filterValue.value?.value,
-			model,
-			dataType
-		}
+	const handleFilterChange = (filterValue: FilterInputWithModel[]) => {
+		const filters: Filter[] = filterValue.map((filter) => {
+			return {
+				field: filter.field.value,
+				condition: filter.condition.value,
+				value: typeof filter.value === 'string' ? filter.value : filter.value?.value,
+				filterType: filter.filterType?.value as Filter['filterType'],
+				model: filter.model,
+				dataType: filter.dataType
+			}
+		})
 
-		onFilterChange?.([change])
-		// TODO: re-add query update
-		// update(change)
+		onFilterChange?.(filters)
 	}
+
+	const filterTypes: ItemsSelect = Object.entries(queryBuilderFilterTypes).map(([key, value]) => {
+		return {
+			label: t(value.key),
+			value: key
+		}
+	})
 
 	return (
 		<div className={cn(className, 'flex flex-col gap-6')} data-testid={testId}>
@@ -82,8 +87,7 @@ export const QueryBuilder: QueryBuilderComponent = ({
 				fields={fields}
 				conditions={conditions}
 				onChange={handleFilterChange}
-				// initialValues={initialValues}
-				// initialDataType={initialDataType}
+				filterTypes={filterTypes}
 			/>
 			<Summary dataSummaryCards={dataSummaryCards} />
 			<Card iconProps={{ icon: 'UserIcon', wrapperClass: 'bg-green-300' }} title={title}>

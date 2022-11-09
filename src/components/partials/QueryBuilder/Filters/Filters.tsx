@@ -1,32 +1,65 @@
-import { useState } from 'react'
-import { FormSpy } from 'react-final-form'
-import { FilterInput, QueryBuilderModel } from 'types/QueryBuilder'
-import { debounce } from 'utils/debounce'
+import { useEffect, useState } from 'react'
+import { FilterInputWithModel, FilterListItem } from 'types/QueryBuilder'
+import { v4 as uuidv4 } from 'uuid'
 import { useText } from 'hooks/useText'
-import { Form } from 'partials/Form'
-import { Condition } from 'partials/QueryBuilder/Condition'
+import { Filter } from 'partials/QueryBuilder/Filter/Filter'
+import { FiltersHeader } from 'partials/QueryBuilder/FiltersHeader'
+import { Button } from 'common/Button'
 import { Card } from 'common/Card'
+import { Icon } from 'common/Icon'
 import { FiltersProps } from './Filters.types'
 
 export const Filters = ({
 	className,
 	fields,
 	conditions,
+	filterTypes,
 	onChange,
-	initialValues,
 	testId = 'Filters'
 }: FiltersProps) => {
 	const { t } = useText('queryBuilder.filters')
-	const [fieldDataType, setFieldDataType] = useState<string | undefined>()
-	const [fieldModel, setFieldModel] = useState<QueryBuilderModel | undefined>()
+	const [filtersArray, setFiltersArray] = useState<FilterListItem[]>([])
 
-	const onSubmit = (filters: FilterInput) => {
-		try {
-			onChange(filters, fieldModel, fieldDataType)
-		} catch (error) {
-			return
-		}
+	const updateResults = (filters: FilterListItem[]) => {
+		setFiltersArray(filters)
+		onChange(getFiltersArray(filters))
 	}
+
+	const getFiltersArray = (filters: FilterListItem[]) => {
+		return filters
+			.filter((filter) => !!filter?.filter)
+			.map((filter) => ({ ...filter.filter } as FilterInputWithModel))
+	}
+
+	const updateFiltersArray = (filter: FilterInputWithModel, key: string) => {
+		const filtersArrayCopy = [...filtersArray]
+		const index = filtersArrayCopy.findIndex((item) => item.key === key)
+		filtersArrayCopy[index].filter = filter
+
+		updateResults(filtersArrayCopy)
+	}
+
+	const handleAddRow = (filters: FilterListItem[]) => {
+		setFiltersArray([...filters, { key: uuidv4() }])
+	}
+
+	const handleRemoveFilter = (key: string) => {
+		const newFilterArray = filtersArray.filter((f) => f.key !== key)
+
+		updateResults(newFilterArray)
+	}
+
+	const handleClearFilter = () => {
+		const newFilterArray: FilterListItem[] = []
+		updateResults(newFilterArray)
+
+		handleAddRow(newFilterArray)
+	}
+
+	useEffect(() => {
+		handleAddRow(filtersArray)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
 	return (
 		<div className={className} data-testid={testId}>
@@ -35,25 +68,34 @@ export const Filters = ({
 				title={t('title')}
 				headerClassName='pb-4 border-b mb-0'
 			>
-				<Form
-					onSubmit={onSubmit}
-					initialValues={initialValues}
-					render={({ handleSubmit }) => (
-						<form onSubmit={handleSubmit}>
-							<Condition
+				<div className='flex flex-col gap-4 p-4'>
+					<FiltersHeader />
+					{filtersArray.map((filter, i) => {
+						return (
+							<Filter
+								key={filter.key}
+								filterKey={filter.key}
 								fields={fields}
 								conditions={conditions}
-								onFieldTypeChange={setFieldDataType}
-								onModelChange={setFieldModel}
+								filterTypes={filterTypes}
+								updateFiltersArray={updateFiltersArray}
+								firstItem={i === 0}
+								handleRemoveFilter={handleRemoveFilter}
 							/>
-							<FormSpy
-								onChange={(props) => {
-									debounce(() => onSubmit(props.values as FilterInput), 500, 'filters')()
-								}}
-							/>
-						</form>
-					)}
-				/>
+						)
+					})}
+					<div className='flex flex-row justify-between w-100'>
+						<Button onClick={() => handleAddRow(filtersArray)}>
+							<Icon icon='PlusSmallIcon' />
+							{t('add')}
+						</Button>
+
+						<Button v='secondaryOutlined' onClick={handleClearFilter}>
+							<Icon icon='XMarkIcon' outlined />
+							{t('clear')}
+						</Button>
+					</div>
+				</div>
 			</Card>
 		</div>
 	)

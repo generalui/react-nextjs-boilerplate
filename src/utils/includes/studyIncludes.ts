@@ -29,6 +29,22 @@ export const studyIncludesConsent = {
 	}
 }
 
+export const studySelectParticipantIds: { select: Prisma.StudySelect } = {
+	select: {
+		id: true,
+		// Include all users in the returned object,
+		participants: {
+			include: {
+				participant: {
+					select: {
+						id: true
+					}
+				}
+			}
+		}
+	}
+}
+
 export const studyIncludesParticipantIds: StudyIncludes = {
 	include: {
 		// Include all users in the returned object,

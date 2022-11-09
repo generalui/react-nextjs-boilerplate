@@ -34,3 +34,8 @@ export const queryBuilderConditions = {
 		allowedFieldTypes: [QueryInputType.select]
 	}
 }
+
+export const queryBuilderFilterTypes = {
+	and: { key: 'filterTypes.and' },
+	or: { key: 'filterTypes.or' }
+}

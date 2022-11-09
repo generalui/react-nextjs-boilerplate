@@ -7,7 +7,7 @@ const queryBuilder = {
 		lt: { label: { message: 'Before' } },
 		gt: { label: { message: 'After' } },
 		includes: { label: { message: 'Includes' } },
-		excludes: { label: { message: 'Exclude' } }
+		excludes: { label: { message: 'Excludes' } }
 	},
 
 	filters: {
@@ -20,6 +20,18 @@ const queryBuilder = {
 		},
 		value: {
 			message: 'Value'
+		},
+		filterType: {
+			message: 'Filter Type'
+		},
+		add: {
+			message: 'Add Row'
+		},
+		where: {
+			message: 'Where'
+		},
+		clear: {
+			message: 'Clear Filters'
 		}
 	},
 	summary: {
@@ -37,6 +49,10 @@ const queryBuilder = {
 			singular: { message: 'Study' },
 			plural: { message: 'Studies' }
 		}
+	},
+	filterTypes: {
+		and: { message: 'And' },
+		or: { message: 'Or' }
 	}
 }
 

@@ -4,8 +4,9 @@
 import { render, screen } from '@testing-library/react'
 import '__mocks__/index'
 import React from 'react'
+import { FilterInput } from 'types/QueryBuilder'
 import { Form } from 'partials/Form'
-import { Condition } from 'partials/QueryBuilder/Condition'
+import { Filter } from 'partials/QueryBuilder/Filter'
 
 describe('Condition Component', () => {
 	it('renders on the page', () => {
@@ -16,18 +17,22 @@ describe('Condition Component', () => {
 				}}
 				render={({ handleSubmit }) => (
 					<form onSubmit={handleSubmit}>
-						<Condition
+						<Filter
 							fields={[]}
 							conditions={[]}
 							onFieldTypeChange={jest.fn}
 							onModelChange={jest.fn}
+							filterTypes={[]}
+							updateFiltersArray={(filter: FilterInput) => {
+								return
+							}}
 						/>
 					</form>
 				)}
 			/>
 		)
 
-		const component = screen.getByTestId('Condition')
+		const component = screen.getByTestId('Filter')
 
 		expect(component).toBeInTheDocument()
 	})

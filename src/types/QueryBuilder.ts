@@ -1,5 +1,6 @@
 import { Prisma } from '@prisma/client'
 import { z } from 'zod'
+import { ItemsSelect } from 'common/SelectInput/SelectInput.types'
 
 export enum QueryInputType {
 	text = 'text',
@@ -7,9 +8,10 @@ export enum QueryInputType {
 	select = 'select'
 }
 
-export type QueryBuilderModel = 'participant' | 'study'
-
-export type ItemsSelect = { label: string; value: string }[]
+export enum QueryBuilderModel {
+	participant = 'participant',
+	study = 'study'
+}
 
 export type OptionType = {
 	label: string
@@ -28,6 +30,7 @@ export type Filter = {
 	value: string
 	dataType?: string
 	model?: QueryBuilderModel
+	filterType?: 'and' | 'or'
 }
 
 const fieldSchema = z.object({
@@ -42,10 +45,13 @@ const fieldCondition = z.object({
 	allowedFieldTypes: z.array(z.string())
 })
 
+const selectInput = z.object({ label: z.string(), value: z.string() })
+
 export const FilterSchema = z.object({
 	field: fieldSchema,
 	condition: fieldCondition,
-	value: z.union([z.string(), z.object({ label: z.string(), value: z.string() })])
+	value: z.union([z.string(), selectInput]),
+	filterType: selectInput.optional()
 })
 
 export type ApiQueryResults = {
@@ -59,6 +65,11 @@ export type ApiQueryResults = {
 }
 
 export type FilterInput = z.infer<typeof FilterSchema>
+
+export type FilterInputWithModel = FilterInput & {
+	model: QueryBuilderModel | undefined
+	dataType: string | undefined
+}
 
 export type QueryBuilderParams = {
 	model: QueryBuilderModel
@@ -79,3 +90,20 @@ export type QueryBuilderField = {
 }
 
 export type QueryFields = Record<string, QueryBuilderFieldGroup>
+
+export type FilterListItem = {
+	filter?: FilterInputWithModel
+	key: string
+}
+
+export type WhereStatementWithFilterType = {
+	OR: Record<string, unknown>[]
+	AND: Record<string, unknown>[]
+}
+
+export type WhereStatement = WhereStatementWithFilterType | {} | undefined
+
+export type GetWhereFromFilters = (
+	filters: Filter[],
+	model: QueryBuilderModel
+) => { where?: WhereStatement }
