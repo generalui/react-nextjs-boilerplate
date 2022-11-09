@@ -28,7 +28,7 @@ export const useAddParticipantsToStudy = ({
 			addParticipantsToStudy(studyId, participantInput.participants),
 		{
 			onSuccess: () => {
-				toast(success('updated'))
+				toast(success('participantsAdded'))
 				onSuccess?.()
 			},
 			onError: (err, _newStudy, context?: { previousStudy: Study }) => {
@@ -36,7 +36,7 @@ export const useAddParticipantsToStudy = ({
 
 				toast(
 					(err as AxiosError<{ message: string }>)?.response?.data?.message ||
-						error('failedToUpdate'),
+						error('failedToAddParticipants'),
 					'error'
 				)
 				onError?.()
