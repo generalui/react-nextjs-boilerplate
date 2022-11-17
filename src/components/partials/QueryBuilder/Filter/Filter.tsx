@@ -149,7 +149,17 @@ export const Filter = ({
 						</div>
 						<FormSpy
 							onChange={(props) => {
-								debounce(() => onSubmit(props.values as FilterInput), 500, 'filters')()
+								const trimmedValues = Object.entries(props.values).reduce(
+									(formValues, [key, value]) => {
+										let newValue = value
+										if (typeof value === 'string') {
+											newValue = value.trim()
+										}
+										return { ...formValues, [key]: newValue }
+									},
+									{} as Record<string, unknown>
+								)
+								debounce(() => onSubmit(trimmedValues as FilterInput), 500, 'filters')()
 							}}
 						/>
 					</form>
