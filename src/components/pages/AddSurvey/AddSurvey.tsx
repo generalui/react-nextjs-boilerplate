@@ -4,7 +4,8 @@
 import { useEffect, useState } from 'react'
 import { UploadCSVInput } from 'types/CSV'
 import { useParseCSV } from 'hooks/useParseCSV'
-import { SurveyResponses } from 'pages/AddSurvey'
+import { useText } from 'hooks/useText'
+import { SurveyResponse, SurveyResponses } from 'pages/AddSurvey'
 import { UploadCSV } from 'partials/AddParticipantsCSVForm/steps/UploadCSV'
 import { PageWrapper } from 'partials/PageWrapper'
 import { Card } from 'common/Card'
@@ -14,70 +15,37 @@ export const AddSurvey = function AddSurvey({ testId = 'AddSurvey' }: AddSurveyP
 	const { parse, parsedCSV } = useParseCSV()
 	const [participantResponses, setParticipantResponses] = useState<SurveyResponses>([])
 	const [surveyNames, setSurveyNames] = useState<string[]>([])
-	console.log('🚀 ~ participantResponses', participantResponses)
+	const { t } = useText('studies.addSurvey')
 
 	useEffect(() => {
 		if (parsedCSV) {
-			// const nonNullResponses = parsedCSV.map((response) => {
-			// 	Object.entries(response).map(([key, entry]) => {
-			// 		if (!entry) {
-			// 			delete response[key]
-			// 		}
-			// 	})
-
-			// 	return response
-			// })
-
-			const newResponses: SurveyResponses = parsedCSV.reduce(
-				(responses: SurveyResponses, currentResponse) => {
-					if (responses.length > 0) {
-						const response = responses.find(
-							(response) => response['participant_id'] === currentResponse['participant_id']
-						)
-
-						if (response) {
-							const newResponse = { ...response, ...currentResponse }
-							return [
-								...responses.filter(
-									(response) => response['participant_id'] !== currentResponse['participant_id']
-								),
-								newResponse
-							]
-						} else {
-							responses.push(currentResponse)
-						}
-					} else {
-						responses.push(currentResponse)
-					}
-					return responses
-				},
-				[]
-			)
-
-			const test = newResponses.reduce((acc: any, response, i) => {
-				const participantSurveyResponses: any = []
-				let objeto = {}
+			const ResponsesBySurvey = parsedCSV.reduce((acc: SurveyResponses, response, i) => {
+				const participantSurveyResponses: SurveyResponse = []
+				let currentResponse: Record<string, unknown> = {}
 				const lastKey = Object.keys(response)[Object.keys(response).length - 1]
 				Object.entries(response).map(([key, value]) => {
 					if (key.includes('timestamp')) {
-						participantSurveyResponses.push(objeto)
 						const surveyName = key.split('_timestamp')[0]
-						objeto = {
-							surveyName,
-							timestamp: value
+						if (value) {
+							participantSurveyResponses.push(currentResponse)
+							currentResponse = {
+								surveyName,
+								timestamp: value
+							}
 						}
 						if (i === 0) setSurveyNames((prev) => [...prev, surveyName])
 					} else {
-						if (value) objeto[key] = value
+						if (value) currentResponse[key] = value
 					}
 					if (key === lastKey) {
-						participantSurveyResponses.push(objeto)
+						participantSurveyResponses.push(currentResponse)
 					}
 				})
 				acc.push(participantSurveyResponses)
 				return acc
 			}, [])
-			setParticipantResponses(test)
+			console.log('🚀 ~ participantSurveyResponses', ResponsesBySurvey)
+			setParticipantResponses(ResponsesBySurvey)
 		}
 	}, [parsedCSV])
 
@@ -86,19 +54,19 @@ export const AddSurvey = function AddSurvey({ testId = 'AddSurvey' }: AddSurveyP
 	}
 
 	return (
-		<PageWrapper title='AddSurvey' testId={testId}>
+		<PageWrapper title={t('title')} testId={testId}>
 			<Card>
 				<UploadCSV onSubmit={handleUploadCSV} />
 
 				{participantResponses.length > 0 && (
 					<div className='pt-6'>
-						<h2>{'Survey Responses'}</h2>
+						<b>{t('summary')}</b>
 						<div>
-							<b>{'Amount of Participants:'}&nbsp;</b>
+							{t('participantsAmount')}&nbsp;
 							{participantResponses.length}
 						</div>
 						<div>
-							<b>{'Amount of Surveys:'}&nbsp;</b>
+							{t('surveysAmount')}&nbsp;
 							{surveyNames.length}
 						</div>
 					</div>

@@ -242,6 +242,12 @@ const studies = {
 			},
 			cancel: { message: 'Cancel' }
 		}
+	},
+	addSurvey: {
+		title: { message: 'Add Survey' },
+		summary: { message: 'Survey Responses Summary' },
+		participantsAmount: { message: 'Amount of Participants:' },
+		surveysAmount: { message: 'Amount of Surveys:' }
 	}
 }
 

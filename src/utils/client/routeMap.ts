@@ -41,7 +41,7 @@ export const routeMap: Record<
 	},
 	'add-survey': {
 		href: '/add-survey',
-		icon: 'UserGroupIcon',
+		icon: 'DocumentChartBarIcon',
 		labelKey: 'common.sidebar.nav.addSurvey',
 		role: 'admin'
 	}
