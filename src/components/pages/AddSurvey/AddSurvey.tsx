@@ -1,6 +1,7 @@
 /*!
  * AddSurvey Page
  */
+import { groupBy } from 'lodash'
 import { useEffect, useState } from 'react'
 import { UploadCSVInput } from 'types/CSV'
 import { useParseCSV } from 'hooks/useParseCSV'
@@ -19,33 +20,36 @@ export const AddSurvey = function AddSurvey({ testId = 'AddSurvey' }: AddSurveyP
 
 	useEffect(() => {
 		if (parsedCSV) {
-			const ResponsesBySurvey = parsedCSV.reduce((acc: SurveyResponses, response, i) => {
-				const participantSurveyResponses: SurveyResponse = []
+			const responsesByRow = parsedCSV.reduce((responses: SurveyResponse, row, i) => {
+				const participantId = row['participant_id']
+				let participantSurveyResponses: SurveyResponse = []
 				let currentResponse: Record<string, unknown> = {}
-				const lastKey = Object.keys(response)[Object.keys(response).length - 1]
-				Object.entries(response).map(([key, value]) => {
+
+				Object.entries(row).map(([key, value]) => {
 					if (key.includes('timestamp')) {
 						const surveyName = key.split('_timestamp')[0]
 						if (value) {
 							participantSurveyResponses.push(currentResponse)
 							currentResponse = {
 								surveyName,
-								timestamp: value
+								timestamp: value,
+								participant_id: participantId
 							}
 						}
 						if (i === 0) setSurveyNames((prev) => [...prev, surveyName])
 					} else {
 						if (value) currentResponse[key] = value
 					}
-					if (key === lastKey) {
-						participantSurveyResponses.push(currentResponse)
-					}
 				})
-				acc.push(participantSurveyResponses)
-				return acc
+				participantSurveyResponses = [...participantSurveyResponses, currentResponse]
+				return [...responses, ...participantSurveyResponses]
 			}, [])
-			console.log('🚀 ~ participantSurveyResponses', ResponsesBySurvey)
-			setParticipantResponses(ResponsesBySurvey)
+
+			const responsesByParticipant: SurveyResponses = Object.values(
+				groupBy(responsesByRow, 'participant_id')
+			).map((responseByParticipant) => responseByParticipant)
+
+			setParticipantResponses(responsesByParticipant)
 		}
 	}, [parsedCSV])
 
