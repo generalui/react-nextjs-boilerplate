@@ -126,10 +126,6 @@ const studies = {
 					},
 					3: {
 						message: 'Review your import.'
-					},
-					4: {
-						message:
-							'Participants will be emailed a password that they can use with their email to log in and view study details and update their consent information.'
 					}
 				},
 				detailsLabel: { message: 'REDCap XML Files' },

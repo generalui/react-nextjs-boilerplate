@@ -13,6 +13,7 @@ import { UploadCSV } from 'partials/AddParticipantsCSVForm/steps/UploadCSV'
 import { PageWrapper } from 'partials/PageWrapper'
 import { Breadcrumbs } from 'common/Breadcrumbs'
 import { Card } from 'common/Card'
+import { Icon } from 'common/Icon'
 import { AddSurveyProps } from './AddSurvey.types'
 
 export const AddSurvey = function AddSurvey({ testId = 'AddSurvey' }: AddSurveyProps) {
@@ -77,7 +78,11 @@ export const AddSurvey = function AddSurvey({ testId = 'AddSurvey' }: AddSurveyP
 		<PageWrapper title={t('title')} testId={testId}>
 			<Breadcrumbs className='col-span-8' />
 
-			<Card>
+			<Card className='flex flex-col gap-4'>
+				<div className='flex items-center gap-2'>
+					<Icon icon='DocumentIcon' />
+					<h2 className={'font-semibold text-2xl'}>{t('title')}</h2>
+				</div>
 				<UploadCSV onSubmit={handleUploadCSV} />
 			</Card>
 		</PageWrapper>
