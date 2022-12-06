@@ -100,7 +100,7 @@ model Study {
   submissionDate DateTime                @default(now()) @map("submission_date")
   endDate        DateTime                @map("end_date")
   title          String
-  dataTypes      StudyDataType[]        @map("data_types")
+  dataTypes      StudyDataType[]         @map("data_types")
   users          CoordinatorsOnStudies[]
   participants   ParticipantsOnStudies[]
   documentation  Document[]
@@ -120,11 +120,11 @@ model Avatar {
 }
 
 model DataVault {
-  study      Study          @relation(fields: [studyId], references: [id])
-  studyId    String         @map("study_id")
-  document   Document       @relation(fields: [documentId], references: [id])
-  documentId String         @map("document_id")
-  insertedAt DateTime       @default(now()) @map("inserted_at")
+  study      Study         @relation(fields: [studyId], references: [id])
+  studyId    String        @map("study_id")
+  document   Document      @relation(fields: [documentId], references: [id])
+  documentId String        @map("document_id")
+  insertedAt DateTime      @default(now()) @map("inserted_at")
   dataType   StudyDataType
 
   @@id([documentId])

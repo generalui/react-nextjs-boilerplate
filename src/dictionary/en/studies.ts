@@ -101,6 +101,10 @@ const studies = {
 			files: {
 				alt: { message: 'Document Upload Icon' },
 				label: { message: 'Upload Files' }
+			},
+			addSurvey: {
+				alt: { message: 'Document Upload Icon' },
+				label: { message: 'Add Survey' }
 			}
 		}
 	},

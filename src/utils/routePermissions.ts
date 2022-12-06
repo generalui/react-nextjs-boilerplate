@@ -12,7 +12,7 @@ export const routePermissions: RoutePermissions = {
 		'/studies/[studyId]',
 		'/studies/[studyId]/add-participants',
 		'/participants',
-		'/add-survey'
+		'/studies/[studyId]/add-survey'
 	],
 	participant: ['/participant', '/participant/studies/[studyId]'],
 	general: ['/auth/signin']

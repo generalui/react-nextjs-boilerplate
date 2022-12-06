@@ -9,6 +9,7 @@ import { useText } from 'hooks/useText'
 import { SurveyResponse, SurveyResponses } from 'pages/AddSurvey'
 import { UploadCSV } from 'partials/AddParticipantsCSVForm/steps/UploadCSV'
 import { PageWrapper } from 'partials/PageWrapper'
+import { Breadcrumbs } from 'common/Breadcrumbs'
 import { Card } from 'common/Card'
 import { AddSurveyProps } from './AddSurvey.types'
 
@@ -67,6 +68,8 @@ export const AddSurvey = function AddSurvey({ testId = 'AddSurvey' }: AddSurveyP
 
 	return (
 		<PageWrapper title={t('title')} testId={testId}>
+			<Breadcrumbs className='col-span-8' />
+
 			<Card>
 				<UploadCSV onSubmit={handleUploadCSV} />
 
