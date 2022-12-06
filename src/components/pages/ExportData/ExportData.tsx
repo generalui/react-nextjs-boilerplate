@@ -1,6 +1,7 @@
 /*!
  * ExportData Page
  */
+import { handleValidate } from 'utils/client/handleValidate'
 import { useText } from 'hooks/useText'
 import { Form } from 'partials/Form'
 import { PageWrapper } from 'partials/PageWrapper'
@@ -32,35 +33,40 @@ export const ExportData = function ExportData({ testId = 'ExportData' }: ExportD
 			>
 				<Form
 					onSubmit={onSubmit}
+					validate={(values) => handleValidate(values, ExportDataSchema)}
 					render={({ handleSubmit }) => (
 						<form onSubmit={handleSubmit}>
 							{/* Export instructions text */}
 							<div className='py-4'>
 								<Text size='base'>{t('instructions')}</Text>
 							</div>
-							<div className='grid justify-items-stretch gap-x-8 gap-y-2'>
+
+							{/* Export data select */}
+							<div className='flex flex-col gap-2'>
 								<Text size='xs' className='text-gray-500 font-semibold'>
 									{t('data')}
 								</Text>
-								<div className='grid grid-cols-6 gap-4'>
-									<div className='col-span-5'>
-										<SelectInput
-											name='data'
-											options={options.map((option) => {
-												return {
-													label: t(`options.${option}`),
-													value: option
-												}
-											})}
-										/>
-									</div>
-									<SubmitButton
-										className='w-full justify-center md:justify-start md:w-auto'
-										disableOnLoading
-									>
-										<div className='m-auto'>{t('buttons.submit')}</div>
-									</SubmitButton>
+								<div>
+									<SelectInput
+										name='data'
+										options={options.map((option) => {
+											return {
+												label: t(`options.${option}`),
+												value: option
+											}
+										})}
+									/>
 								</div>
+							</div>
+
+							{/* Submit button */}
+							<div className='pt-4'>
+								<SubmitButton
+									className='w-full justify-center md:justify-start  h-12 md:w-auto'
+									disableOnLoading
+								>
+									<div className='m-auto'>{t('buttons.submit')}</div>
+								</SubmitButton>
 							</div>
 						</form>
 					)}
