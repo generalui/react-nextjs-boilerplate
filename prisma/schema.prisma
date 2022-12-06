@@ -93,18 +93,19 @@ enum StudyDataType {
 }
 
 model Study {
-  id             String                  @id @default(cuid())
-  description    String
-  image          Avatar?
-  status         StudyStatus             @default(new)
-  submissionDate DateTime                @default(now()) @map("submission_date")
-  endDate        DateTime                @map("end_date")
-  title          String
-  dataTypes      StudyDataType[]         @map("data_types")
-  users          CoordinatorsOnStudies[]
-  participants   ParticipantsOnStudies[]
-  documentation  Document[]
-  dataVault      DataVault[]
+  id              String                  @id @default(cuid())
+  description     String
+  image           Avatar?
+  status          StudyStatus             @default(new)
+  submissionDate  DateTime                @default(now()) @map("submission_date")
+  endDate         DateTime                @map("end_date")
+  title           String
+  dataTypes       StudyDataType[]         @map("data_types")
+  users           CoordinatorsOnStudies[]
+  participants    ParticipantsOnStudies[]
+  documentation   Document[]
+  dataVault       DataVault[]
+  surveyResponses SurveyResponse[]
 }
 
 model Avatar {
@@ -229,4 +230,16 @@ model Participant {
   emergencyContactWorkPhone       String?                 @map("emergency_contact_work_phone")
   emergencyContactPhysicalAddress String?                 @map("emergency_contact_physical_address")
   studies                         ParticipantsOnStudies[]
+}
+
+model SurveyResponse {
+  id              String   @id @default(cuid())
+  insertedAt      DateTime @default(now()) @map("inserted_at")
+  surveyId        String   @map("survey_id")
+  studyId         String   @map("study_id")
+  redcapEventName String   @map("redcap_event_name")
+  timestamp       String
+  responses       Json
+  participantId   String   @map("participant_id")
+  study           Study    @relation(fields: [studyId], references: [id])
 }

@@ -48,13 +48,15 @@ const studies = {
 	success: {
 		created: { message: 'Study was successfully created' },
 		updated: { message: 'Study was successfully updated' },
-		participantsAdded: { message: 'Participants have been added to the study successfully' }
+		participantsAdded: { message: 'Participants have been added to the study successfully' },
+		surveyAdded: { message: 'Survey has been added to the study successfully' }
 	},
 	error: {
 		doesNotExist: { message: 'Study does not exist' },
 		failedToUpload: { message: 'Failed to upload' },
 		failedToUpdate: { message: 'Failed to update' },
-		failedToAddParticipants: { message: 'Participants could not be added to study' }
+		failedToAddParticipants: { message: 'Participants could not be added to study' },
+		failedToAddSurvey: { message: 'Survey could not be added to study' }
 	},
 	documentation: {
 		title: { message: 'Documentation' },
