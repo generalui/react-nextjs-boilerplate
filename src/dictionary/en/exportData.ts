@@ -12,6 +12,14 @@ const exportData = {
 		submit: {
 			message: 'Export CSV'
 		}
+	},
+	options: {
+		studies: {
+			message: 'Studies'
+		},
+		users: {
+			message: 'Users'
+		}
 	}
 }
 
