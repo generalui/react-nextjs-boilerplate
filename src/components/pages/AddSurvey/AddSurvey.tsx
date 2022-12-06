@@ -1,7 +1,7 @@
 /*!
  * AddSurvey Page
  */
-import { groupBy } from 'lodash'
+import { groupBy, isEmpty, omitBy } from 'lodash'
 import { useEffect, useState } from 'react'
 import { UploadCSVInput } from 'types/CSV'
 import { useParseCSV } from 'hooks/useParseCSV'
@@ -15,30 +15,37 @@ import { AddSurveyProps } from './AddSurvey.types'
 export const AddSurvey = function AddSurvey({ testId = 'AddSurvey' }: AddSurveyProps) {
 	const { parse, parsedCSV } = useParseCSV()
 	const [participantResponses, setParticipantResponses] = useState<SurveyResponses>([])
-	const [surveyNames, setSurveyNames] = useState<string[]>([])
+	const [surveys, setSurveys] = useState<string[]>([])
 	const { t } = useText('studies.addSurvey')
 
 	useEffect(() => {
 		if (parsedCSV) {
-			const responsesByRow = parsedCSV.reduce((responses: SurveyResponse, row, i) => {
-				const participantId = row['participant_id']
+			const surveyResponses = parsedCSV.reduce((responses: SurveyResponse, row, i) => {
+				const { participant_id, redcap_event_name } = row
 				let participantSurveyResponses: SurveyResponse = []
 				let currentResponse: Record<string, unknown> = {}
 
 				Object.entries(row).map(([key, value]) => {
 					if (key.includes('timestamp')) {
-						const surveyName = key.split('_timestamp')[0]
+						const survey_id = key.split('_timestamp')[0]
 						if (value) {
 							participantSurveyResponses.push(currentResponse)
 							currentResponse = {
-								surveyName,
+								survey_id,
 								timestamp: value,
-								participant_id: participantId
+								participant_id,
+								redcap_event_name
 							}
 						}
-						if (i === 0) setSurveyNames((prev) => [...prev, surveyName])
+						if (i === 0) setSurveys((prev) => [...prev, survey_id])
 					} else {
-						if (value) currentResponse[key] = value
+						if (value && key !== 'participant_id' && key !== 'redcap_event_name')
+							if (currentResponse['survey_responses']) {
+								currentResponse['survey_responses'] = {
+									...currentResponse['survey_responses'],
+									[key]: value
+								}
+							}
 					}
 				})
 				participantSurveyResponses = [...participantSurveyResponses, currentResponse]
@@ -46,8 +53,9 @@ export const AddSurvey = function AddSurvey({ testId = 'AddSurvey' }: AddSurveyP
 			}, [])
 
 			const responsesByParticipant: SurveyResponses = Object.values(
-				groupBy(responsesByRow, 'participant_id')
+				groupBy(omitBy(surveyResponses, isEmpty), 'participant_id')
 			).map((responseByParticipant) => responseByParticipant)
+			console.log('🚀 ~ responsesByParticipant', responsesByParticipant)
 
 			setParticipantResponses(responsesByParticipant)
 		}
@@ -71,7 +79,7 @@ export const AddSurvey = function AddSurvey({ testId = 'AddSurvey' }: AddSurveyP
 						</div>
 						<div>
 							{t('surveysAmount')}&nbsp;
-							{surveyNames.length}
+							{surveys.length}
 						</div>
 					</div>
 				)}
