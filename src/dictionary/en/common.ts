@@ -41,6 +41,9 @@ const common = {
 			},
 			participants: {
 				message: 'Participants'
+			},
+			exportData: {
+				message: 'Export Data'
 			}
 		}
 	},
