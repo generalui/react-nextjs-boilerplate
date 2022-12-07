@@ -14,11 +14,8 @@ const exportData = {
 		}
 	},
 	options: {
-		studies: {
+		study: {
 			message: 'Studies'
-		},
-		users: {
-			message: 'Users'
 		}
 	}
 }

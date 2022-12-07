@@ -2,12 +2,13 @@ import { CommonProps } from 'types/CommonProps'
 import { z } from 'zod'
 
 export const ExportDataSchema = z.object({
-	data: z.object({
-		value: z.string(),
+	schema: z.object({
+		value: z.literal('study'),
 		label: z.string()
 	})
 })
 
-export type ExportDataInput = z.infer<typeof ExportDataSchema>
+export type ExportSchemaInput = z.infer<typeof ExportDataSchema>
+export type SchemaOptions = ExportSchemaInput['schema']['value']
 
 export interface ExportDataProps extends CommonProps {}

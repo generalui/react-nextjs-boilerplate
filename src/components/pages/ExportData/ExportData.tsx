@@ -1,7 +1,9 @@
 /*!
  * ExportData Page
  */
+import { useState } from 'react'
 import { handleValidate } from 'utils/client/handleValidate'
+import { useExportData } from 'hooks/api/exportData/useExportData'
 import { useText } from 'hooks/useText'
 import { Form } from 'partials/Form'
 import { PageWrapper } from 'partials/PageWrapper'
@@ -9,16 +11,23 @@ import { Card } from 'common/Card'
 import { SelectInput } from 'common/SelectInput'
 import { SubmitButton } from 'common/SubmitButton'
 import { Text } from 'common/Text'
-import { ExportDataInput, ExportDataProps, ExportDataSchema } from './ExportData.types'
+import {
+	ExportDataProps,
+	ExportDataSchema,
+	ExportSchemaInput,
+	SchemaOptions
+} from './ExportData.types'
 
 export const ExportData = function ExportData({ testId = 'ExportData' }: ExportDataProps) {
+	const [schemaToExport, setSchemaToExport] = useState<ExportSchemaInput>()
 	const { t } = useText('exportData')
-	const options = ['studies']
+	useExportData(schemaToExport)
+	const options: SchemaOptions[] = ['study']
 
-	const onSubmit = (values: ExportDataInput) => {
+	const onSubmit = (values: ExportSchemaInput) => {
 		try {
 			ExportDataSchema.parse(values)
-			console.log('🚀 ~ values', values)
+			setSchemaToExport(values)
 		} catch (error) {
 			return error
 		}
@@ -48,7 +57,7 @@ export const ExportData = function ExportData({ testId = 'ExportData' }: ExportD
 								</Text>
 								<div>
 									<SelectInput
-										name='data'
+										name='schema'
 										options={options.map((option) => {
 											return {
 												label: t(`options.${option}`),
