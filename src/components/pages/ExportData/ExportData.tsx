@@ -21,7 +21,18 @@ import {
 export const ExportData = function ExportData({ testId = 'ExportData' }: ExportDataProps) {
 	const [schemaToExport, setSchemaToExport] = useState<ExportSchemaInput>()
 	const { t } = useText('exportData')
-	useExportData(schemaToExport)
+	const { data } = useExportData(schemaToExport)
+	console.log('🚀 ~ data', data)
+	if (data) {
+		const hiddenElement = document.createElement('a')
+		hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(data[0])
+		hiddenElement.target = '_blank'
+
+		//provide the name for the CSV file to be downloaded
+		hiddenElement.download = 'data.csv'
+		hiddenElement.click()
+	}
+
 	const options: SchemaOptions[] = ['study']
 
 	const onSubmit = (values: ExportSchemaInput) => {
