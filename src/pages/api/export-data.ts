@@ -25,7 +25,8 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 			.replace(',', '')
 			.replace(/:/g, '_')
 			.replace(/ /g, '_')
-		const filename = `${schemaLabel.toLocaleLowerCase()}_${datetime}.csv`
+		const schemaName = schemaLabel.toLocaleLowerCase().replace(/ /g, '_')
+		const filename = `${schemaName}_${datetime}.csv`
 		return [{ csv, filename }]
 	}
 
