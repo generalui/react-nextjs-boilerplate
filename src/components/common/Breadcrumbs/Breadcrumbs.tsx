@@ -7,7 +7,7 @@ import { BreadcrumbsProps } from './Breadcrumbs.types'
 
 export const Breadcrumbs = ({ className, testId = 'Breadcrumbs' }: BreadcrumbsProps) => {
 	const { t } = useText()
-	const { pathname } = useRouter()
+	const { pathname, query } = useRouter()
 
 	if (!pathname)
 		return (
@@ -40,10 +40,11 @@ export const Breadcrumbs = ({ className, testId = 'Breadcrumbs' }: BreadcrumbsPr
 
 		if (!href) {
 			for (let i = 0; i <= Math.min(index, pathNameList.length - 1); i++) {
-				href += `/${pathNameList[i]}`
+				href += pathNameList[i].includes('[')
+					? `/${query[pathNameList[i].slice(1, -1)]}`
+					: `/${pathNameList[i]}`
 			}
 		}
-
 		return { href, labelKey }
 	}
 

@@ -29,7 +29,8 @@ export const routeMap: Record<
 		subRoutes: {
 			'[studyId]': { labelKey: 'studies.details.title' },
 			'redcap-xml': { labelKey: 'studies.redcapXMLForm.title' },
-			'add-participants': { labelKey: 'studies.addParticipants.title' }
+			'add-participants': { labelKey: 'studies.addParticipants.title' },
+			'add-survey': { labelKey: 'studies.addSurvey.title' }
 		},
 		role: 'admin'
 	},
