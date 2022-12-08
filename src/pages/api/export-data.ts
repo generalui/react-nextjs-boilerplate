@@ -29,6 +29,11 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 					select: {
 						id: true
 					}
+				},
+				surveyResponses: {
+					select: {
+						id: true
+					}
 				}
 			}
 		})
