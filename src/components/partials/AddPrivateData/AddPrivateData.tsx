@@ -69,6 +69,18 @@ export const AddPrivateData = ({
 						),
 						onClick: open,
 						value: 'logout'
+					},
+					{
+						label: (
+							<DropDownItemWithIcon
+								icon='DocumentArrowUpIcon'
+								label={t('dropDownItems.addSurvey.label')}
+							/>
+						),
+						onClick: () => {
+							push(`${studyId}/add-survey`)
+						},
+						value: 'addSurvey'
 					}
 				]}
 			>

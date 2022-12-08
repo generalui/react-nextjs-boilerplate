@@ -19,7 +19,7 @@ export const UploadCSV = function UploadCSV({
 	testId = 'UploadCSV'
 }: UploadCSVProps) {
 	const { t } = useText('studies.addParticipants.form.upload')
-	const steps = Array.from({ length: 4 }, (_, i) => i + 1).map((step) => {
+	const steps = Array.from({ length: 3 }, (_, i) => i + 1).map((step) => {
 		return {
 			text: t(`steps.${step}`),
 			className: step === 5 ? 'text-danger' : undefined
