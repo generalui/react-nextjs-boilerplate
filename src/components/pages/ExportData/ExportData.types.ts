@@ -3,7 +3,7 @@ import { z } from 'zod'
 
 export const ExportDataSchema = z.object({
 	schema: z.object({
-		value: z.literal('study'),
+		value: z.union([z.literal('study'), z.literal('user')]),
 		label: z.string()
 	})
 })

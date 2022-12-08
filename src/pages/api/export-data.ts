@@ -14,9 +14,7 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 
 	const { schemaToExport } = req.query as { schemaToExport: ExportSchemaInput['schema']['value'] }
 	const getDataFromSchema = async () => {
-		const data = await prisma[schemaToExport].findMany({
-			include: exportDataInclude[schemaToExport]
-		})
+		const data = await prisma[schemaToExport].findMany(exportDataInclude[schemaToExport])
 		const csv = parseJsonToCSV(data)
 		return [csv]
 	}
