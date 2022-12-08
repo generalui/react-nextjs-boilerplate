@@ -12,11 +12,21 @@ const apiRoute = connect()
 apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	const session = await getSessionFromReq(req)
 
-	const { schemaToExport } = req.query as { schemaToExport: ExportSchemaInput['schema']['value'] }
+	const { schemaToExport, schemaLabel } = req.query as {
+		schemaToExport: ExportSchemaInput['schema']['value']
+		schemaLabel: ExportSchemaInput['schema']['label']
+	}
 	const getDataFromSchema = async () => {
 		const data = await prisma[schemaToExport].findMany(exportDataFindManyArgs[schemaToExport])
 		const csv = parseJsonToCSV(data)
-		return [csv]
+
+		const datetime = new Date()
+			.toLocaleString()
+			.replace(',', '')
+			.replace(/:/g, '_')
+			.replace(/ /g, '_')
+		const filename = `${schemaLabel.toLocaleLowerCase()}_${datetime}.csv`
+		return [{ csv, filename }]
 	}
 
 	await getDataFromSchema()
