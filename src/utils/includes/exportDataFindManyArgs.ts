@@ -1,7 +1,7 @@
 import { Prisma } from '@prisma/client'
 import { SchemaOptions } from 'pages/ExportData/ExportData.types'
 
-export const exportDataInclude: Record<
+export const exportDataFindManyArgs: Record<
 	SchemaOptions,
 	Prisma.StudyFindManyArgs | Prisma.UserFindManyArgs
 > = {
