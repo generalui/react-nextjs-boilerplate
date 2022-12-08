@@ -17,6 +17,7 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 		schemaLabel: ExportSchemaInput['schema']['label']
 	}
 	const getDataFromSchema = async () => {
+		// @ts-expect-error TODO: Fix this type error
 		const data = await prisma[schemaToExport].findMany(exportDataFindManyArgs[schemaToExport])
 		const csv = parseJsonToCSV(data)
 

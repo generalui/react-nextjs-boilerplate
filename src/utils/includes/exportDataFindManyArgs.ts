@@ -1,14 +1,12 @@
 import { Prisma } from '@prisma/client'
-import { SchemaOptions } from 'pages/ExportData/ExportData.types'
 
-type ExportDataFindManyArgs = Record<
-	SchemaOptions,
-	| Prisma.StudyFindManyArgs
-	| Prisma.UserFindManyArgs
-	| Prisma.ParticipantFindManyArgs
-	| Prisma.SurveyResponseFindManyArgs
-	| Prisma.EventLogFindManyArgs
->
+type ExportDataFindManyArgs = {
+	study: Prisma.StudyFindManyArgs
+	user: Prisma.UserFindManyArgs
+	participant: Prisma.ParticipantFindManyArgs
+	surveyResponse: Prisma.SurveyResponseFindManyArgs
+	eventLog: Prisma.EventLogFindManyArgs
+}
 
 export const exportDataFindManyArgs: ExportDataFindManyArgs = {
 	study: {
