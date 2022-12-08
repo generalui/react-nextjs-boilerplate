@@ -12,13 +12,31 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 	const session = await getSessionFromReq(req)
 
 	const { schemaToExport } = req.query as { schemaToExport: ExportSchemaInput['schema']['value'] }
-	console.log('🚀 ~ schemaToExport', schemaToExport)
 	const getDataFromSchema = async () => {
-		const data = await prisma[schemaToExport].findMany()
+		const data = await prisma[schemaToExport].findMany({
+			include: {
+				users: {
+					select: {
+						userId: true
+					}
+				},
+				participants: {
+					select: {
+						participantId: true
+					}
+				},
+				documentation: {
+					select: {
+						id: true
+					}
+				}
+			}
+		})
 		const csv = parseJsonToCSV(data)
-		console.log('🚀 ~ csv', csv)
 		return [csv]
 	}
+
+	await getDataFromSchema()
 
 	handleQuery({
 		req,

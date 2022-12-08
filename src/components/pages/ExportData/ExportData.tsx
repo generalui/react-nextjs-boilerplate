@@ -1,7 +1,6 @@
 /*!
  * ExportData Page
  */
-import { useState } from 'react'
 import { handleValidate } from 'utils/client/handleValidate'
 import { useExportData } from 'hooks/api/exportData/useExportData'
 import { useText } from 'hooks/useText'
@@ -19,26 +18,15 @@ import {
 } from './ExportData.types'
 
 export const ExportData = function ExportData({ testId = 'ExportData' }: ExportDataProps) {
-	const [schemaToExport, setSchemaToExport] = useState<ExportSchemaInput>()
 	const { t } = useText('exportData')
-	const { data } = useExportData(schemaToExport)
-	console.log('🚀 ~ data', data)
-	if (data) {
-		const hiddenElement = document.createElement('a')
-		hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(data[0])
-		hiddenElement.target = '_blank'
-
-		//provide the name for the CSV file to be downloaded
-		hiddenElement.download = 'data.csv'
-		hiddenElement.click()
-	}
+	const { mutate: getCSV } = useExportData()
 
 	const options: SchemaOptions[] = ['study']
 
 	const onSubmit = (values: ExportSchemaInput) => {
 		try {
 			ExportDataSchema.parse(values)
-			setSchemaToExport(values)
+			getCSV(values)
 		} catch (error) {
 			return error
 		}

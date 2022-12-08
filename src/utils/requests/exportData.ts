@@ -8,10 +8,12 @@ export const exportCSV = async (schemaToExport?: ExportSchemaInput) => {
 	const response = await axios.get(`/export-data`, {
 		params: { schemaToExport: schemaToExport.schema.value }
 	})
-	// if (response.data) {
-	// 	const csv = parseJsonToCSV(response.data)
-	// 	console.log('🚀 ~ csv', csv)
-	// }
+	const url = window.URL.createObjectURL(new Blob([response.data[0]]))
+	const link = document.createElement('a')
+	link.href = url
+	link.setAttribute('download', 'data.csv')
+	document.body.appendChild(link)
+	link.click()
 
 	return response.data
 }
