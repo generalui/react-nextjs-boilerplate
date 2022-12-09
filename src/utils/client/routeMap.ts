@@ -39,5 +39,12 @@ export const routeMap: Record<
 		icon: 'UserGroupIcon',
 		labelKey: 'common.sidebar.nav.participants',
 		role: 'admin'
+	},
+	settings: {
+		href: '/settings',
+		icon: 'CogIcon',
+		labelKey: 'common.sidebar.nav.settings',
+		role: 'admin',
+		className: 'border-t-2'
 	}
 }

@@ -42,8 +42,8 @@ const common = {
 			participants: {
 				message: 'Participants'
 			},
-			addSurvey: {
-				message: 'Add Survey'
+			settings: {
+				message: 'Settings'
 			}
 		}
 	},
