@@ -29,6 +29,9 @@ const exportData = {
 		eventLog: {
 			message: 'Event Logs'
 		}
+	},
+	error: {
+		message: 'Cannot export data. Make sure there is data to export.'
 	}
 }
 
