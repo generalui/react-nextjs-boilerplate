@@ -44,7 +44,7 @@ export const routeMap: Record<
 		icon: 'CogIcon',
 		href: '/settings',
 		labelKey: 'common.sidebar.nav.settings',
-		role: 'admin',
+		role: 'general',
 		className: 'border-t-2',
 		dropdownItems: [
 			{
