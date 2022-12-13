@@ -76,6 +76,7 @@ apiRoute.patch(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 			},
 			data: {
 				name: body.name,
+				password: body.password,
 				...upsertImage
 			},
 			...includes

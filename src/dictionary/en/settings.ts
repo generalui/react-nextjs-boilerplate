@@ -21,6 +21,9 @@ const settings = {
 			3: { message: 'At least 1 lowercase letter' },
 			4: { message: 'At least 1 number' },
 			5: { message: 'At least 1 special character' }
+		},
+		success: {
+			message: 'Password has been updated successfully'
 		}
 	}
 }

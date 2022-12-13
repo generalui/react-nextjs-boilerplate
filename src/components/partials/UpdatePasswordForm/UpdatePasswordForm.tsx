@@ -1,4 +1,8 @@
+import bcrypt from 'bcryptjs'
 import { handleValidate } from 'utils/client/handleValidate'
+import { toast } from 'utils/client/toast'
+import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
+import { useUpdateCurrentUser } from 'hooks/api/users/useUpdateCurrentUser'
 import { useText } from 'hooks/useText'
 import { Form } from 'partials/Form'
 import { UnorderedList } from 'partials/UnorderedList'
@@ -15,7 +19,12 @@ export const UpdatePasswordForm = ({
 	className,
 	testId = 'UpdatePasswordForm'
 }: UpdatePasswordFormProps) => {
+	const { currentUser } = useCurrentUser()
+	const { updateCurrentUser } = useUpdateCurrentUser(() => {
+		toast(t('success'))
+	})
 	const { t } = useText('settings.admin')
+
 	const steps = Array.from({ length: 5 }, (_, i) => i + 1).map((step) => {
 		return {
 			text: t(`passwordRequirementsList.${step}`)
@@ -25,9 +34,14 @@ export const UpdatePasswordForm = ({
 	const onSubmit = (values: NewPasswordInput) => {
 		try {
 			NewPasswordSchema.parse(values)
-			console.log('🚀 ~ values', values)
+			if (currentUser?.name) {
+				updateCurrentUser({
+					name: currentUser.name,
+					password: bcrypt.hashSync(values.newPassword, 8)
+				})
+			}
 		} catch (error) {
-			console.log('🚀 ~ error')
+			return error
 		}
 	}
 
@@ -42,10 +56,10 @@ export const UpdatePasswordForm = ({
 							<Text className='text-sm' size='base'>
 								{t('updatePassword')}
 							</Text>
-							<Input name='newPassword' type='text' label={t('newPassword')} />
+							<Input name='newPassword' type='password' label={t('newPassword')} />
 							<Input
 								name='newPasswordConfirmation'
-								type='text'
+								type='password'
 								label={t('newPasswordConfirmation')}
 							/>
 						</div>
