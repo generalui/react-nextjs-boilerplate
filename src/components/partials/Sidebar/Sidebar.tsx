@@ -20,6 +20,7 @@ export const Sidebar = ({ sidebarLinkOnClick, className, testId = 'Sidebar' }: S
 	const router = useRouter()
 	const selectedRoute = '/' + router.route.split('/')[1]
 	const links = Object.values(routeMap).map(({ labelKey, href, role, dropdownItems, ...rest }) => {
+		const isSelected = href === selectedRoute
 		let items: DropDownItemProps[] = []
 		if (dropdownItems) {
 			items = dropdownItems.map((item) => {
@@ -36,13 +37,18 @@ export const Sidebar = ({ sidebarLinkOnClick, className, testId = 'Sidebar' }: S
 						sidebarLinkOnClick?.()
 					}}
 					href={href}
-					isSelected={href === selectedRoute}
+					isSelected={isSelected}
 					key={labelKey}
 					{...rest}
 				>
 					{dropdownItems ? (
 						<DropDown items={items} v='sidebar'>
-							<Text size='base' className='text-gray-900 font-bold '>
+							<Text
+								size='base'
+								className={cn(
+									isSelected ? 'text-primary bg-gray-100 font-bold' : 'text-gray-900 font-bold'
+								)}
+							>
 								{t(labelKey)}
 							</Text>
 						</DropDown>
