@@ -34,7 +34,8 @@ export const UpdatePasswordForm = ({
 	const onSubmit = (values: NewPasswordInput) => {
 		try {
 			NewPasswordSchema.parse(values)
-			if (currentUser?.name) {
+			const userConfirmation = confirm(t('userConfirmation'))
+			if (currentUser?.name && userConfirmation) {
 				updateCurrentUser({
 					name: currentUser.name,
 					password: bcrypt.hashSync(values.newPassword, 8)

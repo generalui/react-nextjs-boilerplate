@@ -13,7 +13,7 @@ export const routePermissions: RoutePermissions = {
 		'/studies/[studyId]/add-participants',
 		'/participants',
 		'/studies/[studyId]/add-survey',
-		'/settings'
+		'/settings/update-password'
 	],
 	participant: ['/participant', '/participant/studies/[studyId]'],
 	general: ['/auth/signin']

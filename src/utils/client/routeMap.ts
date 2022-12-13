@@ -50,7 +50,7 @@ export const routeMap: Record<
 			{
 				label: 'Update Password', //TODO: add translation
 				value: 'updatePassword',
-				href: '/settings'
+				href: '/settings/update-password'
 			}
 		]
 	}

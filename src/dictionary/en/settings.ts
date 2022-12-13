@@ -24,6 +24,9 @@ const settings = {
 		},
 		success: {
 			message: 'Password has been updated successfully'
+		},
+		userConfirmation: {
+			message: 'Are you sure you want to update your password?'
 		}
 	}
 }
