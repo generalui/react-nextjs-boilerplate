@@ -16,7 +16,10 @@ export const passwordValidator = z
 	.regex(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_])\S{8,32}$/)
 
 export const SignInSchema = z.object({
-	email: z.string().trim().email(),
+	email:
+		process.env.NEXT_PUBLIC_LOGIN_WITH_LDAP === 'true'
+			? z.string().trim()
+			: z.string().trim().email(),
 	password: passwordValidator
 })
 
@@ -24,7 +27,10 @@ export type SignInInput = z.infer<typeof SignInSchema>
 
 export const CreateAccountSchema = z
 	.object({
-		email: z.string().email(),
+		email:
+			process.env.NEXT_PUBLIC_LOGIN_WITH_LDAP === 'true'
+				? z.string().trim()
+				: z.string().trim().email(),
 		password: passwordValidator,
 		confirm: passwordValidator
 	})
