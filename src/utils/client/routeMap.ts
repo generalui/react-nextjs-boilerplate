@@ -41,10 +41,17 @@ export const routeMap: Record<
 		role: 'admin'
 	},
 	settings: {
-		href: '/settings',
 		icon: 'CogIcon',
+		href: '/settings',
 		labelKey: 'common.sidebar.nav.settings',
 		role: 'admin',
-		className: 'border-t-2'
+		className: 'border-t-2',
+		dropdownItems: [
+			{
+				label: 'Update Password', //TODO: add translation
+				value: 'updatePassword',
+				href: '/settings'
+			}
+		]
 	}
 }
