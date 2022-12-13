@@ -1,10 +1,10 @@
 const settings = {
 	admin: {
-		updatePassword: {
+		title: {
 			message: 'Update password'
 		},
 		submitButton: {
-			message: 'Update'
+			message: 'Update password'
 		},
 		newPassword: {
 			message: 'New password'

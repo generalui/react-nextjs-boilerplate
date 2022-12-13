@@ -54,9 +54,6 @@ export const UpdatePasswordForm = ({
 				render={({ handleSubmit }) => (
 					<form onSubmit={handleSubmit} className='flex flex-col gap-6'>
 						<div className='grid gap-4'>
-							<Text className='text-sm' size='base'>
-								{t('updatePassword')}
-							</Text>
 							<Input name='newPassword' type='password' label={t('newPassword')} />
 							<Input
 								name='newPasswordConfirmation'
