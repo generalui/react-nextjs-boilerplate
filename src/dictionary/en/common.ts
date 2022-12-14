@@ -44,6 +44,9 @@ const common = {
 			},
 			settings: {
 				message: 'Settings'
+			},
+			exportData: {
+				message: 'Export Data'
 			}
 		}
 	},

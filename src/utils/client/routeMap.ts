@@ -40,6 +40,12 @@ export const routeMap: Record<
 		labelKey: 'common.sidebar.nav.participants',
 		role: 'admin'
 	},
+	exportData: {
+		href: '/export-data',
+		icon: 'DocumentArrowDownIcon',
+		labelKey: 'common.sidebar.nav.exportData',
+		role: 'admin'
+	},
 	settings: {
 		icon: 'CogIcon',
 		href: '/settings',
