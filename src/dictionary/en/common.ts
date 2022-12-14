@@ -42,6 +42,9 @@ const common = {
 			participants: {
 				message: 'Participants'
 			},
+			settings: {
+				message: 'Settings'
+			},
 			exportData: {
 				message: 'Export Data'
 			}
@@ -104,6 +107,9 @@ const common = {
 		},
 		duplicateFileOmitted: {
 			message: 'Duplicate file omitted'
+		},
+		generalError: {
+			message: 'Something went wrong'
 		}
 	},
 	modal: {

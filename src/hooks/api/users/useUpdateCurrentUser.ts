@@ -11,7 +11,7 @@ function updateCurrentUser({ image, ...currentUserUpdate }: UserInput) {
 	return axiosWithFiles<User>('/current-user', currentUserUpdate, { image }, 'patch')
 }
 
-export function useUpdateCurrentUser() {
+export function useUpdateCurrentUser(onSuccess?: () => void) {
 	const { currentUser } = useCurrentUser()
 	const { t } = useText('profile.updateUserForm')
 
@@ -36,7 +36,11 @@ export function useUpdateCurrentUser() {
 			reactQueryClient.setQueryData('current-user', () => {
 				return (context as { optimisticCurrentUser: User })?.optimisticCurrentUser
 			})
-			toast(t('success'))
+			if (onSuccess) {
+				onSuccess()
+			} else {
+				toast(t('success'))
+			}
 		},
 		onError: () => {
 			// Remove optimistic user and return previous user data

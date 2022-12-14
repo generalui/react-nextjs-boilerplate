@@ -7,6 +7,7 @@ import participant from './participant'
 import participants from './participants'
 import profile from './profile'
 import queryBuilder from './queryBuilder'
+import settings from './settings'
 import signIn from './signIn'
 import studies from './studies'
 
@@ -21,5 +22,6 @@ export const en = {
 	signIn,
 	studies,
 	participants,
+	settings,
 	exportData
 }

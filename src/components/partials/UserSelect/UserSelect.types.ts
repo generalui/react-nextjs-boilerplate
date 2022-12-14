@@ -5,4 +5,5 @@ export interface UserSelectProps<T> extends CommonProps, SelectProps<T> {
 	labelClassName?: string
 	label?: string
 	name: string
+	userType?: 'admin' | 'participant' | 'all'
 }

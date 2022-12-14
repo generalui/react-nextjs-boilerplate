@@ -6,7 +6,8 @@ export type Roles = keyof typeof UserRole | 'general'
 
 export const UserSchema = z.object({
 	name: z.string().trim().min(2),
-	image: z.any().optional()
+	image: z.any().optional(),
+	password: z.string().optional()
 })
 
 export type UserInput = z.infer<typeof UserSchema>

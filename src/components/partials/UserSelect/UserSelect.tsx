@@ -1,19 +1,21 @@
 import { OptionProps } from 'react-select'
 import { SelectOptionsType, User } from 'types/index'
 import { useUsers } from 'hooks/api/users/useUsers'
-// import { ImageWithPlaceholder } from 'common/ImageWithPlaceholder'
 import { SelectInput } from 'common/SelectInput'
 import { UserSelectProps } from './UserSelect.types'
 
-const Option = (props: OptionProps<SelectOptionsType<User>>) => {
-	const { className, cx, isDisabled, isFocused, isSelected, innerRef, innerProps, data } = props
+type Meta = { user?: User; isHeader: boolean }
+
+const Option = (props: OptionProps<SelectOptionsType<Meta>>) => {
+	const { className, cx, isDisabled, isFocused, isSelected, innerRef, innerProps, data, label } =
+		props
 	const { meta } = data
 
 	if (!meta) {
 		return null
 	}
 
-	const { name, email } = meta
+	const { user, isHeader } = meta
 
 	return (
 		<div
@@ -30,20 +32,63 @@ const Option = (props: OptionProps<SelectOptionsType<User>>) => {
 			{...innerProps}
 		>
 			<div className='flex flex-col gap-1 h-max'>
-				{/* TODO: validate optional placeholder with team */}
-				{/* <ImageWithPlaceholder
-					className='w-10 h-10 block mt-1 rounded-3xl'
-					placeholder='/images/profile-image-placeholder.jpg'
-					src={image?.image?.url}
-					alt={name || undefined}
-				/> */}
-				{/* <div className='flex flex-col gap-2'> */}
-				<span>{name}</span>
-				<span>{email}</span>
-				{/* </div> */}
+				{isHeader ? (
+					<span className='font-semibold'>{label}</span>
+				) : (
+					<>
+						<span>{user?.role === 'admin' ? user?.name : user?.id}</span>
+						<span>{user?.role === 'admin' && user?.email}</span>
+					</>
+				)}
 			</div>
 		</div>
 	)
+}
+
+const getUsers: (userType: string, users?: User[]) => SelectOptionsType<Meta>[] | undefined = (
+	userType,
+	users
+) => {
+	if (!users) return undefined
+	if (userType === 'all') {
+		const participants = users
+			?.filter((user) => {
+				return user.role === 'participant'
+			})
+			.map((user) => ({
+				value: user.id,
+				label: user.id,
+				meta: { user, isHeader: false }
+			}))
+		const admins = users
+			.filter((user) => {
+				return user.role === 'admin'
+			})
+			.map((user) => ({
+				value: user.id,
+				label: user.email,
+				meta: { user, isHeader: false }
+			}))
+		return [
+			{ label: 'Participants', value: 'Participants', meta: { isHeader: true } },
+			...participants,
+			{ label: 'Admins', value: 'Admins', meta: { isHeader: true } },
+			...admins
+		] as SelectOptionsType<Meta>[]
+	} else {
+		return users
+			?.filter((user) => {
+				return user.role === userType
+			})
+			.map(
+				(user) =>
+					({
+						value: user.id,
+						label: user.email,
+						meta: { user }
+					} as SelectOptionsType<Meta>)
+			)
+	}
 }
 
 export const UserSelect = ({
@@ -52,21 +97,16 @@ export const UserSelect = ({
 	labelClassName,
 	label,
 	placeholder,
-	name
+	name,
+	userType = 'admin'
 }: UserSelectProps<SelectOptionsType<User>>) => {
 	const { users } = useUsers()
 
-	const selectOptions = users
-		?.filter((user) => user.role === 'admin')
-		.map((user) => ({
-			value: user.id,
-			label: user.email,
-			meta: user
-		}))
+	const selectOptions = getUsers(userType, users)
 
 	return (
 		<div data-testid={testId} className={className}>
-			<SelectInput<SelectOptionsType<User>>
+			<SelectInput<SelectOptionsType<Meta>>
 				placeholder={placeholder}
 				labelClassName={labelClassName}
 				label={label}

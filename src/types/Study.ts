@@ -95,7 +95,7 @@ export type ApiDataVault = Omit<DataVault, '_max'> & { _max: { insertedAt: strin
 
 export type SelectOptionsType<T = unknown> = {
 	value: string
-	label: ReactNode
+	label: ReactNode | string
 	meta?: T
 }
 

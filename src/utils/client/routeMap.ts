@@ -45,5 +45,19 @@ export const routeMap: Record<
 		icon: 'DocumentArrowDownIcon',
 		labelKey: 'common.sidebar.nav.exportData',
 		role: 'admin'
+	},
+	settings: {
+		icon: 'CogIcon',
+		href: '/settings',
+		labelKey: 'common.sidebar.nav.settings',
+		role: 'general',
+		className: 'border-t-2',
+		dropdownItems: [
+			{
+				label: 'Update Password', //TODO: add translation
+				value: 'updatePassword',
+				href: '/settings/update-password'
+			}
+		]
 	}
 }
