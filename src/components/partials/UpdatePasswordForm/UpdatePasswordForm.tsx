@@ -49,7 +49,7 @@ export const UpdatePasswordForm = ({
 					name: currentUser.name,
 					password: bcrypt.hashSync(values.newPassword, 8)
 				})
-			} else if (values.user) {
+			} else if (values.user && currentUser?.role === 'admin') {
 				updateUser({
 					user: values.user.meta.user,
 					password: bcrypt.hashSync(values.newPassword, 8)
