@@ -27,6 +27,31 @@ const settings = {
 		},
 		userConfirmation: {
 			message: 'Are you sure you want to update your password?'
+		},
+		selectUser: {
+			message: 'Select a user to change their password. Leave blank to change your own password.'
+		},
+		toggleButton: {
+			label: {
+				message: 'Select a User Type to change their password'
+			},
+			activeLabel: {
+				message: 'Admin'
+			},
+			inactiveLabel: {
+				message: 'Participant'
+			}
+		},
+		placeholders: {
+			selectUser: {
+				message: 'Select a user'
+			},
+			newPassword: {
+				message: 'New password'
+			},
+			newPasswordConfirmation: {
+				message: 'Confirm new password'
+			}
 		}
 	}
 }

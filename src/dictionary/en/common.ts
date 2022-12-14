@@ -104,6 +104,9 @@ const common = {
 		},
 		duplicateFileOmitted: {
 			message: 'Duplicate file omitted'
+		},
+		generalError: {
+			message: 'Something went wrong'
 		}
 	},
 	modal: {

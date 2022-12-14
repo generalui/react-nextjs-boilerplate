@@ -5,6 +5,16 @@ export interface UpdatePasswordFormProps extends CommonProps {}
 
 export const NewPasswordSchema = z
 	.object({
+		user: z
+			.object({
+				label: z.string(),
+				value: z.string(),
+				meta: z.object({
+					user: z.any(),
+					isHeader: z.boolean()
+				})
+			})
+			.optional(),
 		newPassword: z
 			.string()
 			.min(8)
