@@ -1,6 +1,7 @@
 import client from './client'
 import common from './common'
 import createStudy from './createStudy'
+import exportData from './exportData'
 import home from './home'
 import participant from './participant'
 import participants from './participants'
@@ -19,5 +20,6 @@ export const en = {
 	queryBuilder,
 	signIn,
 	studies,
-	participants
+	participants,
+	exportData
 }
