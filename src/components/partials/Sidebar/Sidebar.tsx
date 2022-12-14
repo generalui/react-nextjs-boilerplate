@@ -34,7 +34,7 @@ export const Sidebar = ({ sidebarLinkOnClick, className, testId = 'Sidebar' }: S
 					onClick={(value: unknown) => {
 						const event = value as SyntheticEvent
 						if (dropdownItems) event.preventDefault()
-						sidebarLinkOnClick?.()
+						else sidebarLinkOnClick?.()
 					}}
 					href={href}
 					isSelected={isSelected}
@@ -42,7 +42,7 @@ export const Sidebar = ({ sidebarLinkOnClick, className, testId = 'Sidebar' }: S
 					{...rest}
 				>
 					{dropdownItems ? (
-						<DropDown items={items} v='sidebar'>
+						<DropDown items={items} v='sidebar' dropDownItemOnClick={sidebarLinkOnClick}>
 							<Text
 								size='base'
 								className={cn(

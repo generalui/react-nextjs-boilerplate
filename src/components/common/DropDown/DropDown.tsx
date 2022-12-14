@@ -9,6 +9,7 @@ export const DropDown = ({
 	children,
 	className,
 	items,
+	dropDownItemOnClick,
 	testId = 'DropDown',
 	v = 'default'
 }: DropDownProps) => {
@@ -67,6 +68,7 @@ export const DropDown = ({
 						onClick={() => {
 							setIsOpen(false)
 							onClick?.()
+							dropDownItemOnClick?.()
 						}}
 						{...rest}
 						key={rest.value}
