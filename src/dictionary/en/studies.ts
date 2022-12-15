@@ -128,7 +128,7 @@ const studies = {
 						message: 'Review your import.'
 					}
 				},
-				detailsLabel: { message: 'REDCap XML Files' },
+				detailsLabel: { message: 'CSV File' },
 				filesSelect: { message: 'Select file to upload' },
 				filesDrag: { message: 'or drag and drop here' },
 				subText: { message: 'Accepts: ' },
