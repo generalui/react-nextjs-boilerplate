@@ -79,6 +79,7 @@ const studies = {
 		submitLabel: { message: 'Upload' }
 	},
 	dataTypes: {
+		analyses: { message: 'Analyses' },
 		consents: { message: 'Consent' },
 		geneticData: { message: 'Genetic Data' },
 		healthRecords: { message: 'Health Records' },
@@ -185,6 +186,9 @@ const studies = {
 					message: 'Confirm & Invite Participants'
 				},
 				cancel: { message: 'Edit Mapping' },
+				returnToStudy: {
+					message: 'Return to Study'
+				},
 				participantInfo: {
 					description: {
 						message: 'New Participant Information'

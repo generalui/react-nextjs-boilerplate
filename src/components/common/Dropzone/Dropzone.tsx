@@ -14,7 +14,8 @@ export const Dropzone = ({
 	maxFiles,
 	onChange,
 	onError,
-	testId = 'Dropzone'
+	testId = 'Dropzone',
+	disabled
 }: DropzoneProps) => {
 	const [cachedFiles, setFiles] = useState<File[] | ImagePreview>()
 	const { t: error } = useText('common.errors')
@@ -62,7 +63,8 @@ export const Dropzone = ({
 	const { getRootProps, getInputProps } = useDropzone({
 		maxFiles,
 		accept,
-		onDrop
+		onDrop,
+		disabled
 	})
 
 	return (
@@ -77,7 +79,7 @@ export const Dropzone = ({
 			tabIndex={0}
 			role='button'
 		>
-			<input className='hidden' {...getInputProps()} />
+			<input disabled={disabled} className='hidden' {...getInputProps()} />
 			{typeof children === 'function' ? children(cachedFiles) : children}
 		</div>
 	)

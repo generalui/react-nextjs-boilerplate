@@ -87,7 +87,7 @@ export const AddPrivateData = ({
 				<Icon icon='PlusIcon' className='text-white' size='xs' />
 				{t('buttonLabel')}
 			</DropDown>
-			<Modal show={isOpen} onClose={close} title={'modalTitle'} bodyClassName='pt-6'>
+			<Modal show={isOpen} onClose={close} title={t('modalTitle')} bodyClassName='pt-6'>
 				<Form
 					onSubmit={onSubmit}
 					validate={(values) => handleValidate(values, DataVaultSchema)}
