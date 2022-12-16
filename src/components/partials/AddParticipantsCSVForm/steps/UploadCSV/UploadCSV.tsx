@@ -16,6 +16,7 @@ const acceptedFileTypes = {
 export const UploadCSV = function UploadCSV({
 	onSubmit,
 	onCancel,
+	removeStepsText,
 	testId = 'UploadCSV'
 }: UploadCSVProps) {
 	const { t } = useText('studies.addParticipants.form.upload')
@@ -31,7 +32,7 @@ export const UploadCSV = function UploadCSV({
 			<div className='flex flex-col gap-4'>
 				<Text v='h2'>{t('subtitle')}</Text>
 
-				<OrderedList list={steps} />
+				{removeStepsText || <OrderedList list={steps} />}
 			</div>
 
 			<div>
