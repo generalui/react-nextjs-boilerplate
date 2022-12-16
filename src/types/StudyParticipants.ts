@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client'
+import { Prisma, User } from '@prisma/client'
 import { z } from 'zod'
 
 export const ParticipantSchema = z.object({
@@ -15,3 +15,11 @@ export type AddParticipantsInput = z.infer<typeof AddParticipantsSchema>
 export type ParticipantInput = z.infer<typeof ParticipantSchema>
 
 export type Participant = Prisma.ParticipantGetPayload<true>
+
+export type NewParticipants = {
+	user?: User | undefined
+	password?: string | undefined
+	userIsAlreadyOnStudy?: boolean | undefined
+	userIsAlreadyCreated?: boolean | undefined
+	study?: string | undefined
+}[]

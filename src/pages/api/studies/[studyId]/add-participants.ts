@@ -2,7 +2,7 @@ import { User } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 import type { NextApiResponse } from 'next'
 import { ApiRequestWithFile } from 'types/ApiRequestWithFile'
-import { AddParticipantsInput, ParticipantInput, Study } from 'types/index'
+import { AddParticipantsInput, ParticipantInput } from 'types/index'
 import { connect } from 'utils/api/connect'
 import { generatePassword } from 'utils/api/generatePassword'
 import { getDefaultConsentFromStudy } from 'utils/api/getDefaultConsentFromStudy'
@@ -143,11 +143,6 @@ apiRoute.put(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 
 		if (!newlyAddedUsers.length) throw Error('No new participants were added')
 
-		console.log(
-			'createdOrConnectParticipants ~ createdOrConnectParticipants',
-			createdOrConnectParticipants
-		)
-
 		// Send out emails to participants
 		const emailsSent = await Promise.all(
 			newlyAddedUsers.map(async (p) => {
@@ -169,11 +164,10 @@ apiRoute.put(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 			})
 		)
 
-		console.log('addParticipantsToStudyQuery ~ emailsSent', emailsSent)
-		return undefined
+		return newlyAddedUsers
 	}
 
-	handleQuery<Study>({
+	handleQuery({
 		req,
 		res,
 		session,

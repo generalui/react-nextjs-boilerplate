@@ -118,7 +118,6 @@ export const addParticipantsToStudy = async (
 	studyId: string,
 	participants: ParticipantInput[]
 ): Promise<undefined> => {
-	await axios.put(`/studies/${studyId}/add-participants`, { participants })
-
-	return undefined
+	const response = await axios.put(`/studies/${studyId}/add-participants`, { participants })
+	return response.data
 }

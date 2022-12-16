@@ -184,7 +184,22 @@ const studies = {
 				submit: {
 					message: 'Confirm & Invite Participants'
 				},
-				cancel: { message: 'Edit Mapping' }
+				cancel: { message: 'Edit Mapping' },
+				participantInfo: {
+					description: {
+						message: 'New Participant Information'
+					},
+					copyInformationMessage: {
+						message:
+							'Make a copy of this information for your records. You will not be able to access this information again.'
+					},
+					email: {
+						message: 'Email'
+					},
+					password: {
+						message: 'Password'
+					}
+				}
 			}
 		}
 	},

@@ -20,7 +20,8 @@ export const DataSummary = function DataSummary({
 	onCancel,
 	unMappedFields,
 	mappedFields,
-	participantList
+	participantList,
+	newParticipants
 }: DataSummaryProps) {
 	const { t } = useText('studies.addParticipants.form.dataSummary')
 	const dataSummary: DataSummaryInterface[] = [
@@ -74,6 +75,33 @@ export const DataSummary = function DataSummary({
 
 							{/* Preview Data */}
 							<JsonViewer data={participantList} />
+							{/* Show Participant Info */}
+							{newParticipants && (
+								<div>
+									<Text v='h2' className='font-bold'>
+										{t('participantInfo.description')}
+									</Text>
+									<Text className='pb-2'>{t('participantInfo.copyInformationMessage')}</Text>
+									{newParticipants.map((participant) => {
+										return (
+											<div key={participant.user?.id} className='py-2'>
+												<div className='flex'>
+													<Text className='font-bold'>
+														{`${t('participantInfo.email')}:`}&nbsp;
+													</Text>
+													<Text>{`${participant.user?.email}`}</Text>
+												</div>
+												<div className='flex'>
+													<Text className='font-bold'>
+														{`${t('participantInfo.password')}:`}&nbsp;
+													</Text>
+													<Text>{`${participant.password}`}</Text>
+												</div>
+											</div>
+										)
+									})}
+								</div>
+							)}
 
 							<ActionButtons
 								submitText={t('submit')}

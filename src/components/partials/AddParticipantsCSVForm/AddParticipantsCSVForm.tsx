@@ -28,15 +28,11 @@ export const AddParticipantsCSVForm = ({
 	const [inProgress, setInProgress] = useState<boolean>()
 	const { t } = useText('studies.addParticipants.form')
 
-	const { addParticipants } = useAddParticipantsToStudy({
-		studyId,
-		onSuccess: () => {
-			setInProgress(false)
-			push(`/studies/${studyId}`)
-		}
+	const { mutate, data } = useAddParticipantsToStudy({
+		studyId
 	})
 
-	const { forceBack, push } = useRouter()
+	const { forceBack } = useRouter()
 
 	const handleCancel = () => {
 		forceBack()
@@ -53,7 +49,12 @@ export const AddParticipantsCSVForm = ({
 			ParticipantSchema.parse(participant)
 		) // transform
 
-		if (studyId) addParticipants.mutate({ studyId, participants: transformedParticipantList })
+		if (studyId) {
+			mutate({
+				studyId,
+				participants: transformedParticipantList
+			})
+		}
 	}
 
 	const handleMapCSVFields = (values: MapFieldsInput) => {
@@ -90,6 +91,7 @@ export const AddParticipantsCSVForm = ({
 			participantList={participantList}
 			unMappedFields={unMappedFields}
 			mappedFields={mappedFields}
+			newParticipants={data}
 		/>
 	]
 

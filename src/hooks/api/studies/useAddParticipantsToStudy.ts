@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios'
-import { UseMutationResult, useMutation } from 'react-query'
+import { UseMutateFunction, useMutation } from 'react-query'
 import { Study } from 'types/Study'
-import { AddParticipantsInput } from 'types/StudyParticipants'
+import { AddParticipantsInput, NewParticipants } from 'types/StudyParticipants'
 import { reactQueryClient } from 'utils/client/react-query'
 import { toast } from 'utils/client/toast'
 import { addParticipantsToStudy } from 'utils/requests/studies'
@@ -17,12 +17,26 @@ export const useAddParticipantsToStudy = ({
 	onSuccess,
 	onError
 }: UseAddParticipantsToStudyProps): {
-	addParticipants: UseMutationResult<undefined, unknown, AddParticipantsInput>
+	mutate: UseMutateFunction<
+		undefined,
+		unknown,
+		{
+			studyId: string
+			participants: {
+				email: string
+				name: string
+			}[]
+		},
+		{
+			previousStudy: Study
+		}
+	>
+	data?: NewParticipants
 } => {
 	const { t: error } = useText('studies.error')
 	const { t: success } = useText('studies.success')
 
-	const addParticipants = useMutation(
+	const { mutate, data } = useMutation(
 		`study-${studyId}-add-participants`,
 		(participantInput: AddParticipantsInput) =>
 			addParticipantsToStudy(studyId, participantInput.participants),
@@ -48,6 +62,7 @@ export const useAddParticipantsToStudy = ({
 	)
 
 	return {
-		addParticipants
+		mutate,
+		data
 	}
 }
