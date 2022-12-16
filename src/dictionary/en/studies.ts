@@ -128,7 +128,7 @@ const studies = {
 						message: 'Review your import.'
 					}
 				},
-				detailsLabel: { message: 'REDCap XML Files' },
+				detailsLabel: { message: 'CSV File' },
 				filesSelect: { message: 'Select file to upload' },
 				filesDrag: { message: 'or drag and drop here' },
 				subText: { message: 'Accepts: ' },
@@ -184,7 +184,25 @@ const studies = {
 				submit: {
 					message: 'Confirm & Invite Participants'
 				},
-				cancel: { message: 'Edit Mapping' }
+				cancel: { message: 'Edit Mapping' },
+				returnToStudy: {
+					message: 'Return to Study'
+				},
+				participantInfo: {
+					description: {
+						message: 'New Participant Information'
+					},
+					copyInformationMessage: {
+						message:
+							'Make a copy of this information for your records. You will not be able to access this information again.'
+					},
+					email: {
+						message: 'Email'
+					},
+					password: {
+						message: 'Password'
+					}
+				}
 			}
 		}
 	},

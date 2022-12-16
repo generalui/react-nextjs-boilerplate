@@ -1,7 +1,10 @@
 import cn from 'classnames'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
 import { useText } from 'hooks/useText'
 import { Form } from 'partials/Form'
 import { ActionButtons } from 'common/ActionButtons'
+import { Button } from 'common/Button'
 import { Card } from 'common/Card'
 import { JsonViewer } from 'common/JsonViewer'
 import { Text } from 'common/Text'
@@ -20,9 +23,13 @@ export const DataSummary = function DataSummary({
 	onCancel,
 	unMappedFields,
 	mappedFields,
-	participantList
+	participantList,
+	newParticipants,
+	studyId
 }: DataSummaryProps) {
 	const { t } = useText('studies.addParticipants.form.dataSummary')
+	const [formSubmitted, setFormSubmitted] = useState(false)
+	const { push } = useRouter()
 	const dataSummary: DataSummaryInterface[] = [
 		{
 			dataClassName: 'text-accent-1',
@@ -43,6 +50,7 @@ export const DataSummary = function DataSummary({
 
 	const handleSubmit = (values: DataSummaryInput) => {
 		onSubmit?.(values)
+		setFormSubmitted(true)
 	}
 
 	return (
@@ -74,12 +82,43 @@ export const DataSummary = function DataSummary({
 
 							{/* Preview Data */}
 							<JsonViewer data={participantList} />
+							{/* Show Participant Info */}
+							{newParticipants && (
+								<div>
+									<Text v='h2' className='font-bold'>
+										{t('participantInfo.description')}
+									</Text>
+									<Text className='pb-2'>{t('participantInfo.copyInformationMessage')}</Text>
+									{newParticipants.map((participant) => {
+										return (
+											<div key={participant.user?.id} className='py-2'>
+												<div className='flex'>
+													<Text className='font-bold'>
+														{`${t('participantInfo.email')}:`}&nbsp;
+													</Text>
+													<Text>{`${participant.user?.email}`}</Text>
+												</div>
+												<div className='flex'>
+													<Text className='font-bold'>
+														{`${t('participantInfo.password')}:`}&nbsp;
+													</Text>
+													<Text>{`${participant.password}`}</Text>
+												</div>
+											</div>
+										)
+									})}
+								</div>
+							)}
 
-							<ActionButtons
-								submitText={t('submit')}
-								cancelText={t('cancel')}
-								onCancel={onCancel}
-							/>
+							{!formSubmitted ? (
+								<ActionButtons
+									submitText={t('submit')}
+									cancelText={t('cancel')}
+									onCancel={onCancel}
+								/>
+							) : (
+								<Button onClick={() => push(`/studies/${studyId}`)}>{t('returnToStudy')}</Button>
+							)}
 						</form>
 					)}
 				/>
