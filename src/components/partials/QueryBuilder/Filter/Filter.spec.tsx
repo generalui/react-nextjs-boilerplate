@@ -3,8 +3,6 @@
  */
 import { render, screen } from '@testing-library/react'
 import '__mocks__/index'
-import React from 'react'
-import { FilterInput } from 'types/QueryBuilder'
 import { Form } from 'partials/Form'
 import { Filter } from 'partials/QueryBuilder/Filter'
 
@@ -20,12 +18,10 @@ describe('Condition Component', () => {
 						<Filter
 							fields={[]}
 							conditions={[]}
-							onFieldTypeChange={jest.fn}
-							onModelChange={jest.fn}
+							handleRemoveFilter={jest.fn}
 							filterTypes={[]}
-							updateFiltersArray={(filter: FilterInput) => {
-								return
-							}}
+							filterKey='testFilterKey'
+							updateFiltersArray={jest.fn}
 						/>
 					</form>
 				)}

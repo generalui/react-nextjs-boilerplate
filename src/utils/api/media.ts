@@ -24,5 +24,5 @@ export const upload = ({
 
 	return process.env.CLOUDINARY_ENABLED === 'true'
 		? cloudinary.uploader.upload(file, options)
-		: new Promise((resolve) => resolve({ secure_url: '#' }))
+		: new Promise<{ secure_url: string }>((resolve) => resolve({ secure_url: '#' }))
 }

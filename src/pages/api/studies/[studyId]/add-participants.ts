@@ -144,7 +144,7 @@ apiRoute.put(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 		if (!newlyAddedUsers.length) throw Error('No new participants were added')
 
 		// Send out emails to participants
-		const emailsSent = await Promise.all(
+		await Promise.all(
 			newlyAddedUsers.map(async (p) => {
 				if (!p.user?.email) return null
 
