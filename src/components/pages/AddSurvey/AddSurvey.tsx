@@ -50,7 +50,7 @@ export const AddSurvey = function AddSurvey({ testId = 'AddSurvey' }: AddSurveyP
 						if (value && key !== 'participant_id' && key !== 'redcap_event_name')
 							currentResponse['survey_responses'] = currentResponse['survey_responses']
 								? {
-										...currentResponse['survey_responses'],
+										...(currentResponse['survey_responses'] as Record<string, unknown>),
 										[key]: value
 								  }
 								: {
