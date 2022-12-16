@@ -117,7 +117,7 @@ const studies = {
 			title: { message: 'Add Participants' },
 			upload: {
 				imageAlt: { message: 'Add Participants' },
-				subtitle: { message: 'How do I upload a CSV?' },
+				subtitle: { message: 'Upload a CSV' },
 				steps: {
 					1: {
 						message: 'Upload a csv containing client consent information.'
@@ -139,7 +139,7 @@ const studies = {
 				subtitle: { message: 'Required Data' },
 				description: {
 					message:
-						'Required fields from the NBDC Consent Template in RedCap should be mapped automatically, and just require confirmation. '
+						'Required fields from the NBDC Consent Template should be mapped automatically, and just require confirmation. '
 				},
 				headers: {
 					fieldName: {
@@ -169,7 +169,7 @@ const studies = {
 				subtitle: { message: 'Data Mapping Summary' },
 				description: {
 					message:
-						'Upon completion of mapping your RedCap data to NBDC, participants will be sent email instructions on how to access the study details in the NBDC Consent Portal.'
+						'Upon completion of mapping your CSV data to NBDC, participants will be sent email instructions on how to access the study details in the NBDC Consent Portal.'
 				},
 				aggregatedData: {
 					participants: {

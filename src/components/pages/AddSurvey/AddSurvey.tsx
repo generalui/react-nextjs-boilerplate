@@ -83,7 +83,7 @@ export const AddSurvey = function AddSurvey({ testId = 'AddSurvey' }: AddSurveyP
 					<Icon icon='DocumentIcon' />
 					<h2 className={'font-semibold text-2xl'}>{t('title')}</h2>
 				</div>
-				<UploadCSV onSubmit={handleUploadCSV} />
+				<UploadCSV onSubmit={handleUploadCSV} removeStepsText />
 			</Card>
 		</PageWrapper>
 	)
