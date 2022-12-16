@@ -21,5 +21,8 @@ export const upload = ({
 	overwrite = false
 }: UploadArgs) => {
 	const options = { resource_type: resourceType, public_id: publicId, overwrite }
-	return cloudinary.uploader.upload(file, options)
+
+	return process.env.CLOUDINARY_ENABLED === 'true'
+		? cloudinary.uploader.upload(file, options)
+		: new Promise((resolve) => resolve({ secure_url: '#' }))
 }

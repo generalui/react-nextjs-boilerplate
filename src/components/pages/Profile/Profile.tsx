@@ -14,6 +14,9 @@ import { Input } from 'common/Input'
 import { SubmitButton } from 'common/SubmitButton'
 import { ProfileProps } from './Profile.types'
 
+const CLOUDINARY_ENABLED = process.env.NEXT_PUBLIC_CLOUDINARY_ENABLED === 'true'
+const PROFILE_IMAGE_PLACEHOLDER = '/images/profile-image-placeholder.jpg'
+
 export const Profile = function Profile({ testId = 'Profile' }: ProfileProps) {
 	const { currentUser } = useCurrentUser()
 	const { updateCurrentUser, isLoading } = useUpdateCurrentUser()
@@ -34,7 +37,7 @@ export const Profile = function Profile({ testId = 'Profile' }: ProfileProps) {
 						initialValues={{
 							name: currentUser.name,
 							email: currentUser.email,
-							image: currentUser.image?.image?.url
+							image: CLOUDINARY_ENABLED ? currentUser.image?.image?.url : PROFILE_IMAGE_PLACEHOLDER
 						}}
 						validate={(values) => handleValidate(values, UserSchema)}
 						render={({ handleSubmit }) => (
@@ -43,9 +46,14 @@ export const Profile = function Profile({ testId = 'Profile' }: ProfileProps) {
 									{/* Header */}
 									<div className='flex justify-center lg:justify-start '>
 										<ImageInput
+											disabled={!CLOUDINARY_ENABLED}
 											name='image'
 											errorClassName='mb-[-1rem]'
-											initialValue={currentUser.image?.image?.url}
+											initialValue={
+												CLOUDINARY_ENABLED
+													? currentUser.image?.image?.url
+													: PROFILE_IMAGE_PLACEHOLDER
+											}
 											placeholder='/images/profile-image-placeholder.jpg'
 											v='rounded'
 										/>

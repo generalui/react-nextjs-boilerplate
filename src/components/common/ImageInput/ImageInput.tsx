@@ -48,7 +48,7 @@ export const ImageInput = ({
 
 	return (
 		<>
-			<Field name={name}>
+			<Field name={name} disabled={disabled}>
 				{({ input, meta }) => {
 					inputRef.current = input
 					const isError = (meta.error && meta.touched) || dropzoneErrors.length > 0
@@ -56,6 +56,7 @@ export const ImageInput = ({
 					return (
 						<div className={cn('flex flex-col relative', className)}>
 							<Dropzone
+								disabled={disabled}
 								className={cn(isError && 'border-red-500 border-none', dropzoneClassName)}
 								onClick={onClick}
 								accept={acceptedFileTypes}
@@ -87,16 +88,18 @@ export const ImageInput = ({
 												: imageInputVariants[v].preview
 										)}
 									/>
-									<div
-										className={cn(
-											'bg-white p-4 flex justify-center items-center',
-											disabled
-												? disabledVariants[`${v}Disabled`].iconWrapper
-												: imageInputVariants[v].iconWrapper
-										)}
-									>
-										<Icon icon='PencilSquareIcon' size='sm' className={cn(editIconClassName)} />
-									</div>
+									{!disabled && (
+										<div
+											className={cn(
+												'bg-white p-4 flex justify-center items-center',
+												disabled
+													? disabledVariants[`${v}Disabled`].iconWrapper
+													: imageInputVariants[v].iconWrapper
+											)}
+										>
+											<Icon icon='PencilSquareIcon' size='sm' className={cn(editIconClassName)} />
+										</div>
+									)}
 								</div>
 							</Dropzone>
 
