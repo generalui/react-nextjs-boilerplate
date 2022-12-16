@@ -185,6 +185,9 @@ const studies = {
 					message: 'Confirm & Invite Participants'
 				},
 				cancel: { message: 'Edit Mapping' },
+				returnToStudy: {
+					message: 'Return to Study'
+				},
 				participantInfo: {
 					description: {
 						message: 'New Participant Information'

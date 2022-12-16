@@ -55,4 +55,5 @@ export interface DataSummaryProps extends BaseFormProps<DataSummaryInput> {
 	participantList: Record<string, unknown>[]
 	fields?: string[]
 	newParticipants?: NewParticipants
+	studyId?: string
 }

@@ -54,6 +54,8 @@ export const AddParticipantsCSVForm = ({
 				studyId,
 				participants: transformedParticipantList
 			})
+
+			setInProgress(false)
 		}
 	}
 
@@ -92,6 +94,7 @@ export const AddParticipantsCSVForm = ({
 			unMappedFields={unMappedFields}
 			mappedFields={mappedFields}
 			newParticipants={data}
+			studyId={studyId}
 		/>
 	]
 
