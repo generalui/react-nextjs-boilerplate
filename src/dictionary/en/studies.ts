@@ -79,6 +79,7 @@ const studies = {
 		submitLabel: { message: 'Upload' }
 	},
 	dataTypes: {
+		analyses: { message: 'Analyses' },
 		consents: { message: 'Consent' },
 		geneticData: { message: 'Genetic Data' },
 		healthRecords: { message: 'Health Records' },
