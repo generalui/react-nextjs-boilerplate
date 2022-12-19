@@ -21,6 +21,7 @@
 *.pem
 *.history
 .eslintcache
+tsconfig.tsbuildinfo
 
 # debug
 npm-debug.log*
