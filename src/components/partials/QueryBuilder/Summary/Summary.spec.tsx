@@ -8,7 +8,7 @@ import { Summary } from './index'
 
 describe('Summary Component', () => {
 	it('renders on the page', () => {
-		render(<Summary model='participant' summaryModel='study' />)
+		render(<Summary dataSummaryCards={[]} />)
 
 		const component = screen.getByTestId('Summary')
 
