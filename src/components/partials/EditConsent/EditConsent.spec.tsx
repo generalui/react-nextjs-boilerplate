@@ -8,7 +8,7 @@ import { EditConsent } from './index'
 
 describe('EditConsent Component', () => {
 	it('renders on the page', () => {
-		render(<EditConsent modalName='test' />)
+		render(<EditConsent modalName='test' onSubmit={jest.fn} />)
 
 		const component = screen.getByTestId('EditConsent')
 
