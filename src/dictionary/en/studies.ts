@@ -1,13 +1,13 @@
 const studies = {
 	title: {
-		message: 'Studies'
+		message: 'Todos'
 	},
 	list: {
 		image: {
 			message: 'Image'
 		},
 		studyName: {
-			message: 'Study Name'
+			message: 'Todo Name'
 		},
 		coordinator: {
 			message: 'Coordinator'
@@ -25,7 +25,7 @@ const studies = {
 	details: {
 		coordinator: { message: 'Coordinator' },
 		edit: { message: 'Edit Details' },
-		title: { message: 'Study Details' },
+		title: { message: 'Todo Details' },
 		description: { message: 'Description' },
 		submissionDate: { message: 'Submission Date' },
 		endDate: { message: 'End Date' },
@@ -34,7 +34,7 @@ const studies = {
 	edit: {
 		buttonLabel: { message: 'Edit Details' },
 		submit: { message: 'Save' },
-		title: { message: 'Edit Study' }
+		title: { message: 'Edit Todo' }
 	},
 	status: {
 		approved: { message: 'Approved' },
@@ -42,17 +42,17 @@ const studies = {
 		archived: { message: 'Archived' }
 	},
 	create: {
-		success: { message: 'Study was successfully created' },
+		success: { message: 'Todo was successfully created' },
 		error: { message: 'Failed to create study' }
 	},
 	success: {
-		created: { message: 'Study was successfully created' },
-		updated: { message: 'Study was successfully updated' },
+		created: { message: 'Todo was successfully created' },
+		updated: { message: 'Todo was successfully updated' },
 		participantsAdded: { message: 'Participants have been added to the study successfully' },
 		surveyAdded: { message: 'Survey has been added to the study successfully' }
 	},
 	error: {
-		doesNotExist: { message: 'Study does not exist' },
+		doesNotExist: { message: 'Todo does not exist' },
 		failedToUpload: { message: 'Failed to upload' },
 		failedToUpdate: { message: 'Failed to update' },
 		failedToAddParticipants: { message: 'Participants could not be added to study' },
@@ -180,7 +180,7 @@ const studies = {
 				},
 				cancel: { message: 'Edit Mapping' },
 				returnToStudy: {
-					message: 'Return to Study'
+					message: 'Return to Todo'
 				},
 				participantInfo: {
 					description: {

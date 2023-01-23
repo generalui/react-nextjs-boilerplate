@@ -9,11 +9,11 @@ export const AggregatedDataCardGallery = ({
 	cardClassName
 }: AggregatedDataCardGalleryProps) => {
 	return (
-		<div className={cn('flex flex-col lg:flex-row gap-6', className)} data-testid={testId}>
+		<div className={cn('grid grid-cols-3 gap-6', className)} data-testid={testId}>
 			{aggregatedData?.map(({ title, dataClassName, value, key, subTitle, description }) => (
 				<AggregatedDataCard
 					key={key}
-					className={cn('col-span-3 lg:col-span-1', cardClassName)}
+					className={cn('col-span-3 md:col-span-1', cardClassName)}
 					title={title}
 					dataClassName={dataClassName}
 					value={value}

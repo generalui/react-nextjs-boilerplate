@@ -1,6 +1,6 @@
 const createStudy = {
 	title: {
-		message: 'Create Study'
+		message: 'Create Todo'
 	},
 	fields: {
 		title: {
@@ -13,13 +13,13 @@ const createStudy = {
 			message: 'End Date'
 		},
 		description: {
-			message: 'Study Description'
+			message: 'Todo Description'
 		},
 		dataTypes: {
-			message: 'Study Data Types'
+			message: 'Todo Data Types'
 		},
 		documentation: {
-			label: { message: 'Study Documentation' },
+			label: { message: 'Todo Documentation' },
 			filesSelect: { message: 'Select files or folders to upload' },
 			filesDrag: { message: 'or drag and drop them here' },
 			alt: { message: 'Folder icon' },
@@ -28,7 +28,7 @@ const createStudy = {
 	},
 	buttons: {
 		submit: {
-			message: 'Create Study'
+			message: 'Create Todo'
 		},
 		cancel: {
 			message: 'Cancel'
@@ -45,7 +45,7 @@ const createStudy = {
 			message: 'Select End Date'
 		},
 		description: {
-			message: 'Study Description'
+			message: 'Todo Description'
 		}
 	}
 }

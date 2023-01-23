@@ -18,7 +18,7 @@ const home = {
 	},
 	currentStudies: {
 		title: {
-			message: 'Current Studies'
+			message: 'Todo Items'
 		},
 		placeHolderNumber: {
 			message: '0'
@@ -27,8 +27,7 @@ const home = {
 			message: 'Active & Approved'
 		},
 		description: {
-			message:
-				'Current research studies include those that have not yet been approved by NBDC. Any data associated with those studies is still protected.'
+			message: 'Total todo items created.'
 		}
 	},
 	documentation: {
@@ -48,10 +47,10 @@ const home = {
 	},
 	recentlyAddedStudies: {
 		title: {
-			message: 'Recently Added Studies'
+			message: 'Recently Added Todos'
 		},
 		placeHolder: {
-			message: '[ A beautiful list of recently added studies ]'
+			message: '[ A beautiful list of recently added todos ]'
 		}
 	}
 }

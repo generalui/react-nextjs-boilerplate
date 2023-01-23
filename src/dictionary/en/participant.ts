@@ -23,7 +23,7 @@ const participant = {
 			message: 'Edit'
 		},
 		studies: {
-			message: 'My Studies'
+			message: 'My Todos'
 		}
 	},
 	welcome: {
@@ -37,7 +37,7 @@ const participant = {
 	},
 	study: {
 		consent: {
-			title: { message: 'Study Consent' },
+			title: { message: 'Todo Consent' },
 			description: {
 				message:
 					'Your consent is gathered by a doctor or health care professional who reviews the consent form with you. The form is confidential, along with your medical records, and will not be given to anyone without your consent. Altering your consent preferences here will invoke action on behalf of the Native BioData Consortium.'
@@ -50,7 +50,7 @@ const participant = {
 			},
 			iconAlt: { message: 'Consent Icon' },
 			dataTypes: {
-				message: 'My Data this Study can use'
+				message: 'My Data this Todo can use'
 			},
 			consentState: {
 				full: {
