@@ -65,13 +65,6 @@ const studies = {
 		pdfIconAlt: { message: 'PDF Icon' },
 		noDocuments: { message: 'No files have been uploaded' }
 	},
-	dataVault: {
-		title: { message: 'Data Vault' },
-		dataType: { message: 'Data Type' },
-		files: { message: 'Files' },
-		modified: { message: 'Modified' },
-		noDocuments: { message: 'No private data has been uploaded' }
-	},
 	files: {
 		title: { message: 'Upload Files' },
 		buttonLabel: { message: 'Add Public Files' },

@@ -1,23 +1,16 @@
 import { useSession } from 'next-auth/react'
 import { UseMutationResult, UseQueryResult, useMutation, useQuery } from 'react-query'
-import { DataVault, DataVaultInput, Study, StudyInput } from 'types/Study'
+import { Study, StudyInput } from 'types/Study'
 import { reactQueryClient } from 'utils/client/react-query'
 import { toast } from 'utils/client/toast'
 import { createPartialStudyFromFormData } from 'utils/models/studies'
-import {
-	getStudy,
-	getStudyDataVault,
-	postStudyDataVault,
-	updateStudy
-} from 'utils/requests/studies'
+import { getStudy, updateStudy } from 'utils/requests/studies'
 import { useText } from 'hooks/useText'
 
 export const useStudy = (
 	studyId?: string
 ): UseQueryResult<Study> & {
-	dataVault: UseQueryResult<DataVault[]>
 	update: UseMutationResult<Study, unknown, Partial<StudyInput>>
-	uploadToDataVault: UseMutationResult<Study, unknown, DataVaultInput>
 } => {
 	const { data: session } = useSession()
 	const { t: error } = useText('studies.error')
@@ -26,15 +19,6 @@ export const useStudy = (
 		enabled: !!studyId,
 		retry: false
 	})
-
-	const dataVault = useQuery(
-		['studies', studyId, 'data-vault'],
-		() => getStudyDataVault(studyId || ''),
-		{
-			enabled: !!studyId,
-			retry: false
-		}
-	)
 
 	const updateMutation = useMutation(
 		`study-${studyId}`,
@@ -78,27 +62,8 @@ export const useStudy = (
 		}
 	)
 
-	const uploadToDataVault = useMutation(
-		`study-${studyId}-upload-to-data-vault`,
-		(dataVaultValues: DataVaultInput) => postStudyDataVault(studyId || '', dataVaultValues),
-		{
-			onSuccess: () => {
-				toast(success('updated'))
-			},
-			onError: (_err, _newStudy, context?: { previousStudy: Study }) => {
-				reactQueryClient.setQueryData(['studies', studyId], context?.previousStudy)
-				toast(error('failedToUpload'), 'error')
-			},
-			onSettled: () => {
-				reactQueryClient.invalidateQueries(['studies', studyId])
-			}
-		}
-	)
-
 	return {
 		...query,
-		update: updateMutation,
-		dataVault,
-		uploadToDataVault
+		update: updateMutation
 	}
 }

@@ -1,5 +1,6 @@
 module.exports = {
 	name: 'GenUI',
+	defaultMetaTitle: 'GenUI',
 	headerLogo: '/images/genui_logo.svg',
 	signInImage: '/images/genui_logo.svg',
 	favicon: '/images/genui_logo.svg',

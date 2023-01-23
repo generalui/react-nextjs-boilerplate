@@ -4,7 +4,6 @@
 import { useParticipantStudies } from 'hooks/api/studies/useParticipantStudies'
 import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
 import { useText } from 'hooks/useText'
-import { DataVaultList } from 'partials/DataVaultList'
 import { PageWrapper } from 'partials/PageWrapper'
 import { StudyList } from 'partials/StudyList'
 import { ContactInfo } from 'common/ContactInfo'
@@ -28,7 +27,6 @@ export const ParticipantHome = ({ testId = 'ParticipantHome' }: ParticipantHomeP
 				<EmergencyContact className='flex-1' />
 			</div>
 			<StudyList concise studies={studies} title={t('studies')} />
-			<DataVaultList studyId={studies[0]?.id || ''} title={t('dataVault')} />
 		</PageWrapper>
 	)
 }

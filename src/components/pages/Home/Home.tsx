@@ -19,8 +19,8 @@ export const Home = () => {
 		},
 		{
 			dataClassName: 'text-accent-2',
-			value: data?.totalDataVaultElements,
-			dataType: 'dataVault'
+			value: 0,
+			dataType: 'assignedTodos'
 		},
 		{
 			dataClassName: 'text-accent-3',

@@ -104,7 +104,6 @@ model Study {
   users           CoordinatorsOnStudies[]
   participants    ParticipantsOnStudies[]
   documentation   Document[]
-  dataVault       DataVault[]
   surveyResponses SurveyResponse[]
 }
 
@@ -120,16 +119,6 @@ model Avatar {
   @@id([imageId])
 }
 
-model DataVault {
-  study      Study         @relation(fields: [studyId], references: [id])
-  studyId    String        @map("study_id")
-  document   Document      @relation(fields: [documentId], references: [id])
-  documentId String        @map("document_id")
-  insertedAt DateTime      @default(now()) @map("inserted_at")
-  dataType   StudyDataType
-
-  @@id([documentId])
-}
 
 model CoordinatorsOnStudies {
   study      Study    @relation(fields: [studyId], references: [id])
@@ -185,7 +174,6 @@ model Document {
   Study        Study?     @relation(fields: [studyId], references: [id])
   studyId      String?    @map("study_id")
   insertedAt   DateTime   @default(now()) @map("inserted_at")
-  dataVault    DataVault?
 }
 
 model NotificationEvent {
