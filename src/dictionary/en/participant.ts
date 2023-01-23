@@ -24,12 +24,6 @@ const participant = {
 		},
 		studies: {
 			message: 'My Studies'
-		},
-		dataVault: {
-			message: 'My Data Vault'
-		},
-		dataVaultAction: {
-			message: 'Learn More'
 		}
 	},
 	welcome: {

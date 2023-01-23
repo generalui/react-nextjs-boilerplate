@@ -1,5 +1,5 @@
 # Install dependencies only when needed
-FROM node:lts AS deps
+FROM node:16.13.0 AS deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 # RUN apt-get install -y libc6-compat
 RUN apt-get update
@@ -29,7 +29,7 @@ RUN yarn build
 # RUN npm run build
 
 # Production image, copy all the files and run next
-FROM node:lts AS runner
+FROM node:16.13.0 AS runner
 WORKDIR /app
 
 ENV NODE_ENV production

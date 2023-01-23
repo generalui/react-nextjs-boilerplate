@@ -83,16 +83,6 @@ export const studyInputMap: StudyInputToStudyMap = {
 
 export type StudyInputMap = typeof studyInputMap
 
-export interface DataVault {
-	_count: number
-	dataType: StudyDataType
-	_max: { insertedAt: Date }
-}
-
-export interface DataVaultListData extends DataVault, ListData {}
-
-export type ApiDataVault = Omit<DataVault, '_max'> & { _max: { insertedAt: string } }
-
 export type SelectOptionsType<T = unknown> = {
 	value: string
 	label: ReactNode | string
@@ -130,13 +120,3 @@ export type StudyInputPreTransform = Omit<StudyInput, 'coordinator' | 'dataTypes
 export const publicFilesSchema = z.object({
 	documentation: z.any().array()
 })
-
-export const DataVaultSchema = z.object({
-	dataType: z
-		.object({ label: z.string(), value: z.nativeEnum(StudyDataType) })
-		.transform(({ value }) => value),
-	dataVault: z.any().array()
-})
-
-// The shape of data in outgoing axios requests
-export type DataVaultInput = z.infer<typeof DataVaultSchema>

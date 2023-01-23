@@ -1,10 +1,7 @@
 import {
 	AggregatedStudyData,
-	ApiDataVault,
 	ApiStudiesResponse,
 	ApiStudy,
-	DataVault,
-	DataVaultInput,
 	PaginatedResponse,
 	ParticipantInput,
 	QueryOptions,
@@ -14,7 +11,7 @@ import {
 import { axios } from 'utils/client/axios'
 import { axiosWithFiles } from 'utils/client/axiosWithFiles'
 import { axiosWithQuery } from 'utils/client/axiosWithQuery'
-import { standardizeApiStudy, standardizeDataVault } from 'utils/models/studies'
+import { standardizeApiStudy } from 'utils/models/studies'
 
 export const getStudies = async (
 	query?: QueryOptions
@@ -59,30 +56,6 @@ export const getParticipantStudies = async (
 		hasMore,
 		studies: studies.map(standardizeApiStudy)
 	}
-}
-
-export const getStudyDataVault = async (studyId: string): Promise<DataVault[]> => {
-	const response = await axios.get<ApiDataVault[]>(`/studies/${studyId}/data-vault`)
-
-	if (!response.data) {
-		throw new Error('Study not found')
-	}
-
-	return response.data.map(standardizeDataVault)
-}
-
-export const postStudyDataVault = async (
-	studyId: string,
-	{ dataVault, dataType }: DataVaultInput
-) => {
-	const response = await axiosWithFiles<ApiStudy>(
-		`/studies/${studyId}/data-vault`,
-		{ dataType },
-		{ dataVault: dataVault as File[] },
-		'post'
-	)
-
-	return standardizeApiStudy(response.data)
 }
 
 export const createStudy = async ({ image, documentation, ...newStudy }: StudyInput) => {

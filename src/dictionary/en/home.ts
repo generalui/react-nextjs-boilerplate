@@ -2,6 +2,20 @@ const home = {
 	title: {
 		message: 'Home'
 	},
+	assignedTodos: {
+		title: {
+			message: 'Assigned To You'
+		},
+		placeHolderNumber: {
+			message: '0'
+		},
+		subTitle: {
+			message: 'Todo items assigned to you'
+		},
+		description: {
+			message: 'This is an example of how data can be rendered on the page from the server.'
+		}
+	},
 	currentStudies: {
 		title: {
 			message: 'Current Studies'
@@ -15,21 +29,6 @@ const home = {
 		description: {
 			message:
 				'Current research studies include those that have not yet been approved by NBDC. Any data associated with those studies is still protected.'
-		}
-	},
-	dataVault: {
-		title: {
-			message: 'Data Vault'
-		},
-		placeHolderNumber: {
-			message: '0'
-		},
-		subTitle: {
-			message: 'Files'
-		},
-		description: {
-			message:
-				'The data vault can store a variety of file types and  participant data. It’s held separately and not viewable through this platform by anyone.'
 		}
 	},
 	documentation: {

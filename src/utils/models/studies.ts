@@ -2,9 +2,7 @@ import { StudyDataType, StudyStatus } from '@prisma/client'
 import { uniqueId } from 'lodash'
 import { Session } from 'next-auth'
 import {
-	ApiDataVault,
 	ApiStudy,
-	DataVault,
 	OptimisticStudy,
 	Study,
 	StudyInput,
@@ -18,12 +16,6 @@ export const standardizeApiStudy = (apiStudy: ApiStudy): Study => ({
 	...apiStudy,
 	endDate: new Date(apiStudy.endDate),
 	submissionDate: new Date(apiStudy.submissionDate)
-})
-
-export const standardizeDataVault = ({ _count, dataType, _max }: ApiDataVault): DataVault => ({
-	_count,
-	dataType,
-	_max: { insertedAt: new Date(_max.insertedAt) }
 })
 
 type StudyKeyHandler<T extends keyof StudyInput> = (

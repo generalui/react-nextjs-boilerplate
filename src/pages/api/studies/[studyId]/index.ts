@@ -16,9 +16,7 @@ export { config } from 'utils/api/multer'
 const apiRoute = connect()
 
 // Middleware processing FormData to file
-apiRoute.use(
-	multer.fields([{ name: 'image', maxCount: 1 }, { name: 'documentation' }, { name: 'dataVault' }])
-)
+apiRoute.use(multer.fields([{ name: 'image', maxCount: 1 }, { name: 'documentation' }]))
 
 // Get a study by ID
 apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {

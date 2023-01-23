@@ -9,7 +9,7 @@ services:
     ports:
       - 5432:5432
     networks:
-      - ndbc_network
+      - docker_network
     environment:
       NODE_ENV: production
       POSTGRES_USER: postgres
@@ -20,6 +20,7 @@ services:
 
   # Application container
   web-app:
+    image: node:16.13.0
     container_name: web-app
     # Install dependencies only when needed
     environment:
@@ -31,7 +32,7 @@ services:
     ports:
       - 3000:3000
     networks:
-      - ndbc_network
+      - docker_network
     depends_on:
       - db
 
@@ -39,5 +40,5 @@ volumes:
   dbvol:
 
 networks:
-  ndbc_network:
-    name: ndbc_network
+  docker_network:
+    name: docker_network
