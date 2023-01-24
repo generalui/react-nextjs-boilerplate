@@ -30,11 +30,9 @@ export const WelcomeContent = ({
 					<p>{description}</p>
 
 					<div className='block'>
-						<Link href={link} passHref>
-							<Button link className='w-max'>
-								{t('linkLabel')}
-							</Button>
-						</Link>
+						<Button link href={link} className='w-max'>
+							{t('linkLabel')}
+						</Button>
 					</div>
 				</div>
 			</div>

@@ -6,10 +6,7 @@ const nextConfig = {
 	images: {
 		domains: ['unsplash.com', 'res.cloudinary.com', 'nativebio.org']
 	},
-	experimental: {
-		outputStandalone: true
-	},
-	webpack5: true,
+	output: 'standalone',
 	webpack: (config) => {
 		// Fixes npm packages that depend on `fs` module
 		config.resolve.fallback = {

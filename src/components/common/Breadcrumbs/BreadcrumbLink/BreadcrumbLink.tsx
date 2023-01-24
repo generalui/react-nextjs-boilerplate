@@ -33,13 +33,7 @@ export const BreadcrumbLink = ({
 			)}
 			data-testid={testId}
 		>
-			{!disabled ? (
-				<Link href={href} passHref>
-					{innerText}
-				</Link>
-			) : (
-				innerText
-			)}
+			{!disabled ? <Link href={href}>{innerText}</Link> : innerText}
 		</div>
 	)
 }
