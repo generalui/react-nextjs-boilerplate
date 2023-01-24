@@ -11,8 +11,7 @@ datasource db {
 }
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["interactiveTransactions"]
+  provider = "prisma-client-js"
 }
 
 model Account {
@@ -48,16 +47,16 @@ enum UserRole {
 }
 
 model User {
-  id            String                  @id @default(cuid())
+  id            String                @id @default(cuid())
   name          String?
-  email         String?                 @unique
-  emailVerified DateTime?               @map("email_verified")
+  email         String?               @unique
+  emailVerified DateTime?             @map("email_verified")
   password      String?
   image         Avatar?
   accounts      Account[]
   sessions      Session[]
   documents     Document[]
-  todos       CoordinatorsOnTodos[]
+  todos         CoordinatorsOnTodos[]
   participant   Participant?
   role          UserRole
 }
@@ -76,14 +75,6 @@ enum TodoStatus {
   archived
 }
 
-// enum DocumentDataTypes {
-//   analyses
-//   consents
-//   healthRecords
-//   geneticData
-//   specimens
-// }
-
 enum TodoDataType {
   analyses
   consents
@@ -93,14 +84,14 @@ enum TodoDataType {
 }
 
 model Todo {
-  id              String                  @id @default(cuid())
+  id              String                @id @default(cuid())
   description     String
   image           Avatar?
-  status          TodoStatus             @default(new)
-  submissionDate  DateTime                @default(now()) @map("submission_date")
-  endDate         DateTime                @map("end_date")
+  status          TodoStatus            @default(new)
+  submissionDate  DateTime              @default(now()) @map("submission_date")
+  endDate         DateTime              @map("end_date")
   title           String
-  dataTypes       TodoDataType[]         @map("data_types")
+  dataTypes       TodoDataType[]        @map("data_types")
   users           CoordinatorsOnTodos[]
   participants    ParticipantsOnTodos[]
   documentation   Document[]
@@ -108,8 +99,8 @@ model Todo {
 }
 
 model Avatar {
-  todo      Todo?   @relation(fields: [todoId], references: [id])
-  todoId    String?  @unique @map("todo_id")
+  todo       Todo?    @relation(fields: [todoId], references: [id])
+  todoId     String?  @unique @map("todo_id")
   user       User?    @relation(fields: [userId], references: [id])
   userId     String?  @unique @map("user_id")
   image      Document @relation(fields: [imageId], references: [id])
@@ -119,10 +110,9 @@ model Avatar {
   @@id([imageId])
 }
 
-
 model CoordinatorsOnTodos {
-  todo      Todo    @relation(fields: [todoId], references: [id])
-  todoId    String   @map("todo_id")
+  todo       Todo     @relation(fields: [todoId], references: [id])
+  todoId     String   @map("todo_id")
   user       User     @relation(fields: [userId], references: [id])
   userId     String   @map("user_id")
   insertedAt DateTime @default(now()) @map("inserted_at")
@@ -131,8 +121,8 @@ model CoordinatorsOnTodos {
 }
 
 model ParticipantsOnTodos {
-  todo         Todo       @relation(fields: [todoId], references: [id])
-  todoId       String      @map("todo_id")
+  todo          Todo        @relation(fields: [todoId], references: [id])
+  todoId        String      @map("todo_id")
   participant   Participant @relation(fields: [participantId], references: [id])
   participantId String      @map("participant_id")
   consent       Consent     @relation(fields: [consentId], references: [id])
@@ -154,26 +144,26 @@ enum ConsentState {
 }
 
 model Consent {
-  id                    String                  @id @default(cuid())
-  analyses              ConsentEnum             @default(yes)
-  geneticData           ConsentEnum             @default(yes)
-  healthRecords         ConsentEnum             @default(yes)
-  specimens             ConsentEnum             @default(yes)
-  insertedAt            DateTime                @default(now()) @map("inserted_at")
+  id                  String                @id @default(cuid())
+  analyses            ConsentEnum           @default(yes)
+  geneticData         ConsentEnum           @default(yes)
+  healthRecords       ConsentEnum           @default(yes)
+  specimens           ConsentEnum           @default(yes)
+  insertedAt          DateTime              @default(now()) @map("inserted_at")
   ParticipantsOnTodos ParticipantsOnTodos[]
 }
 
 model Document {
-  id           String     @id @default(cuid())
-  uploadedById String?    @map("uploaded_by_id")
+  id           String   @id @default(cuid())
+  uploadedById String?  @map("uploaded_by_id")
   name         String
   url          String
-  fileType     String     @map("file_type")
-  uploadedBy   User?      @relation(fields: [uploadedById], references: [id], onDelete: Cascade)
+  fileType     String   @map("file_type")
+  uploadedBy   User?    @relation(fields: [uploadedById], references: [id], onDelete: Cascade)
   avatar       Avatar?
-  Todo        Todo?     @relation(fields: [todoId], references: [id])
-  todoId      String?    @map("todo_id")
-  insertedAt   DateTime   @default(now()) @map("inserted_at")
+  Todo         Todo?    @relation(fields: [todoId], references: [id])
+  todoId       String?  @map("todo_id")
+  insertedAt   DateTime @default(now()) @map("inserted_at")
 }
 
 model NotificationEvent {
@@ -202,32 +192,32 @@ model EventLog {
 }
 
 model Participant {
-  id                              String                  @id @default(cuid())
-  insertedAt                      DateTime                @default(now()) @map("inserted_at")
-  updatedAt                       DateTime                @default(now()) @map("updated_at")
-  user                            User                    @relation(fields: [userId], references: [id])
-  userId                          String                  @unique @map("user_id")
-  enrolledTribe                   String?                 @map("enrolled_tribe")
-  homePhone                       String?                 @map("home_phone")
-  workPhone                       String?                 @map("work_phone")
-  physicalAddress                 String?                 @map("physical_address")
-  emergencyContactName            String?                 @map("emergency_contact_name")
-  emergencyContactRelationship    String?                 @map("emergency_contact_relationship")
-  emergencyContactEmail           String?                 @map("emergency_contact_email")
-  emergencyContactHomePhone       String?                 @map("emergency_contact_home_phone")
-  emergencyContactWorkPhone       String?                 @map("emergency_contact_work_phone")
-  emergencyContactPhysicalAddress String?                 @map("emergency_contact_physical_address")
-  todos                         ParticipantsOnTodos[]
+  id                              String                @id @default(cuid())
+  insertedAt                      DateTime              @default(now()) @map("inserted_at")
+  updatedAt                       DateTime              @default(now()) @map("updated_at")
+  user                            User                  @relation(fields: [userId], references: [id])
+  userId                          String                @unique @map("user_id")
+  enrolledTribe                   String?               @map("enrolled_tribe")
+  homePhone                       String?               @map("home_phone")
+  workPhone                       String?               @map("work_phone")
+  physicalAddress                 String?               @map("physical_address")
+  emergencyContactName            String?               @map("emergency_contact_name")
+  emergencyContactRelationship    String?               @map("emergency_contact_relationship")
+  emergencyContactEmail           String?               @map("emergency_contact_email")
+  emergencyContactHomePhone       String?               @map("emergency_contact_home_phone")
+  emergencyContactWorkPhone       String?               @map("emergency_contact_work_phone")
+  emergencyContactPhysicalAddress String?               @map("emergency_contact_physical_address")
+  todos                           ParticipantsOnTodos[]
 }
 
 model SurveyResponse {
   id              String   @id @default(cuid())
   insertedAt      DateTime @default(now()) @map("inserted_at")
   surveyId        String   @map("survey_id")
-  todoId         String   @map("todo_id")
+  todoId          String   @map("todo_id")
   redcapEventName String   @map("redcap_event_name")
   timestamp       String
   responses       Json
   participantId   String   @map("participant_id")
-  todo           Todo    @relation(fields: [todoId], references: [id])
+  todo            Todo     @relation(fields: [todoId], references: [id])
 }
