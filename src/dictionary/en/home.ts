@@ -16,7 +16,7 @@ const home = {
 			message: 'This is an example of how data can be rendered on the page from the server.'
 		}
 	},
-	currentStudies: {
+	currentTodos: {
 		title: {
 			message: 'Todo Items'
 		},
@@ -42,10 +42,10 @@ const home = {
 		},
 		description: {
 			message:
-				'Documentation associated with the study is viewable by anyone on the platform, and can include study requirements, meeting notes, etc.'
+				'Documentation associated with the todo is viewable by anyone on the platform, and can include todo requirements, meeting notes, etc.'
 		}
 	},
-	recentlyAddedStudies: {
+	recentlyAddedTodos: {
 		title: {
 			message: 'Recently Added Todos'
 		},

@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { FormProps as FinalFormProps } from 'react-final-form'
 import { CommonProps } from 'types/CommonProps'
-import { StudyInputPreTransform } from 'types/Study'
+import { TodoInputPreTransform } from 'types/Todo'
 
 export interface BaseFormProps<T extends Record<string, unknown>> extends CommonProps {
 	title?: ReactNode
@@ -17,7 +17,7 @@ export interface FormProps<T extends Record<string, unknown>> extends BaseFormPr
 	render: Required<FinalFormProps<T>>['render']
 }
 
-export interface StudyFormProps extends BaseFormProps<StudyInputPreTransform> {
+export interface TodoFormProps extends BaseFormProps<TodoInputPreTransform> {
 	create?: boolean
 	isLoading: boolean
 }

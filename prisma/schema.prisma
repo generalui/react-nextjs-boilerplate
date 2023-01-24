@@ -57,7 +57,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   documents     Document[]
-  studies       CoordinatorsOnStudies[]
+  todos       CoordinatorsOnTodos[]
   participant   Participant?
   role          UserRole
 }
@@ -70,7 +70,7 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-enum StudyStatus {
+enum TodoStatus {
   new
   approved
   archived
@@ -84,7 +84,7 @@ enum StudyStatus {
 //   specimens
 // }
 
-enum StudyDataType {
+enum TodoDataType {
   analyses
   consents
   healthRecords
@@ -92,24 +92,24 @@ enum StudyDataType {
   specimens
 }
 
-model Study {
+model Todo {
   id              String                  @id @default(cuid())
   description     String
   image           Avatar?
-  status          StudyStatus             @default(new)
+  status          TodoStatus             @default(new)
   submissionDate  DateTime                @default(now()) @map("submission_date")
   endDate         DateTime                @map("end_date")
   title           String
-  dataTypes       StudyDataType[]         @map("data_types")
-  users           CoordinatorsOnStudies[]
-  participants    ParticipantsOnStudies[]
+  dataTypes       TodoDataType[]         @map("data_types")
+  users           CoordinatorsOnTodos[]
+  participants    ParticipantsOnTodos[]
   documentation   Document[]
   surveyResponses SurveyResponse[]
 }
 
 model Avatar {
-  study      Study?   @relation(fields: [studyId], references: [id])
-  studyId    String?  @unique @map("study_id")
+  todo      Todo?   @relation(fields: [todoId], references: [id])
+  todoId    String?  @unique @map("todo_id")
   user       User?    @relation(fields: [userId], references: [id])
   userId     String?  @unique @map("user_id")
   image      Document @relation(fields: [imageId], references: [id])
@@ -120,26 +120,26 @@ model Avatar {
 }
 
 
-model CoordinatorsOnStudies {
-  study      Study    @relation(fields: [studyId], references: [id])
-  studyId    String   @map("study_id")
+model CoordinatorsOnTodos {
+  todo      Todo    @relation(fields: [todoId], references: [id])
+  todoId    String   @map("todo_id")
   user       User     @relation(fields: [userId], references: [id])
   userId     String   @map("user_id")
   insertedAt DateTime @default(now()) @map("inserted_at")
 
-  @@id([studyId, userId])
+  @@id([todoId, userId])
 }
 
-model ParticipantsOnStudies {
-  study         Study       @relation(fields: [studyId], references: [id])
-  studyId       String      @map("study_id")
+model ParticipantsOnTodos {
+  todo         Todo       @relation(fields: [todoId], references: [id])
+  todoId       String      @map("todo_id")
   participant   Participant @relation(fields: [participantId], references: [id])
   participantId String      @map("participant_id")
   consent       Consent     @relation(fields: [consentId], references: [id])
   consentId     String      @map("consent_id")
   insertedAt    DateTime    @default(now()) @map("inserted_at")
 
-  @@id([studyId, participantId])
+  @@id([todoId, participantId])
 }
 
 enum ConsentEnum {
@@ -160,7 +160,7 @@ model Consent {
   healthRecords         ConsentEnum             @default(yes)
   specimens             ConsentEnum             @default(yes)
   insertedAt            DateTime                @default(now()) @map("inserted_at")
-  ParticipantsOnStudies ParticipantsOnStudies[]
+  ParticipantsOnTodos ParticipantsOnTodos[]
 }
 
 model Document {
@@ -171,8 +171,8 @@ model Document {
   fileType     String     @map("file_type")
   uploadedBy   User?      @relation(fields: [uploadedById], references: [id], onDelete: Cascade)
   avatar       Avatar?
-  Study        Study?     @relation(fields: [studyId], references: [id])
-  studyId      String?    @map("study_id")
+  Todo        Todo?     @relation(fields: [todoId], references: [id])
+  todoId      String?    @map("todo_id")
   insertedAt   DateTime   @default(now()) @map("inserted_at")
 }
 
@@ -217,17 +217,17 @@ model Participant {
   emergencyContactHomePhone       String?                 @map("emergency_contact_home_phone")
   emergencyContactWorkPhone       String?                 @map("emergency_contact_work_phone")
   emergencyContactPhysicalAddress String?                 @map("emergency_contact_physical_address")
-  studies                         ParticipantsOnStudies[]
+  todos                         ParticipantsOnTodos[]
 }
 
 model SurveyResponse {
   id              String   @id @default(cuid())
   insertedAt      DateTime @default(now()) @map("inserted_at")
   surveyId        String   @map("survey_id")
-  studyId         String   @map("study_id")
+  todoId         String   @map("todo_id")
   redcapEventName String   @map("redcap_event_name")
   timestamp       String
   responses       Json
   participantId   String   @map("participant_id")
-  study           Study    @relation(fields: [studyId], references: [id])
+  todo           Todo    @relation(fields: [todoId], references: [id])
 }

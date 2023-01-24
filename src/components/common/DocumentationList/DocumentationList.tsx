@@ -16,7 +16,7 @@ export const DocumentationList = ({
 	testId = 'DocumentationList',
 	title
 }: DocumentationListProps) => {
-	const { t } = useText('studies.documentation')
+	const { t } = useText('todos.documentation')
 
 	const renderDocumentIcon = useCallback((fileType: string) => {
 		let icon: JSX.Element

@@ -18,19 +18,19 @@ export const routeMap: Record<
 		labelKey: 'common.sidebar.nav.home',
 		role: 'participant',
 		subRoutes: {
-			studies: { labelKey: '', href: '/participant' },
-			'[studyId]': { labelKey: 'studies.details.title' }
+			todos: { labelKey: '', href: '/participant' },
+			'[todoId]': { labelKey: 'todos.details.title' }
 		}
 	},
-	studies: {
-		href: '/studies',
+	todos: {
+		href: '/todos',
 		icon: 'DocumentChartBarIcon',
-		labelKey: 'common.sidebar.nav.studies',
+		labelKey: 'common.sidebar.nav.todos',
 		subRoutes: {
-			'[studyId]': { labelKey: 'studies.details.title' },
-			'redcap-xml': { labelKey: 'studies.redcapXMLForm.title' },
-			'add-participants': { labelKey: 'studies.addParticipants.title' },
-			'add-survey': { labelKey: 'studies.addSurvey.title' }
+			'[todoId]': { labelKey: 'todos.details.title' },
+			'redcap-xml': { labelKey: 'todos.redcapXMLForm.title' },
+			'add-participants': { labelKey: 'todos.addParticipants.title' },
+			'add-survey': { labelKey: 'todos.addSurvey.title' }
 		},
 		role: 'admin'
 	},

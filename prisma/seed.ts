@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker'
 import { ConsentEnum, PrismaClient } from '@prisma/client'
 import bcrypt from 'bcryptjs'
-import { getDefaultConsentFromStudy } from 'utils/api/getDefaultConsentFromStudy'
-import { participants, studies, users } from './seedData'
+import { getDefaultConsentFromTodo } from 'utils/api/getDefaultConsentFromTodo'
+import { participants, todos, users } from './seedData'
 
 const prisma = new PrismaClient()
 type CreatedUser = {
@@ -37,11 +37,11 @@ const prismaSafeParticipants = (participants || []).map((participant) => {
 	}
 })
 
-// Format seed studies for prisma insertion
-const prismaSafeStudiesWithParticipant = studies.slice(0, 1).map(({ imageUrl, ...study }) => {
+// Format seed todos for prisma insertion
+const prismaSafeTodosWithParticipant = todos.slice(0, 1).map(({ imageUrl, ...todo }) => {
 	return {
 		data: {
-			...study,
+			...todo,
 			image: imageUrl
 				? {
 						create: {
@@ -58,8 +58,8 @@ const prismaSafeStudiesWithParticipant = studies.slice(0, 1).map(({ imageUrl, ..
 			participants: {
 				connectOrCreate: {
 					where: {
-						studyId_participantId: {
-							studyId: study.id,
+						todoId_participantId: {
+							todoId: todo.id,
 							participantId: 'participant1'
 						}
 					},
@@ -82,10 +82,10 @@ const prismaSafeStudiesWithParticipant = studies.slice(0, 1).map(({ imageUrl, ..
 	}
 })
 
-const prismaSafeStudiesWithoutParticipants = studies.slice(1).map(({ imageUrl, ...study }) => {
+const prismaSafeTodosWithoutParticipants = todos.slice(1).map(({ imageUrl, ...todo }) => {
 	return {
 		data: {
-			...study,
+			...todo,
 			image: imageUrl
 				? {
 						create: {
@@ -114,19 +114,19 @@ async function main() {
 
 	console.log('Created participants:\n', createParticipants?.length)
 
-	const studiesCount = await prisma.study.count({})
-	if (studiesCount === 0) {
-		const createdStudiesWithParticipants = await Promise.all(
-			prismaSafeStudiesWithParticipant.map((study) => prisma.study.create(study))
+	const todosCount = await prisma.todo.count({})
+	if (todosCount === 0) {
+		const createdTodosWithParticipants = await Promise.all(
+			prismaSafeTodosWithParticipant.map((todo) => prisma.todo.create(todo))
 		)
 
-		const createdStudiesWithoutParticipants = await Promise.all(
-			prismaSafeStudiesWithoutParticipants.map((study) => prisma.study.create(study))
+		const createdTodosWithoutParticipants = await Promise.all(
+			prismaSafeTodosWithoutParticipants.map((todo) => prisma.todo.create(todo))
 		)
 
-		const createdStudies = [...createdStudiesWithoutParticipants, ...createdStudiesWithParticipants]
+		const createdTodos = [...createdTodosWithoutParticipants, ...createdTodosWithParticipants]
 
-		console.log('Created studies:\n', createdStudies?.length)
+		console.log('Created todos:\n', createdTodos?.length)
 	}
 }
 

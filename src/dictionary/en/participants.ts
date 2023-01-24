@@ -1,12 +1,12 @@
 const participants = {
 	conditions: {
 		fields: {
-			study: {
+			todo: {
 				title: { message: 'Todo' },
 				options: {
 					title: { message: 'Todo Name' },
 					dataTypes: { message: 'Todo Data Type' },
-					studyCoordinator: { message: 'Todo Coordinator' }
+					todoCoordinator: { message: 'Todo Coordinator' }
 				}
 			},
 			dataTypes: {

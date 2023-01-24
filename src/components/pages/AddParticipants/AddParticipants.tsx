@@ -12,7 +12,7 @@ import { AddParticipantsProps } from './AddParticipants.types'
 export const AddParticipants = function AddParticipants({
 	testId = 'AddParticipants'
 }: AddParticipantsProps) {
-	const { t } = useText('studies.addParticipants')
+	const { t } = useText('todos.addParticipants')
 	const { query } = useRouter()
 
 	return (
@@ -22,7 +22,7 @@ export const AddParticipants = function AddParticipants({
 			</PageHeader>
 
 			<div>
-				<AddParticipantsCSVForm studyId={query?.studyId as string} />
+				<AddParticipantsCSVForm todoId={query?.todoId as string} />
 			</div>
 		</PageWrapper>
 	)

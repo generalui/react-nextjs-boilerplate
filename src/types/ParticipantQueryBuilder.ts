@@ -1,12 +1,12 @@
 import { Participant } from '@prisma/client'
 import { WhereStatement } from 'types/QueryBuilder'
-import { ParticipantQueryBuilderStudyPayload } from 'types/Study'
+import { ParticipantQueryBuilderTodoPayload } from 'types/Todo'
 import { getSingleWhere } from 'utils/api/queryBuilder'
 
 export type ParticipantQueryReturn = {
 	modelCount: number
 	list: Participant[]
-	studyCount: number
+	todoCount: number
 }
 
 export type GetParticipantsReturnType = Promise<ParticipantQueryReturn>
@@ -17,12 +17,12 @@ export type GetParticipants = (
 
 export type ParticipantsAndCount = [number, Participant['id'][], Participant['id'][]]
 
-export type GetStudyParticipantIdsAndCount = (
-	studiesAnd: ParticipantQueryBuilderStudyPayload[],
-	studiesOr?: ParticipantQueryBuilderStudyPayload[]
+export type GetTodoParticipantIdsAndCount = (
+	todosAnd: ParticipantQueryBuilderTodoPayload[],
+	todosOr?: ParticipantQueryBuilderTodoPayload[]
 ) => ParticipantsAndCount
 
-export type GetParticipantsViaStudy = (
-	studyWhere: { where?: WhereStatement },
+export type GetParticipantsViaTodo = (
+	todoWhere: { where?: WhereStatement },
 	participantWhere: { where?: WhereStatement }
 ) => GetParticipantsReturnType

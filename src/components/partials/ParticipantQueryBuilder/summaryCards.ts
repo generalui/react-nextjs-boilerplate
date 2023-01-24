@@ -6,9 +6,9 @@ export const summaryCards = [
 		key: 'participants'
 	},
 	{
-		title: `models.study.plural`,
+		title: `models.todo.plural`,
 		dataClassName: 'text-primary',
 		value: 0,
-		key: 'studies'
+		key: 'todos'
 	}
 ]

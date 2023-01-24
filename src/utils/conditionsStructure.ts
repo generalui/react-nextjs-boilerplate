@@ -1,12 +1,12 @@
 export const participants = {
 	conditions: {
 		fields: {
-			study: {
-				model: 'study',
-				title: { key: 'fields.study.title' },
+			todo: {
+				model: 'todo',
+				title: { key: 'fields.todo.title' },
 				options: {
-					title: { key: 'fields.study.options.title' },
-					studyCoordinator: { key: 'fields.study.options.studyCoordinator' }
+					title: { key: 'fields.todo.options.title' },
+					todoCoordinator: { key: 'fields.todo.options.todoCoordinator' }
 				}
 			},
 			participantInfo: {

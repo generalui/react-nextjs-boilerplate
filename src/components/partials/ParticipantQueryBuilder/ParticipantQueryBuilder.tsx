@@ -20,7 +20,7 @@ export const ParticipantQueryBuilder = ({
 	testId = 'ParticipantQueryBuilder'
 }: ParticipantQueryBuilderProps) => {
 	const { t } = useText('participants.conditions')
-	const { t: consentText } = useText('participant.study.consent.consentState')
+	const { t: consentText } = useText('participant.todo.consent.consentState')
 	const [filters, setFilters] = useState<Filter[]>()
 	const { participants } = useParticipantQuery(filters)
 	const { t: queryBuilderText } = useText('queryBuilder')
@@ -32,8 +32,8 @@ export const ParticipantQueryBuilder = ({
 				const value =
 					summaryElem.key === 'participants'
 						? participants?.modelCount ?? 0
-						: summaryElem.key === 'studies'
-						? participants?.studyCount ?? 0
+						: summaryElem.key === 'todos'
+						? participants?.todoCount ?? 0
 						: 0
 
 				return {
@@ -43,7 +43,7 @@ export const ParticipantQueryBuilder = ({
 				}
 			})
 		)
-	}, [participants?.modelCount, participants?.studyCount, queryBuilderText])
+	}, [participants?.modelCount, participants?.todoCount, queryBuilderText])
 
 	const handleFilterChange = (change: Filter[]) => {
 		setFilters(change)
@@ -95,19 +95,19 @@ export const ParticipantQueryBuilder = ({
 			width: 5
 		},
 		{
-			key: 'studies',
-			title: 'Studies',
+			key: 'todos',
+			title: 'Todos',
 			width: 2,
 			transformFunction: (_value, data) => {
 				return (
 					<div className='p-4 bg-gray-100 flex justify-center rounded-md w-fit'>
-						{data.studies?.length}
+						{data.todos?.length}
 					</div>
 				)
 			}
 		},
 		{
-			key: 'studies',
+			key: 'todos',
 			title: 'Consents',
 			width: 2,
 			transformFunction: (_value, data) => {

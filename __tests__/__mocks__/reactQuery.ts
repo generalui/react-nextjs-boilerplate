@@ -1,4 +1,4 @@
-import { Study } from 'types/Study'
+import { Todo } from 'types/Todo'
 
 export const mockUseQueryBaseReturn = {
 	data: undefined,
@@ -13,12 +13,12 @@ export const mockUseQueryBaseReturn = {
 }
 
 const mockUseQueryDataMap: Record<string, Record<string, unknown>> = {
-	studies: {
+	todos: {
 		id: new Date().toISOString(),
 		image: {
 			insertedAt: new Date(),
 			imageId: '',
-			studyId: '',
+			todoId: '',
 			userId: '',
 			image: {
 				id: '',
@@ -27,10 +27,10 @@ const mockUseQueryDataMap: Record<string, Record<string, unknown>> = {
 				name: '',
 				url: '',
 				fileType: '',
-				studyId: ''
+				todoId: ''
 			}
 		},
-		title: 'Test Study',
+		title: 'Test Todo',
 		description: 'Test',
 		endDate: new Date(),
 		submissionDate: new Date(),
@@ -38,7 +38,7 @@ const mockUseQueryDataMap: Record<string, Record<string, unknown>> = {
 		status: 'new',
 		users: [
 			{
-				studyId: '',
+				todoId: '',
 				userId: '',
 				insertedAt: new Date(),
 				user: {
@@ -56,7 +56,7 @@ const mockUseQueryDataMap: Record<string, Record<string, unknown>> = {
 		],
 		dataTypes: [],
 		documentation: []
-	} as Study
+	} as Todo
 }
 
 export const mockMutateFunction = jest.fn((args) => console.log('mutate', args))

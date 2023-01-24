@@ -20,12 +20,12 @@ export const getParticipantsQuery = async (
 
 export const getParticipantConsent = async (
 	participantId: string,
-	studyId: string
+	todoId: string
 ): Promise<Consent> => {
-	const response = await axios.get<Consent>(`/studies/${studyId}/${participantId}/consent`)
+	const response = await axios.get<Consent>(`/todos/${todoId}/${participantId}/consent`)
 
 	if (!response.data) {
-		throw new Error('Study not found')
+		throw new Error('Todo not found')
 	}
 
 	return response.data
@@ -33,15 +33,15 @@ export const getParticipantConsent = async (
 
 export const updateParticipantConsent = async (
 	participantId: string,
-	studyId: string,
+	todoId: string,
 	consent: ConsentInput
 ): Promise<Consent> => {
-	const response = await axios.put<Consent>(`/studies/${studyId}/${participantId}/consent`, {
+	const response = await axios.put<Consent>(`/todos/${todoId}/${participantId}/consent`, {
 		consent
 	})
 
 	if (!response.data) {
-		throw new Error('Study not found')
+		throw new Error('Todo not found')
 	}
 
 	return response.data

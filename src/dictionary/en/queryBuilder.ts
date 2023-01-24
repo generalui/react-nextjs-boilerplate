@@ -45,7 +45,7 @@ const queryBuilder = {
 			singular: { message: 'Participant' },
 			plural: { message: 'Participants' }
 		},
-		study: {
+		todo: {
 			singular: { message: 'Todo' },
 			plural: { message: 'Todos' }
 		}

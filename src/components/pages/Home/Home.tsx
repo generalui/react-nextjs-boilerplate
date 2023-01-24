@@ -1,21 +1,21 @@
-import { useAggregatedStudyData } from 'hooks/api/aggregatedData/useAggregatedStudyData'
-import { useStudies } from 'hooks/api/studies/useStudies'
+import { useAggregatedTodoData } from 'hooks/api/aggregatedData/useAggregatedTodoData'
+import { useTodos } from 'hooks/api/todos/useTodos'
 import { useText } from 'hooks/useText'
 import { AggregatedDataCardGallery } from 'partials/AggregatedDataCardGallery'
 import { PageWrapper } from 'partials/PageWrapper'
-import { StudyList } from 'partials/StudyList'
+import { TodoList } from 'partials/TodoList'
 import { AdminWelcome } from 'common/WelcomeContent'
 
 export const Home = () => {
 	const { t } = useText('home')
-	const { studies = [], isLoading } = useStudies({ page: 0, pageSize: 5 })
+	const { todos = [], isLoading } = useTodos({ page: 0, pageSize: 5 })
 
-	const { data } = useAggregatedStudyData()
+	const { data } = useAggregatedTodoData()
 	const aggregatedData = [
 		{
 			dataClassName: 'text-accent-1',
-			value: data?.totalStudies,
-			dataType: 'currentStudies'
+			value: data?.totalTodos,
+			dataType: 'currentTodos'
 		},
 		{
 			dataClassName: 'text-accent-2',
@@ -41,19 +41,19 @@ export const Home = () => {
 			{/* Client about info */}
 			<AdminWelcome className='mb-12' />
 
-			{/* Aggregated study data */}
+			{/* Aggregated todo data */}
 			<AggregatedDataCardGallery aggregatedData={aggregatedData} />
 
 			{/* Divider */}
 			<div className='border-b col-span-1 col-span-3 border-color-black-400 my-9' />
 
-			{/* Recently added studies */}
-			<StudyList
+			{/* Recently added todos */}
+			<TodoList
 				className='w-full'
 				concise
 				isLoading={isLoading}
-				studies={studies}
-				title={t('recentlyAddedStudies.title')}
+				todos={todos}
+				title={t('recentlyAddedTodos.title')}
 			/>
 		</PageWrapper>
 	)

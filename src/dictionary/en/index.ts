@@ -1,6 +1,6 @@
 import client from './client'
 import common from './common'
-import createStudy from './createStudy'
+import createTodo from './createTodo'
 import exportData from './exportData'
 import home from './home'
 import participant from './participant'
@@ -9,18 +9,18 @@ import profile from './profile'
 import queryBuilder from './queryBuilder'
 import settings from './settings'
 import signIn from './signIn'
-import studies from './studies'
+import todos from './todos'
 
 export const en = {
 	client,
 	common,
-	createStudy,
+	createTodo,
 	home,
 	participant,
 	profile,
 	queryBuilder,
 	signIn,
-	studies,
+	todos,
 	participants,
 	settings,
 	exportData

@@ -25,9 +25,9 @@ export const DataSummary = function DataSummary({
 	mappedFields,
 	participantList,
 	newParticipants,
-	studyId
+	todoId
 }: DataSummaryProps) {
-	const { t } = useText('studies.addParticipants.form.dataSummary')
+	const { t } = useText('todos.addParticipants.form.dataSummary')
 	const [formSubmitted, setFormSubmitted] = useState(false)
 	const { push } = useRouter()
 	const dataSummary: DataSummaryInterface[] = [
@@ -117,7 +117,7 @@ export const DataSummary = function DataSummary({
 									onCancel={onCancel}
 								/>
 							) : (
-								<Button onClick={() => push(`/studies/${studyId}`)}>{t('returnToStudy')}</Button>
+								<Button onClick={() => push(`/todos/${todoId}`)}>{t('returnToTodo')}</Button>
 							)}
 						</form>
 					)}

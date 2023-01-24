@@ -24,7 +24,7 @@ export const List = <DataType extends ListData>({
 	title,
 	concise
 }: ListProps<DataType>) => {
-	const { t } = useText('studies.list')
+	const { t } = useText('todos.list')
 	let colWidthAccumulator = 0
 	const noDataMessage = emptyMessage || t('noData')
 
