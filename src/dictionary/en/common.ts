@@ -24,8 +24,8 @@ const common = {
 		home: {
 			message: 'Home'
 		},
-		studies: {
-			message: 'Studies'
+		todos: {
+			message: 'Todos'
 		},
 		settings: {
 			message: 'Settings'
@@ -36,8 +36,8 @@ const common = {
 			home: {
 				message: 'Home'
 			},
-			studies: {
-				message: 'Studies'
+			todos: {
+				message: 'Todos'
 			},
 			participants: {
 				message: 'Participants'
@@ -54,8 +54,8 @@ const common = {
 		loading: {
 			message: 'Loading...'
 		},
-		studies: {
-			message: 'Studies'
+		todos: {
+			message: 'Todos'
 		},
 		settings: {
 			message: 'Settings'

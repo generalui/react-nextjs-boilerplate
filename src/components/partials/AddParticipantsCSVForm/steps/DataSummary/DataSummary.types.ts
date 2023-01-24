@@ -1,4 +1,4 @@
-import { NewParticipants } from 'types/StudyParticipants'
+import { NewParticipants } from 'types/TodoParticipants'
 import { z } from 'zod'
 import { BaseFormProps } from 'partials/Form/Form.types'
 
@@ -55,5 +55,5 @@ export interface DataSummaryProps extends BaseFormProps<DataSummaryInput> {
 	participantList: Record<string, unknown>[]
 	fields?: string[]
 	newParticipants?: NewParticipants
-	studyId?: string
+	todoId?: string
 }

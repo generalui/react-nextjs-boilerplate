@@ -4,7 +4,7 @@ import { connect } from 'utils/api/connect'
 import { handleQuery } from 'utils/api/handleQuery'
 import { parseParamArray } from 'utils/api/parseParamArray'
 import { getParticipants } from 'utils/api/queryBuilder/getParticipants'
-import { getParticipantsViaStudy } from 'utils/api/queryBuilder/getParticipantsViaStudy'
+import { getParticipantsViaTodo } from 'utils/api/queryBuilder/getParticipantsViaTodo'
 import { getWhereFromFilters } from 'utils/api/queryBuilder/getWhereFromFilters'
 
 const apiRoute = connect()
@@ -15,19 +15,19 @@ apiRoute.get(async (req: NextApiRequest, res: NextApiResponse) => {
 
 	const filters = parseParamArray<Filter>(req.query['filters[]'])
 
-	// Study
+	// Todo
 	const query = async () => {
 		// General query
 		if (!filters?.length) return await getParticipants()
 
-		const studyWhere = getWhereFromFilters(filters, QueryBuilderModel.study)
+		const todoWhere = getWhereFromFilters(filters, QueryBuilderModel.todo)
 		const participantWhere = getWhereFromFilters(filters, QueryBuilderModel.participant)
 
-		if (studyWhere.where && Object.keys(studyWhere.where).length > 0) {
-			// Do complicated study query
-			return await getParticipantsViaStudy(studyWhere, participantWhere)
+		if (todoWhere.where && Object.keys(todoWhere.where).length > 0) {
+			// Do complicated todo query
+			return await getParticipantsViaTodo(todoWhere, participantWhere)
 		} else {
-			// Do less complicated single layer participant study
+			// Do less complicated single layer participant todo
 			return await getParticipants(participantWhere)
 		}
 	}

@@ -11,7 +11,7 @@ type ParticipantIncludes = { include: Prisma.ParticipantInclude }
 
 export const participantIncludesConsent = {
 	include: {
-		studies: {
+		todos: {
 			include: {
 				consent: true
 			}

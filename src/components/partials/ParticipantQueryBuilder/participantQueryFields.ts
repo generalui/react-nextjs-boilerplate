@@ -1,13 +1,13 @@
 import { QueryFields, QueryInputType } from 'types/QueryBuilder'
 
 export const participantQueryFields: QueryFields = {
-	study: {
-		model: 'study',
-		title: { label: 'fields.study.title' },
+	todo: {
+		model: 'todo',
+		title: { label: 'fields.todo.title' },
 		options: {
-			title: { label: 'fields.study.options.title', inputType: QueryInputType.text },
+			title: { label: 'fields.todo.options.title', inputType: QueryInputType.text },
 			dataTypes: {
-				label: 'fields.study.options.dataTypes',
+				label: 'fields.todo.options.dataTypes',
 				inputType: QueryInputType.select,
 				items: {
 					analyses: { label: 'fields.dataTypes.options.analyses' },

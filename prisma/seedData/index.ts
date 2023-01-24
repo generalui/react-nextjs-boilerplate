@@ -1,3 +1,3 @@
 export * from './participants'
-export * from './studies'
+export * from './todos'
 export * from './users'

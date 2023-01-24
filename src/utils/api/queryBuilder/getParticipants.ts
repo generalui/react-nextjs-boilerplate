@@ -12,8 +12,8 @@ export const getParticipants: GetParticipants = async (where) => {
 		})
 	])
 
-	// Get study count
-	const studyCount = await prisma.study.count({
+	// Get todo count
+	const todoCount = await prisma.todo.count({
 		where: {
 			participants: {
 				some: {
@@ -27,5 +27,5 @@ export const getParticipants: GetParticipants = async (where) => {
 		}
 	})
 
-	return { modelCount: modelCount ?? 0, list: participants || [], studyCount }
+	return { modelCount: modelCount ?? 0, list: participants || [], todoCount }
 }

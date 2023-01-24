@@ -26,7 +26,7 @@ export const MapFields = function MapFields({
 	onCancel,
 	fields
 }: MapFieldsProps) {
-	const { t } = useText('studies.addParticipants.form.parseRequiredData')
+	const { t } = useText('todos.addParticipants.form.parseRequiredData')
 	const [fieldsToMap, setFieldsToMap] = useState<string[]>([])
 
 	useEffect(() => {

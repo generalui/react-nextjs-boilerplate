@@ -1,7 +1,7 @@
 import { Prisma } from '@prisma/client'
 
 type ExportDataFindManyArgs = {
-	study: Prisma.StudyFindManyArgs
+	todo: Prisma.TodoFindManyArgs
 	user: Prisma.UserFindManyArgs
 	participant: Prisma.ParticipantFindManyArgs
 	surveyResponse: Prisma.SurveyResponseFindManyArgs
@@ -9,7 +9,7 @@ type ExportDataFindManyArgs = {
 }
 
 export const exportDataFindManyArgs: ExportDataFindManyArgs = {
-	study: {
+	todo: {
 		include: {
 			users: {
 				select: {
@@ -42,9 +42,9 @@ export const exportDataFindManyArgs: ExportDataFindManyArgs = {
 			name: true,
 			email: true,
 			role: true,
-			studies: {
+			todos: {
 				select: {
-					studyId: true
+					todoId: true
 				}
 			}
 		}
@@ -55,16 +55,16 @@ export const exportDataFindManyArgs: ExportDataFindManyArgs = {
 			insertedAt: true,
 			updatedAt: true,
 			userId: true,
-			studies: {
+			todos: {
 				select: {
-					studyId: true
+					todoId: true
 				}
 			}
 		}
 	},
 	surveyResponse: {
 		include: {
-			study: {
+			todo: {
 				select: {
 					id: true
 				}

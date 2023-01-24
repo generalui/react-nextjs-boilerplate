@@ -1,14 +1,14 @@
 import { Consent, ConsentEnum } from '@prisma/client'
 import { ConsentState } from 'types/Consent'
 import { ParticipantWithConsent } from 'types/Participants'
-import { Study, StudyWithConsent } from 'types/Study'
+import { Todo, TodoWithConsent } from 'types/Todo'
 
 export const getParticipantConsentFullness = (participant: ParticipantWithConsent) => {
-	const { studies } = participant
+	const { todos } = participant
 
 	return (
-		studies.reduce((fullness: ConsentState | undefined, study) => {
-			const currentConsent = getConsentFullness(study.consent)
+		todos.reduce((fullness: ConsentState | undefined, todo) => {
+			const currentConsent = getConsentFullness(todo.consent)
 
 			switch (fullness) {
 				case undefined:

@@ -27,7 +27,7 @@ type HandleDocumentationJoin = (
  * Takes a file from multer and a record (either)
  * Attempts to upload to cloudinary and return prisma formatted object.
  * Creates an object to append to a query that upserts the element in the join table from
- * User or Study to documents
+ * User or Todo to documents
  *
  * @returns object to pass to prisma to create a connected document model
  */

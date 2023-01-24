@@ -14,8 +14,8 @@ const exportData = {
 		}
 	},
 	options: {
-		study: {
-			message: 'Studies'
+		todo: {
+			message: 'Todos'
 		},
 		user: {
 			message: 'Admins'

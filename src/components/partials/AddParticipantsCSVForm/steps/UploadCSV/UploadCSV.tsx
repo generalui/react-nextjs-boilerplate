@@ -19,7 +19,7 @@ export const UploadCSV = function UploadCSV({
 	removeStepsText,
 	testId = 'UploadCSV'
 }: UploadCSVProps) {
-	const { t } = useText('studies.addParticipants.form.upload')
+	const { t } = useText('todos.addParticipants.form.upload')
 	const steps = Array.from({ length: 3 }, (_, i) => i + 1).map((step) => {
 		return {
 			text: t(`steps.${step}`),
@@ -46,7 +46,7 @@ export const UploadCSV = function UploadCSV({
 								name='csvFile'
 								maxFiles={maxFiles}
 								acceptedFileTypes={acceptedFileTypes}
-								localizationScope={'studies.redcapXMLForm.upload'}
+								localizationScope={'todos.redcapXMLForm.upload'}
 								image={{ src: '/icons/doc_CSV.svg', width: '50', height: '50' }}
 							/>
 							<ActionButtons submitText={t('submit')} onCancel={onCancel} />

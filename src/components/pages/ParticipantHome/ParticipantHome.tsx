@@ -1,11 +1,11 @@
 /*!
  * Participant Home Page
  */
-import { useParticipantStudies } from 'hooks/api/studies/useParticipantStudies'
+import { useParticipantTodos } from 'hooks/api/todos/useParticipantTodos'
 import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
 import { useText } from 'hooks/useText'
 import { PageWrapper } from 'partials/PageWrapper'
-import { StudyList } from 'partials/StudyList'
+import { TodoList } from 'partials/TodoList'
 import { ContactInfo } from 'common/ContactInfo'
 import { EmergencyContact } from 'common/EmergencyContact'
 import { ParticipantWelcome } from 'common/WelcomeContent'
@@ -14,7 +14,7 @@ import { ParticipantHomeProps } from './ParticipantHome.types'
 export const ParticipantHome = ({ testId = 'ParticipantHome' }: ParticipantHomeProps) => {
 	const { t } = useText('participant.home')
 	const { currentUser } = useCurrentUser()
-	const { studies = [] } = useParticipantStudies(currentUser?.participant?.id, {
+	const { todos = [] } = useParticipantTodos(currentUser?.participant?.id, {
 		page: 0,
 		pageSize: 3
 	})
@@ -26,7 +26,7 @@ export const ParticipantHome = ({ testId = 'ParticipantHome' }: ParticipantHomeP
 				<ContactInfo className='flex-1' />
 				<EmergencyContact className='flex-1' />
 			</div>
-			<StudyList concise studies={studies} title={t('studies')} />
+			<TodoList concise todos={todos} title={t('todos')} />
 		</PageWrapper>
 	)
 }

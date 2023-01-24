@@ -5,7 +5,7 @@ import { groupBy, isEmpty, omitBy } from 'lodash'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { UploadCSVInput } from 'types/CSV'
-import { useAddSurveyToStudy } from 'hooks/api/studies/useAddSurveyToStudy'
+import { useAddSurveyToTodo } from 'hooks/api/todos/useAddSurveyToTodo'
 import { useParseCSV } from 'hooks/useParseCSV'
 import { useText } from 'hooks/useText'
 import { SurveyResponse, SurveyResponses } from 'pages/AddSurvey'
@@ -18,12 +18,12 @@ import { AddSurveyProps } from './AddSurvey.types'
 
 export const AddSurvey = function AddSurvey({ testId = 'AddSurvey' }: AddSurveyProps) {
 	const { parse, parsedCSV } = useParseCSV()
-	const { t } = useText('studies.addSurvey')
+	const { t } = useText('todos.addSurvey')
 	const { query, push } = useRouter()
-	const { addSurvey } = useAddSurveyToStudy({
-		studyId: query?.studyId as string,
+	const { addSurvey } = useAddSurveyToTodo({
+		todoId: query?.todoId as string,
 		onSuccess: () => {
-			push(`/studies/${query?.studyId}`)
+			push(`/todos/${query?.todoId}`)
 		}
 	})
 

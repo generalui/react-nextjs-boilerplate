@@ -7,15 +7,15 @@ type RoutePermissions = {
 export const routePermissions: RoutePermissions = {
 	admin: [
 		'/',
-		'/studies',
+		'/todos',
 		'/profile',
-		'/studies/[studyId]',
-		'/studies/[studyId]/add-participants',
+		'/todos/[todoId]',
+		'/todos/[todoId]/add-participants',
 		'/participants',
-		'/studies/[studyId]/add-survey',
+		'/todos/[todoId]/add-survey',
 		'/settings/update-password',
 		'/export-data'
 	],
-	participant: ['/participant', '/participant/studies/[studyId]', '/settings/update-password'],
+	participant: ['/participant', '/participant/todos/[todoId]', '/settings/update-password'],
 	general: ['/auth/signin']
 }

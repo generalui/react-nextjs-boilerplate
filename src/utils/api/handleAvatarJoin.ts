@@ -1,4 +1,4 @@
-import { Study } from 'types/Study'
+import { Todo } from 'types/Todo'
 import { User } from 'types/User'
 import { uploadToCloudinary } from './uploadToCloudinary'
 
@@ -36,7 +36,7 @@ type HandleAvatarJoin = (
  * Takes a file from multer and a record (either)
  * Attempts to upload to cloudinary and return prisma formatted object.
  * Creates an object to append to a query that upserts the element in the join table from
- * User or Study to documents
+ * User or Todo to documents
  *
  * @returns object to pass to prisma to create a connected document model
  */
@@ -63,7 +63,7 @@ export const handleAvatarJoin: HandleAvatarJoin = async (file, userId) => {
 		}
 	}
 
-	// Image join on the user / study
+	// Image join on the user / todo
 	const upsertAvatar: UpsertFileInput = {
 		image: {
 			create: upsertImage

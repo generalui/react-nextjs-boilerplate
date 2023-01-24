@@ -8,7 +8,7 @@ import { DataTypeContainer } from './index'
 
 describe('DataTypeContainer Component', () => {
 	it('renders on the page', () => {
-		render(<DataTypeContainer study={undefined} />)
+		render(<DataTypeContainer todo={undefined} />)
 
 		const component = screen.getByTestId('DataTypeContainer')
 

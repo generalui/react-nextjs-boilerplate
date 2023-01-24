@@ -12,6 +12,6 @@ export type ParticipantWithConsent = Prisma.ParticipantGetPayload<typeof partici
 
 export type ParticipantQueryResults = {
 	modelCount: number
-	studyCount?: number
+	todoCount?: number
 	list: SingleParticipantQueryResult[]
 }

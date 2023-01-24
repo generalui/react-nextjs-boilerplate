@@ -3,9 +3,9 @@ export const mockUseRouterReturn = {
 	locales: ['en'],
 	defaultLocale: 'en',
 	query: { foo: 'bar' },
-	route: '/studies/test-study',
-	pathname: '/studies/[studyId]',
-	asPath: '/studies/test-study',
+	route: '/todos/test-todo',
+	pathname: '/todos/[todoId]',
+	asPath: '/todos/test-todo',
 	events: {
 		on: jest.fn((value: string, _eventHandler: () => void) => {
 			console.log('useRouter events emitter - on', value)

@@ -7,19 +7,19 @@ import { DataTypeContainerProps } from './DataTypeContainer.types'
 
 export const DataTypeContainer = ({
 	className,
-	study,
+	todo,
 	testId = 'DataTypeContainer',
 	consent
 }: DataTypeContainerProps) => {
 	const { t } = useText('common.dataTypes')
 	const upperCaseFirstLetter = (word: string) => `${word.slice(0, 1).toUpperCase()}${word.slice(1)}`
-	// TODO: question for team / NBDC - what happens when a participant consents to a study with no datatypes?
-	// TODO: followup - can a study exist without data types
+	// TODO: question for team / NBDC - what happens when a participant consents to a todo with no datatypes?
+	// TODO: followup - can a todo exist without data types
 	// TODO: resolve type consent[i]
 	const tagList = consent
 		? Object.keys(consent).filter((i) => consent[i as keyof typeof consent] === ConsentEnum.yes)
-		: study?.dataTypes
-		? study?.dataTypes?.sort()
+		: todo?.dataTypes
+		? todo?.dataTypes?.sort()
 		: []
 
 	const tags = tagList.map((dataType) => ({

@@ -70,7 +70,7 @@ export const EditConsent = ({
 	consent,
 	onSubmit
 }: EditConsentProps) => {
-	const { t } = useText('participant.study.consent.modal')
+	const { t } = useText('participant.todo.consent.modal')
 	const consentDataTypes = getConsentDataTypes(consent)
 
 	return (
