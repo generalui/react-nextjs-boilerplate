@@ -1,4 +1,5 @@
 import cn from 'classnames'
+import Link from 'next/link'
 import { forwardRef } from 'react'
 import { buttonVariants, disabledVariants } from 'common/Button/variants'
 import { ButtonProps } from './Button.types'
@@ -33,22 +34,26 @@ export const Button = forwardRef<HTMLAnchorElement, ButtonProps>(function Button
 		className
 	)
 
-	const props = {
-		['data-testid']: testId,
-		type: link ? undefined : type,
-		disabled,
-		className,
-		onClick,
-		target: link ? target || '_blank' : undefined,
-		href: link ? href : undefined
-	}
-
 	return link ? (
-		<a {...props} ref={ref} id={id}>
+		<Link
+			href={href as string}
+			target={target || '_blank'}
+			onClick={onClick}
+			className={className}
+			ref={ref}
+			id={id}
+		>
 			{children}
-		</a>
+		</Link>
 	) : (
-		<button {...props} id={id}>
+		<button
+			data-testid={testId}
+			type={type}
+			disabled={disabled}
+			className={className}
+			onClick={onClick}
+			id={id}
+		>
 			{children}
 		</button>
 	)

@@ -37,9 +37,7 @@ export const NavBar = ({
 								<Icon icon={isMenuOpen ? 'XMarkIcon' : 'Bars3Icon'} />
 							</button>
 							<Link href='/' passHref>
-								<a title={t('logoAlt')}>
-									<img className='h-12 cursor-pointer' src={headerLogo} alt={t('logoAlt')} />
-								</a>
+								<img className='h-12 cursor-pointer' src={headerLogo} alt={t('logoAlt')} />
 							</Link>
 						</>
 					)}
