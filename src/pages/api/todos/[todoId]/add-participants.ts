@@ -5,7 +5,6 @@ import { ApiRequestWithFile } from 'types/ApiRequestWithFile'
 import { AddParticipantsInput, ParticipantInput } from 'types/index'
 import { connect } from 'utils/api/connect'
 import { generatePassword } from 'utils/api/generatePassword'
-import { getDefaultConsentFromTodo } from 'utils/api/getDefaultConsentFromTodo'
 import { getSessionFromReq } from 'utils/api/getSessionFromReq'
 import { handleQuery } from 'utils/api/handleQuery'
 import { prisma } from 'utils/api/prisma'
@@ -106,15 +105,7 @@ apiRoute.put(async (req: ApiRequestWithFile, res: NextApiResponse) => {
 								participants: {
 									connectOrCreate: {
 										create: {
-											participant: { connect: { id: participantUser.id } },
-											consent: {
-												create: {
-													analyses: getDefaultConsentFromTodo(todo, 'analyses'),
-													geneticData: getDefaultConsentFromTodo(todo, 'geneticData'),
-													healthRecords: getDefaultConsentFromTodo(todo, 'healthRecords'),
-													specimens: getDefaultConsentFromTodo(todo, 'specimens')
-												}
-											}
+											participant: { connect: { id: participantUser.id } }
 										},
 										where: {
 											todoId_participantId: { todoId, participantId: participantUser.id }

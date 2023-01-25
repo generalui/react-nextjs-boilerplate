@@ -1,4 +1,3 @@
-import { ConsentEnum } from '@prisma/client'
 import cn from 'classnames'
 import { useText } from 'hooks/useText'
 import { IconProps } from 'common/Icon/Icon.types'
@@ -8,19 +7,11 @@ import { DataTypeContainerProps } from './DataTypeContainer.types'
 export const DataTypeContainer = ({
 	className,
 	todo,
-	testId = 'DataTypeContainer',
-	consent
+	testId = 'DataTypeContainer'
 }: DataTypeContainerProps) => {
 	const { t } = useText('common.dataTypes')
 	const upperCaseFirstLetter = (word: string) => `${word.slice(0, 1).toUpperCase()}${word.slice(1)}`
-	// TODO: question for team / NBDC - what happens when a participant consents to a todo with no datatypes?
-	// TODO: followup - can a todo exist without data types
-	// TODO: resolve type consent[i]
-	const tagList = consent
-		? Object.keys(consent).filter((i) => consent[i as keyof typeof consent] === ConsentEnum.yes)
-		: todo?.dataTypes
-		? todo?.dataTypes?.sort()
-		: []
+	const tagList = todo?.dataTypes ? todo?.dataTypes?.sort() : []
 
 	const tags = tagList.map((dataType) => ({
 		label: t(`${dataType}.label`),

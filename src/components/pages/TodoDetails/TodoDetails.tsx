@@ -8,7 +8,6 @@ import { useTodo } from 'hooks/api/todos/useTodo'
 import { useCurrentUser } from 'hooks/api/users/useCurrentUser'
 import { useText } from 'hooks/useText'
 import { PageWrapper } from 'partials/PageWrapper'
-import { TodoConsent } from 'partials/TodoConsent'
 import { TodoDocumentation } from 'partials/TodoDocumentation'
 import { TodoInfo } from 'partials/TodoInfo'
 import { Breadcrumbs } from 'common/Breadcrumbs'
@@ -48,11 +47,7 @@ export const TodoDetails = function TodoDetails({ testId = 'TodoDetails' }: Todo
 
 			<div className='flex flex-col gap-6'>
 				<TodoInfo isAdmin={isAdmin} singleTodoId={singleTodoId} loading={loading} todo={todo} />
-				{isAdmin ? (
-					<TodoDocumentation singleTodoId={singleTodoId} loading={loading} todo={todo} />
-				) : (
-					<TodoConsent todo={todo} />
-				)}
+				{isAdmin && <TodoDocumentation singleTodoId={singleTodoId} loading={loading} todo={todo} />}
 			</div>
 		</PageWrapper>
 	)

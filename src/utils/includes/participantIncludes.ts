@@ -9,14 +9,10 @@ type ParticipantIncludes = { include: Prisma.ParticipantInclude }
 // 	}
 // }
 
-export const participantIncludesConsent = {
+export const participantQueryInclude = {
 	include: {
 		todos: {
-			include: {
-				consent: true
-			}
+			include: {}
 		}
 	}
 }
-
-export const participantQueryInclude = participantIncludesConsent

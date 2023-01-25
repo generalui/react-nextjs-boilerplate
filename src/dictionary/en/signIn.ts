@@ -42,9 +42,9 @@ const signIn = {
 	stagingWarning: {
 		title: { message: '⚠️ ATTENTION ⚠️' },
 		description: {
-			message: `This is a test deployment of the Native BioData Consortium - Consent Portal.
-			Do not upload any content that can be connected to a patient's Personally Identifiable Information (PII), 
-			or any content that is sensitive to HIPAA or any other regulatory agency.`
+			message: `This is a test deployment of an app used to manage sensitive data.
+			Do not upload any data that can be connected to a real person, 
+			or any data that is sensitive to HIPAA or any other regulatory agency.`
 		}
 	}
 }

@@ -1,7 +1,6 @@
 import { faker } from '@faker-js/faker'
-import { ConsentEnum, PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcryptjs'
-import { getDefaultConsentFromTodo } from 'utils/api/getDefaultConsentFromTodo'
 import { participants, todos, users } from './seedData'
 
 const prisma = new PrismaClient()
@@ -66,14 +65,6 @@ const prismaSafeTodosWithParticipant = todos.slice(0, 1).map(({ imageUrl, ...tod
 					create: {
 						participant: {
 							connect: { id: 'participant1' }
-						},
-						consent: {
-							create: {
-								analyses: ConsentEnum.no,
-								geneticData: ConsentEnum.yes,
-								healthRecords: ConsentEnum.yes,
-								specimens: ConsentEnum.yes
-							}
 						}
 					}
 				}

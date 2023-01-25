@@ -1,10 +1,8 @@
 import cn from 'classnames'
 import { useEffect, useState } from 'react'
-import { ConsentState } from 'types/Consent'
 import { ParticipantQueryResults, SingleParticipantQueryResult } from 'types/Participants'
 import { Filter, OptionType, QueryBuilderModel } from 'types/QueryBuilder'
 import { formatDisplayDate } from 'utils/client/date'
-import { getParticipantConsentFullness } from 'utils/client/getConsentFullness'
 import { useParticipantQuery } from 'hooks/api/queryBuilder/useParticipantQuery'
 import { useText } from 'hooks/useText'
 import { AggregatedDataCardProps } from 'partials/AggregatedDataCard/AggregatedDataCard.types'
@@ -20,7 +18,6 @@ export const ParticipantQueryBuilder = ({
 	testId = 'ParticipantQueryBuilder'
 }: ParticipantQueryBuilderProps) => {
 	const { t } = useText('participants.conditions')
-	const { t: consentText } = useText('participant.todo.consent.consentState')
 	const [filters, setFilters] = useState<Filter[]>()
 	const { participants } = useParticipantQuery(filters)
 	const { t: queryBuilderText } = useText('queryBuilder')
@@ -102,29 +99,6 @@ export const ParticipantQueryBuilder = ({
 				return (
 					<div className='p-4 bg-gray-100 flex justify-center rounded-md w-fit'>
 						{data.todos?.length}
-					</div>
-				)
-			}
-		},
-		{
-			key: 'todos',
-			title: 'Consents',
-			width: 2,
-			transformFunction: (_value, data) => {
-				const participantConsentState = getParticipantConsentFullness(data)
-
-				return (
-					<div
-						className={cn(
-							'p-4 flex justify-center rounded-md w-fit',
-							participantConsentState === ConsentState.full
-								? 'bg-green-100'
-								: participantConsentState === ConsentState.partial
-								? 'bg-yellow-100'
-								: 'bg-red-100'
-						)}
-					>
-						{consentText(participantConsentState)}
 					</div>
 				)
 			}

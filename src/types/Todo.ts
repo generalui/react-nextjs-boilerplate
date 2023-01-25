@@ -2,12 +2,10 @@ import { Prisma, TodoDataType, TodoStatus, User } from '@prisma/client'
 import { ReactNode } from 'react'
 import { PaginatedResponse } from 'types/PaginatedResponse'
 import { z } from 'zod'
-import { todoDefaultIncludes, todoIncludesConsent } from 'utils/includes/todoIncludes'
+import { todoDefaultIncludes } from 'utils/includes/todoIncludes'
 import { ListData } from 'partials/List/List.types'
 
 export type Todo = Prisma.TodoGetPayload<typeof todoDefaultIncludes>
-
-export type TodoWithConsent = Prisma.TodoGetPayload<typeof todoIncludesConsent>
 
 export type TodoWithParticipantIds = Prisma.TodoGetPayload<{
 	include: {
@@ -33,6 +31,7 @@ export type TodoWithParticipants = Prisma.TodoGetPayload<{
 	}
 }>
 
+// TODO: refactor this payload to not include the todo if there is no data from each todo being used
 export type ParticipantQueryBuilderTodoPayload = Prisma.TodoGetPayload<{
 	select: {
 		id: true
@@ -42,9 +41,9 @@ export type ParticipantQueryBuilderTodoPayload = Prisma.TodoGetPayload<{
 				participant: {
 					include: {
 						todos: {
-							select: {
-								consent: true
-							}
+							// select: {
+							// 	consent: true
+							// }
 						}
 					}
 				}

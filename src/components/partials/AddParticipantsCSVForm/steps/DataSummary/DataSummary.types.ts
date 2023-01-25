@@ -17,7 +17,6 @@ export const REDCAP_CONCENT_FIELDS: { name: string; required?: boolean }[] = [
 	{ name: 'emergency_address' },
 	{ name: 'nearest_hospital_name' },
 	{ name: 'nearest_hospital_address' },
-	{ name: 'proof_of_consent' },
 	{ name: 'withdrawal_procedures' }
 ]
 
@@ -43,7 +42,6 @@ export const DataSummarySchema = z.object({
 	['emergency_address']: SelectSchema.optional(),
 	['nearest_hospital_name']: SelectSchema.optional(),
 	['nearest_hospital_address']: SelectSchema.optional(),
-	['proof_of_consent']: SelectSchema.optional(),
 	['withdrawal_procedures']: SelectSchema.optional()
 })
 

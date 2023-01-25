@@ -68,12 +68,6 @@ const common = {
 				message: 'Analyses data type icon'
 			}
 		},
-		consents: {
-			label: { message: 'Consents' },
-			alt: {
-				message: 'Consent data type icon'
-			}
-		},
 		geneticData: {
 			label: { message: 'Genetic Data' },
 			alt: {
