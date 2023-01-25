@@ -73,7 +73,6 @@ const todos = {
 	},
 	dataTypes: {
 		analyses: { message: 'Analyses' },
-		consents: { message: 'Consent' },
 		geneticData: { message: 'Genetic Data' },
 		healthRecords: { message: 'Health Records' },
 		specimens: { message: 'Specimens' }
@@ -113,10 +112,10 @@ const todos = {
 				subtitle: { message: 'Upload a CSV' },
 				steps: {
 					1: {
-						message: 'Upload a csv containing client consent information.'
+						message: 'Upload a csv containing user information.'
 					},
 					2: {
-						message: 'Map csv fields to participant data related to a todo.'
+						message: 'Map csv fields to user fields.'
 					},
 					3: {
 						message: 'Review your import.'
@@ -132,14 +131,14 @@ const todos = {
 				subtitle: { message: 'Required Data' },
 				description: {
 					message:
-						'Required fields from the NBDC Consent Template should be mapped automatically, and just require confirmation. '
+						'Required fields will be mapped automatically if present and properly named/formatted.'
 				},
 				headers: {
 					fieldName: {
-						message: 'NBDC Field Names(s)'
+						message: 'Field Names(s)'
 					},
 					redcapFieldName: {
-						message: 'RedCap Field Name(s)'
+						message: 'CSV Field Name(s)'
 					}
 				},
 				inputPlaceholder: {
@@ -151,7 +150,7 @@ const todos = {
 					}
 				},
 				errors: {
-					fieldsRequired: 'Required NBDC fields need to be mapped to RedCap data.'
+					fieldsRequired: 'Required fields need to be mapped to a CSV column.'
 				},
 				submit: {
 					message: 'Next'
@@ -162,7 +161,7 @@ const todos = {
 				subtitle: { message: 'Data Mapping Summary' },
 				description: {
 					message:
-						'Upon completion of mapping your CSV data to NBDC, participants will be sent email instructions on how to access the todo details in the NBDC Consent Portal.'
+						'Upon completion of mapping your CSV data to the app, users will be sent email instructions on how to access their account.'
 				},
 				aggregatedData: {
 					participants: {
@@ -235,21 +234,21 @@ const todos = {
 			subtitle: { message: 'Required Data' },
 			description: {
 				message:
-					'Required fields from the NBDC Consent Template in RedCap should be mapped automatically, and just require confirmation. '
+					'Required fields will be mapped automatically if present and properly named/formatted.'
 			},
 			headers: {
 				fieldName: {
-					message: 'NBDC Field Names(s)'
+					message: 'Field Names(s)'
 				},
 				redcapFieldName: {
-					message: 'RedCap Field Name(s)'
+					message: 'CSV Field Name(s)'
 				}
 			},
 			inputPlaceholder: {
 				message: 'Select a Field'
 			},
 			errors: {
-				fieldsRequired: 'Required NBDC fields need to be mapped to RedCap data.'
+				fieldsRequired: 'RequireD fields must be mapped to a CSV column.'
 			},
 			submit: {
 				message: 'Next'
@@ -260,7 +259,7 @@ const todos = {
 	addSurvey: {
 		title: { message: 'Add Survey' },
 		summary: { message: 'Survey Responses Summary' },
-		participantsAmount: { message: 'Amount of Participants:' },
+		participantsAmount: { message: 'Amount of Users:' },
 		surveysAmount: { message: 'Amount of Surveys:' }
 	}
 }

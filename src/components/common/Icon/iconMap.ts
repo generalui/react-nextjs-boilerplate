@@ -1,11 +1,9 @@
-export { default as Consents } from 'public/icons/consents.svg'
 // TODO: replace analyses with another icon
 export { default as Analyses } from 'public/icons/analyses.svg'
 export { default as Cross } from 'public/icons/cross.svg'
 export { default as folder } from 'public/icons/folder.svg'
 export { default as GeneticData } from 'public/icons/geneticData.svg'
 export { default as GrayAnalyses } from 'public/icons/gray_analyses.svg'
-export { default as GrayConsents } from 'public/icons/gray_consents.svg'
 export { default as GrayGeneticData } from 'public/icons/gray_geneticData.svg'
 export { default as GrayHealthRecords } from 'public/icons/gray_healthRecords.svg'
 export { default as GraySpecimens } from 'public/icons/gray_specimens.svg'

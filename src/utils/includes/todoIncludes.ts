@@ -19,16 +19,6 @@ export const todoDefaultIncludes = {
 	}
 }
 
-export const todoIncludesConsent = {
-	include: {
-		participants: {
-			include: {
-				consent: true
-			}
-		}
-	}
-}
-
 export const todoSelectParticipantIds: { select: Prisma.TodoSelect } = {
 	select: {
 		id: true,

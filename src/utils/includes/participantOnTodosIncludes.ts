@@ -3,8 +3,6 @@ import { Prisma } from '@prisma/client'
 
 type ParticipantsOnTodosIncludes = { include: Prisma.ParticipantsOnTodosInclude }
 
-export const participantOnTodoIncludesConsent: ParticipantsOnTodosIncludes = {
-	include: {
-		consent: true
-	}
+export const participantOnTodoIncludes: ParticipantsOnTodosIncludes = {
+	include: {}
 }

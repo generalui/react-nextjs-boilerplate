@@ -77,7 +77,6 @@ enum TodoStatus {
 
 enum TodoDataType {
   analyses
-  consents
   healthRecords
   geneticData
   specimens
@@ -125,32 +124,9 @@ model ParticipantsOnTodos {
   todoId        String      @map("todo_id")
   participant   Participant @relation(fields: [participantId], references: [id])
   participantId String      @map("participant_id")
-  consent       Consent     @relation(fields: [consentId], references: [id])
-  consentId     String      @map("consent_id")
   insertedAt    DateTime    @default(now()) @map("inserted_at")
 
   @@id([todoId, participantId])
-}
-
-enum ConsentEnum {
-  yes
-  no
-}
-
-enum ConsentState {
-  full
-  partial
-  none
-}
-
-model Consent {
-  id                  String                @id @default(cuid())
-  analyses            ConsentEnum           @default(yes)
-  geneticData         ConsentEnum           @default(yes)
-  healthRecords       ConsentEnum           @default(yes)
-  specimens           ConsentEnum           @default(yes)
-  insertedAt          DateTime              @default(now()) @map("inserted_at")
-  ParticipantsOnTodos ParticipantsOnTodos[]
 }
 
 model Document {

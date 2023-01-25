@@ -5,13 +5,7 @@ CREATE TYPE "UserRole" AS ENUM ('admin', 'participant');
 CREATE TYPE "TodoStatus" AS ENUM ('new', 'approved', 'archived');
 
 -- CreateEnum
-CREATE TYPE "TodoDataType" AS ENUM ('analyses', 'consents', 'healthRecords', 'geneticData', 'specimens');
-
--- CreateEnum
-CREATE TYPE "ConsentEnum" AS ENUM ('yes', 'no');
-
--- CreateEnum
-CREATE TYPE "ConsentState" AS ENUM ('full', 'partial', 'none');
+CREATE TYPE "TodoDataType" AS ENUM ('analyses', 'healthRecords', 'geneticData', 'specimens');
 
 -- CreateEnum
 CREATE TYPE "MethodType" AS ENUM ('get', 'post', 'put', 'patch', 'delete');
@@ -67,7 +61,7 @@ CREATE TABLE "VerificationToken" (
 CREATE TABLE "Todo" (
     "id" TEXT NOT NULL,
     "description" TEXT NOT NULL,
-    "status" "TodoStatus" NOT NULL DEFAULT E'new',
+    "status" "TodoStatus" NOT NULL DEFAULT 'new',
     "submission_date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "end_date" TIMESTAMP(3) NOT NULL,
     "title" TEXT NOT NULL,
@@ -99,22 +93,9 @@ CREATE TABLE "CoordinatorsOnTodos" (
 CREATE TABLE "ParticipantsOnTodos" (
     "todo_id" TEXT NOT NULL,
     "participant_id" TEXT NOT NULL,
-    "consent_id" TEXT NOT NULL,
     "inserted_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "ParticipantsOnTodos_pkey" PRIMARY KEY ("todo_id","participant_id")
-);
-
--- CreateTable
-CREATE TABLE "Consent" (
-    "id" TEXT NOT NULL,
-    "analyses" "ConsentEnum" NOT NULL DEFAULT E'yes',
-    "geneticData" "ConsentEnum" NOT NULL DEFAULT E'yes',
-    "healthRecords" "ConsentEnum" NOT NULL DEFAULT E'yes',
-    "specimens" "ConsentEnum" NOT NULL DEFAULT E'yes',
-    "inserted_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT "Consent_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -218,25 +199,22 @@ ALTER TABLE "Account" ADD CONSTRAINT "Account_user_id_fkey" FOREIGN KEY ("user_i
 ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Avatar" ADD CONSTRAINT "Avatar_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Avatar" ADD CONSTRAINT "Avatar_todo_id_fkey" FOREIGN KEY ("todo_id") REFERENCES "Todo"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Avatar" ADD CONSTRAINT "Avatar_todo_id_fkey" FOREIGN KEY ("todo_id") REFERENCES "Todo"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Avatar" ADD CONSTRAINT "Avatar_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Avatar" ADD CONSTRAINT "Avatar_image_id_fkey" FOREIGN KEY ("image_id") REFERENCES "Document"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "CoordinatorsOnTodos" ADD CONSTRAINT "CoordinatorsOnTodos_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "CoordinatorsOnTodos" ADD CONSTRAINT "CoordinatorsOnTodos_todo_id_fkey" FOREIGN KEY ("todo_id") REFERENCES "Todo"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "ParticipantsOnTodos" ADD CONSTRAINT "ParticipantsOnTodos_todo_id_fkey" FOREIGN KEY ("todo_id") REFERENCES "Todo"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "CoordinatorsOnTodos" ADD CONSTRAINT "CoordinatorsOnTodos_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "ParticipantsOnTodos" ADD CONSTRAINT "ParticipantsOnTodos_consent_id_fkey" FOREIGN KEY ("consent_id") REFERENCES "Consent"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "ParticipantsOnTodos" ADD CONSTRAINT "ParticipantsOnTodos_todo_id_fkey" FOREIGN KEY ("todo_id") REFERENCES "Todo"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ParticipantsOnTodos" ADD CONSTRAINT "ParticipantsOnTodos_participant_id_fkey" FOREIGN KEY ("participant_id") REFERENCES "Participant"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

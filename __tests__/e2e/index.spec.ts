@@ -23,5 +23,5 @@ test('Test user can sign in', async ({ page }) => {
 
 	await page.locator('[data-testid="SubmitButton"]').click()
 
-	await expect(page).toHaveTitle('Home')
+	await expect(page).toHaveTitle('GenUI')
 })
