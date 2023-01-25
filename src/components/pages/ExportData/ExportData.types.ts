@@ -7,7 +7,6 @@ export const ExportDataSchema = z.object({
 			z.literal('todo'),
 			z.literal('user'),
 			z.literal('participant'),
-			z.literal('surveyResponse'),
 			z.literal('eventLog')
 		]),
 		label: z.string()

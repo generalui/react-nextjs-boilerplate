@@ -23,9 +23,6 @@ const exportData = {
 		participant: {
 			message: 'Participants'
 		},
-		surveyResponse: {
-			message: 'Survey Responses'
-		},
 		eventLog: {
 			message: 'Event Logs'
 		}
