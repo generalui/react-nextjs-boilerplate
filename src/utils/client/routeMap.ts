@@ -29,8 +29,7 @@ export const routeMap: Record<
 		subRoutes: {
 			'[todoId]': { labelKey: 'todos.details.title' },
 			'redcap-xml': { labelKey: 'todos.redcapXMLForm.title' },
-			'add-participants': { labelKey: 'todos.addParticipants.title' },
-			'add-survey': { labelKey: 'todos.addSurvey.title' }
+			'add-participants': { labelKey: 'todos.addParticipants.title' }
 		},
 		role: 'admin'
 	},
