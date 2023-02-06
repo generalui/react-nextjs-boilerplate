@@ -101,7 +101,7 @@ export type WhereStatementWithFilterType = {
 	AND: Record<string, unknown>[]
 }
 
-export type WhereStatement = WhereStatementWithFilterType | {} | undefined
+export type WhereStatement = WhereStatementWithFilterType | Record<string, never> | undefined
 
 export type GetWhereFromFilters = (
 	filters: Filter[],

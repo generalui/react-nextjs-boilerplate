@@ -1,0 +1,26 @@
+import { {{properCase name}} } from '@prisma/client'
+import { {{properCase name}}Input } from 'models/{{properCase name}}'
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime'
+import { prisma } from 'utils/api/prisma'
+
+type Create{{properCase name}} = ({  }: {{properCase name}}Input) => Promise<User | null>
+
+export const create{{properCase name}}: Create{{properCase name}} = async ({ }) => {
+	try {
+		const {{camelCase name}} = await prisma.{{camelCase name}}.create({
+			data: {}
+		})
+
+		if ({{camelCase name}}) {
+			// Any object returned will be saved in `user` property of the JWT
+			return {{camelCase name}}
+		} else {
+			// You can also Reject this callback with an Error
+			return null
+		}
+	} catch (err) {
+		if ((err as PrismaClientKnownRequestError).code === 'P2002')
+			throw new Error('{{properCase name}}AlreadyExists')
+		else throw err
+	}
+}

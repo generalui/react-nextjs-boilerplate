@@ -32,8 +32,9 @@ export const todoIncludesParticipants: TodoIncludes = {
 		}
 	}
 }
+
 // Included on all todos
-export const todoIncludes: TodoIncludes = {
+export const todoIncludesDefault: TodoIncludes = {
 	include: {
 		// Include all users in the returned object,
 		users: {

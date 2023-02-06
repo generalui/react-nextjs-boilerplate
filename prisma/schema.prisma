@@ -94,7 +94,6 @@ model Todo {
   users           CoordinatorsOnTodos[]
   participants    ParticipantsOnTodos[]
   documentation   Document[]
-  surveyResponses SurveyResponse[]
 }
 
 model Avatar {
@@ -184,16 +183,4 @@ model Participant {
   emergencyContactWorkPhone       String?               @map("emergency_contact_work_phone")
   emergencyContactPhysicalAddress String?               @map("emergency_contact_physical_address")
   todos                           ParticipantsOnTodos[]
-}
-
-model SurveyResponse {
-  id              String   @id @default(cuid())
-  insertedAt      DateTime @default(now()) @map("inserted_at")
-  surveyId        String   @map("survey_id")
-  todoId          String   @map("todo_id")
-  redcapEventName String   @map("redcap_event_name")
-  timestamp       String
-  responses       Json
-  participantId   String   @map("participant_id")
-  todo            Todo     @relation(fields: [todoId], references: [id])
 }

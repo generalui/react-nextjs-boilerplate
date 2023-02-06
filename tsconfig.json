@@ -30,6 +30,7 @@
 			"reducers/*": ["src/store/reducers/*"],
 			"types/*": ["src/types/*"],
 			"utils/*": ["src/utils/*"],
+			"models/*": ["src/models/*"],
 			"icons": ["public/icons"],
 			"dictionary/*": ["src/dictionary/*"],
 			"client.config": ["client.config.js"],

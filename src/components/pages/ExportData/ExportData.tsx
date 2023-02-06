@@ -21,7 +21,7 @@ export const ExportData = function ExportData({ testId = 'ExportData' }: ExportD
 	const { t } = useText('exportData')
 	const { mutate: getCSV } = useExportData()
 
-	const options: SchemaOptions[] = ['todo', 'user', 'participant', 'surveyResponse', 'eventLog']
+	const options: SchemaOptions[] = ['todo', 'user', 'participant', 'eventLog']
 
 	const onSubmit = (values: ExportSchemaInput) => {
 		try {
