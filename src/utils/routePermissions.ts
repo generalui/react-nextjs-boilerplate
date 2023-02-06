@@ -1,3 +1,4 @@
+// TODO: move this file
 import { Roles } from 'types/User'
 
 type RoutePermissions = {

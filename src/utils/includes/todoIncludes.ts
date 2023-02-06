@@ -1,4 +1,4 @@
-// TODO: move this logic code should not have nested utils
+// TODO: remove file references and redirect to models/Todos/indcludes
 import { Prisma } from '@prisma/client'
 
 type TodoIncludes = { include: Prisma.TodoInclude }
