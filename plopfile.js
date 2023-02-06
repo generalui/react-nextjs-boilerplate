@@ -150,6 +150,61 @@ module.exports = (plop) => {
 		}
 	})
 
+	// Component generator
+	plop.setGenerator('model', {
+		description: 'Generate model',
+		prompts: [
+			{
+				type: 'input',
+				name: 'name',
+				message: 'What should it be called?'
+			}
+			// TODO: Add prompt to request if an include file is needed
+		],
+		actions: ({ name }) => {
+			if (!name) throw Error('Name cannot be empty')
+
+			const actions = [
+				{
+					// Create types file
+					type: 'add',
+					path: './src/models/{{properCase name}}/{{properCase name}}.types.ts',
+					templateFile: './plop_templates/Model/index.ts.hbs',
+					abortOnFail: true
+				},
+				// Create mutation folder and a couple of mutation files
+				{
+					type: 'add',
+					path: './src/models/{{properCase name}}/mutation/update{{properCase name}}.ts',
+					templateFile: './plop_templates/Model/mutation/updateModel.ts.hbs',
+					abortOnFail: true
+				},
+				{
+					type: 'add',
+					path: './src/models/{{properCase name}}/mutation/create{{properCase name}}.ts',
+					templateFile: './plop_templates/Model/mutation/createModel.ts.hbs',
+					abortOnFail: true
+				},
+				{
+					// Create query folder and getter file
+					type: 'add',
+					path: './src/models/{{properCase name}}/query/get{{properCase name}}.ts',
+					templateFile: './plop_templates/Model/query/getModel.ts.hbs',
+					abortOnFail: true
+				},
+				{
+					// Create includes file
+					type: 'add',
+					path: './src/models/{{properCase name}}/includes/index.ts',
+					templateFile: './plop_templates/Model/includes/index.ts.hbs',
+					abortOnFail: true
+				}
+			]
+
+			return actions
+		}
+	})
+
 	// Helper to append string (intended to inject curly brackets)
 	plop.setHelper('append', function ifEquals(arg1) {
 		return arg1

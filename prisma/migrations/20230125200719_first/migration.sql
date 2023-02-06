@@ -154,20 +154,6 @@ CREATE TABLE "Participant" (
     CONSTRAINT "Participant_pkey" PRIMARY KEY ("id")
 );
 
--- CreateTable
-CREATE TABLE "SurveyResponse" (
-    "id" TEXT NOT NULL,
-    "inserted_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "survey_id" TEXT NOT NULL,
-    "todo_id" TEXT NOT NULL,
-    "redcap_event_name" TEXT NOT NULL,
-    "timestamp" TEXT NOT NULL,
-    "responses" JSONB NOT NULL,
-    "participant_id" TEXT NOT NULL,
-
-    CONSTRAINT "SurveyResponse_pkey" PRIMARY KEY ("id")
-);
-
 -- CreateIndex
 CREATE UNIQUE INDEX "Account_provider_provider_account_id_key" ON "Account"("provider", "provider_account_id");
 
@@ -227,6 +213,3 @@ ALTER TABLE "Document" ADD CONSTRAINT "Document_todo_id_fkey" FOREIGN KEY ("todo
 
 -- AddForeignKey
 ALTER TABLE "Participant" ADD CONSTRAINT "Participant_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "SurveyResponse" ADD CONSTRAINT "SurveyResponse_todo_id_fkey" FOREIGN KEY ("todo_id") REFERENCES "Todo"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -1,3 +1,4 @@
+// TODO: move this file
 import { Roles } from 'types/User'
 
 type RoutePermissions = {
@@ -12,7 +13,6 @@ export const routePermissions: RoutePermissions = {
 		'/todos/[todoId]',
 		'/todos/[todoId]/add-participants',
 		'/participants',
-		'/todos/[todoId]/add-survey',
 		'/settings/update-password',
 		'/export-data'
 	],

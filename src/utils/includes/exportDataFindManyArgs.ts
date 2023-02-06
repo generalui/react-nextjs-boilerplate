@@ -4,7 +4,6 @@ type ExportDataFindManyArgs = {
 	todo: Prisma.TodoFindManyArgs
 	user: Prisma.UserFindManyArgs
 	participant: Prisma.ParticipantFindManyArgs
-	surveyResponse: Prisma.SurveyResponseFindManyArgs
 	eventLog: Prisma.EventLogFindManyArgs
 }
 
@@ -22,11 +21,6 @@ export const exportDataFindManyArgs: ExportDataFindManyArgs = {
 				}
 			},
 			documentation: {
-				select: {
-					id: true
-				}
-			},
-			surveyResponses: {
 				select: {
 					id: true
 				}
@@ -58,15 +52,6 @@ export const exportDataFindManyArgs: ExportDataFindManyArgs = {
 			todos: {
 				select: {
 					todoId: true
-				}
-			}
-		}
-	},
-	surveyResponse: {
-		include: {
-			todo: {
-				select: {
-					id: true
 				}
 			}
 		}

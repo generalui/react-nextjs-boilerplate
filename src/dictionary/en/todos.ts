@@ -48,15 +48,13 @@ const todos = {
 	success: {
 		created: { message: 'Todo was successfully created' },
 		updated: { message: 'Todo was successfully updated' },
-		participantsAdded: { message: 'Participants have been added to the todo successfully' },
-		surveyAdded: { message: 'Survey has been added to the todo successfully' }
+		participantsAdded: { message: 'Participants have been added to the todo successfully' }
 	},
 	error: {
 		doesNotExist: { message: 'Todo does not exist' },
 		failedToUpload: { message: 'Failed to upload' },
 		failedToUpdate: { message: 'Failed to update' },
-		failedToAddParticipants: { message: 'Participants could not be added to todo' },
-		failedToAddSurvey: { message: 'Survey could not be added to todo' }
+		failedToAddParticipants: { message: 'Participants could not be added to todo' }
 	},
 	documentation: {
 		title: { message: 'Documentation' },
@@ -96,10 +94,6 @@ const todos = {
 			files: {
 				alt: { message: 'Document Upload Icon' },
 				label: { message: 'Upload Files' }
-			},
-			addSurvey: {
-				alt: { message: 'Document Upload Icon' },
-				label: { message: 'Add Survey' }
 			}
 		}
 	},
@@ -255,12 +249,6 @@ const todos = {
 			},
 			cancel: { message: 'Cancel' }
 		}
-	},
-	addSurvey: {
-		title: { message: 'Add Survey' },
-		summary: { message: 'Survey Responses Summary' },
-		participantsAmount: { message: 'Amount of Users:' },
-		surveysAmount: { message: 'Amount of Surveys:' }
 	}
 }
 
