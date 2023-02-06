@@ -7,7 +7,7 @@ module.exports = {
 	about: {
 		title: 'GenUI React Development Kit',
 		image: '/images/fist_bump.jpg',
-		imageAlt: 'NBDC steward',
+		imageAlt: 'Fist bump',
 		description:
 			'This project template was engineered to get your GenUI project up and running in no time!',
 		link: 'https://github.com/generalui/react-nextjs-boilerplate',

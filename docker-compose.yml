@@ -26,7 +26,7 @@ services:
     environment:
       NODE_ENV: production
       NEXT_PUBLIC_ENV: production
-      DATABASE_URL: 'postgresql://postgres:docker@db:5432/nbdc-db?schema=public&connect_timeout=300'
+      DATABASE_URL: 'postgresql://postgres:docker@db:5432/todo-db?schema=public&connect_timeout=300'
       NEXT_SHARP_PATH: /app/node_modules/sharp
     build: .
     ports:
