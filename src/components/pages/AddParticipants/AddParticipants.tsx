@@ -9,6 +9,8 @@ import { Breadcrumbs } from 'common/Breadcrumbs'
 import { PageHeader } from 'common/PageHeader'
 import { AddParticipantsProps } from './AddParticipants.types'
 
+// TODO: refactor to add users page
+
 export const AddParticipants = function AddParticipants({
 	testId = 'AddParticipants'
 }: AddParticipantsProps) {
