@@ -1,9 +1,9 @@
 import { v2 as cloudinary } from 'cloudinary'
 
 cloudinary.config({
-	cloud_name: process.env.CLOUD_NAME,
-	api_key: process.env.API_KEY,
-	api_secret: process.env.API_SECRET,
+	CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
+	api_key: process.env.CLOUDINARY_API_KEY,
+	api_secret: process.env.CLOUDINARY_API_SECRET,
 	secure: true
 })
 
@@ -17,7 +17,7 @@ export interface UploadArgs {
 export const upload = ({
 	file,
 	resourceType = 'auto',
-	publicId = `${process.env.CLOUD_FOLDER_NAME}/${new Date().getTime().toString()}`,
+	publicId = `${process.env.CLOUDINARY_CLOUD_FOLDER_NAME}/${new Date().getTime().toString()}`,
 	overwrite = false
 }: UploadArgs) => {
 	const options = { resource_type: resourceType, public_id: publicId, overwrite }
