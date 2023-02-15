@@ -1,29 +1,12 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next Launch 🚀
 
-# Getting Started
+Are you ready to launch your next Next project?
 
-1. First, make sure you are using `node v16.13.0`. If you are using nvm, run `nvm use` to set a compatible version. Check out [.nvmrc](./.nvmrc)
-2. Install dependencies: `yarn`
-3. Start up the dev database: `yarn run docker:db` (make sure [Docker](https://docs.docker.com/get-docker/) is running)
-4. Initialize the DB: `yarn prisma:migrate:dev`
-5. Run the dev server: `yarn dev`
-6. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-7. Log in with `test@email.com` and `testPassw0rd!`
+This starter kit contains everything you need to launch your project into production, quickly.
 
-# Testing
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app), and modified to include all of the bells and whistles needed to deliver production ready web applications fast.
 
-1. setup testing: `npx playwright install`
-2. test: `yarn test`
-
-# Development
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-# Next steps
+# Developing
 
 To get started with building out your app see the [development documentation](/DEVELOPMENT.md).
 

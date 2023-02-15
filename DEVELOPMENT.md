@@ -1,27 +1,98 @@
 # Developing
 
-This project is intended to be used to spin up a Reactjs production quality application quickly.
-
 # Prerequisites
 
-> Node >= 14
-> yarn v1 global installation (e.g. `npm i -g yarn`) on npm
+1. [Node](https://nodejs.org/en/) `v16.13.0`.
+   > If you are using [nvm](https://github.com/nvm-sh/nvm), run `nvm use` to set a compatible version based on the project [.nvmrc](./.nvmrc)
+2. Yarn `npm i -g yarn`
+3. Docker ([Desktop](https://www.docker.com/products/docker-desktop/))
 
-# Development Workflow
+# Getting Started
 
-1. Clone this project to your local environment
+### Fork this repository
 
-2. Install project dependencies with `yarn install`
+It is optional, but recommended, to fork this repository instead of cloning in order to easily rebase as this project continues to improve.
 
-3. Change the project name in `package.json`
+Clone your fork of this project and navigate to the containing directory.
 
-4. Make any changes you see fit to build your project.
+### Create an env file
+
+Create a file called `.env` in project's root directory. opy the contents of [.env.template](.env.template)
+
+```sh
+cp .env.template .env
+```
+
+### Install dependencies by using yarn
+
+```sh
+yarn
+```
+
+### Start up the database container.
+
+While [Docker](https://docs.docker.com/get-docker/) is running execute the following command:
+
+```sh
+yarn run docker:db
+```
+
+This will build and compose a docker container with a PostgreSQL database. You will only need to run the `docker:db` command if the DB dies stops working between, which is not often.
+
+### Initialize the DB
+
+```sh
+yarn prisma:migrate:dev
+```
+
+This will run the Prisma migrations found in [./prisma/migrations](./prisma/migrations) and seed the database from [./prisma/seedData/index.ts](./prisma/seedData/index.ts).
+
+### Run the development server
+
+```sh
+yarn dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+Log in with `test@email.com` and `testPassw0rd!`
+
+# Testing
+
+1. setup testing: `npx playwright install`
+2. test: `yarn test`
+
+# Development
+
+You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+
+[API routes](https://nextjs.org/docs/api-routes/introduction).
+
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
 # Using this starter
 
 [NextJS](https://nextjs.org/) can be used to build Static React Apps that are deployed on a static CDN like an AWS S3 Bucket, github pages, or any static hosting provider. It can also be used as a full stack framework with a Node Express backend that serves server side rendered (SSR) react pages, that includes an API. This server implementation is optional. Static Generating is recommended for most client side only React apps.
 
 Nextjs can be removed entirely by removing the contents of the `./src` folder, `next.config.js` and `next-env.d.ts`. Then place whatever React implementation you prefer.
+
+# What's in the box?
+
+- [x] [**Next.js**](https://nextjs.org/): Tried and tested React full-stack react framework.
+- [x] [**Typescript**](https://www.typescriptlang.org/): Configured and ready to go. With path aliases
+- [x] [**Prisma**](https://www.prisma.io/): The best Node ORM. Type safe front end to back.
+- [x] [**PostgreSQL**](https://www.postgresql.org/): Ready to go database running in a docker container for easy development.
+- [x] [**Docker**](https://www.postgresql.org/): docker for the the db in development and set up to export the whole project for easy shipping.
+- [x] [**ReactQuery**](https://react-query-v3.tanstack.com/): API request management made super simple with hooks.
+- [x] [**Tailwind**](hhttps://tailwindcss.com/): Like bootstrap, but good. A flexible styling framework that only exports the styles you use.
+- [x] [**EsLint**](https://eslint.org/): linting policies configured to work with prettier and auto sort imports.
+- [x] [**Jest**](https://jestjs.io/): unit tests configured with jest on front and backend.
+- [x] [**Playwright**](https://playwright.dev/): Cross browser integration testing.
+- [x] [**Localization routing**](https://nextjs.org/docs/advanced-features/i18n-routing): Easily add multi-language support, using Next.js' i18n routing.
+- [x] [**Plop code generator**](https://plopjs.com/): Keep your code dry and modular, while improving DX.
+- [x] [**React Final Form**](https://final-form.org/react): High performance subscription-based form state management for React.
+- [x] [**Zod**](https://zod.dev): Validate and parse form inputs while keeping all types consistent. TypeScript-first schema validation with static type inference.
+- [x] [**Husky**](https://typicode.github.io/husky/#/): Prevent bad code from being pushed with pre-commit hooks already configured to lint and test before pushing local changes.
 
 # Folder structure breakdown
 
@@ -49,7 +120,7 @@ app
 │   │   │            // excluded from static generated sites  
 │   │   └── /**/*.tsx   // nested folders create nested routes
 │   ├── public       // static files (images, icons, fonts)
-│   ├── store        // state management setup (hooks-for-redux by default)
+│   ├── store        // state management setup (hooks-for-redux)
 │   ├── styles       // global project styles
 │   └── utils        // shared utility functions
 │
