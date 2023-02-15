@@ -1,6 +1,5 @@
-import { QueryBuilderModel, QueryInputType } from 'types/QueryBuilder'
+import { QueryInputType } from 'types/QueryBuilder'
 import { Filter } from 'types/QueryBuilder'
-import { prisma } from 'utils/api/prisma'
 
 export const getSingleWhere = (filter?: Filter) => {
 	let where = {}

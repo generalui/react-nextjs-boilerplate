@@ -1,7 +1,6 @@
-import { Todo } from 'types/Todo'
-import { User } from 'types/User'
 import { uploadToCloudinary } from './uploadToCloudinary'
 
+// TODO: move to types or Avatar model
 type ImageInput = {
 	name: string
 	url: string

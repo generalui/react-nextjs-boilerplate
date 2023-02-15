@@ -1,6 +1,5 @@
-import cn from 'classnames'
 import { useEffect, useState } from 'react'
-import { ParticipantQueryResults, SingleParticipantQueryResult } from 'types/Participants'
+import { SingleParticipantQueryResult } from 'types/Participants'
 import { Filter, OptionType, QueryBuilderModel } from 'types/QueryBuilder'
 import { formatDisplayDate } from 'utils/client/date'
 import { useParticipantQuery } from 'hooks/api/queryBuilder/useParticipantQuery'
