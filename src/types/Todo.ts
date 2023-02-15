@@ -1,9 +1,8 @@
-import { Prisma, TodoDataType, TodoStatus, User } from '@prisma/client'
+import { Prisma, TodoStatus, User } from '@prisma/client'
 import { ReactNode } from 'react'
 import { PaginatedResponse } from 'types/PaginatedResponse'
 import { z } from 'zod'
 import { todoDefaultIncludes } from 'utils/includes/todoIncludes'
-import { ListData } from 'partials/List/List.types'
 
 export type Todo = Prisma.TodoGetPayload<typeof todoDefaultIncludes>
 

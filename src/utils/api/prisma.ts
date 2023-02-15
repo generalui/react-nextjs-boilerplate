@@ -1,9 +1,11 @@
-import { Prisma, PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 
 export const prisma = new PrismaClient({
-	log: [{ level: 'query', emit: 'event' }]
+	// Uncomment this code to add event logging
+	// log: [{ level: 'query', emit: 'event' }]
 })
 
-prisma.$on('query', (e: Prisma.QueryEvent) => {
-	// Add query middleware event logging here
-})
+// Uncomment this code to add event logging
+// prisma.$on('query', (e: Prisma.QueryEvent) => {
+// 	// Add query middleware event logging here
+// })

@@ -3,13 +3,7 @@ import { Prisma } from '@prisma/client'
 
 type ParticipantIncludes = { include: Prisma.ParticipantInclude }
 
-// export const participantIncludesConsent: ParticipantIncludes = {
-// 	include: {
-// 		_count: true
-// 	}
-// }
-
-export const participantQueryInclude = {
+export const participantQueryInclude: ParticipantIncludes = {
 	include: {
 		todos: {
 			include: {}

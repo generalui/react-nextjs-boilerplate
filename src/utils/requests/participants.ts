@@ -1,6 +1,5 @@
-import qs from 'query-string'
 import { ParticipantQueryResults } from 'types/Participants'
-import { Filter, FilterInput, QueryBuilderParams } from 'types/QueryBuilder'
+import { Filter } from 'types/QueryBuilder'
 import { axios } from 'utils/client/axios'
 
 // Cohort builder query

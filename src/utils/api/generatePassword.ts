@@ -63,7 +63,7 @@ export const generatePassword = (length = 10) => {
 	}
 
 	// Make sure remaining required keys have been set
-	Object.entries(keySet).forEach(([k, keySet], i) => {
+	Object.entries(keySet).forEach(([k, keySet]) => {
 		if (!keySet) {
 			const keyToAdd = getKey.find(({ key }) => key === k)?.get()
 			if (keyToAdd) password += keyToAdd

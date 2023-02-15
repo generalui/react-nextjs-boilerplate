@@ -1,7 +1,6 @@
 import cn from 'classnames'
 import { about } from 'client.config'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useText } from 'hooks/useText'
 import { Button } from 'common/Button'
 import { WelcomeContentProps } from './WelcomeContent.types'

@@ -1,5 +1,5 @@
 import { createReduxModule } from 'hooks-for-redux'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useRouterQuery } from './useRouterQuery'
 
 const defaultUseMultiStepFormReducerState: MultiStepFormReducerState = {

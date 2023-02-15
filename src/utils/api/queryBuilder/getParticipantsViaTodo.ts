@@ -16,6 +16,7 @@ export const getParticipantsViaTodo: GetParticipantsViaTodo = async (
 		participantWhere.where &&
 		('OR' in participantWhere.where || 'AND' in participantWhere.where)
 	) {
+		// TODO: resolve this type issue
 		participantViaTodoWhere = participantWhere.where
 	} else if (participantWhere.where) {
 		participantViaTodoWhere = {

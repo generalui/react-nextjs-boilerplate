@@ -1,6 +1,6 @@
 import { IncomingMessage } from 'http'
 import { NextApiResponse } from 'next'
-import nextConnect, { NextConnect, Options } from 'next-connect'
+import nextConnect, { ErrorHandler, NextConnect, NoMatchHandler, Options } from 'next-connect'
 
 /**
  * Api route setup with default onNoMatch function
@@ -8,12 +8,12 @@ import nextConnect, { NextConnect, Options } from 'next-connect'
  * Reference: https://www.npmjs.com/package/next-connect
  */
 
-const defaultOnNoMatchFunction = (req: IncomingMessage, res: NextApiResponse) => {
+const defaultOnNoMatchFunction: NoMatchHandler<IncomingMessage, NextApiResponse> = (req, res) => {
 	// Return 405 error if a request is submitted with a unsupported request method
 	res.status(405).json({ error: `Method '${req.method}' Not Allowed` })
 }
 
-function onError(err: any, req: any, res: any, next: any) {
+const onError: ErrorHandler<IncomingMessage, NextApiResponse> = (err, _req, res, next) => {
 	console.error(err)
 
 	res.status(500).end(err.toString())
