@@ -1,3 +1,4 @@
+// TODO: replace hooks-for-redux with react context
 import { createReduxModule } from 'hooks-for-redux'
 import { useEffect } from 'react'
 import { useRouterQuery } from './useRouterQuery'
