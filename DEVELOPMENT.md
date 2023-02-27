@@ -62,6 +62,8 @@ Log in with `test@email.com` and `testPassw0rd!`
 1. setup testing: `npx playwright install`
 2. test: `yarn test`
 
+The development server must be running in order to execute playwright tests.
+
 # Development
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
@@ -69,6 +71,24 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 [API routes](https://nextjs.org/docs/api-routes/introduction).
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+
+## Pre-commit tests
+
+This project uses husky to test code before changes are commited. This means that linting, unit, and e2e tests are run locally before changes can be commited by default. 
+
+### Skipping pre-commit tests
+
+Husky pre-commit scripts can be skipped by using the `--no-verify` flag, or the `-n` alias of the same flag. 
+
+```
+git commit --no-verify -m "<conventional commit message>"
+or 
+git commit -n -m "<conventional commit message>"
+```
+
+## Commit message format
+
+Use the [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/) format when writing commit messages. See the [contributing guide](./CONTRIBUTING.md#commit-message-format) for more information. 
 
 # Using this starter
 
@@ -94,56 +114,6 @@ Nextjs can be removed entirely by removing the contents of the `./src` folder, `
 - [x] [**Zod**](https://zod.dev): Validate and parse form inputs while keeping all types consistent. TypeScript-first schema validation with static type inference.
 - [x] [**Husky**](https://typicode.github.io/husky/#/): Prevent bad code from being pushed with pre-commit hooks already configured to lint and test before pushing local changes.
 
-# Folder structure breakdown
-
-```
-app
-├── __tests__
-│   ├── __mocks__    // mock functions
-│   ├── integration  // end to end integration tests
-│   └── unit         // global unit tests
-├── .github  
-│   └── workflows    // workflow yaml files for github actions
-├── .vscode          // recommended extensions and settings for vscode
-│
-├── src              // the meat and potatoes of the project
-│   │
-│   ├── components   // all non page components
-│   │   ├── layouts  // layouts used for page component templates
-│   │   ├── common   // common components used throughout the app
-│   │   └── <other>  // if your project uses multiple of certain types of components
-│   │                // separate those into their own folders (e.g. forms, lists, cards)
-│   ├── hooks        // hook functions for api and state management
-│   ├── pages        // components in this folder are converted to page routes
-│   │   ├── api      // used for server routes if using NextJS fullstack.
-│   │   ├── _app.tsx // warps all other pages
-│   │   │            // excluded from static generated sites  
-│   │   └── /**/*.tsx   // nested folders create nested routes
-│   ├── public       // static files (images, icons, fonts)
-│   ├── store        // state management setup (hooks-for-redux)
-│   ├── styles       // global project styles
-│   └── utils        // shared utility functions
-│
-├── // The config files in the project root directory can mostly be ignored.
-├── .eslintrc.js     // eslint config
-├── .gitignore       // which files git ignores
-├── .prettierrc.js   // code formatting rules
-├── .prettierignore  // which files should not be formatted
-├── jest.config.js   // unit testing config
-├── jest.setup.js    // extends unit testing library
-├── next-env.d.ts    // Nextjs typescript setup
-├── next.config.js   // Nextjs config
-├── tsconfig.json    // TS config and project absolute path config
-└── package.json     // project dependencies and versioning
-```
-
-<!-- TODO: add development workflow here -->
-
-# Test your code
-
-Test your code! This project uses Jest tests to test individual functions and components.
-This project also uses Playwright for end to end regression testing. Testing is the best form of living documentation of what your code does.
-
 ## Testing
 
 Unit tests written with Jest + @react-testing-library.
@@ -154,6 +124,23 @@ yarn test       # Run all tests
 yarn test:unit  # Run unit tests
 yarn test:e2e   # Run integration tets
 ```
+
+## Using Plop Templates
+
+This project uses plop templates to generate consistent code that is flat and modular. Running `yarn plop` will allow you to generate a component (common, partial, or page), data model, or type.
+Plop will generate the appropriate code template in the appropriate folder. In the case of components plop will generate a folder with a nested component tsx, unit tests, types, and index for easier imports. In the case of pages, plop will generate the appropriate component in the `/pages` folder and `/components/pages`. 
+
+```
+yarn plop
+```
+
+You can also skip any part of the interactive menu by calling plop with the proper arguments.
+
+```
+yarn plop component common <commonComponent>
+```
+
+[Learn more about using plop](https://plopjs.com/) for generating cleaner code
 
 # Learn More
 
@@ -166,7 +153,7 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-### As static react app:
+### Using this starter as static react app:
 
 A static react app generated at build time and hosted as client side only. All static content is pre-rendered on the page.
 
@@ -175,7 +162,7 @@ A static react app generated at build time and hosted as client side only. All s
 - Build app with `yarn build:static`
 - See [Next unsupported static features](https://nextjs.org/docs/advanced-features/static-html-export#unsupported-features)
 
-### As fullstack framework
+### Using this starter as fullstack framework
 
 A fullstack Nextjs app requires the app to be hosted in on most VMs that support Node.js. This server can be used to
 server-side generate pages, host api logic, and optimize page loading. This is optional.
@@ -186,4 +173,94 @@ server-side generate pages, host api logic, and optimize page loading. This is o
 
 ## State Management
 
-This project uses [Hooks for redux](https://github.com/generalui/hooks-for-redux) for state management.
+This project uses [ReactQuery](https://react-query-v3.tanstack.com/) for 99% of the state management. All api queries should be wrapped in hook with the relative model, with a reference to react query. 
+
+[Hooks for redux](https://github.com/generalui/hooks-for-redux) is used for client side only state management. Currently this is only be used by the Multi-Step Form and may be removed in the future.
+
+# Project Source Code Map
+
+```
+app
+├── __tests__
+│   ├── __mocks__    // mock functions
+│   ├── integration  // end to end integration tests
+│   └── unit         // global unit tests
+├── .github  
+│   └── workflows    // workflow yaml files for github actions
+├── .vscode          // recommended extensions and settings for vscode
+├── .husky
+│   └── pre-commit   // actions to be executed before allowing a code push
+├── .github  
+│   └── workflows    // workflow yaml files for github actions
+├── plop_templates   // templates for plop code generation
+├── prisma
+│   ├── migrations   // prisma generated database migrations
+│   ├── seedData     // contains fake data in json format for seeding development database
+│   ├── schema.prisma   // prisma schema file
+│   └── seed.ts         // script executed to seed prisma development database
+├── src
+│   ├── components
+│   │   ├── common      // simple components with no state management
+│   │       │           // the building blocks for partials and pages
+│   │   |   └── <Component>      // Component folder   
+│   │   |       ├── <Component>.spec.ts      // unit test for component
+│   │   |       ├── <Component>.tsx          // component JSX markup
+│   │   |       ├── <Component>.types.tsx    // types used by the component
+│   │   |       └── index.ts                 // generated index file to easily import
+│   │   ├── partials    // complex components and model specific components (e.g. TodoForm vs Form)
+│   │       │           // composed of other partials (sparingly) and common components
+│   │   |   └── <Component>      // shares the same component folder structure as common
+│   │   └── pages       // contains jsx mark up for pages.
+│   │       │           // composed of partials and common components
+│   │       └── <Component>      // shares the same component folder structure as common
+│   ├── models       
+│   │   └── <Model>  
+│   │       ├── includes
+│   │       │   └── index.ts // contains json objects to be used for prisma includes
+│   │       ├── mutation
+│   │       │   └── <action><Model>[By<Field>].ts  // create | update | delete actions for model optionally specified field 
+│   │       ├── query
+│   │       │   └── get<Model>[By<Field>].ts       // read actions for model optionally specified field 
+│   │       └── <Model>.types.ts                   // model specific type references for prisma and zod validation
+│   ├── pages        // components in this folder are converted to page routes
+│   │   ├── api      // used for server routes if using NextJS fullstack.
+│   │   │            // folders and nested files are converted into api routs via Nextjs
+│   │   ├── _app.tsx       // warps all other pages (similar to create-react-app app.tsx)
+│   │   ├── _document.tsx  // using by Nextjs when generating static pages
+│   │   └── /**/*.tsx   // all other folders and nested files generate app page routes
+│   │                   // actual markup should live in components/pages/<CorrespondingPageComponent>
+│   ├── public       // static files (images, icons, fonts)
+│   ├── store        // state management setup (hooks-for-redux)
+│   ├── styles       // global project styles
+│   ├── types        // all non-component, non-model specific types
+│   └── utils        // shared utility functions
+│       ├── api      // api specific utils
+│       ├── client   // client side specific utils
+│       └── requests // client side logic for api url requests as promises
+│
+├── client.config.js    // client in this case refers to the organization in which the app is being built for
+│                       // contains template information for quickly changing the project
+├── .babelrc            // babel config (for inlining css with Nextjs)
+├── .dockerignore       // which files docker ignores
+├── .env.template       // template env folder used for development !DO NOT PUT API KEYS HERE!
+├── .eslintrc.js        // eslint config
+├── .gitignore          // which files git ignores
+├── .nvmrc              // contains recommended node version
+├── .prettierignore     // which files should not be formatted
+├── .prettierrc.js      // code formatting rules
+├── docker-compose.yml  // docker compose to build db image (and production container if applicable)
+├── Dockerfile          // docker file to build production db and webapp images
+├── jest.config.js      // unit testing config
+├── jest.setup.js       // extends unit testing library
+├── next-env.d.ts       // Nextjs typescript setup
+├── next.config.js      // Nextjs config
+├── package.json        // project dependencies and versioning
+├── playwright.config.ts// playwright config
+├── plopfile.js         // code template generator config file
+├── postcss.config.js   // post css processing config used for tailwind css
+├── tsconfig.json       // TS config and project absolute path config
+├── tailwind.config.js  // tailwind config
+└── yarn.lock           // generated yarn.lock file
+```
+
+<!-- TODO: add development workflow here -->

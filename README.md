@@ -4,7 +4,7 @@ Are you ready to launch your next Next project?
 
 This starter kit contains everything you need to launch your project into production, quickly.
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app), and modified to include all of the bells and whistles needed to deliver production ready web applications fast.
+This [Next.js](https://nextjs.org/) project was bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app), and modified to include all of the bells and whistles needed to deliver production ready web applications, fast.
 
 # Developing
 
